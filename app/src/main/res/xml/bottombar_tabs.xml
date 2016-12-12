@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/top_lane_tab"
+        icon="@drawable/top"
+        activeColor="#FFD180"
+        inActiveColor="#ffffff"
+        title="Favorites" />
+    <tab
+        id="@+id/jungle_tab"
+        icon="@drawable/jg"
+        activeColor="#FFD180"
+        inActiveColor="#ffffff"
+        title="Nearby" />
+    <tab
+        id="@+id/mid_tab"
+        icon="@drawable/mid"
+        activeColor="#FFD180"
+        inActiveColor="#ffffff"
+        title="Friends" />
+    <tab
+        id="@+id/support_tab"
+        icon="@drawable/sup"
+        activeColor="#FFD180"
+        inActiveColor="#ffffff"
+        title="Friends" />
+    <tab
+        id="@+id/adc"
+        icon="@drawable/bot"
+        activeColor="#FFD180"
+        inActiveColor="#ffffff"
+        title="Friends" />
+</tabs>
