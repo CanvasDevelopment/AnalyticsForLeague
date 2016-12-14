@@ -4,6 +4,8 @@ import android.app.Application;
 
 /**
  * @author Josiah Kendall.
+ *
+ * Application class. For objects that should only exist once per application lifespan. i.e Dagger
  */
 
 public class App extends Application {
@@ -14,15 +16,12 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // Initialise dagger2.
         appComponent = DaggerAppComponent.builder()
-                // list of modules that are part of this component need to be created here too
-                .appModule(new AppModule(this)) // This also corresponds to the name of your module: %component_name%Module
+                // Modules go here
+                .appModule(new AppModule(this)) //
                 .componentModule(new ComponentModule())
                 .build();
-
-        // If a Dagger 2 component does not have any constructor arguments for any of its modules,
-        // then we can use .create() as a shortcut instead:
-        //  mNetComponent = com.codepath.dagger.components.DaggerNetComponent.create();
     }
 
     public AppComponent getNetComponent() {

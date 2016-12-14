@@ -2,6 +2,8 @@ package com.teamunemployment.lolanalytics.Jungle.Model;
 
 /**
  * @author Josiah Kendall.
+ *
+ * Data fetching not yet implemented.
  */
 public class JungleAdapterPojo {
 

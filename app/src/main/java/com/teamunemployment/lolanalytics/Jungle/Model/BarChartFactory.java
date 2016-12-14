@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * @author Josiah Kendall.
+ *
  */
 public class BarChartFactory {
     public BarDataSet createBarChartDataSet(List<BarEntry> entries , String title) {

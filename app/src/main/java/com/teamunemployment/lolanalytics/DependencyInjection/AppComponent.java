@@ -8,6 +8,8 @@ import dagger.Component;
 
 /**
  * @author Josiah Kendall.
+ *
+ * Inject our components.
  */
 
 @Singleton

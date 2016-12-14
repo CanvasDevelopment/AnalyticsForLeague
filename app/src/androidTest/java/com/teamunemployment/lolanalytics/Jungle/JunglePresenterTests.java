@@ -19,7 +19,6 @@ public class JunglePresenterTests {
     @Test
     public void TestThatWeCanCreateBarChartFromJunglePojo() {
         JungleAdapterPojo testPojo = new JungleAdapterPojo();
-
         JunglePresenter junglePresenter = new JunglePresenter(null);
         BarChart barChart = junglePresenter.CreateJungleBarChart(testPojo, null);
         Assert.assertTrue(barChart != null);

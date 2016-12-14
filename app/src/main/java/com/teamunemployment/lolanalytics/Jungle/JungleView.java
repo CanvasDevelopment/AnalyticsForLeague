@@ -46,7 +46,11 @@ public class JungleView extends Fragment implements JungleViewContract{
 
         // Bind butterknife to our view.
         ButterKnife.bind(this, rootView);
+
+        // Give a reference of this view to our presenter. Done for presenting information or creating
+        // instances of objects must be created on the ui thread.
         junglePresenter.setView(this);
+
         return rootView;
     }
 
@@ -57,6 +61,7 @@ public class JungleView extends Fragment implements JungleViewContract{
 
     @Override
     public void setJungleAdapter(JungleAdapter jungleAdapter) {
+        // TODO: Think about giving the presenter an instance of context here. Or using dagger, this is on the main thread and it doesnt need to be.
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         jungleRecyclerView.setLayoutManager(layoutManager);
         jungleRecyclerView.setAdapter(jungleAdapter);

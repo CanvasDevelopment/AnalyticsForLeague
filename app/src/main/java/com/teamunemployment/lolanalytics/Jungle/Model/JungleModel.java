@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 /**
  * @author Josiah Kendall
+ *
+ * The model layer for our jungle fragment view.
  */
 public class JungleModel {
 

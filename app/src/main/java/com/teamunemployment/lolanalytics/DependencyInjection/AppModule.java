@@ -9,6 +9,8 @@ import dagger.Provides;
 
 /**
  * @author Josiah Kendall.
+ *
+ * App module. Pretty much just provides our application to dagger.
  */
 @Module
 public class AppModule {
