@@ -23,7 +23,7 @@ public class JunglePresenterUnitTests {
 
     @Test
     public void TestThatWeCanCreateBarChartFromJunglePojo() {
-        JungleAdapterPojo testPojo = new JungleAdapterPojo();
+        JungleAdapterPojo testPojo = new JungleAdapterPojo(1, 2);
         JungleModel junglemodel = mock(JungleModel.class);
         JunglePresenter junglePresenter = new JunglePresenter(junglemodel);
         JungleViewContract jungleViewContract = Mockito.mock(JungleViewContract.class);

@@ -2,6 +2,7 @@ package com.teamunemployment.lolanalytics.Jungle;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.teamunemployment.lolanalytics.DependencyInjection.App;
@@ -25,14 +27,12 @@ import butterknife.ButterKnife;
 /**
  * @author Josiah Kendall
  */
-public class JungleView extends Fragment implements JungleViewContract{
+public class JungleView extends Fragment implements JungleViewContract {
 
     @Inject
     JunglePresenter junglePresenter;
 
-    private LayoutInflater inflater;
     private View rootView;
-    private AppCompatActivity activityContext;
 
     @Bind(R.id.jungle_recycler) RecyclerView jungleRecyclerView;
 
@@ -65,6 +65,11 @@ public class JungleView extends Fragment implements JungleViewContract{
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         jungleRecyclerView.setLayoutManager(layoutManager);
         jungleRecyclerView.setAdapter(jungleAdapter);
+    }
+
+    @Override
+    public void showMessage(String s) {
+        Snackbar.make(rootView, s, Snackbar.LENGTH_LONG).show();
     }
 
 

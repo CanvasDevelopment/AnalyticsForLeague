@@ -12,4 +12,6 @@ public interface JungleViewContract {
     // Needs to be on the view as it runs on the main thread. do i need this?
     BarChart createBarChart();
     void setJungleAdapter(JungleAdapter jungleAdapter);
+
+    void showMessage(String s);
 }

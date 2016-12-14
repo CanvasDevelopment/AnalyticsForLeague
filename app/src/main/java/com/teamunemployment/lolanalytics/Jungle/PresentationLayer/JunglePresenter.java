@@ -29,8 +29,10 @@ public class JunglePresenter {
 
     // load the data and start the display.
     private void start() {
+        // TODO shared preferences?
+        String placeholder = "kloin";
         // Load data
-        ArrayList<JungleAdapterPojo> pojos = jungleModel.getCardPojos();
+        ArrayList<JungleAdapterPojo> pojos = jungleModel.getCardPojos(placeholder);
         JungleAdapter jungleAdapter = new JungleAdapter(pojos, this);
         jungleView.setJungleAdapter(jungleAdapter);
     }
@@ -71,9 +73,7 @@ public class JunglePresenter {
     }
 
 
-
-
-
-
-
+    public void showMessageToUser(String s) {
+        jungleView.showMessage(s);
+    }
 }

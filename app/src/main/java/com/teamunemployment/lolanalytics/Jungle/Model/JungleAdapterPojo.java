@@ -1,5 +1,7 @@
 package com.teamunemployment.lolanalytics.Jungle.Model;
 
+import com.teamunemployment.lolanalytics.Jungle.PresentationLayer.JungleAdapter;
+
 /**
  * @author Josiah Kendall.
  *
@@ -7,11 +9,16 @@ package com.teamunemployment.lolanalytics.Jungle.Model;
  */
 public class JungleAdapterPojo {
 
-    public float GetData() {
-        return 1;
+    public double enemyStats;
+    public double friendlyStats;
+
+    public JungleAdapterPojo(Double ememyStats, Double friendlyStats) {
+        this.enemyStats = ememyStats;
+        this.friendlyStats = friendlyStats;
     }
 
-    public float GetOtherData() {
-        return 2;
+    public JungleAdapterPojo(int enemyStats, int friendlyStats) {
+        this.enemyStats = new Double(enemyStats);
+        this.friendlyStats = new Double(friendlyStats);
     }
 }
