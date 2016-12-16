@@ -13,6 +13,9 @@ import com.teamunemployment.lolanalytics.R;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Adapter for the jungle recycler view.
  */
@@ -21,10 +24,16 @@ public class JungleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private ArrayList<JungleAdapterPojo> pojos;
     private JunglePresenter junglePresenter;
 
+    @Bind(R.id.chart) BarChart barChart;
+
     public JungleAdapter(ArrayList<JungleAdapterPojo> pojos, JunglePresenter junglePresenter) {
         this.pojos = pojos;
         this.junglePresenter = junglePresenter;
+    }
 
+    public JungleAdapter(JunglePresenter junglePresenter) {
+        this.pojos = new ArrayList<>();
+        this.junglePresenter = junglePresenter;
     }
 
     @Override
@@ -34,15 +43,15 @@ public class JungleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return cardView;
     }
 
+    public void AddItem(JungleAdapterPojo pojo) {
+        pojos.add(pojo);
+    }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         // Inflate our jungle view.
-        JungleAdapterPojo junglePojo = pojos.get(position);
-        BarChartFactory barChartFactory = new BarChartFactory();
         BarChartCardView cardView = (BarChartCardView) holder;
-        BarChart barChart = junglePresenter.CreateJungleBarChart(junglePojo, barChartFactory);
-        cardView.AddChart(barChart);
+        cardView.setBarChartData(pojos.get(position));
     }
 
     @Override

@@ -3,20 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/card_title"
-            android:textSize="16sp"
-            android:layout_margin="72dp"
-            android:text="Average cs first 10 minutes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <com.github.mikephil.charting.charts.LineChart
+    android:layout_height="300dp">
+        <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart"
-            android:layout_below="@+id/card_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-
 
 </RelativeLayout>
