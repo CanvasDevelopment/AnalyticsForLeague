@@ -1,8 +1,9 @@
-package com.teamunemployment.lolanalytics.Jungle.Model;
+package com.teamunemployment.lolanalytics.base;
 
 import android.util.Log;
 
 import com.teamunemployment.lolanalytics.Jungle.Contracts.ModelPresenterContract;
+import com.teamunemployment.lolanalytics.Jungle.Model.JungleAdapterPojo;
 import com.teamunemployment.lolanalytics.RESTService.Api;
 
 import java.util.ArrayList;
@@ -20,13 +21,13 @@ import rx.schedulers.Schedulers;
  *
  * The model layer for our jungle fragment view.
  */
-public class JungleModel {
+public class BaseModel {
 
-    private static final String TAG = "JungleModel";
+    private static final String TAG = "BaseModel";
 
     private Api api;
 
-    public JungleModel(Api api) {
+    public BaseModel(Api api) {
         this.api = api;
     }
 
@@ -38,7 +39,7 @@ public class JungleModel {
 
         Log.d(TAG, "Starting card details fetch");
         // Create single with retrofit.
-        Observable<List<JungleAdapterPojo>> averagesObservable = api.GetHeadToHeadAverageForSummonerAndRole("JUNGLE", summonerName);
+        Observable<List<JungleAdapterPojo>> averagesObservable = api.GetTopStatsForSummoner(12345678);
 
         // Send the request on a new thread, but observe on the main thread.
         averagesObservable.subscribeOn(Schedulers.newThread())
@@ -58,12 +59,6 @@ public class JungleModel {
                     @Override
                     public void onNext(List<JungleAdapterPojo> jungleAdapterPojos) {
                         modelPresenterContract.addDataToAdapter(new ArrayList<JungleAdapterPojo>(jungleAdapterPojos));
-//                        Iterator<JungleAdapterPojo> pojoIterator = jungleAdapterPojos.iterator();
-////                        while (pojoIterator.hasNext()) {
-////                            JungleAdapterPojo jungleAdapterPojo = pojoIterator.next();
-////                            Log.d(TAG, "On Next. enemy stats: " + jungleAdapterPojo.enemyStats);
-////                            modelPresenterContract.addStatToList(jungleAdapterPojo);
-////                        }
                     }
                 });
     }

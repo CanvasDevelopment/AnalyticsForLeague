@@ -4,20 +4,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.teamunemployment.lolanalytics.DependencyInjection.App;
-import com.teamunemployment.lolanalytics.Jungle.Model.JungleModel;
-import com.teamunemployment.lolanalytics.Jungle.PresentationLayer.JungleAdapter;
-import com.teamunemployment.lolanalytics.Jungle.PresentationLayer.JunglePresenter;
+import com.teamunemployment.lolanalytics.base.BasePresenter;
+import com.teamunemployment.lolanalytics.base.BaseRecyclerAdapter;
 import com.teamunemployment.lolanalytics.R;
+import com.teamunemployment.lolanalytics.base.ViewFragmentContract;
 
 import javax.inject.Inject;
 
@@ -27,10 +25,10 @@ import butterknife.ButterKnife;
 /**
  * @author Josiah Kendall
  */
-public class JungleView extends Fragment implements JungleViewContract {
+public class ViewFragment extends Fragment implements ViewFragmentContract {
 
     @Inject
-    JunglePresenter junglePresenter;
+    public BasePresenter presenter;
 
     private View rootView;
 
@@ -49,7 +47,7 @@ public class JungleView extends Fragment implements JungleViewContract {
 
         // Give a reference of this view to our presenter. Done for presenting information or creating
         // instances of objects must be created on the ui thread.
-        junglePresenter.setView(this);
+        presenter.setView(this);
 
         return rootView;
     }
@@ -60,11 +58,11 @@ public class JungleView extends Fragment implements JungleViewContract {
     }
 
     @Override
-    public void setJungleAdapter(JungleAdapter jungleAdapter) {
+    public void setJungleAdapter(BaseRecyclerAdapter baseRecyclerAdapter) {
         // TODO: Think about giving the presenter an instance of context here. Or using dagger, this is on the main thread and it doesnt need to be.
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         jungleRecyclerView.setLayoutManager(layoutManager);
-        jungleRecyclerView.setAdapter(jungleAdapter);
+        jungleRecyclerView.setAdapter(baseRecyclerAdapter);
     }
 
     @Override

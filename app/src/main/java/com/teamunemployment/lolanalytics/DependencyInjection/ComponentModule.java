@@ -4,8 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.teamunemployment.lolanalytics.Jungle.Model.BarChartFactory;
-import com.teamunemployment.lolanalytics.Jungle.Model.JungleModel;
-import com.teamunemployment.lolanalytics.Jungle.PresentationLayer.JunglePresenter;
+import com.teamunemployment.lolanalytics.base.BaseModel;
+import com.teamunemployment.lolanalytics.base.BasePresenter;
 import com.teamunemployment.lolanalytics.RESTService.Api;
 import com.teamunemployment.lolanalytics.mock.MockHttpClient;
 
@@ -23,7 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class ComponentModule {
 
-
     @Provides
     Context provideContext(Application application) {
         return application.getApplicationContext();
@@ -36,7 +35,7 @@ public class ComponentModule {
 
     @Provides
     Api provideApi(Context context) {
-        // Cuyrrently using this for testing - will be removed in the future.
+        // Currently using this for testing - will be removed in the future.
         String result = "[{" +
                 "\"title\" : \"Creep Score First 10 Minutes\"," +
                 "\"enemyStats\" : 5.25," +
@@ -55,8 +54,8 @@ public class ComponentModule {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl("http:tete.com/irrelevant/foo/")
-                .client(okHttpClient)
+                .baseUrl("https://lolanalyticsv3.appspot.com/_ah/api/myApi/v1/")
+              //  .client(okHttpClient) // For testing purposes.
                 .build();
 
         Api api = retrofit.create(Api.class);
@@ -64,12 +63,12 @@ public class ComponentModule {
     }
 
     @Provides
-    JungleModel provideJungleModel(Api api) {
-        return new JungleModel(api);
+    BaseModel provideJungleModel(Api api) {
+        return new BaseModel(api);
     }
 
     @Provides
-    JunglePresenter provideJunglePresenter(JungleModel jungleModel) {
-        return new JunglePresenter(jungleModel);
+    BasePresenter provideJunglePresenter(BaseModel baseModel) {
+        return new BasePresenter(baseModel);
     }
 }

@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.ncapdevi.fragnav.FragNavController;
-import com.teamunemployment.lolanalytics.Jungle.JungleView;
+import com.teamunemployment.lolanalytics.Jungle.ViewFragment;
 import com.teamunemployment.lolanalytics.R;
 import com.teamunemployment.lolanalytics.Top.TopView;
 
@@ -45,33 +45,36 @@ public class Base extends AppCompatActivity {
      */
     private void setUpBottomBar() {
 
-        // Bottom bar setup.
+        // Bottom bar appearance.
         bottomBar.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
         bottomBar.setAccentColor(ContextCompat.getColor(this, R.color.colorAccent));
 
-        // Set up bottom bar items.
+        // Bottom bar items.
         AHBottomNavigationItem topItem = new AHBottomNavigationItem("Top", R.drawable.top);
         AHBottomNavigationItem jgItem = new AHBottomNavigationItem("Jungle", R.drawable.jg);
         AHBottomNavigationItem midItem = new AHBottomNavigationItem("Mid", R.drawable.mid);
         AHBottomNavigationItem adcItem = new AHBottomNavigationItem("Bottom", R.drawable.bot);
         AHBottomNavigationItem supItem = new AHBottomNavigationItem("Support", R.drawable.sup);
 
+        // Add items to bottom bar.
         bottomBar.addItem(topItem);
         bottomBar.addItem(jgItem);
         bottomBar.addItem(midItem);
         bottomBar.addItem(adcItem);
         bottomBar.addItem(supItem);
 
-        // Click listener for the tabs.
+        // Click listener for the bottom bar buttons.
         bottomBar.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
 
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 switch (position) {
                     case 0:
+                        // TOP
                         fragNavController.switchTab(FragNavController.TAB1);
                         break;
                     case 1:
+                        // ..
                         fragNavController.switchTab(FragNavController.TAB2);
                         break;
                 }
@@ -88,7 +91,7 @@ public class Base extends AppCompatActivity {
         List<Fragment> fragments = new ArrayList<>(4);
         // fragments.add(new HomeTabFragment());
         TopView topView = new TopView();
-        JungleView jungleView = new JungleView();
+        ViewFragment jungleView = new ViewFragment();
 
         fragments.add(topView);
         fragments.add(jungleView);

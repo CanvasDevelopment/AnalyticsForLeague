@@ -1,22 +1,8 @@
 package com.teamunemployment.lolanalytics.Jungle;
 
-import android.content.Context;
-
-import com.teamunemployment.lolanalytics.Jungle.Contracts.ModelPresenterContract;
-import com.teamunemployment.lolanalytics.Jungle.Model.JungleAdapterPojo;
-import com.teamunemployment.lolanalytics.Jungle.Model.JungleModel;
-import com.teamunemployment.lolanalytics.Jungle.PresentationLayer.JunglePresenter;
-import com.teamunemployment.lolanalytics.RESTService.Api;
-import com.teamunemployment.lolanalytics.mock.MockHttpClient;
-
-import junit.framework.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static org.mockito.Mockito.mock;
 
@@ -70,7 +56,7 @@ public class JungleModelTests {
 //
 //        Api api = retrofit.create(Api.class);
 //
-//        JungleModel jungleModel = new JungleModel(api);
+//        BaseModel jungleModel = new BaseModel(api);
 //        ModelPresenterContract modelPresenterContract = mock(ModelPresenterContract.class);
 //        jungleModel.getCardPojos("test", modelPresenterContract);
 //        Assert.assertEquals(pojos.get(0).enemyStats, 57.23);

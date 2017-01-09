@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.Jungle.PresentationLayer;
+package com.teamunemployment.lolanalytics.base;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,33 +7,32 @@ import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
 
-import com.teamunemployment.lolanalytics.Jungle.Model.BarChartFactory;
 import com.teamunemployment.lolanalytics.Jungle.Model.JungleAdapterPojo;
+import com.teamunemployment.lolanalytics.Jungle.PresentationLayer.BarChartCardView;
 import com.teamunemployment.lolanalytics.R;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Adapter for the jungle recycler view.
  */
-public class JungleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<JungleAdapterPojo> pojos;
-    private JunglePresenter junglePresenter;
+    private BasePresenter basePresenter;
 
     @Bind(R.id.chart) BarChart barChart;
 
-    public JungleAdapter(ArrayList<JungleAdapterPojo> pojos, JunglePresenter junglePresenter) {
+    public BaseRecyclerAdapter(ArrayList<JungleAdapterPojo> pojos, BasePresenter basePresenter) {
         this.pojos = pojos;
-        this.junglePresenter = junglePresenter;
+        this.basePresenter = basePresenter;
     }
 
-    public JungleAdapter(JunglePresenter junglePresenter) {
+    public BaseRecyclerAdapter(BasePresenter basePresenter) {
         this.pojos = new ArrayList<>();
-        this.junglePresenter = junglePresenter;
+        this.basePresenter = basePresenter;
     }
 
     @Override

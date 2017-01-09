@@ -1,7 +1,5 @@
 package com.teamunemployment.lolanalytics.Jungle.Model;
 
-import com.teamunemployment.lolanalytics.Jungle.PresentationLayer.JungleAdapter;
-
 /**
  * @author Josiah Kendall.
  *

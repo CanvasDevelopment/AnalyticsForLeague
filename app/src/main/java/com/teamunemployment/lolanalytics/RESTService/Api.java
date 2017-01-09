@@ -20,12 +20,13 @@ public interface Api {
 
     /**
      * Fetch Recent head to head stats for a summoner in a specific role
-     * @param role the specified role (e.g JUNGLE, TOP, BOT, SUPPORT MID)
-     * @param summonerName
+     * @param summonerId The id of the summoner that we want the info for.
      * @return A pojo with a bunch of stats on it.
      */
-    @GET("BASE_URL/HeadToHead/{Role}/{SummonerName}")
-    Observable<List<JungleAdapterPojo>> GetHeadToHeadAverageForSummonerAndRole(@Path("Role") String role, @Path("SummonerName") String summonerName);
+    @GET("FetchTopStats/{SummonerId}")
+    Observable<List<JungleAdapterPojo>> GetTopStatsForSummoner(@Path("SummonerName") long summonerId);
 
+    @GET("FetchSummonerId/{SummonerName}")
+    Observable<Long> GetSummonerName(@Path("SummonerName") String summonerName);
 
 }

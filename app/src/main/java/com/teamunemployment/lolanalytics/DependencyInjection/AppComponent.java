@@ -1,6 +1,7 @@
 package com.teamunemployment.lolanalytics.DependencyInjection;
 
-import com.teamunemployment.lolanalytics.Jungle.JungleView;
+import com.teamunemployment.lolanalytics.Jungle.ViewFragment;
+import com.teamunemployment.lolanalytics.base.BaseFragment;
 
 import javax.inject.Singleton;
 
@@ -15,5 +16,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class, ComponentModule.class})
 public interface AppComponent {
-    void InjectJungleView(JungleView jungleView);
+    void InjectJungleView(ViewFragment jungleView);
+    void InjectBaseView(BaseFragment baseFragment);
 }

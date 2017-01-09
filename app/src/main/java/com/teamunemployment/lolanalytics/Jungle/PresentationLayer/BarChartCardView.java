@@ -20,8 +20,6 @@ import com.teamunemployment.lolanalytics.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -35,7 +33,7 @@ public class BarChartCardView extends RecyclerView.ViewHolder implements ChartCa
     private Context context;
     private RelativeLayout cardInner;
 
-    BarChartFactory factory;
+    private BarChartFactory factory;
 
     @Bind(R.id.chart)
     BarChart barChart;
@@ -48,44 +46,53 @@ public class BarChartCardView extends RecyclerView.ViewHolder implements ChartCa
         ButterKnife.bind(this, cardInner);
     }
 
+    /**
+     * Set the data to the bar chart.
+     * @param jungleAdapterPojo The pojo with the data on it.
+     */
     public void setBarChartData(JungleAdapterPojo jungleAdapterPojo) {
 
         // We have our bar chart. Now we need to add stuff to it.
         List<BarEntry> entries = new ArrayList<>();
+
+        // Create an entry for the user, and the enemy info. Add them to the chart entry list.
         BarEntry me = new BarEntry(0f, new Float(jungleAdapterPojo.friendlyStats));
         BarEntry them = new BarEntry(1f, new Float(jungleAdapterPojo.enemyStats));
-
-
         entries.add(me);
         entries.add(them);
-        BarDataSet dataSet = factory.createBarChartDataSet(entries, jungleAdapterPojo.title);
 
-        if (jungleAdapterPojo.friendlyStats > jungleAdapterPojo.enemyStats) {
-            dataSet.setColors(new int[]{R.color.green, R.color.grey}, context); // WOuld be real cool to not use context here if possible.
-        } else {
-            dataSet.setColors(new int[]{R.color.red, R.color.grey}, context); // WOuld be real cool to not use context here if possible.
-        }
+        // Create dataset with specified colors. We dont have a title for our chart, because the title goes in an ugly place, so we will use our own later.
+        BarDataSet dataSet = factory.createBarChartDataSet(entries, "");
+        dataSet.setValueTextSize(12f);
+        dataSet.setColors(new int[]{R.color.blue, R.color.red}, context); // Would be real cool to not use context here if possible.
+
+        // Finally, add our data to the chart.
         BarData barData = new BarData(dataSet);
         barChart.setData(barData);
         Description description = new Description();
         description.setText("");
+
+        // X axis - horizontal
         XAxis xAxis = barChart.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setDrawLabels(false);
         xAxis.setDrawAxisLine(false);
 
+        // Left axis
         YAxis yAxis = barChart.getAxisLeft();
         yAxis.setAxisMinimum(0);
         yAxis.setDrawLabels(false);
         yAxis.setDrawGridLines(false);
         yAxis.setEnabled(false);
+
+        // Right axis
         YAxis yAxis2 = barChart.getAxisRight();
         yAxis2.setDrawLabels(false);
         yAxis2.setDrawGridLines(false);
         yAxis2.setEnabled(false);
         yAxis2.setDrawAxisLine(false);
 
-
+        // Set appearance params.
         barChart.setDescription(description);
         barChart.setFitBars(false);
         barChart.setHighlightPerTapEnabled(true);
@@ -96,6 +103,8 @@ public class BarChartCardView extends RecyclerView.ViewHolder implements ChartCa
         barChart.setDrawBorders(false);
         barChart.setDrawMarkers(false);
         barChart.setTouchEnabled(false);
+
+        // Refresh.
         barChart.invalidate();
     }
 
