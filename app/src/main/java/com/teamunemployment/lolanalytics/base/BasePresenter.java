@@ -1,10 +1,7 @@
-package com.teamunemployment.lolanalytics.base;
+package com.teamunemployment.lolanalytics.Base;
 
 import com.teamunemployment.lolanalytics.Jungle.Contracts.ModelPresenterContract;
-import com.teamunemployment.lolanalytics.base.BaseRecyclerAdapter;
-import com.teamunemployment.lolanalytics.base.ViewFragmentContract;
-import com.teamunemployment.lolanalytics.Jungle.Model.JungleAdapterPojo;
-import com.teamunemployment.lolanalytics.base.BaseModel;
+import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
 
 import java.util.ArrayList;
 
@@ -53,13 +50,13 @@ public class BasePresenter implements ModelPresenterContract {
     }
 
     @Override
-    public void addStatToList(JungleAdapterPojo jungleAdapterPojo) {
-        //baseRecyclerAdapter.AddItem(jungleAdapterPojo);
+    public void addStatToList(AdapterPojo adapterPojo) {
+        //baseRecyclerAdapter.AddItem(adapterPojo);
         //baseRecyclerAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void addDataToAdapter(ArrayList<JungleAdapterPojo> adapterPojos) {
+    public void addDataToAdapter(ArrayList<AdapterPojo> adapterPojos) {
         baseRecyclerAdapter = new BaseRecyclerAdapter(adapterPojos, this);
         jungleView.setJungleAdapter(baseRecyclerAdapter);
     }

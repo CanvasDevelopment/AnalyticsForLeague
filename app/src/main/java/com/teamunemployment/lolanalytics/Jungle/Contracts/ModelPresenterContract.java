@@ -1,7 +1,7 @@
 package com.teamunemployment.lolanalytics.Jungle.Contracts;
 
-import com.teamunemployment.lolanalytics.Jungle.Model.JungleAdapterPojo;
-import com.teamunemployment.lolanalytics.base.ViewFragmentContract;
+import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
+import com.teamunemployment.lolanalytics.Base.ViewFragmentContract;
 
 import java.util.ArrayList;
 
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 public interface ModelPresenterContract {
 
     void start();
-    void addStatToList(JungleAdapterPojo jungleAdapterPojo);
-    void addDataToAdapter(ArrayList<JungleAdapterPojo> adapterPojos);
+    void addStatToList(AdapterPojo adapterPojo);
+    void addDataToAdapter(ArrayList<AdapterPojo> adapterPojos);
     void setView(ViewFragmentContract viewFragmentContract);
 
 }

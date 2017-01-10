@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.base;
+package com.teamunemployment.lolanalytics.Base;
 
 import com.github.mikephil.charting.charts.BarChart;
 

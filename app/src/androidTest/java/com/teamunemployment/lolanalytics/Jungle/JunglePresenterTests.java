@@ -1,8 +1,8 @@
 package com.teamunemployment.lolanalytics.Jungle;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.teamunemployment.lolanalytics.Jungle.Model.JungleAdapterPojo;
-import com.teamunemployment.lolanalytics.base.BasePresenter;
+import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
+import com.teamunemployment.lolanalytics.Base.BasePresenter;
 
 import junit.framework.Assert;
 
@@ -17,7 +17,7 @@ public class JunglePresenterTests {
 
     @Test
     public void TestThatWeCanCreateBarChartFromJunglePojo() {
-        JungleAdapterPojo testPojo = new JungleAdapterPojo();
+        AdapterPojo testPojo = new AdapterPojo();
         BasePresenter basePresenter = new BasePresenter(null);
         BarChart barChart = basePresenter.CreateJungleBarChart(testPojo, null);
         Assert.assertTrue(barChart != null);

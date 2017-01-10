@@ -4,10 +4,10 @@ import android.app.Application;
 import android.content.Context;
 
 import com.teamunemployment.lolanalytics.Jungle.Model.BarChartFactory;
-import com.teamunemployment.lolanalytics.base.BaseModel;
-import com.teamunemployment.lolanalytics.base.BasePresenter;
+import com.teamunemployment.lolanalytics.Base.BaseModel;
+import com.teamunemployment.lolanalytics.Base.BasePresenter;
 import com.teamunemployment.lolanalytics.RESTService.Api;
-import com.teamunemployment.lolanalytics.mock.MockHttpClient;
+import com.teamunemployment.lolanalytics.Mock.MockHttpClient;
 
 import dagger.Module;
 import dagger.Provides;

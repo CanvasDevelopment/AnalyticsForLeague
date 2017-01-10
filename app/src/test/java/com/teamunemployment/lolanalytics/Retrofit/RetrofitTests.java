@@ -2,28 +2,23 @@ package com.teamunemployment.lolanalytics.Retrofit;
 
 import android.content.Context;
 
-import com.teamunemployment.lolanalytics.Jungle.Model.JungleAdapterPojo;
+import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
 import com.teamunemployment.lolanalytics.RESTService.Api;
-import com.teamunemployment.lolanalytics.RecentHeadToHeadAverage;
-import com.teamunemployment.lolanalytics.mock.MockHttpClient;
+import com.teamunemployment.lolanalytics.Mock.MockHttpClient;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static org.mockito.Mockito.mock;
@@ -62,10 +57,10 @@ public class RetrofitTests {
                 .build();
 
         Api api = retrofit.create(Api.class);
-        Observable<JungleAdapterPojo> averagesObservable = api.GetHeadToHeadAverageForSummonerAndRole("JUNGLE", "bar");
+        Observable<AdapterPojo> averagesObservable = api.GetHeadToHeadAverageForSummonerAndRole("JUNGLE", "bar");
         averagesObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(mock(Scheduler.class))
-                .subscribe(new Subscriber<JungleAdapterPojo>() {
+                .subscribe(new Subscriber<AdapterPojo>() {
 
                     @Override
                     public void onCompleted() {
@@ -78,8 +73,8 @@ public class RetrofitTests {
                     }
 
                     @Override
-                    public void onNext(JungleAdapterPojo jungleAdapterPojo) {
-                        Assert.assertEquals(5.21, jungleAdapterPojo.enemyStats);
+                    public void onNext(AdapterPojo adapterPojo) {
+                        Assert.assertEquals(5.21, adapterPojo.enemyStats);
                     }
                 });
     }

@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.base;
+package com.teamunemployment.lolanalytics.Base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

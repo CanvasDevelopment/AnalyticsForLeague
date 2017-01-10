@@ -1,7 +1,7 @@
 package com.teamunemployment.lolanalytics.DependencyInjection;
 
 import com.teamunemployment.lolanalytics.Jungle.ViewFragment;
-import com.teamunemployment.lolanalytics.base.BaseFragment;
+import com.teamunemployment.lolanalytics.Base.BaseFragment;
 
 import javax.inject.Singleton;
 

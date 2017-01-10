@@ -1,7 +1,6 @@
-package com.teamunemployment.lolanalytics.mock;
+package com.teamunemployment.lolanalytics.Mock;
 
 import android.content.Context;
-import android.net.wifi.WifiConfiguration;
 
 import java.io.IOException;
 

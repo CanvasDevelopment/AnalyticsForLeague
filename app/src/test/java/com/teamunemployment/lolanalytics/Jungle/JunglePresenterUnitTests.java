@@ -3,10 +3,10 @@ package com.teamunemployment.lolanalytics.Jungle;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.teamunemployment.lolanalytics.Jungle.Model.BarChartFactory;
-import com.teamunemployment.lolanalytics.Jungle.Model.JungleAdapterPojo;
-import com.teamunemployment.lolanalytics.base.BasePresenter;
-import com.teamunemployment.lolanalytics.base.BaseModel;
-import com.teamunemployment.lolanalytics.base.ViewFragmentContract;
+import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
+import com.teamunemployment.lolanalytics.Base.BasePresenter;
+import com.teamunemployment.lolanalytics.Base.BaseModel;
+import com.teamunemployment.lolanalytics.Base.ViewFragmentContract;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -24,7 +24,7 @@ public class JunglePresenterUnitTests {
 
     @Test
     public void TestThatWeCanCreateBarChartFromJunglePojo() {
-        JungleAdapterPojo testPojo = new JungleAdapterPojo(1, 2);
+        AdapterPojo testPojo = new AdapterPojo(1, 2);
         BaseModel junglemodel = mock(BaseModel.class);
         BasePresenter basePresenter = new BasePresenter(junglemodel);
         ViewFragmentContract viewFragmentContract = Mockito.mock(ViewFragmentContract.class);

@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.teamunemployment.lolanalytics.DependencyInjection.App;
-import com.teamunemployment.lolanalytics.base.BasePresenter;
-import com.teamunemployment.lolanalytics.base.BaseRecyclerAdapter;
+import com.teamunemployment.lolanalytics.Base.BasePresenter;
+import com.teamunemployment.lolanalytics.Base.BaseRecyclerAdapter;
 import com.teamunemployment.lolanalytics.R;
-import com.teamunemployment.lolanalytics.base.ViewFragmentContract;
+import com.teamunemployment.lolanalytics.Base.ViewFragmentContract;
 
 import javax.inject.Inject;
 

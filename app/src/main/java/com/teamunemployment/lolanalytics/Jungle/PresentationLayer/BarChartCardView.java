@@ -14,7 +14,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.teamunemployment.lolanalytics.Jungle.Model.BarChartFactory;
-import com.teamunemployment.lolanalytics.Jungle.Model.JungleAdapterPojo;
+import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
 import com.teamunemployment.lolanalytics.R;
 
 import java.util.ArrayList;
@@ -48,16 +48,16 @@ public class BarChartCardView extends RecyclerView.ViewHolder implements ChartCa
 
     /**
      * Set the data to the bar chart.
-     * @param jungleAdapterPojo The pojo with the data on it.
+     * @param adapterPojo The pojo with the data on it.
      */
-    public void setBarChartData(JungleAdapterPojo jungleAdapterPojo) {
+    public void setBarChartData(AdapterPojo adapterPojo) {
 
         // We have our bar chart. Now we need to add stuff to it.
         List<BarEntry> entries = new ArrayList<>();
 
         // Create an entry for the user, and the enemy info. Add them to the chart entry list.
-        BarEntry me = new BarEntry(0f, new Float(jungleAdapterPojo.friendlyStats));
-        BarEntry them = new BarEntry(1f, new Float(jungleAdapterPojo.enemyStats));
+        BarEntry me = new BarEntry(0f, new Float(adapterPojo.friendlyStats));
+        BarEntry them = new BarEntry(1f, new Float(adapterPojo.enemyStats));
         entries.add(me);
         entries.add(them);
 

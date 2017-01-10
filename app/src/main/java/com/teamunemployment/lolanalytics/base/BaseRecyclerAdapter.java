@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.base;
+package com.teamunemployment.lolanalytics.Base;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
 
-import com.teamunemployment.lolanalytics.Jungle.Model.JungleAdapterPojo;
+import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
 import com.teamunemployment.lolanalytics.Jungle.PresentationLayer.BarChartCardView;
 import com.teamunemployment.lolanalytics.R;
 
@@ -20,12 +20,12 @@ import butterknife.Bind;
  */
 public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<JungleAdapterPojo> pojos;
+    private ArrayList<AdapterPojo> pojos;
     private BasePresenter basePresenter;
 
     @Bind(R.id.chart) BarChart barChart;
 
-    public BaseRecyclerAdapter(ArrayList<JungleAdapterPojo> pojos, BasePresenter basePresenter) {
+    public BaseRecyclerAdapter(ArrayList<AdapterPojo> pojos, BasePresenter basePresenter) {
         this.pojos = pojos;
         this.basePresenter = basePresenter;
     }
@@ -42,7 +42,7 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return cardView;
     }
 
-    public void AddItem(JungleAdapterPojo pojo) {
+    public void AddItem(AdapterPojo pojo) {
         pojos.add(pojo);
     }
 
