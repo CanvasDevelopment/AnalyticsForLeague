@@ -34,27 +34,13 @@ public class ComponentModule {
     }
 
     @Provides
-    Api provideApi(Context context) {
+    Api provideApi() {
         // Currently using this for testing - will be removed in the future.
-        String result = "[{" +
-                "\"title\" : \"Creep Score First 10 Minutes\"," +
-                "\"enemyStats\" : 5.25," +
-                "\"friendlyStats\" : 6.45" +
-                "}," +
-                "{\"title\" : \"Creep Score 10 - 20 minutes\"," +
-                "\"enemyStats\" : 5.65," +
-                "\"friendlyStats\" : 5.46 " +
-                "}]";
-
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(
-                        new MockHttpClient(context, result, 200)
-                ).build();
-
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl("https://lolanalyticsv3.appspot.com/_ah/api/myApi/v1/")
+            //    .baseUrl("http://192.168.20.17:8080/_ah/api/myApi/v1/")
               //  .client(okHttpClient) // For testing purposes.
                 .build();
 

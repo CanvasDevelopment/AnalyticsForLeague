@@ -1,7 +1,7 @@
 package com.teamunemployment.lolanalytics.Base;
 
 /**
- * Created by jek40 on 9/01/2017.
+ * Josiah Kendall
  */
 
 public class Statics {
@@ -11,4 +11,5 @@ public class Statics {
     public static final int MID = 2;
     public static final int ADC = 3;
     public static final int SUPPORT = 4;
+    
 }

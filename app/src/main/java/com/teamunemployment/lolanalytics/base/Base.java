@@ -74,8 +74,20 @@ public class Base extends AppCompatActivity {
                         fragNavController.switchTab(FragNavController.TAB1);
                         break;
                     case 1:
-                        // ..
+                        // JUNGLE
                         fragNavController.switchTab(FragNavController.TAB2);
+                        break;
+                    case 2:
+                        // MID
+                        fragNavController.switchTab(FragNavController.TAB3);
+                        break;
+                    case 3:
+                        // ADC
+                        fragNavController.switchTab(FragNavController.TAB4);
+                        break;
+                    case 4:
+                        // SUPPPORT
+                        fragNavController.switchTab(FragNavController.TAB5);
                         break;
                 }
                 return true;
@@ -90,13 +102,22 @@ public class Base extends AppCompatActivity {
     private void setUpFragments(Bundle savedInstanceState) {
         List<Fragment> fragments = new ArrayList<>(4);
         // fragments.add(new HomeTabFragment());
-        TopView topView = new TopView();
+        ViewFragment topView = new ViewFragment();
+        topView.setRole(Statics.TOP);
         ViewFragment jungleView = new ViewFragment();
+        topView.setRole(Statics.JUNGLE);
+        ViewFragment midView = new ViewFragment();
+        topView.setRole(Statics.MID);
+        ViewFragment adcView = new ViewFragment();
+        topView.setRole(Statics.ADC);
+        ViewFragment supportView = new ViewFragment();
+        topView.setRole(Statics.SUPPORT);
 
         fragments.add(topView);
         fragments.add(jungleView);
-        fragments.add(jungleView);
-        fragments.add(jungleView);
+        fragments.add(midView);
+        fragments.add(adcView);
+        fragments.add(supportView);
         fragNavController = new FragNavController(savedInstanceState, getSupportFragmentManager(),R.id.fragment_container,fragments, FragNavController.TAB1);
         fragNavController.clearStack();
     }

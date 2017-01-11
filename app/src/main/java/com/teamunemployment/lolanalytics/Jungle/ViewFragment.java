@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.teamunemployment.lolanalytics.Base.Statics;
 import com.teamunemployment.lolanalytics.DependencyInjection.App;
 import com.teamunemployment.lolanalytics.Base.BasePresenter;
 import com.teamunemployment.lolanalytics.Base.BaseRecyclerAdapter;
@@ -30,9 +31,11 @@ public class ViewFragment extends Fragment implements ViewFragmentContract {
     @Inject
     public BasePresenter presenter;
 
-    private View rootView;
+    public View rootView;
 
     @Bind(R.id.jungle_recycler) RecyclerView jungleRecyclerView;
+
+    private int role;
 
     @Nullable
     @Override
@@ -45,12 +48,11 @@ public class ViewFragment extends Fragment implements ViewFragmentContract {
         // Bind butterknife to our view.
         ButterKnife.bind(this, rootView);
 
-        // Give a reference of this view to our presenter. Done for presenting information or creating
-        // instances of objects must be created on the ui thread.
-        presenter.setView(this);
+        presenter.setView(this, role);
 
         return rootView;
     }
+
 
     @Override
     public BarChart createBarChart() {
@@ -70,5 +72,7 @@ public class ViewFragment extends Fragment implements ViewFragmentContract {
         Snackbar.make(rootView, s, Snackbar.LENGTH_LONG).show();
     }
 
-
+    public void setRole(int role) {
+        this.role = role;
+    }
 }

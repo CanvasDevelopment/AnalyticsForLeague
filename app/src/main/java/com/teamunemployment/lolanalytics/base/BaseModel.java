@@ -24,7 +24,6 @@ import rx.schedulers.Schedulers;
 public class BaseModel {
 
     private static final String TAG = "BaseModel";
-
     private Api api;
 
     public BaseModel(Api api) {
@@ -33,38 +32,14 @@ public class BaseModel {
 
     /**
      * Get the adapter pojos that we require to display on the recycler view.
-     * @param summonerName
+     * @param summonerId
      */
-    public void getCardPojos(final String summonerName, final ModelPresenterContract modelPresenterContract,
+    public void getCardPojos(long summonerId, ModelPresenterContract modelPresenterContract,
                              final int lane) {
         // TODO sort out this part.
         final String region = "";
-
-        Log.d(TAG, "Starting card details fetch");
-        Log.d(TAG, "Attempting to fetch summonerId");
-        Long summonerId = FetchSummonerIdFromLocalStorage(summonerName);
-        if (summonerId== -1) {
-            Log.d(TAG, "Failed to find summoner id locally. Searching remotely");
-            Observable<LongWrapper> summonerIdObservable = GetSummonerIdUsingSummonerName(summonerName, region);
-            summonerIdObservable.subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<LongWrapper>() {
-                        @Override
-                        public void onCompleted() {
-                            Log.d(TAG, "Finished request for summoner id with name: " + summonerName);
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.d(TAG, "An error occurred while attempting to find summonerId for summoner with name: " + summonerName + "in region: " + region);
-                        }
-
-                        @Override
-                        public void onNext(LongWrapper aLong) {
-                            filterRoleToFetch(aLong.data, lane, modelPresenterContract);
-                        }
-                    });
-        }
+        //
+        filterRoleToFetch(summonerId, lane, modelPresenterContract);
 
     }
 

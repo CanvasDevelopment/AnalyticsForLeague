@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 public interface ModelPresenterContract {
 
-    void start();
+    void start(int lane);
     void addStatToList(AdapterPojo adapterPojo);
     void addDataToAdapter(ArrayList<AdapterPojo> adapterPojos);
-    void setView(ViewFragmentContract viewFragmentContract);
+    void setView(ViewFragmentContract viewFragmentContract, int lane);
 
 }

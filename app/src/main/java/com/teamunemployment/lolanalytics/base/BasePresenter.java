@@ -25,12 +25,9 @@ public class BasePresenter implements ModelPresenterContract {
      * Trigger the loading
      */
     @Override
-    public void start() {
-        // TODO shared preferences?
-        String placeholder = "kloin";
-
+    public void start(int lane) {
         // Load data
-        baseModel.getCardPojos(placeholder, "TOP", this);
+        baseModel.getCardPojos(-1, this, lane);
     }
 
     /**
@@ -39,9 +36,9 @@ public class BasePresenter implements ModelPresenterContract {
      * @param jungleView
      */
     @Override
-    public void setView(ViewFragmentContract jungleView) {
+    public void setView(ViewFragmentContract jungleView, int lane) {
         this.jungleView = jungleView;
-        start();
+        start(lane);
     }
 
 
