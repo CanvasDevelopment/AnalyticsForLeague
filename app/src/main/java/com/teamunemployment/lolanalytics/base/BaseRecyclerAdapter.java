@@ -50,7 +50,9 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         // Inflate our jungle view.
         BarChartCardView cardView = (BarChartCardView) holder;
-        cardView.setBarChartData(pojos.get(position));
+        AdapterPojo data = pojos.get(position);
+        cardView.setBarChartData(data);
+        cardView.setTitle(data.title);
     }
 
     @Override

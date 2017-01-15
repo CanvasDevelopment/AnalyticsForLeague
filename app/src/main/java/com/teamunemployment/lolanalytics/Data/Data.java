@@ -10,5 +10,5 @@ import java.util.List;
  */
 
 public class Data {
-    public List<AdapterPojo> data;
+    public List<AdapterPojo> items;
 }

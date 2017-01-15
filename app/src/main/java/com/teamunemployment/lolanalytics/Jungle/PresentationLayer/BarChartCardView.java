@@ -1,9 +1,11 @@
 package com.teamunemployment.lolanalytics.Jungle.PresentationLayer;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.Chart;
@@ -23,6 +25,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static android.R.color.secondary_text_light;
+
 /**
  * @author Josiah Kendall.
  * Not sure if this needs to be a specific chart class (e.g bar chart) It will probably work as a generic
@@ -31,21 +35,29 @@ import butterknife.ButterKnife;
 public class BarChartCardView extends RecyclerView.ViewHolder implements ChartCardViewContract{
 
     private Context context;
-    private RelativeLayout cardInner;
+    private CardView cardInner;
 
     private BarChartFactory factory;
 
-    @Bind(R.id.chart)
-    BarChart barChart;
+    @Bind(R.id.chart) BarChart barChart;
+
+    @Bind(R.id.graph_title) TextView title;
 
     public BarChartCardView(View itemView, Context context) {
         super(itemView);
         this.context = context;
-        this.cardInner = (RelativeLayout) itemView;
+        this.cardInner = (CardView) itemView;
         factory = new BarChartFactory();
         ButterKnife.bind(this, cardInner);
     }
 
+    /**
+     * Set the title on the card that comes with the dataset from the server.
+     * @param titleString
+     */
+    public void setTitle(String titleString) {
+        title.setText(titleString);
+    }
     /**
      * Set the data to the bar chart.
      * @param adapterPojo The pojo with the data on it.
@@ -63,8 +75,9 @@ public class BarChartCardView extends RecyclerView.ViewHolder implements ChartCa
 
         // Create dataset with specified colors. We dont have a title for our chart, because the title goes in an ugly place, so we will use our own later.
         BarDataSet dataSet = factory.createBarChartDataSet(entries, "");
-        dataSet.setValueTextSize(12f);
-        dataSet.setColors(new int[]{R.color.blue, R.color.red}, context); // Would be real cool to not use context here if possible.
+        dataSet.setValueTextSize(14f);
+        dataSet.setValueTextColor(context.getResources().getColor(R.color.grey));
+        dataSet.setColors(new int[]{R.color.teal, R.color.pink}, context); // Would be real cool to not use context here if possible.
 
         // Finally, add our data to the chart.
         BarData barData = new BarData(dataSet);

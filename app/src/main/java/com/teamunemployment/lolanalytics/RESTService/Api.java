@@ -2,6 +2,9 @@ package com.teamunemployment.lolanalytics.RESTService;
 
 import com.teamunemployment.lolanalytics.Data.Data;
 import com.teamunemployment.lolanalytics.Data.LongWrapper;
+import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
+
+import java.util.List;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -32,7 +35,6 @@ public interface Api {
 
     @GET("FetchSupportStats/{SummonerId}")
     Observable<Data> GetSupportStats(@Path("SummonerId") long summonerId);
-
 
     /**
      * Fetch the summonerId of a summoner given the summoner name and the summoner region.

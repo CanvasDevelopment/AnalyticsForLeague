@@ -48,7 +48,7 @@ public class Base extends AppCompatActivity {
         // Bottom bar appearance.
         bottomBar.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
         bottomBar.setAccentColor(ContextCompat.getColor(this, R.color.colorAccent));
-
+        bottomBar.setInactiveColor(ContextCompat.getColor(this, R.color.bluegrey));
         // Bottom bar items.
         AHBottomNavigationItem topItem = new AHBottomNavigationItem("Top", R.drawable.top);
         AHBottomNavigationItem jgItem = new AHBottomNavigationItem("Jungle", R.drawable.jg);
@@ -105,13 +105,13 @@ public class Base extends AppCompatActivity {
         ViewFragment topView = new ViewFragment();
         topView.setRole(Statics.TOP);
         ViewFragment jungleView = new ViewFragment();
-        topView.setRole(Statics.JUNGLE);
+        jungleView.setRole(Statics.JUNGLE);
         ViewFragment midView = new ViewFragment();
-        topView.setRole(Statics.MID);
+        midView.setRole(Statics.MID);
         ViewFragment adcView = new ViewFragment();
-        topView.setRole(Statics.ADC);
+        adcView.setRole(Statics.ADC);
         ViewFragment supportView = new ViewFragment();
-        topView.setRole(Statics.SUPPORT);
+        supportView.setRole(Statics.SUPPORT);
 
         fragments.add(topView);
         fragments.add(jungleView);

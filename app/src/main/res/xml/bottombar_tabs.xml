@@ -2,15 +2,15 @@
 <tabs>
     <tab
         id="@+id/top_lane_tab"
-        icon="@drawable/top"
-        activeColor="#FFD180"
-        inActiveColor="#ffffff"
+        icon="@drawable/jg"
+        activeColor="#ffffff"
+        inActiveColor="#F5F5F5"
         title="Favorites" />
     <tab
         id="@+id/jungle_tab"
         icon="@drawable/jg"
         activeColor="#FFD180"
-        inActiveColor="#ffffff"
+        inActiveColor="#F5F5F5"
         title="Nearby" />
     <tab
         id="@+id/mid_tab"
@@ -27,7 +27,7 @@
     <tab
         id="@+id/adc"
         icon="@drawable/bot"
-        activeColor="#FFD180"
+        activeColor="#ffffff"
         inActiveColor="#ffffff"
         title="Friends" />
 </tabs>

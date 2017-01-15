@@ -46,7 +46,7 @@ public class RetrofitTests {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(
-                        new MockHttpClient(context, result, 200)
+                        new MockHttpClient(result, 200)
                 ).build();
 
         Retrofit retrofit = new Retrofit.Builder()

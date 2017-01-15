@@ -37,6 +37,10 @@ public class BasePresenter implements ModelPresenterContract {
      */
     @Override
     public void setView(ViewFragmentContract jungleView, int lane) {
+        if (lane == -1 || lane > 4) {
+            throw new IllegalStateException("Illegal role value given. Please set a value between 1 and 4 before " +
+                    "the view is constructed using setRole(int)");
+        }
         this.jungleView = jungleView;
         start(lane);
     }
@@ -44,12 +48,6 @@ public class BasePresenter implements ModelPresenterContract {
 
     public void showMessageToUser(String s) {
         jungleView.showMessage(s);
-    }
-
-    @Override
-    public void addStatToList(AdapterPojo adapterPojo) {
-        //baseRecyclerAdapter.AddItem(adapterPojo);
-        //baseRecyclerAdapter.notifyDataSetChanged();
     }
 
     @Override

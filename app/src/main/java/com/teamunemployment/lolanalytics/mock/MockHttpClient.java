@@ -23,7 +23,7 @@ public class MockHttpClient implements Interceptor {
         private String content;
         private int code;
 
-        public MockHttpClient(Context ctx, String content, int code) {
+        public MockHttpClient(String content, int code) {
             this.content = content;
             this.code = code;
         }

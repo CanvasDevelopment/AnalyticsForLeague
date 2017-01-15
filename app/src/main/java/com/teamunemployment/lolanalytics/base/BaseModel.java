@@ -100,7 +100,7 @@ public class BaseModel {
 
                     @Override
                     public void onNext(Data adapterPojosDataSource) {
-                        modelPresenterContract.addDataToAdapter(new ArrayList<AdapterPojo>(adapterPojosDataSource.data));
+                        modelPresenterContract.addDataToAdapter(new ArrayList<AdapterPojo>(adapterPojosDataSource.items));
                     }
                 });
     }

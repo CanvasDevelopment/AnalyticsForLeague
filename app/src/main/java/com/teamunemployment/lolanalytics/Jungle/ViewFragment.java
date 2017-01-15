@@ -2,6 +2,7 @@ package com.teamunemployment.lolanalytics.Jungle;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,12 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.teamunemployment.lolanalytics.Base.Statics;
-import com.teamunemployment.lolanalytics.DependencyInjection.App;
 import com.teamunemployment.lolanalytics.Base.BasePresenter;
 import com.teamunemployment.lolanalytics.Base.BaseRecyclerAdapter;
-import com.teamunemployment.lolanalytics.R;
 import com.teamunemployment.lolanalytics.Base.ViewFragmentContract;
+import com.teamunemployment.lolanalytics.DependencyInjection.App;
+import com.teamunemployment.lolanalytics.R;
 
 import javax.inject.Inject;
 
@@ -28,14 +28,16 @@ import butterknife.ButterKnife;
  */
 public class ViewFragment extends Fragment implements ViewFragmentContract {
 
+
     @Inject
     public BasePresenter presenter;
 
     public View rootView;
 
     @Bind(R.id.jungle_recycler) RecyclerView jungleRecyclerView;
+   // @Bind(R.id.collapsable_toolbar_holder) CollapsingToolbarLayout collapsingToolbarLayout;
 
-    private int role;
+    private int role = -1;
 
     @Nullable
     @Override
@@ -47,6 +49,7 @@ public class ViewFragment extends Fragment implements ViewFragmentContract {
 
         // Bind butterknife to our view.
         ButterKnife.bind(this, rootView);
+        //collapsingToolbarLayout.setContentScrim(getActivity().getResources().getDrawable(R.drawable.jg));
 
         presenter.setView(this, role);
 
