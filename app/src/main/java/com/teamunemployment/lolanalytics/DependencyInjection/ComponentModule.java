@@ -3,6 +3,7 @@ package com.teamunemployment.lolanalytics.DependencyInjection;
 import android.app.Application;
 import android.content.Context;
 
+import com.teamunemployment.lolanalytics.Jungle.Model.BarChartCardModel;
 import com.teamunemployment.lolanalytics.Jungle.Model.BarChartFactory;
 import com.teamunemployment.lolanalytics.Base.BaseModel;
 import com.teamunemployment.lolanalytics.Base.BasePresenter;
@@ -40,8 +41,6 @@ public class ComponentModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl("https://lolanalyticsv3.appspot.com/_ah/api/myApi/v1/")
-            //    .baseUrl("http://192.168.20.17:8080/_ah/api/myApi/v1/")
-              //  .client(okHttpClient) // For testing purposes.
                 .build();
 
         Api api = retrofit.create(Api.class);
@@ -56,5 +55,10 @@ public class ComponentModule {
     @Provides
     BasePresenter provideJunglePresenter(BaseModel baseModel) {
         return new BasePresenter(baseModel);
+    }
+
+    @Provides
+    BarChartCardModel provideBarChartCardModel(BarChartFactory barChartFactory, Context context) {
+        return new BarChartCardModel(barChartFactory);
     }
 }

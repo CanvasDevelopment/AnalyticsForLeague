@@ -49,8 +49,8 @@ public class ViewFragment extends Fragment implements ViewFragmentContract {
 
         // Bind butterknife to our view.
         ButterKnife.bind(this, rootView);
-        //collapsingToolbarLayout.setContentScrim(getActivity().getResources().getDrawable(R.drawable.jg));
 
+        // Set our view. This starts the loading of data.
         presenter.setView(this, role);
 
         return rootView;

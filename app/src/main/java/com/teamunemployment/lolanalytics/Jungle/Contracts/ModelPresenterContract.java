@@ -14,5 +14,6 @@ public interface ModelPresenterContract {
     void start(int lane);
     void addDataToAdapter(ArrayList<AdapterPojo> adapterPojos);
     void setView(ViewFragmentContract viewFragmentContract, int lane);
+    void handleError(Throwable e);
 
 }

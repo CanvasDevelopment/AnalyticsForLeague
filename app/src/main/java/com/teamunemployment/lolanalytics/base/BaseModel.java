@@ -31,26 +31,11 @@ public class BaseModel {
     }
 
     /**
-     * Get the adapter pojos that we require to display on the recycler view.
-     * @param summonerId
-     */
-    public void getCardPojos(long summonerId, ModelPresenterContract modelPresenterContract,
-                             final int lane) {
-        // TODO sort out this part.
-        final String region = "";
-        //
-        filterRoleToFetch(summonerId, lane, modelPresenterContract);
-
-    }
-
-    /**
      * Decide what data we need to fetch, then fetch it.
-     * @param summonerId
+     * @param summonerId The summonerId to call
      * @param lane
-     * @param modelPresenterContract
      */
-    private void filterRoleToFetch(long summonerId, int lane, ModelPresenterContract modelPresenterContract) {
-        Log.d(TAG, "Found summonerId of : " + summonerId);
+    public Observable<Data> CreateLaneDataObservable(long summonerId, int lane) {
         Observable<Data> averagesObservable = null;
         switch (lane) {
             case Statics.TOP:
@@ -70,39 +55,35 @@ public class BaseModel {
                 break;
         }
 
-        // Fetch the data from the observable that we have created
-        fetchData(summonerId, modelPresenterContract, averagesObservable);
+        return averagesObservable;
     }
 
     /**
      * Fetch data for top lane
-     * @param summonerId
      * @param modelPresenterContract
      */
-    private void fetchData(Long summonerId, final ModelPresenterContract modelPresenterContract, Observable<Data> averagesObservable) {
-
-        Log.d(TAG, "Fetching data for summoner with id: " + summonerId);
+    public void FetchData(final ModelPresenterContract modelPresenterContract, Observable<Data> averagesObservable) {
 
         // Send the request on a new thread, but observe on the main thread.
-        averagesObservable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Data>() {
+        averagesObservable
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Subscriber<Data>() {
 
-                    @Override
-                    public void onCompleted() {
-                        Log.d(TAG, "Completed loading");
-                    }
+                @Override
+                public void onCompleted() {
+                }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "Failed to load card data. error found : " + e.getMessage());
-                    }
+                @Override
+                public void onError(Throwable e) {
+                    modelPresenterContract.handleError(e);
+                }
 
-                    @Override
-                    public void onNext(Data adapterPojosDataSource) {
-                        modelPresenterContract.addDataToAdapter(new ArrayList<AdapterPojo>(adapterPojosDataSource.items));
-                    }
-                });
+                @Override
+                public void onNext(Data adapterPojosDataSource) {
+                    modelPresenterContract.addDataToAdapter(new ArrayList<AdapterPojo>(adapterPojosDataSource.items));
+                }
+            });
     }
 
     /**
@@ -112,8 +93,6 @@ public class BaseModel {
      * @return The summoner id. Is -1 if summoner not found.
      */
     public Observable<LongWrapper> GetSummonerIdUsingSummonerName(String summonerName, String region) {
-
-        Log.d(TAG, "Attempting to fetch Summoner id for summoner " + summonerName+ "in region " + region);
 
         Observable<LongWrapper> idResultObservable = api.GetSummonerId(summonerName, region);
         return idResultObservable;

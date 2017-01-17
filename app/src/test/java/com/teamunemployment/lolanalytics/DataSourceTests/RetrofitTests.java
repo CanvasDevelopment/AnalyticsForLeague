@@ -1,8 +1,8 @@
-package com.teamunemployment.lolanalytics.Retrofit;
+package com.teamunemployment.lolanalytics.DataSourceTests;
 
 import android.content.Context;
 
-import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
+import com.teamunemployment.lolanalytics.Data.Data;
 import com.teamunemployment.lolanalytics.RESTService.Api;
 import com.teamunemployment.lolanalytics.Mock.MockHttpClient;
 
@@ -32,7 +32,6 @@ public class RetrofitTests {
     @Test
     public void TestThatWeCanBindAveragesDataThatGetsReturnedByTheServerWithRetrofit() throws IOException {
 
-        Context context = mock(Context.class);
         // Our mock return.
         String result = "[{" +
                 "\"title\" : \"Creep Score First 10 Minutes\"," +
@@ -57,10 +56,10 @@ public class RetrofitTests {
                 .build();
 
         Api api = retrofit.create(Api.class);
-        Observable<AdapterPojo> averagesObservable = api.GetHeadToHeadAverageForSummonerAndRole("JUNGLE", "bar");
+        Observable<Data> averagesObservable = api.GetMidStatsForSummoner(1234567);
         averagesObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(mock(Scheduler.class))
-                .subscribe(new Subscriber<AdapterPojo>() {
+                .subscribe(new Subscriber<Data>() {
 
                     @Override
                     public void onCompleted() {
@@ -73,8 +72,8 @@ public class RetrofitTests {
                     }
 
                     @Override
-                    public void onNext(AdapterPojo adapterPojo) {
-                        Assert.assertEquals(5.21, adapterPojo.enemyStats);
+                    public void onNext(Data adapterPojo) {
+                        Assert.assertEquals(5.21, adapterPojo.items.get(0).enemyStats);
                     }
                 });
     }

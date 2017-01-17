@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * This is the data wrapper for our objects that get returned from the server. We need this for retorfit
- * because GAE seems to return everything wrapped in a data object
+ * because Google App Engine has to return an object, which gets
  */
 
 public class Data {

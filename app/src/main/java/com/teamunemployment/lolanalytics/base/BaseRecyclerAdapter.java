@@ -8,10 +8,14 @@ import android.view.ViewGroup;
 import com.github.mikephil.charting.charts.BarChart;
 
 import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
+import com.teamunemployment.lolanalytics.Jungle.Model.BarChartCardModel;
+import com.teamunemployment.lolanalytics.Jungle.Model.BarChartFactory;
 import com.teamunemployment.lolanalytics.Jungle.PresentationLayer.BarChartCardView;
 import com.teamunemployment.lolanalytics.R;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 
@@ -21,35 +25,30 @@ import butterknife.Bind;
 public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<AdapterPojo> pojos;
-    private BasePresenter basePresenter;
+    private BarChartCardModel barChartCardModel;
 
-    @Bind(R.id.chart) BarChart barChart;
-
-    public BaseRecyclerAdapter(ArrayList<AdapterPojo> pojos, BasePresenter basePresenter) {
+    @Inject
+    public BaseRecyclerAdapter(ArrayList<AdapterPojo> pojos, BarChartCardModel barChartCardModel) {
         this.pojos = pojos;
-        this.basePresenter = basePresenter;
-    }
-
-    public BaseRecyclerAdapter(BasePresenter basePresenter) {
-        this.pojos = new ArrayList<>();
-        this.basePresenter = basePresenter;
+        this.barChartCardModel = barChartCardModel;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
-        BarChartCardView cardView = new BarChartCardView(v, parent.getContext());
+        BarChartCardView cardView = new BarChartCardView(v, parent.getContext(), barChartCardModel);
         return cardView;
-    }
-
-    public void AddItem(AdapterPojo pojo) {
-        pojos.add(pojo);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         // Inflate our jungle view.
         BarChartCardView cardView = (BarChartCardView) holder;
+
+        if (pojos == null) {
+            throw new IllegalStateException("SetData() must be called before binding adapter");
+        }
+
         AdapterPojo data = pojos.get(position);
         cardView.setBarChartData(data);
         cardView.setTitle(data.title);
@@ -66,4 +65,7 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
 
+    public void SetData(ArrayList<AdapterPojo> adapterPojos) {
+        this.pojos = adapterPojos;
+    }
 }
