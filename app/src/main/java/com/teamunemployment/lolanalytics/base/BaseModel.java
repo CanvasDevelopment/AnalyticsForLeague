@@ -64,9 +64,24 @@ public class BaseModel {
         return averagesObservable;
     }
 
-    public Observable<Data> CreateCachedDataObservable(long summonerId, int lane) {
-        Data data = realmInterface.FindDataForRole(mLane, summonerId );
-        return Observable.just(data);
+    public Observable<Data> CreateCachedDataObservable(final long summonerId, final int lane) {
+
+        // Create an observable for fetching our cached data, as we want to get this off of the main thread.
+        Observable observable = Observable.create(new Observable.OnSubscribe<Data>() {
+            @Override
+            public void call(Subscriber<? super Data> subscriber) {
+                Data data = realmInterface.FindDataForRole(lane, summonerId);
+                subscriber.onNext(data);
+                subscriber.onCompleted();
+            }
+        });
+
+        return observable;
+    }
+
+    public Data FetchCachedData(long summonerId, int lane) {
+        Data data = realmInterface.FindDataForRole(lane, summonerId );
+        return data;
     }
 
     /**
@@ -86,7 +101,7 @@ public class BaseModel {
                         return data;
                     }
                 })
-
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Data>() {
                     @Override
                     public void onCompleted() {

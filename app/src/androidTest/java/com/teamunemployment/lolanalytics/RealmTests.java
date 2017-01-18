@@ -6,6 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.test.RenamingDelegatingContext;
 
 import com.teamunemployment.lolanalytics.Base.RealmInterface;
+import com.teamunemployment.lolanalytics.Base.Statics;
 import com.teamunemployment.lolanalytics.Data.Data;
 import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
 
@@ -38,7 +39,7 @@ public class RealmTests {
     public void TestWeCanGetSingleObjectFromRealDb() throws FileNotFoundException {
         RealmInterface realmInterface = new RealmInterface(context);
 
-        AdapterPojo adapterPojo = new AdapterPojo(12, 5, "test", 1, "TOP", -1);
+        AdapterPojo adapterPojo = new AdapterPojo(12, 5, "test", 1, 0, -1);
         realmInterface.WriteSingleObjectToRealm(adapterPojo);
         AdapterPojo result = realmInterface.GetSingleAdapterObect(1);
         Assert.assertEquals(result.getId(), 1);
@@ -52,12 +53,12 @@ public class RealmTests {
         RealmInterface realmInterface = new RealmInterface(context);
 
         ArrayList<AdapterPojo> adapterPojos = new ArrayList<>();
-        AdapterPojo adapterPojo = new AdapterPojo(12, 5, "test", 1, "TOP", -1);
-        AdapterPojo adapterPojo1 = new AdapterPojo(12, 5, "test", 2, "TOP", -1);
-        AdapterPojo adapterPojo2 = new AdapterPojo(12, 5, "test", 3, "TOP", -1);
-        AdapterPojo adapterPojo3 = new AdapterPojo(12, 5, "test", 4, "TOP", -1);
-        AdapterPojo adapterPojo4 = new AdapterPojo(12, 5, "test", 5, "TOP", -1);
-        AdapterPojo adapterPojo5 = new AdapterPojo(12, 5, "test", 6, "TOP", 1);
+        AdapterPojo adapterPojo = new AdapterPojo(12, 5, "test", 1, Statics.TOP, -1);
+        AdapterPojo adapterPojo1 = new AdapterPojo(12, 5, "test", 2, Statics.TOP, -1);
+        AdapterPojo adapterPojo2 = new AdapterPojo(12, 5, "test", 3, Statics.TOP, -1);
+        AdapterPojo adapterPojo3 = new AdapterPojo(12, 5, "test", 4, Statics.TOP, -1);
+        AdapterPojo adapterPojo4 = new AdapterPojo(12, 5, "test", 5, Statics.TOP, -1);
+        AdapterPojo adapterPojo5 = new AdapterPojo(12, 5, "test", 6, Statics.TOP, 1);
 
         adapterPojos.add(adapterPojo);
         adapterPojos.add(adapterPojo1);
@@ -71,7 +72,7 @@ public class RealmTests {
 
         realmInterface.WriteDataObjectToRealm(data);
 
-        Data cached = realmInterface.FindDataForRole("TOP", -1);
+        Data cached = realmInterface.FindDataForRole(Statics.TOP, -1);
 
         Assert.assertEquals(cached.getItems().size(), 5);
         Assert.assertEquals(cached.getItems().get(0).getId(), 1);
@@ -85,9 +86,12 @@ public class RealmTests {
     public void TestThatWeCanUpdateValue() {
         RealmInterface realmInterface = new RealmInterface(context);
 
-        AdapterPojo adapterPojo = new AdapterPojo(12, 5, "test", 1, "TOP", -1);
+        AdapterPojo adapterPojo = new AdapterPojo(12, 5, "test", 1, Statics.TOP, -1);
         realmInterface.WriteSingleObjectToRealm(adapterPojo);
         AdapterPojo result = realmInterface.GetSingleAdapterObect(1);
+        // Need to re init real so we dont get errors
+        Realm.init(context);
+        Realm.getDefaultInstance();
         Assert.assertEquals(result.getId(), 1);
         Assert.assertEquals(result.getEnemyStats(), 12.0);
         Assert.assertEquals(result.getFriendlyStats(), 5.0);

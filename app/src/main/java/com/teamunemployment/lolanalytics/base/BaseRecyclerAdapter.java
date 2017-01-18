@@ -28,8 +28,7 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private BarChartCardModel barChartCardModel;
 
     @Inject
-    public BaseRecyclerAdapter(ArrayList<AdapterPojo> pojos, BarChartCardModel barChartCardModel) {
-        this.pojos = pojos;
+    public BaseRecyclerAdapter(BarChartCardModel barChartCardModel) {
         this.barChartCardModel = barChartCardModel;
     }
 

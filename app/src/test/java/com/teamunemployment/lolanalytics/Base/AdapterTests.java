@@ -28,7 +28,7 @@ public class AdapterTests {
 
     @Test(expected = IllegalStateException.class)
     public void TestThatWeGetIllegalStateExceptionIfWeBindBeforeSettingData() {
-        BaseRecyclerAdapter baseRecyclerAdapter = new BaseRecyclerAdapter(null, mock(BarChartCardModel.class));
+        BaseRecyclerAdapter baseRecyclerAdapter = new BaseRecyclerAdapter(mock(BarChartCardModel.class));
         baseRecyclerAdapter.onBindViewHolder(mock(BarChartCardView.class), 1);
     }
 

@@ -13,7 +13,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * Created by jek40 on 18/01/2017.
+ * @author Josiah Kendall.
+ *
+ * This is the model for our Adapter
  */
 
 public class BarChartCardModel {

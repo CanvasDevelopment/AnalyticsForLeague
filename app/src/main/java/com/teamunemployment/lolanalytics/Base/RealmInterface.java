@@ -11,6 +11,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import rx.Observable;
 
 /**
  * @author Josiah Kendall
@@ -21,6 +22,7 @@ import io.realm.RealmResults;
  */
 public class RealmInterface {
     private Context context;
+    private Realm currentRealm;
     public RealmInterface(Context context) {
         this.context = context;
     }
@@ -33,7 +35,10 @@ public class RealmInterface {
     public AdapterPojo GetSingleAdapterObect(int id) {
         Realm.init(context);
         Realm realm = Realm.getDefaultInstance();
-        return findSingleObjectUsingReal(realm, id);
+        currentRealm = realm;
+        AdapterPojo adapterPojo = findSingleObjectUsingReal(realm, id);
+
+        return adapterPojo;
     }
 
     // Private version for
@@ -60,7 +65,7 @@ public class RealmInterface {
      * @param summonerId The summonerId we are filtering by.
      * @return The results.
      */
-    private RealmResults<AdapterPojo> findSingleObjectUsingRole(Realm realm, String role, long summonerId) {
+    private RealmResults<AdapterPojo> findSingleObjectUsingRole(Realm realm, int role, long summonerId) {
         return realm.where(AdapterPojo.class).equalTo("role", role).equalTo("summonerId", summonerId).findAll();
     }
 
@@ -97,7 +102,7 @@ public class RealmInterface {
         }
     }
 
-    public Data FindDataForRole(String role, long summonerId) {
+    public Data FindDataForRole(int role, long summonerId) {
         Realm.init(context);
         Realm realm = Realm.getDefaultInstance();
         RealmResults<AdapterPojo> results = findSingleObjectUsingRole(realm, role, summonerId);
@@ -107,6 +112,10 @@ public class RealmInterface {
         data.setRole(role);
         data.setItems(items);
         return data;
+    }
+
+    public void Close() {
+        currentRealm.close();
     }
 
 }

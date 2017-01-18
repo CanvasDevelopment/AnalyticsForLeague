@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * @author Josiah Kendall.
@@ -26,21 +30,39 @@ public class BasePresenter implements ModelPresenterContract {
         this.baseRecyclerAdapter = baseRecyclerAdapter;
     }
 
-    public BasePresenter(BaseModel baseModel) {
-        this.baseRecyclerAdapter = null;
-        this.baseModel = baseModel;
-    }
-
     /**
-     * Trigger the loading
+     * Trigger the loading, from both the cache and network.
      */
     @Override
     public void start(int lane) {
         // Load data
-        Observable<Data> dataObservable = baseModel.CreateLaneDataObservable(-1, lane);
         Observable<Data> cachedDataObservable = baseModel.CreateCachedDataObservable(-1, lane);
-        dataObservable.mergeWith(cachedDataObservable);
+        cachedDataObservable.
+                // This is bad TODO find a solution
+                subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Data>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Data data) {
+                        addDataToAdapter(new ArrayList<AdapterPojo>(data.getItems()));
+                    }
+                });
+
+        Observable<Data> dataObservable = baseModel.CreateLaneDataObservable(-1, lane);
+        // dataObservable.mergeWith(cachedDataObservable);
         baseModel.FetchData(this, dataObservable);
+
+
     }
 
     /**

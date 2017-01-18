@@ -17,10 +17,10 @@ import io.realm.annotations.PrimaryKey;
  */
 public class Data {
 
-    public String role;
+    public int role;
     public List<AdapterPojo> items;
 
-    public void setRole(String role) {
+    public void setRole(int role) {
         this.role = role;
     }
 
@@ -29,7 +29,7 @@ public class Data {
 
     }
 
-    public String getRole() {
+    public int getRole() {
         return role;
     }
 

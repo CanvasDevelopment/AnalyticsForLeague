@@ -3,6 +3,7 @@ package com.teamunemployment.lolanalytics.DependencyInjection;
 import android.app.Application;
 import android.content.Context;
 
+import com.teamunemployment.lolanalytics.Base.BaseRecyclerAdapter;
 import com.teamunemployment.lolanalytics.Base.RealmInterface;
 import com.teamunemployment.lolanalytics.Jungle.Model.BarChartCardModel;
 import com.teamunemployment.lolanalytics.Jungle.Model.BarChartFactory;
@@ -62,12 +63,17 @@ public class ComponentModule {
     }
 
     @Provides
-    BasePresenter provideJunglePresenter(BaseModel baseModel) {
-        return new BasePresenter(baseModel);
+    BasePresenter provideBasePresenter(BaseModel baseModel, BaseRecyclerAdapter baseRecyclerAdapter) {
+        return new BasePresenter(baseModel, baseRecyclerAdapter);
     }
 
     @Provides
-    BarChartCardModel provideBarChartCardModel(BarChartFactory barChartFactory, Context context) {
+    BarChartCardModel provideBarChartCardModel(BarChartFactory barChartFactory) {
         return new BarChartCardModel(barChartFactory);
+    }
+
+    @Provides
+    BaseRecyclerAdapter provideBaseRecyclerAdapter(BarChartCardModel barChartCardModel) {
+        return new BaseRecyclerAdapter(barChartCardModel);
     }
 }
