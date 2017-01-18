@@ -16,10 +16,10 @@ public class AdapterPojo extends RealmObject {
     private double enemyStats;
     private double friendlyStats;
     private String role;
+    private long summonerId;
 
-    public AdapterPojo() {
-
-    }
+    // Default constructor required for realm
+    public AdapterPojo() {}
 
     public int getId() {
         return id;
@@ -61,6 +61,14 @@ public class AdapterPojo extends RealmObject {
         return title;
     }
 
+    public long getSummonerId() {
+        return summonerId;
+    }
+
+    public void setSummonerId(long summonerId) {
+        this.summonerId = summonerId;
+    }
+
     public AdapterPojo(Double ememyStats, Double friendlyStats) {
         this.enemyStats = ememyStats;
         this.friendlyStats = friendlyStats;
@@ -77,11 +85,12 @@ public class AdapterPojo extends RealmObject {
         this.title = title;
     }
 
-    public AdapterPojo(int enemyStats, int friendlyStats, String title, int id, String role) {
+    public AdapterPojo(int enemyStats, int friendlyStats, String title, int id, String role, int summonerId) {
         this.enemyStats = enemyStats;
         this.friendlyStats = friendlyStats;
         this.title = title;
         this.id = id;
         this.role = role;
+        this.summonerId = summonerId;
     }
 }

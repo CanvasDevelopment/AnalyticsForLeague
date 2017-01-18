@@ -3,6 +3,7 @@ package com.teamunemployment.lolanalytics.DependencyInjection;
 import android.app.Application;
 import android.content.Context;
 
+import com.teamunemployment.lolanalytics.Base.RealmInterface;
 import com.teamunemployment.lolanalytics.Jungle.Model.BarChartCardModel;
 import com.teamunemployment.lolanalytics.Jungle.Model.BarChartFactory;
 import com.teamunemployment.lolanalytics.Base.BaseModel;
@@ -12,6 +13,7 @@ import com.teamunemployment.lolanalytics.Mock.MockHttpClient;
 
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -22,7 +24,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  *
  * Provide the dependencies.
  */
-
 @Module
 public class ComponentModule {
 
@@ -50,8 +51,14 @@ public class ComponentModule {
     }
 
     @Provides
-    BaseModel provideJungleModel(Api api) {
-        return new BaseModel(api);
+    RealmInterface provideRealmInterface(Context context) {
+        RealmInterface realmInterface = new RealmInterface(context);
+        return realmInterface;
+    }
+
+    @Provides
+    BaseModel provideJungleModel(Api api, RealmInterface realmInterface) {
+        return new BaseModel(api,realmInterface );
     }
 
     @Provides

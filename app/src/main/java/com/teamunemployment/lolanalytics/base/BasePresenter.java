@@ -38,6 +38,8 @@ public class BasePresenter implements ModelPresenterContract {
     public void start(int lane) {
         // Load data
         Observable<Data> dataObservable = baseModel.CreateLaneDataObservable(-1, lane);
+        Observable<Data> cachedDataObservable = baseModel.CreateCachedDataObservable(-1, lane);
+        dataObservable.mergeWith(cachedDataObservable);
         baseModel.FetchData(this, dataObservable);
     }
 

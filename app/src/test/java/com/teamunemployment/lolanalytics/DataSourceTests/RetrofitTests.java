@@ -73,7 +73,7 @@ public class RetrofitTests {
 
                     @Override
                     public void onNext(Data adapterPojo) {
-                        Assert.assertEquals(5.21, adapterPojo.items.get(0).enemyStats);
+                        Assert.assertEquals(5.21, adapterPojo.items.get(0).getEnemyStats());
                     }
                 });
     }

@@ -17,12 +17,14 @@ public class ModelTests {
 
     BaseModel baseModel;
     Api api;
+    RealmInterface realmInterface;
     ModelPresenterContract modelPresenterContract;
 
     @Before
     public void init() {
         api = mock(Api.class);
-        baseModel = new BaseModel(api);
+        realmInterface = mock(RealmInterface.class);
+        baseModel = new BaseModel(api, realmInterface);
         modelPresenterContract = mock(ModelPresenterContract.class);
     }
 

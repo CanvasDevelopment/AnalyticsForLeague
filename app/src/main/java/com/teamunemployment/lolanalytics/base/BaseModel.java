@@ -12,6 +12,7 @@ import rx.Observable;
 import rx.Subscriber;
 
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -23,9 +24,11 @@ public class BaseModel {
 
     private static final String TAG = "BaseModel";
     private Api api;
-
-    public BaseModel(Api api) {
+    private RealmInterface realmInterface;
+    private String mLane;
+    public BaseModel(Api api, RealmInterface realmInterface) {
         this.api = api;
+        this.realmInterface = realmInterface;
     }
 
     /**
@@ -38,22 +41,32 @@ public class BaseModel {
         switch (lane) {
             case Statics.TOP:
                 averagesObservable = api.GetTopStatsForSummoner(summonerId);
+                mLane = "TOP";
                 break;
             case Statics.JUNGLE:
+                mLane = "JUNGLE";
                 averagesObservable = api.GetJungleStatsForSummoner(summonerId);
                 break;
             case Statics.MID:
+                mLane = "MID";
                 averagesObservable = api.GetMidStatsForSummoner(summonerId);
                 break;
             case Statics.ADC:
+                mLane = "ADC";
                 averagesObservable = api.GetAdcStatsForSummoner(summonerId);
                 break;
             case Statics.SUPPORT:
+                mLane = "SUPPORT";
                 averagesObservable = api.GetSupportStats(summonerId);
                 break;
         }
 
         return averagesObservable;
+    }
+
+    public Observable<Data> CreateCachedDataObservable(long summonerId, int lane) {
+        Data data = realmInterface.FindDataForRole(mLane, summonerId );
+        return Observable.just(data);
     }
 
     /**
@@ -64,24 +77,32 @@ public class BaseModel {
 
         // Send the request on a new thread, but observe on the main thread.
         averagesObservable
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Subscriber<Data>() {
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.computation())
+                .map(new Func1<Data, Data>() {
+                    @Override
+                    public Data call(Data data) {
+                        realmInterface.WriteDataObjectToRealm(data);
+                        return data;
+                    }
+                })
 
-                @Override
-                public void onCompleted() {
-                }
+                .subscribe(new Subscriber<Data>() {
+                    @Override
+                    public void onCompleted() {
 
-                @Override
-                public void onError(Throwable e) {
-                    modelPresenterContract.handleError(e);
-                }
+                    }
 
-                @Override
-                public void onNext(Data adapterPojosDataSource) {
-                    modelPresenterContract.addDataToAdapter(new ArrayList<AdapterPojo>(adapterPojosDataSource.items));
-                }
-            });
+                    @Override
+                    public void onError(Throwable e) {
+                        modelPresenterContract.handleError(e);
+                    }
+
+                    @Override
+                    public void onNext(Data data) {
+                        modelPresenterContract.addDataToAdapter(new ArrayList<AdapterPojo>(data.getItems()));
+                    }
+                });
     }
 
     /**
@@ -100,7 +121,10 @@ public class BaseModel {
         return new Long(-1);
     }
 
+    private void mapResults(Data data) {
 
+
+    }
 
 }
 
