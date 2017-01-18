@@ -1,7 +1,7 @@
 package com.teamunemployment.lolanalytics.Base;
 
 import com.teamunemployment.lolanalytics.Data.Data;
-import com.teamunemployment.lolanalytics.Jungle.Contracts.ModelPresenterContract;
+import com.teamunemployment.lolanalytics.Contracts.ModelPresenterContract;
 import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
 
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import rx.Observable;
 
 /**
  * @author Josiah Kendall.
+ * Presenter for the tabs.
  */
 public class BasePresenter implements ModelPresenterContract {
 

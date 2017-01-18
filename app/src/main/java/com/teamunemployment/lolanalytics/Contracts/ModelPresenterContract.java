@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.Jungle.Contracts;
+package com.teamunemployment.lolanalytics.Contracts;
 
 import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
 import com.teamunemployment.lolanalytics.Base.ViewFragmentContract;

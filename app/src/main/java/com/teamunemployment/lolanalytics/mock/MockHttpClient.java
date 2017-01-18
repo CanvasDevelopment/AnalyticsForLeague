@@ -14,7 +14,7 @@ import okhttp3.ResponseBody;
 /**
  * @author Josiah Kendall.
  *
- * Used to create mock responses from retrofit, so that we can test out our
+ * Used to create mock responses to retrofit, so that we can test out our
  * the consumption of our server methods in terms of response -> object.
  */
 

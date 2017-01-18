@@ -30,8 +30,8 @@ public class BarChartCardModel {
         List<BarEntry> entries = new ArrayList<>();
 
         // Create an entry for the user, and the enemy info. Add them to the chart entry list.
-        BarEntry me = barChartFactory.GenerateBarEntry(0f, new Float(adapterPojo.friendlyStats));
-        BarEntry them = barChartFactory.GenerateBarEntry(1f, new Float(adapterPojo.enemyStats));
+        BarEntry me = barChartFactory.GenerateBarEntry(0f, new Float(adapterPojo.getFriendlyStats()));
+        BarEntry them = barChartFactory.GenerateBarEntry(1f, new Float(adapterPojo.getEnemyStats()));
         entries.add(me);
         entries.add(them);
 

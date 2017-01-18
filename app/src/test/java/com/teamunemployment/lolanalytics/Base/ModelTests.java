@@ -1,6 +1,6 @@
 package com.teamunemployment.lolanalytics.Base;
 
-import com.teamunemployment.lolanalytics.Jungle.Contracts.ModelPresenterContract;
+import com.teamunemployment.lolanalytics.Contracts.ModelPresenterContract;
 import com.teamunemployment.lolanalytics.RESTService.Api;
 
 import org.junit.Before;

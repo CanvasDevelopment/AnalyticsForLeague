@@ -19,6 +19,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author Josiah Kendall
+ *
+ * Provide the dependencies.
  */
 
 @Module

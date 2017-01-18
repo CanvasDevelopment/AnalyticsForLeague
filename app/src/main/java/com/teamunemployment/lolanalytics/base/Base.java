@@ -41,7 +41,7 @@ public class Base extends AppCompatActivity {
     }
 
     /**
-     * Set up colors and buttons and click handlers
+     * Set up colors and buttons and click handlers. Somewhat long method but there is no real logic.
      */
     private void setUpBottomBar() {
 
@@ -96,12 +96,13 @@ public class Base extends AppCompatActivity {
     }
 
     /**
-     * Create fragments, and add them to our frag controller.
+     * Create fragments for the different tabs, and add them to our frag controller.
      * @param savedInstanceState
      */
     private void setUpFragments(Bundle savedInstanceState) {
         List<Fragment> fragments = new ArrayList<>(4);
-        // fragments.add(new HomeTabFragment());
+
+        // Our fragments are all the same, except for the data that they are loading. We set the desired data using setRole(ROLE)
         ViewFragment topView = new ViewFragment();
         topView.setRole(Statics.TOP);
         ViewFragment jungleView = new ViewFragment();
@@ -119,6 +120,7 @@ public class Base extends AppCompatActivity {
         fragments.add(adcView);
         fragments.add(supportView);
         fragNavController = new FragNavController(savedInstanceState, getSupportFragmentManager(),R.id.fragment_container,fragments, FragNavController.TAB1);
+        //refresh.
         fragNavController.clearStack();
     }
 }

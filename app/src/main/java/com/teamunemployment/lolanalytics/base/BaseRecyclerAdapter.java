@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 
 /**
- * Adapter for the jungle recycler view.
+ * Adapter for the recycler view used in the tabs.
  */
 public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -51,7 +51,7 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         AdapterPojo data = pojos.get(position);
         cardView.setBarChartData(data);
-        cardView.setTitle(data.title);
+        cardView.setTitle(data.getTitle());
     }
 
     @Override
