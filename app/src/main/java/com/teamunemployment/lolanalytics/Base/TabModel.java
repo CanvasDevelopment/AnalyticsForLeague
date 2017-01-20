@@ -25,13 +25,13 @@ import rx.schedulers.Schedulers;
  *  - Locally cached Realm Database
  *  - Remote Server.
  */
-public class BaseModel {
-    private static final String TAG = "BaseModel";
+public class TabModel {
+    private static final String TAG = "TabModel";
     private RESTApiExecutor RESTApiExecutor;
     private RealmExecutor realmExecutor;
     private Context context;
 
-    public BaseModel(RESTApiExecutor RESTApiExecutor, RealmExecutor realmExecutor, Context context) {
+    public TabModel(RESTApiExecutor RESTApiExecutor, RealmExecutor realmExecutor, Context context) {
         this.RESTApiExecutor = RESTApiExecutor;
         this.realmExecutor = realmExecutor;
         this.context = context;

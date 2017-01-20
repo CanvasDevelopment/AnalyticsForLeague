@@ -5,9 +5,9 @@ import android.content.Context;
 
 import com.teamunemployment.lolanalytics.Base.BaseRecyclerAdapter;
 import com.teamunemployment.lolanalytics.Base.RealmExecutor;
+import com.teamunemployment.lolanalytics.Base.TabModel;
 import com.teamunemployment.lolanalytics.Jungle.Model.BarChartCardModel;
 import com.teamunemployment.lolanalytics.Jungle.Model.BarChartFactory;
-import com.teamunemployment.lolanalytics.Base.BaseModel;
 import com.teamunemployment.lolanalytics.Base.BasePresenter;
 import com.teamunemployment.lolanalytics.RESTService.RESTApiExecutor;
 
@@ -55,13 +55,13 @@ public class ComponentModule {
     }
 
     @Provides
-    BaseModel provideJungleModel(RESTApiExecutor RESTApiExecutor, RealmExecutor realmExecutor, Context context) {
-        return new BaseModel(RESTApiExecutor, realmExecutor, context);
+    TabModel provideJungleModel(RESTApiExecutor RESTApiExecutor, RealmExecutor realmExecutor, Context context) {
+        return new TabModel(RESTApiExecutor, realmExecutor, context);
     }
 
     @Provides
-    BasePresenter provideBasePresenter(BaseModel baseModel, BaseRecyclerAdapter baseRecyclerAdapter) {
-        return new BasePresenter(baseModel, baseRecyclerAdapter);
+    BasePresenter provideBasePresenter(TabModel tabModel, BaseRecyclerAdapter baseRecyclerAdapter) {
+        return new BasePresenter(tabModel, baseRecyclerAdapter);
     }
 
     @Provides

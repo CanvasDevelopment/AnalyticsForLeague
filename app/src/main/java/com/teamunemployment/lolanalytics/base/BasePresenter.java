@@ -20,12 +20,12 @@ public class BasePresenter implements PresenterContract {
 
     private static final String TAG = "Presenter";
     private ViewFragmentContract view;
-    private BaseModel baseModel;
+    private TabModel tabModel;
     private BaseRecyclerAdapter baseRecyclerAdapter;
 
     @Inject
-    public BasePresenter(BaseModel baseModel, BaseRecyclerAdapter baseRecyclerAdapter) {
-        this.baseModel = baseModel;
+    public BasePresenter(TabModel tabModel, BaseRecyclerAdapter baseRecyclerAdapter) {
+        this.tabModel = tabModel;
         this.baseRecyclerAdapter = baseRecyclerAdapter;
     }
 
@@ -35,12 +35,12 @@ public class BasePresenter implements PresenterContract {
     @Override
     public void start(int lane) {
         // The data we need. Cached first, then replaced by fresh.
-        Observable<Data> cachedDataObservable = baseModel.CreateCachedDataObservable(-1, lane);
+        Observable<Data> cachedDataObservable = tabModel.CreateCachedDataObservable(-1, lane);
         // subscribes to the cached data in here to trigger the realm query.
-        baseModel.FetchCacheData(this, cachedDataObservable);
-        Observable<Data> dataObservable = baseModel.CreateLaneDataObservable(-1, lane);
+        tabModel.FetchCacheData(this, cachedDataObservable);
+        Observable<Data> dataObservable = tabModel.CreateLaneDataObservable(-1, lane);
         // subscribes to the remote data in here to trigger the network request..
-        baseModel.FetchData(this, dataObservable);
+        tabModel.FetchData(this, dataObservable);
     }
 
     /**
