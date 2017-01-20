@@ -21,16 +21,16 @@ import rx.schedulers.Schedulers;
 /**
  * @author Josiah Kendall
  *
- * This is main interactor for two repositories.
+ * This is the main interactor for two repositories.
  *  - Locally cached Realm Database
  *  - Remote Server.
  */
 public class BaseModel {
-
     private static final String TAG = "BaseModel";
     private RESTApiExecutor RESTApiExecutor;
     private RealmExecutor realmExecutor;
     private Context context;
+
     public BaseModel(RESTApiExecutor RESTApiExecutor, RealmExecutor realmExecutor, Context context) {
         this.RESTApiExecutor = RESTApiExecutor;
         this.realmExecutor = realmExecutor;
@@ -65,6 +65,12 @@ public class BaseModel {
         return averagesObservable;
     }
 
+    /**
+     * Create an observable that we can use to fetch the cached data from our database.
+     * @param summonerId
+     * @param lane
+     * @return
+     */
     public Observable<Data> CreateCachedDataObservable(final long summonerId, final int lane) {
 
         // Create an observable for fetching our cached data, as we want to get this off of the main thread.
@@ -83,10 +89,11 @@ public class BaseModel {
     }
 
     /**
-     * Fetch data for top lane
-     * @param presenterContract
+     * Fetch data using an observable, and the call the write data object on the presenter that was used.
+     * This is done to keep the presenter as thin as possible.
+     * @param presenter
      */
-    public void FetchData(final PresenterContract presenterContract, Observable<Data> averagesObservable) {
+    public void FetchData(final PresenterContract presenter, Observable<Data> averagesObservable) {
 
         // Send the request on a new thread, but observe on the main thread.
         averagesObservable
@@ -109,12 +116,12 @@ public class BaseModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        presenterContract.handleError(e);
+                        presenter.handleError(e);
                     }
 
                     @Override
                     public void onNext(Data data) {
-                        presenterContract.addDataToAdapter(new ArrayList<CardData>(data.getItems()));
+                        presenter.addDataToAdapter(new ArrayList<CardData>(data.getItems()));
                     }
                 });
     }
