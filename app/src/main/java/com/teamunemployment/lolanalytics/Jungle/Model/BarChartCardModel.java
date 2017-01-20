@@ -1,11 +1,8 @@
 package com.teamunemployment.lolanalytics.Jungle.Model;
 
-import android.content.Context;
-
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.teamunemployment.lolanalytics.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +24,13 @@ public class BarChartCardModel {
         this.barChartFactory = barChartFactory;
     }
 
-    public BarDataSet FetchBarDataSet(AdapterPojo adapterPojo) {
+    public BarDataSet FetchBarDataSet(CardData cardData) {
         // We have our bar chart. Now we need to add stuff to it.
         List<BarEntry> entries = new ArrayList<>();
 
         // Create an entry for the user, and the enemy info. Add them to the chart entry list.
-        BarEntry me = barChartFactory.GenerateBarEntry(0f, new Float(adapterPojo.getFriendlyStats()));
-        BarEntry them = barChartFactory.GenerateBarEntry(1f, new Float(adapterPojo.getEnemyStats()));
+        BarEntry me = barChartFactory.GenerateBarEntry(0f, new Float(cardData.getFriendlyStats()));
+        BarEntry them = barChartFactory.GenerateBarEntry(1f, new Float(cardData.getEnemyStats()));
         entries.add(me);
         entries.add(them);
 

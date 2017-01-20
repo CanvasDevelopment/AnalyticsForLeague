@@ -1,9 +1,7 @@
 package com.teamunemployment.lolanalytics.DataSourceTests;
 
-import android.content.Context;
-
 import com.teamunemployment.lolanalytics.Data.Data;
-import com.teamunemployment.lolanalytics.RESTService.Api;
+import com.teamunemployment.lolanalytics.RESTService.RESTApiExecutor;
 import com.teamunemployment.lolanalytics.Mock.MockHttpClient;
 
 import junit.framework.Assert;
@@ -55,8 +53,8 @@ public class RetrofitTests {
                 .client(okHttpClient)
                 .build();
 
-        Api api = retrofit.create(Api.class);
-        Observable<Data> averagesObservable = api.GetMidStatsForSummoner(1234567);
+        RESTApiExecutor RESTApiExecutor = retrofit.create(RESTApiExecutor.class);
+        Observable<Data> averagesObservable = RESTApiExecutor.GetMidStatsForSummoner(1234567);
         averagesObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(mock(Scheduler.class))
                 .subscribe(new Subscriber<Data>() {

@@ -1,25 +1,24 @@
 package com.teamunemployment.lolanalytics.Base;
 
+import android.util.Log;
+
 import com.teamunemployment.lolanalytics.Data.Data;
-import com.teamunemployment.lolanalytics.Contracts.ModelPresenterContract;
-import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
+import com.teamunemployment.lolanalytics.Contracts.PresenterContract;
+import com.teamunemployment.lolanalytics.Jungle.Model.CardData;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * @author Josiah Kendall.
  * Presenter for the tabs.
  */
-public class BasePresenter implements ModelPresenterContract {
+public class BasePresenter implements PresenterContract {
 
+    private static final String TAG = "Presenter";
     private ViewFragmentContract view;
     private BaseModel baseModel;
     private BaseRecyclerAdapter baseRecyclerAdapter;
@@ -35,34 +34,13 @@ public class BasePresenter implements ModelPresenterContract {
      */
     @Override
     public void start(int lane) {
-        // Load data
+        // The data we need. Cached first, then replaced by fresh.
         Observable<Data> cachedDataObservable = baseModel.CreateCachedDataObservable(-1, lane);
-        cachedDataObservable.
-                // This is bad TODO find a solution
-                subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Data>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(Data data) {
-                        addDataToAdapter(new ArrayList<AdapterPojo>(data.getItems()));
-                    }
-                });
-
+        // subscribes to the cached data in here to trigger the realm query.
+        baseModel.FetchCacheData(this, cachedDataObservable);
         Observable<Data> dataObservable = baseModel.CreateLaneDataObservable(-1, lane);
-        // dataObservable.mergeWith(cachedDataObservable);
+        // subscribes to the remote data in here to trigger the network request..
         baseModel.FetchData(this, dataObservable);
-
-
     }
 
     /**
@@ -77,22 +55,22 @@ public class BasePresenter implements ModelPresenterContract {
                     "the view is constructed using setRole(int)");
         }
         this.view = view;
+        // Now we have a view to present to, we can start loading.
         start(lane);
     }
 
     @Override
     public void handleError(Throwable e) {
-
+        Log.e(TAG, e.getMessage());
     }
-
 
     public void showMessageToUser(String s) {
         view.showMessage(s);
     }
 
     @Override
-    public void addDataToAdapter(ArrayList<AdapterPojo> adapterPojos) {
-        baseRecyclerAdapter.SetData(adapterPojos);
+    public void addDataToAdapter(ArrayList<CardData> cardDatas) {
+        baseRecyclerAdapter.SetData(cardDatas);
         view.setJungleAdapter(baseRecyclerAdapter);
     }
 }

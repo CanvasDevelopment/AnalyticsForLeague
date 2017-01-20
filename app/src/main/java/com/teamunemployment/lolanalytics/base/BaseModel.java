@@ -1,13 +1,16 @@
 package com.teamunemployment.lolanalytics.Base;
 
+import android.content.Context;
+
 import com.teamunemployment.lolanalytics.Data.Data;
 import com.teamunemployment.lolanalytics.Data.LongWrapper;
-import com.teamunemployment.lolanalytics.Contracts.ModelPresenterContract;
-import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
-import com.teamunemployment.lolanalytics.RESTService.Api;
+import com.teamunemployment.lolanalytics.Contracts.PresenterContract;
+import com.teamunemployment.lolanalytics.Jungle.Model.CardData;
+import com.teamunemployment.lolanalytics.RESTService.RESTApiExecutor;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -18,17 +21,20 @@ import rx.schedulers.Schedulers;
 /**
  * @author Josiah Kendall
  *
- * The model layer for our jungle fragment view.
+ * This is main interactor for two repositories.
+ *  - Locally cached Realm Database
+ *  - Remote Server.
  */
 public class BaseModel {
 
     private static final String TAG = "BaseModel";
-    private Api api;
-    private RealmInterface realmInterface;
-    private String mLane;
-    public BaseModel(Api api, RealmInterface realmInterface) {
-        this.api = api;
-        this.realmInterface = realmInterface;
+    private RESTApiExecutor RESTApiExecutor;
+    private RealmExecutor realmExecutor;
+    private Context context;
+    public BaseModel(RESTApiExecutor RESTApiExecutor, RealmExecutor realmExecutor, Context context) {
+        this.RESTApiExecutor = RESTApiExecutor;
+        this.realmExecutor = realmExecutor;
+        this.context = context;
     }
 
     /**
@@ -40,24 +46,19 @@ public class BaseModel {
         Observable<Data> averagesObservable = null;
         switch (lane) {
             case Statics.TOP:
-                averagesObservable = api.GetTopStatsForSummoner(summonerId);
-                mLane = "TOP";
+                averagesObservable = RESTApiExecutor.GetTopStatsForSummoner(summonerId);
                 break;
             case Statics.JUNGLE:
-                mLane = "JUNGLE";
-                averagesObservable = api.GetJungleStatsForSummoner(summonerId);
+                averagesObservable = RESTApiExecutor.GetJungleStatsForSummoner(summonerId);
                 break;
             case Statics.MID:
-                mLane = "MID";
-                averagesObservable = api.GetMidStatsForSummoner(summonerId);
+                averagesObservable = RESTApiExecutor.GetMidStatsForSummoner(summonerId);
                 break;
             case Statics.ADC:
-                mLane = "ADC";
-                averagesObservable = api.GetAdcStatsForSummoner(summonerId);
+                averagesObservable = RESTApiExecutor.GetAdcStatsForSummoner(summonerId);
                 break;
             case Statics.SUPPORT:
-                mLane = "SUPPORT";
-                averagesObservable = api.GetSupportStats(summonerId);
+                averagesObservable = RESTApiExecutor.GetSupportStats(summonerId);
                 break;
         }
 
@@ -70,7 +71,9 @@ public class BaseModel {
         Observable observable = Observable.create(new Observable.OnSubscribe<Data>() {
             @Override
             public void call(Subscriber<? super Data> subscriber) {
-                Data data = realmInterface.FindDataForRole(lane, summonerId);
+                Realm.init(context);
+                Realm realm = Realm.getDefaultInstance();
+                Data data = realmExecutor.FindDataForRole(lane, summonerId, realm);
                 subscriber.onNext(data);
                 subscriber.onCompleted();
             }
@@ -79,25 +82,21 @@ public class BaseModel {
         return observable;
     }
 
-    public Data FetchCachedData(long summonerId, int lane) {
-        Data data = realmInterface.FindDataForRole(lane, summonerId );
-        return data;
-    }
-
     /**
      * Fetch data for top lane
-     * @param modelPresenterContract
+     * @param presenterContract
      */
-    public void FetchData(final ModelPresenterContract modelPresenterContract, Observable<Data> averagesObservable) {
+    public void FetchData(final PresenterContract presenterContract, Observable<Data> averagesObservable) {
 
         // Send the request on a new thread, but observe on the main thread.
         averagesObservable
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.computation())
+                // Use the map to write to the database.
                 .map(new Func1<Data, Data>() {
                     @Override
                     public Data call(Data data) {
-                        realmInterface.WriteDataObjectToRealm(data);
+                        realmExecutor.WriteDataObjectToRealm(data);
                         return data;
                     }
                 })
@@ -110,12 +109,12 @@ public class BaseModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        modelPresenterContract.handleError(e);
+                        presenterContract.handleError(e);
                     }
 
                     @Override
                     public void onNext(Data data) {
-                        modelPresenterContract.addDataToAdapter(new ArrayList<AdapterPojo>(data.getItems()));
+                        presenterContract.addDataToAdapter(new ArrayList<CardData>(data.getItems()));
                     }
                 });
     }
@@ -128,7 +127,7 @@ public class BaseModel {
      */
     public Observable<LongWrapper> GetSummonerIdUsingSummonerName(String summonerName, String region) {
 
-        Observable<LongWrapper> idResultObservable = api.GetSummonerId(summonerName, region);
+        Observable<LongWrapper> idResultObservable = RESTApiExecutor.GetSummonerId(summonerName, region);
         return idResultObservable;
     }
 
@@ -141,5 +140,26 @@ public class BaseModel {
 
     }
 
+    public void FetchCacheData(final PresenterContract presenterContract, Observable<Data> cachedDataObservable) {
+        cachedDataObservable.
+                subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Data>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Data data) {
+                        presenterContract.addDataToAdapter(new ArrayList<CardData>(data.getItems()));
+                    }
+                });
+    }
 }
 

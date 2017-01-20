@@ -8,7 +8,7 @@ import io.realm.annotations.PrimaryKey;
  *
  * Data fetching not yet implemented.
  */
-public class AdapterPojo extends RealmObject {
+public class CardData extends RealmObject {
 
     @PrimaryKey
     private int id;
@@ -19,7 +19,7 @@ public class AdapterPojo extends RealmObject {
     private long summonerId;
 
     // Default constructor required for realm
-    public AdapterPojo() {}
+    public CardData() {}
 
     public int getId() {
         return id;
@@ -69,23 +69,23 @@ public class AdapterPojo extends RealmObject {
         this.summonerId = summonerId;
     }
 
-    public AdapterPojo(Double ememyStats, Double friendlyStats) {
+    public CardData(Double ememyStats, Double friendlyStats) {
         this.enemyStats = ememyStats;
         this.friendlyStats = friendlyStats;
     }
 
-    public AdapterPojo(int enemyStats, int friendlyStats) {
+    public CardData(int enemyStats, int friendlyStats) {
         this.enemyStats = new Double(enemyStats);
         this.friendlyStats = new Double(friendlyStats);
     }
 
-    public AdapterPojo(int enemyStats, int friendlyStats, String title) {
+    public CardData(int enemyStats, int friendlyStats, String title) {
         this.enemyStats = enemyStats;
         this.friendlyStats = friendlyStats;
         this.title = title;
     }
 
-    public AdapterPojo(int enemyStats, int friendlyStats, String title, int id, int role, int summonerId) {
+    public CardData(int enemyStats, int friendlyStats, String title, int id, int role, int summonerId) {
         this.enemyStats = enemyStats;
         this.friendlyStats = friendlyStats;
         this.title = title;

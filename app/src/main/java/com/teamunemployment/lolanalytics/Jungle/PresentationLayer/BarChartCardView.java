@@ -13,14 +13,9 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.teamunemployment.lolanalytics.Jungle.Model.BarChartCardModel;
-import com.teamunemployment.lolanalytics.Jungle.Model.BarChartFactory;
-import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
+import com.teamunemployment.lolanalytics.Jungle.Model.CardData;
 import com.teamunemployment.lolanalytics.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -58,11 +53,11 @@ public class BarChartCardView extends RecyclerView.ViewHolder implements ChartCa
     }
     /**
      * Set the data to the bar chart.
-     * @param adapterPojo The pojo with the data on it.
+     * @param cardData The pojo with the data on it.
      */
-    public void setBarChartData(AdapterPojo adapterPojo) {
+    public void setBarChartData(CardData cardData) {
 
-        BarDataSet barDataSet = barChartCardModel.FetchBarDataSet(adapterPojo);
+        BarDataSet barDataSet = barChartCardModel.FetchBarDataSet(cardData);
         barDataSet.setValueTextColor(context.getResources().getColor(R.color.grey));
         barDataSet.setColors(new int[]{R.color.teal, R.color.pink}, context); // Would be real cool to not use context here if possible.
 

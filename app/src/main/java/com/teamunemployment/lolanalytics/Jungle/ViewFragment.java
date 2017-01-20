@@ -56,12 +56,6 @@ public class ViewFragment extends Fragment implements ViewFragmentContract {
         return rootView;
     }
 
-
-    @Override
-    public BarChart createBarChart() {
-        return new BarChart(this.getContext());
-    }
-
     @Override
     public void setJungleAdapter(BaseRecyclerAdapter baseRecyclerAdapter) {
         // TODO: Think about giving the presenter an instance of context here. Or using dagger, this is on the main thread and it doesnt need to be.

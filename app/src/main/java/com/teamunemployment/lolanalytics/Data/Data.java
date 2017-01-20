@@ -1,14 +1,8 @@
 package com.teamunemployment.lolanalytics.Data;
 
-import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
+import com.teamunemployment.lolanalytics.Jungle.Model.CardData;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import io.realm.Realm;
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 /**
  * @author Josiah Kendall
@@ -18,13 +12,13 @@ import io.realm.annotations.PrimaryKey;
 public class Data {
 
     public int role;
-    public List<AdapterPojo> items;
+    public List<CardData> items;
 
     public void setRole(int role) {
         this.role = role;
     }
 
-    public void setItems(List<AdapterPojo> items) {
+    public void setItems(List<CardData> items) {
         this.items = items;
 
     }
@@ -33,7 +27,7 @@ public class Data {
         return role;
     }
 
-    public List<AdapterPojo> getItems() {
+    public List<CardData> getItems() {
         return items;
     }
 }

@@ -5,11 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.mikephil.charting.charts.BarChart;
-
-import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
+import com.teamunemployment.lolanalytics.Jungle.Model.CardData;
 import com.teamunemployment.lolanalytics.Jungle.Model.BarChartCardModel;
-import com.teamunemployment.lolanalytics.Jungle.Model.BarChartFactory;
 import com.teamunemployment.lolanalytics.Jungle.PresentationLayer.BarChartCardView;
 import com.teamunemployment.lolanalytics.R;
 
@@ -17,14 +14,14 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
-
 /**
+ * @author Josiah Kendall.
+ *
  * Adapter for the recycler view used in the tabs.
  */
 public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<AdapterPojo> pojos;
+    private ArrayList<CardData> pojos;
     private BarChartCardModel barChartCardModel;
 
     @Inject
@@ -48,7 +45,7 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             throw new IllegalStateException("SetData() must be called before binding adapter");
         }
 
-        AdapterPojo data = pojos.get(position);
+        CardData data = pojos.get(position);
         cardView.setBarChartData(data);
         cardView.setTitle(data.getTitle());
     }
@@ -64,7 +61,7 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
 
-    public void SetData(ArrayList<AdapterPojo> adapterPojos) {
-        this.pojos = adapterPojos;
+    public void SetData(ArrayList<CardData> cardDatas) {
+        this.pojos = cardDatas;
     }
 }

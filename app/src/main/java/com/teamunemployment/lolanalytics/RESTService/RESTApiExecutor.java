@@ -2,9 +2,6 @@ package com.teamunemployment.lolanalytics.RESTService;
 
 import com.teamunemployment.lolanalytics.Data.Data;
 import com.teamunemployment.lolanalytics.Data.LongWrapper;
-import com.teamunemployment.lolanalytics.Jungle.Model.AdapterPojo;
-
-import java.util.List;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -14,7 +11,7 @@ import rx.Observable;
  * @author Josiah Kendall
  */
 
-public interface Api {
+public interface RESTApiExecutor {
 
     /**
      * Fetch Recent head to head stats for a summoner in a specific role
