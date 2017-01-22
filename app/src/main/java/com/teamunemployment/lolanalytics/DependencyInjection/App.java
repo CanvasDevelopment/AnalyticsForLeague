@@ -2,6 +2,9 @@ package com.teamunemployment.lolanalytics.DependencyInjection;
 
 import android.app.Application;
 
+import com.teamunemployment.lolanalytics.Login.LoginModule;
+import com.teamunemployment.lolanalytics.StatsComparisonTab.StatisticsTabModule;
+
 /**
  * @author Josiah Kendall.
  *
@@ -20,11 +23,13 @@ public class App extends Application {
         appComponent = DaggerAppComponent.builder()
                 // Modules go here
                 .appModule(new AppModule(this)) //
-                .componentModule(new ComponentModule())
+                .statisticsTabModule(new StatisticsTabModule())
                 .build();
     }
 
     public AppComponent getNetComponent() {
         return appComponent;
     }
+
+
 }

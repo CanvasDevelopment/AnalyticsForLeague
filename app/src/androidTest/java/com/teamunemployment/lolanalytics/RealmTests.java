@@ -5,10 +5,10 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.RenamingDelegatingContext;
 
-import com.teamunemployment.lolanalytics.Base.RealmExecutor;
-import com.teamunemployment.lolanalytics.Base.Statics;
-import com.teamunemployment.lolanalytics.Data.Data;
-import com.teamunemployment.lolanalytics.Jungle.Model.CardData;
+import com.teamunemployment.lolanalytics.Data.RealmExecutor;
+import com.teamunemployment.lolanalytics.Data.Statics;
+import com.teamunemployment.lolanalytics.Data.model.Data;
+import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
 
 import junit.framework.Assert;
 

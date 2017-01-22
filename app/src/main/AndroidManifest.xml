@@ -10,10 +10,14 @@
                  android:theme="@style/AppTheme">
 
         <activity
-            android:name=".Base.Base"
+            android:name=".Base"
             android:label="@string/app_name"
             android:exported="true"
             android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".Login.LoginView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

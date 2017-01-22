@@ -1,7 +1,9 @@
 package com.teamunemployment.lolanalytics.DependencyInjection;
 
-import com.teamunemployment.lolanalytics.Jungle.ViewFragment;
-import com.teamunemployment.lolanalytics.Base.BaseFragment;
+import com.teamunemployment.lolanalytics.Login.LoginContract;
+import com.teamunemployment.lolanalytics.Login.LoginModule;
+import com.teamunemployment.lolanalytics.StatsComparisonTab.StatisticsTabModule;
+import com.teamunemployment.lolanalytics.StatsComparisonTab.TabView;
 
 import javax.inject.Singleton;
 
@@ -9,13 +11,10 @@ import dagger.Component;
 
 /**
  * @author Josiah Kendall.
- *
- * Inject our components.
  */
-
 @Singleton
-@Component(modules = {AppModule.class, ComponentModule.class})
+@Component(modules = {AppModule.class, StatisticsTabModule.class})
 public interface AppComponent {
-    void InjectJungleView(ViewFragment jungleView);
-    void InjectBaseView(BaseFragment baseFragment);
+    void InjectView(TabView jungleTabView);
+
 }

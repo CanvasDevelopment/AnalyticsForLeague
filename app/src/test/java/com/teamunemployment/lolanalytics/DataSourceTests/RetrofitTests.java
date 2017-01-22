@@ -1,7 +1,7 @@
 package com.teamunemployment.lolanalytics.DataSourceTests;
 
-import com.teamunemployment.lolanalytics.Data.Data;
-import com.teamunemployment.lolanalytics.RESTService.RESTApiExecutor;
+import com.teamunemployment.lolanalytics.Data.model.Data;
+import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
 import com.teamunemployment.lolanalytics.Mock.MockHttpClient;
 
 import junit.framework.Assert;
