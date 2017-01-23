@@ -16,7 +16,6 @@
         android:layout_alignParentTop="true"
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
@@ -70,7 +69,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_toRightOf="@+id/profileView"
                     android:gravity="center"
-                    android:text="Kloin"
+                    android:text="Username"
                     android:textColor="@color/white"
                     android:textSize="24sp" />
 

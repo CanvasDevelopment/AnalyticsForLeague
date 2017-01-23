@@ -24,7 +24,7 @@ import rx.schedulers.Schedulers;
 /**
  * @author Josiah Kendall
  *
- * This is the main interactor for two repositories.
+ * This is the base interactor for two repositories.
  *  - Locally cached Realm Database
  *  - Remote Server.
  */
@@ -77,7 +77,7 @@ public class TabModel {
      */
     public Observable<Data> CreateCachedDataObservable(final long summonerId, final int lane) {
 
-        // Create an observable for fetching our cached data, as we want to get this off of the main thread.
+        // Create an observable for fetching our cached data, as we want to get this off of the base thread.
         Observable observable = Observable.create(new Observable.OnSubscribe<Data>() {
             @Override
             public void call(Subscriber<? super Data> subscriber) {
@@ -99,7 +99,7 @@ public class TabModel {
      */
     public void FetchData(final TabContract.Presenter tabPresenterContract, Observable<Data> averagesObservable) {
 
-        // Send the request on a new thread, but observe on the main thread.
+        // Send the request on a new thread, but observe on the base thread.
         averagesObservable
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.computation())

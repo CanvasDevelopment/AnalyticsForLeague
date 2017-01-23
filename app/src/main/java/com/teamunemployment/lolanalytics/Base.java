@@ -33,7 +33,7 @@ public class Base extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.base);
         ButterKnife.bind(this);
         setUpFragments(savedInstanceState);
         setUpBottomBar();

@@ -35,7 +35,7 @@ public class TabView extends Fragment implements TabContract.View {
     @Nullable
     @Override
     public android.view.View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        this.rootView = inflater.inflate(R.layout.jungle_fragment_view, container, false);
+        this.rootView = inflater.inflate(R.layout.tab_view_fragment, container, false);
 
         // Trigger DI
         ((App) getActivity().getApplication()).getNetComponent().InjectView(this);
@@ -51,7 +51,7 @@ public class TabView extends Fragment implements TabContract.View {
 
     @Override
     public void setAdapter(TabRecyclerAdapter tabRecyclerAdapter) {
-        // TODO: Think about giving the presenter an instance of context here. Or using dagger, this is on the main thread and it doesnt need to be.
+        // TODO: Think about giving the presenter an instance of context here. Or using dagger, this is on the base thread and it doesnt need to be.
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         jungleRecyclerView.setLayoutManager(layoutManager);
         jungleRecyclerView.setAdapter(tabRecyclerAdapter);
