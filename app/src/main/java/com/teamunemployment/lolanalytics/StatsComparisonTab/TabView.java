@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,7 +29,6 @@ public class TabView extends Fragment implements TabContract.View {
     public android.view.View rootView;
 
     @Bind(R.id.jungle_recycler) RecyclerView jungleRecyclerView;
-   // @Bind(R.id.collapsable_toolbar_holder) CollapsingToolbarLayout collapsingToolbarLayout;
 
     private int role = -1;
 

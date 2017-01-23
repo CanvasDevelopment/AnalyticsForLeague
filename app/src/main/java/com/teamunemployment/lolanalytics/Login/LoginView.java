@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatSpinner;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -13,6 +15,7 @@ import com.teamunemployment.lolanalytics.R;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -26,12 +29,14 @@ public class LoginView extends AppCompatActivity implements LoginContract.LoginV
     @Inject
     public LoginPresenter loginPresenter;
 
+    @Bind(R.id.regions_spinner) AppCompatSpinner regionSpinner;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_view);
+        ((App) getApplication()).getNetComponent().InjectView(this);
         ButterKnife.bind(this);
-        loginPresenter = new LoginPresenter();
         loginPresenter.setView(this);
     }
 
@@ -50,5 +55,10 @@ public class LoginView extends AppCompatActivity implements LoginContract.LoginV
     public void launchHomeActivity() {
         Intent mainIntent = new Intent(this, Base.class);
         startActivity(mainIntent);
+    }
+
+    @Override
+    public void setRegionSpinnerAdapter(ArrayAdapter<CharSequence> adapter) {
+        regionSpinner.setAdapter(adapter);
     }
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="regions_array">
+        <item>OCE</item>
+        <item>NA</item>
+        <item>EUW</item>
+        <item>EUNE</item>
+        <item>KR</item>
+        <item>LAN</item>
+        <item>RU</item>
+        <item>JP</item>
+        <item>BR</item>
+        <item>TR</item>
+    </string-array>
+</resources>

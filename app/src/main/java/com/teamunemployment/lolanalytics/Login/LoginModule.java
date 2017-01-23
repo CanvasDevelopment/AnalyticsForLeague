@@ -1,5 +1,8 @@
 package com.teamunemployment.lolanalytics.Login;
 
+import android.app.Application;
+import android.content.Context;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -13,7 +16,12 @@ import dagger.Provides;
 public class LoginModule {
 
     @Provides
-    LoginPresenter provideLoginPresenter() {
-        return new LoginPresenter();
+    ArrayAdapterFactory provideArrayAdapterFactory(Context context) {
+        return new ArrayAdapterFactory(context);
+    }
+
+    @Provides
+    LoginPresenter provideLoginPresenter(ArrayAdapterFactory arrayAdapterFactory) {
+        return new LoginPresenter(arrayAdapterFactory);
     }
 }
