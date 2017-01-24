@@ -5,10 +5,17 @@ import android.content.Context;
 import com.teamunemployment.lolanalytics.Data.Statics;
 import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
 import com.teamunemployment.lolanalytics.Data.RealmExecutor;
+import com.teamunemployment.lolanalytics.Data.model.Data;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import io.realm.Realm;
+import rx.Observable;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -60,5 +67,18 @@ public class ModelTests {
     public void TestThatWeCanFetchTheCorrectDataForSupport() {
         tabModel.CreateLaneDataObservable(-1, Statics.SUPPORT);
         verify(RESTApiExecutor, times(1)).GetSupportStats(-1);
+    }
+
+    @Test
+    public void TestThatWeFetchCachedDataForTop() {
+        // TODO fix this.
+        Observable<Data> dataObservable = tabModel.CreateCachedDataObservable(-1, Statics.TOP);
+        dataObservable.subscribe();
+        verify(realmExecutor, times(1)).FindDataForRole(anyInt(), anyLong(), any(Realm.class));
+    }
+
+    @Test
+    public void TestThatWeAreCachingTheDataThatWeRecieve() {
+
     }
 }

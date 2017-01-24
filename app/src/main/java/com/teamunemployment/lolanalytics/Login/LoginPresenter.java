@@ -1,6 +1,5 @@
 package com.teamunemployment.lolanalytics.Login;
 
-import android.content.Context;
 import android.widget.ArrayAdapter;
 
 import com.teamunemployment.lolanalytics.R;
@@ -15,10 +14,12 @@ public class LoginPresenter implements LoginContract.Presenter {
     private LoginContract.LoginView view;
 
     private ArrayAdapterFactory arrayAdapterFactory;
+    private LoginModel loginModel;
 
     @Inject
-    public LoginPresenter(ArrayAdapterFactory arrayAdapterFactory) {
+    public LoginPresenter(ArrayAdapterFactory arrayAdapterFactory,  LoginModel loginModel) {
         this.arrayAdapterFactory = arrayAdapterFactory;
+        this.loginModel = loginModel;
     }
 
     @Override
@@ -31,6 +32,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         view.showMessage("Sorry, an error occurred. Please try again");
     }
 
+
     @Override
     public void LoginTestUser() {
         view.launchHomeActivity();
@@ -42,10 +44,25 @@ public class LoginPresenter implements LoginContract.Presenter {
         start();
     }
 
+    @Override
+    public void handleLogin(String username, String region) {
+        loginModel.requestLoginAttempt(username, region, this);
+    }
+
+    @Override
+    public void setLoginResult(long loginResult) {
+
+        if (loginResult == -1) {
+            view.showMessage("An error occurred logging in. Please check the details you entered and try again.");
+        } else if (loginResult > 0){
+            view.launchHomeActivity();
+        }
+    }
+
     private void setRegionAdapter() {
         ArrayAdapter<CharSequence> adapter = arrayAdapterFactory.getArrayAdapter(R.array.regions_array,
                 android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.region_spinner_item);
         view.setRegionSpinnerAdapter(adapter);
     }
 

@@ -1,78 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout 
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/blue">
+    android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/buttons_wrapper"
-        android:layout_marginBottom="32dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/login_with_credentials"
-        android:text="Login "
-        android:textColor="@color/blue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/login_without_credentials"
-        android:layout_toRightOf="@+id/login_with_credentials"
-        android:text="Demo "
-        android:textColor="@color/blue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    </RelativeLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue">
 
-    <TextView
-        android:id="@+id/user_name_header"
-        android:text="User name"
-        android:layout_marginTop="140dp"
-        android:textSize="14sp"
-        android:layout_alignStart="@+id/user_name"
-        android:padding="4dp"
-        android:textColor="@color/cardview_dark_background"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/user_name"
-        android:hint="User name.."
-        android:imeActionLabel="Username"
-        android:textColorHint="@color/bluegrey"
-        android:enabled="true"
-        android:textSize="28sp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginTop="160dp"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/regions_header"
-        android:text="Region"
-        android:textSize="14sp"
-        android:layout_alignStart="@+id/user_name"
-        android:padding="4dp"
-        android:textColor="@color/cardview_dark_background"
-        android:layout_below="@+id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/regions_spinner_wrapper"
-        android:layout_below="@+id/regions_header"
-        android:textColorHint="@color/white"
-        android:layout_alignStart="@+id/user_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/regions_spinner"
-            android:layout_toRightOf="@id/user_name"
+        <RelativeLayout
+            android:id="@+id/buttons_wrapper"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="32dp">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/login_with_credentials"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login "
+                android:textColor="@color/blue" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/login_without_credentials"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/login_with_credentials"
+                android:text="Demo "
+                android:textColor="@color/blue" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/main_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="72dp"
+            android:src="@mipmap/attempt2" />
+
+        <TextView
+            android:id="@+id/user_name_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/user_name"
+            android:layout_below="@+id/main_icon"
+            android:layout_marginTop="24dp"
+            android:padding="4dp"
+            android:text="User name"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_name_header"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:enabled="true"
+            android:hint="User name.."
+            android:imeActionLabel="Username"
+            android:textColor="@color/white"
+            android:textColorHint="@color/bluegrey"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/regions_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/user_name"
+            android:layout_below="@+id/user_name"
+            android:padding="4dp"
+            android:text="Region"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="14sp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/regions_spinner_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/user_name"
+            android:layout_below="@+id/regions_header"
+            android:textColorHint="@color/white">
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/regions_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/user_name" />
+        </android.support.design.widget.TextInputLayout>
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

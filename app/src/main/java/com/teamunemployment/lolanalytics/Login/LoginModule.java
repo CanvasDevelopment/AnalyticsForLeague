@@ -3,6 +3,9 @@ package com.teamunemployment.lolanalytics.Login;
 import android.app.Application;
 import android.content.Context;
 
+import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
+import com.teamunemployment.lolanalytics.Data.RealmExecutor;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -21,7 +24,12 @@ public class LoginModule {
     }
 
     @Provides
-    LoginPresenter provideLoginPresenter(ArrayAdapterFactory arrayAdapterFactory) {
-        return new LoginPresenter(arrayAdapterFactory);
+    LoginModel provideLoginModel(RESTApiExecutor restApiExecutor, RealmExecutor realmExecutor) {
+        return  new LoginModel(restApiExecutor, realmExecutor);
+    }
+
+    @Provides
+    LoginPresenter provideLoginPresenter(ArrayAdapterFactory arrayAdapterFactory, LoginModel loginModel) {
+        return new LoginPresenter(arrayAdapterFactory, loginModel);
     }
 }

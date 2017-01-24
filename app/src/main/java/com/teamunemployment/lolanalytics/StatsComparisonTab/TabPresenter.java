@@ -65,6 +65,10 @@ public class TabPresenter implements TabContract.Presenter {
 
     @Override
     public void start() {
+        if (view == null) {
+            throw new IllegalStateException("Please set a view before calling start on this presenter");
+        }
+
         Observable<Data> cachedDataObservable = tabModel.CreateCachedDataObservable(-1, lane);
         // subscribes to the cached data in here to trigger the realm query.
         tabModel.FetchCacheData(this, cachedDataObservable);
