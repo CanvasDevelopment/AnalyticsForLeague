@@ -10,7 +10,7 @@
                  android:theme="@style/AppTheme">
 
         <activity
-            android:name=".Base"
+            android:name=".FrontPage.BaseActivityView"
             android:label="@string/app_name"
             android:exported="true"
             android:screenOrientation="portrait">

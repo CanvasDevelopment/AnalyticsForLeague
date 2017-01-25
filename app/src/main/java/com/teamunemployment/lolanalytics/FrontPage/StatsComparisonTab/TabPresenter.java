@@ -1,10 +1,8 @@
-package com.teamunemployment.lolanalytics.StatsComparisonTab;
+package com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab;
 
-import android.util.Log;
-
-import com.teamunemployment.lolanalytics.BaseViewContract;
 import com.teamunemployment.lolanalytics.Data.model.Data;
 import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
+import com.teamunemployment.lolanalytics.StatsComparisonTab.TabRecyclerAdapter;
 
 import java.util.ArrayList;
 
@@ -49,7 +47,8 @@ public class TabPresenter implements TabContract.Presenter {
 
     @Override
     public void handleError(Throwable e) {
-        Log.e(TAG, e.getMessage());
+        showMessageToUser("An error occurred while loading. Please check you have an internet connection and try again");
+        view.setErrorMessage("An error occured while loading. Please check that you have an internet connection.");
     }
 
 
@@ -61,6 +60,7 @@ public class TabPresenter implements TabContract.Presenter {
     public void addDataToAdapter(ArrayList<CardData> cardDatas) {
         tabRecyclerAdapter.SetData(cardDatas);
         view.setAdapter(tabRecyclerAdapter);
+        view.setLoadingVisibile(false);
     }
 
     @Override

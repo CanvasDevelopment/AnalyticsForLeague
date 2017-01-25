@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics;
+package com.teamunemployment.lolanalytics.FrontPage;
 
 import android.os.Bundle;
 
@@ -6,15 +6,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.ncapdevi.fragnav.FragNavController;
 import com.teamunemployment.lolanalytics.Data.Statics;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.TabView;
+import com.teamunemployment.lolanalytics.R;
+import com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab.TabView;
+
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,11 +27,14 @@ import butterknife.ButterKnife;
 /**
  * @author Josiah Kendall.
  *
- * This is the base class of the application. Holds the bottom bar and the fragment view.
+ * This is the base class of the main application page. Holds the bottom bar and the fragment tab view.
  */
-public class Base extends AppCompatActivity {
+public class BaseActivityView extends AppCompatActivity implements BaseActivityContract.View{
 
     private FragNavController fragNavController;
+
+    @Inject
+    public BaseActivityPresenter presenter;
 
     @Bind(R.id.bottomBar) AHBottomNavigation bottomBar;
 
@@ -67,28 +75,7 @@ public class Base extends AppCompatActivity {
 
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
-                switch (position) {
-                    case 0:
-                        // TOP
-                        fragNavController.switchTab(FragNavController.TAB1);
-                        break;
-                    case 1:
-                        // JUNGLE
-                        fragNavController.switchTab(FragNavController.TAB2);
-                        break;
-                    case 2:
-                        // MID
-                        fragNavController.switchTab(FragNavController.TAB3);
-                        break;
-                    case 3:
-                        // ADC
-                        fragNavController.switchTab(FragNavController.TAB4);
-                        break;
-                    case 4:
-                        // SUPPPORT
-                        fragNavController.switchTab(FragNavController.TAB5);
-                        break;
-                }
+                presenter.handleTabPress(position);
                 return true;
             }
         });
@@ -122,4 +109,47 @@ public class Base extends AppCompatActivity {
         //refresh.
         fragNavController.clearStack();
     }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setCorrectTabFragment(int tab) {
+        switch (tab) {
+            case 0:
+                // TOP
+                fragNavController.switchTab(FragNavController.TAB1);
+                break;
+            case 1:
+                // JUNGLE
+                fragNavController.switchTab(FragNavController.TAB2);
+                break;
+            case 2:
+                // MID
+                fragNavController.switchTab(FragNavController.TAB3);
+                break;
+            case 3:
+                // ADC
+                fragNavController.switchTab(FragNavController.TAB4);
+                break;
+            case 4:
+                // SUPPORT
+                fragNavController.switchTab(FragNavController.TAB5);
+                break;
+        }
+    }
+
+    @Override
+    public void setWinRate(String winRateString) {
+
+    }
+
+    @Override
+    public void setTabIconAndString(int icon, String string) {
+
+    }
+
+
 }

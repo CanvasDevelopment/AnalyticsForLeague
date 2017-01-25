@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.StatsComparisonTab;
+package com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,10 +8,14 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.teamunemployment.lolanalytics.DependencyInjection.App;
 import com.teamunemployment.lolanalytics.R;
+import com.teamunemployment.lolanalytics.StatsComparisonTab.TabRecyclerAdapter;
 
 import javax.inject.Inject;
 
@@ -29,6 +33,8 @@ public class TabView extends Fragment implements TabContract.View {
     public android.view.View rootView;
 
     @Bind(R.id.jungle_recycler) RecyclerView jungleRecyclerView;
+    @Bind(R.id.progress_spinner) ProgressBar progressBar;
+    @Bind(R.id.error_message) TextView errorMessageTextBox;
 
     private int role = -1;
 
@@ -58,8 +64,23 @@ public class TabView extends Fragment implements TabContract.View {
     }
 
     @Override
+    public void setLoadingVisibile(boolean visibile) {
+        if (visibile) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.INVISIBLE);
+        }
+    }
+
+
+    @Override
     public void showMessage(String s) {
         Snackbar.make(rootView, s, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setErrorMessage(String errorMessage) {
+        errorMessageTextBox.setText(errorMessage);
     }
 
     public void setRole(int role) {

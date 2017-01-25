@@ -3,7 +3,7 @@ package com.teamunemployment.lolanalytics.DependencyInjection;
 import android.app.Application;
 
 import com.teamunemployment.lolanalytics.Login.LoginModule;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.StatisticsTabModule;
+import com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab.StatisticsTabModule;
 
 /**
  * @author Josiah Kendall.

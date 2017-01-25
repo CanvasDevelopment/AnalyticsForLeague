@@ -3,8 +3,8 @@ package com.teamunemployment.lolanalytics.DependencyInjection;
 import com.teamunemployment.lolanalytics.Login.LoginContract;
 import com.teamunemployment.lolanalytics.Login.LoginModule;
 import com.teamunemployment.lolanalytics.Login.LoginView;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.StatisticsTabModule;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.TabView;
+import com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab.StatisticsTabModule;
+import com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab.TabView;
 
 import javax.inject.Singleton;
 

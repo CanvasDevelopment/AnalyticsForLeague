@@ -1,12 +1,15 @@
-package com.teamunemployment.lolanalytics.StatsComparisonTab;
+package com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab;
 
 import android.app.Application;
 import android.content.Context;
 
 import com.teamunemployment.lolanalytics.Data.RealmExecutor;
+import com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab.TabModel;
+import com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab.TabPresenter;
 import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.BarChartCardModel;
 import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.BarChartFactory;
 import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
+import com.teamunemployment.lolanalytics.StatsComparisonTab.TabRecyclerAdapter;
 
 import dagger.Module;
 import dagger.Provides;

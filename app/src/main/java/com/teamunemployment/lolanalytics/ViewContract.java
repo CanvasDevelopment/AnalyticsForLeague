@@ -3,7 +3,7 @@ package com.teamunemployment.lolanalytics;
 /**
  * @author Josiah Kendall
  */
-public interface BaseViewContract {
+public interface ViewContract {
     void showMessage(String message);
 }
 

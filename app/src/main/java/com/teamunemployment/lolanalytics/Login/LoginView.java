@@ -2,14 +2,12 @@ package com.teamunemployment.lolanalytics.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.teamunemployment.lolanalytics.Base;
+import com.teamunemployment.lolanalytics.FrontPage.BaseActivityView;
 import com.teamunemployment.lolanalytics.DependencyInjection.App;
 import com.teamunemployment.lolanalytics.R;
 
@@ -53,7 +51,7 @@ public class LoginView extends AppCompatActivity implements LoginContract.LoginV
 
     @Override
     public void launchHomeActivity() {
-        Intent mainIntent = new Intent(this, Base.class);
+        Intent mainIntent = new Intent(this, BaseActivityView.class);
         startActivity(mainIntent);
     }
 

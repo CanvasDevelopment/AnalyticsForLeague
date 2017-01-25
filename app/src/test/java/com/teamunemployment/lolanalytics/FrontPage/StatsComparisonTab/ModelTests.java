@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.StatsComparisonTab;
+package com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.StatsComparisonTab;
+package com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab;
 
 import android.content.Context;
 
@@ -29,6 +29,7 @@ import rx.schedulers.Schedulers;
  *  - Remote Server.
  */
 public class TabModel {
+    // Logging tag
     private static final String TAG = "TabModel";
     private RESTApiExecutor RESTApiExecutor;
     private RealmExecutor realmExecutor;
