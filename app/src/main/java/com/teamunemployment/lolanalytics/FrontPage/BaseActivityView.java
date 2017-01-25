@@ -1,16 +1,20 @@
 package com.teamunemployment.lolanalytics.FrontPage;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.ncapdevi.fragnav.FragNavController;
+import com.teamunemployment.lolanalytics.App;
 import com.teamunemployment.lolanalytics.Data.Statics;
 import com.teamunemployment.lolanalytics.R;
 import com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab.TabView;
@@ -23,6 +27,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * @author Josiah Kendall.
@@ -37,14 +42,26 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
     public BaseActivityPresenter presenter;
 
     @Bind(R.id.bottomBar) AHBottomNavigation bottomBar;
+    @Bind(R.id.win_rate_details) TextView winRateTextView;
+    @Bind(R.id.user_name) TextView userNameTextView;
+    @Bind(R.id.role_icon) CircleImageView roleIcon;
+    @Bind(R.id.collapsable_toolbar_holder) CollapsingToolbarLayout collapsingToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base);
+        ((App) getApplication()).getNetComponent().InjectView(this);
         ButterKnife.bind(this);
+        presenter.setView(this);
+
+        // Defaults
+        setRoleName("Top");
+        setTabIcon(R.drawable.top);
+
         setUpFragments(savedInstanceState);
         setUpBottomBar();
+
     }
 
     /**
@@ -69,6 +86,7 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
         bottomBar.addItem(midItem);
         bottomBar.addItem(adcItem);
         bottomBar.addItem(supItem);
+
 
         // Click listener for the bottom bar buttons.
         bottomBar.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
@@ -142,14 +160,21 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
     }
 
     @Override
-    public void setWinRate(String winRateString) {
-
+    public void setWinRate(double winRate) {
+        String winRateString = winRate + "%";
+        winRateTextView.setText(winRateString);
     }
 
     @Override
-    public void setTabIconAndString(int icon, String string) {
-
+    public void setTabIcon(int icon) {
+        int color = Color.parseColor("#ffffff");
+        roleIcon.setColorFilter(color);
+        roleIcon.setImageResource(icon);
     }
 
+    @Override
+    public void setRoleName(String string) {
+        collapsingToolbar.setTitle(string);
+    }
 
 }

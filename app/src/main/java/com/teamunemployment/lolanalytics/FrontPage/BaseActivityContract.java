@@ -12,11 +12,14 @@ public interface BaseActivityContract {
 
     interface Presenter extends PresenterContract {
         void handleTabPress(int tab);
+        void onWinRateLoaded(double winRate);
+
     }
 
     interface View extends ViewContract {
         void setCorrectTabFragment(int tab);
-        void setWinRate(String winRateString);
-        void setTabIconAndString(int icon, String string);
+        void setWinRate(double winRate);
+        void setTabIcon(int icon);
+        void setRoleName(String string);
     }
 }

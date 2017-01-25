@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.teamunemployment.lolanalytics.FrontPage.BaseActivityView;
-import com.teamunemployment.lolanalytics.DependencyInjection.App;
+import com.teamunemployment.lolanalytics.App;
 import com.teamunemployment.lolanalytics.R;
 
 import javax.inject.Inject;

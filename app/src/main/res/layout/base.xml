@@ -24,6 +24,13 @@
             android:background="@color/lightGrey" />
     </android.support.v4.widget.NestedScrollView>
 
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary" />
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
@@ -43,7 +50,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:title="Test"
                 app:layout_collapseMode="pin" />
 
             <RelativeLayout
@@ -53,7 +59,7 @@
                 android:background="@color/colorPrimary">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profileView"
+                    android:id="@+id/role_icon"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginLeft="72dp"
@@ -64,10 +70,10 @@
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/profileView"
-                    android:layout_alignTop="@+id/profileView"
+                    android:layout_alignBottom="@+id/role_icon"
+                    android:layout_alignTop="@+id/role_icon"
                     android:layout_marginLeft="16dp"
-                    android:layout_toRightOf="@+id/profileView"
+                    android:layout_toRightOf="@+id/role_icon"
                     android:gravity="center"
                     android:text="Username"
                     android:textColor="@color/white"
@@ -99,11 +105,4 @@
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
-
-    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="bottom"
-        android:background="@color/colorPrimary" />
 </android.support.design.widget.CoordinatorLayout>
