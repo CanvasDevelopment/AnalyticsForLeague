@@ -1,10 +1,11 @@
-package com.teamunemployment.lolanalytics.StatsComparisonTab;
+package com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab.BarChartCardView;
 import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
 import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.BarChartCardModel;
 import com.teamunemployment.lolanalytics.R;

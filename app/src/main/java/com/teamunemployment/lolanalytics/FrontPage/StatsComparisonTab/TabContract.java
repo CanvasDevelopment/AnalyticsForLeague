@@ -1,7 +1,6 @@
 package com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab;
 
 import com.teamunemployment.lolanalytics.PresenterContract;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.TabRecyclerAdapter;
 import com.teamunemployment.lolanalytics.ViewContract;
 import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
 

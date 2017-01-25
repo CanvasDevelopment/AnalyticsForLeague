@@ -2,7 +2,6 @@ package com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab;
 
 import com.teamunemployment.lolanalytics.Data.model.Data;
 import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.TabRecyclerAdapter;
 
 import java.util.ArrayList;
 

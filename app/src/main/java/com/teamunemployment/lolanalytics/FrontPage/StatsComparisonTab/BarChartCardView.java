@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.StatsComparisonTab;
+package com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -13,6 +13,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
+import com.teamunemployment.lolanalytics.StatsComparisonTab.ChartCardViewContract;
 import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.BarChartCardModel;
 import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
 import com.teamunemployment.lolanalytics.R;
@@ -98,6 +99,7 @@ public class BarChartCardView extends RecyclerView.ViewHolder implements ChartCa
         barChart.setDrawBorders(false);
         barChart.setDrawMarkers(false);
         barChart.setTouchEnabled(false);
+        barChart.getLegend().setEnabled(false);
 
         // Refresh.
         barChart.invalidate();

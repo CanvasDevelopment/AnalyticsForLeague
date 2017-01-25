@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.teamunemployment.lolanalytics.App;
 import com.teamunemployment.lolanalytics.R;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.TabRecyclerAdapter;
 
 import javax.inject.Inject;
 
@@ -23,6 +22,8 @@ import butterknife.ButterKnife;
 
 /**
  * @author Josiah Kendall
+ *
+ * View for a role tab fragment.
  */
 public class TabView extends Fragment implements TabContract.View {
 
