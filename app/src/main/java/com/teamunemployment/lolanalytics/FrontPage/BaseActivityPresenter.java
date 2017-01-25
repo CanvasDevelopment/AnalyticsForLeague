@@ -45,26 +45,30 @@ public class BaseActivityPresenter implements BaseActivityContract.Presenter{
     public void handleTabPress(int tab) {
 
         long summonerId = -1; // TODO
-        baseActivityModel.fetchWinRateForRole(-1,tab,this);
         view.setCorrectTabFragment(tab);
         switch (tab) {
             case TOP:
+                baseActivityModel.fetchWinRateForRole(-1,"TOP",this);
                 view.setRoleName("Top");
                 view.setTabIcon(R.drawable.top);
                 break;
             case JUNGLE:
+                baseActivityModel.fetchWinRateForRole(-1,"JUNGLE",this);
                 view.setRoleName("Jungle");
                 view.setTabIcon(R.drawable.jg);
                 break;
             case MID:
+                baseActivityModel.fetchWinRateForRole(-1,"MID",this);
                 view.setRoleName("Mid");
                 view.setTabIcon(R.drawable.mid);
                 break;
             case MARKSMAN:
+                baseActivityModel.fetchWinRateForRole(-1,"MARKSMAN",this);
                 view.setRoleName("Marksman");
                 view.setTabIcon(R.drawable.bot);
                 break;
             case SUPPORT:
+                baseActivityModel.fetchWinRateForRole(-1,"PLAYMAKER",this);
                 view.setRoleName("Support");
                 view.setTabIcon(R.drawable.sup);
                 break;

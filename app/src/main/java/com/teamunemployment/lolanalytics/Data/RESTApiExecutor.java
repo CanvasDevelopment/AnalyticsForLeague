@@ -1,6 +1,7 @@
 package com.teamunemployment.lolanalytics.Data;
 
 import com.teamunemployment.lolanalytics.Data.model.Data;
+import com.teamunemployment.lolanalytics.Data.model.DoubleWrapper;
 import com.teamunemployment.lolanalytics.Data.model.LongWrapper;
 
 import retrofit2.http.GET;
@@ -27,7 +28,7 @@ public interface RESTApiExecutor {
     @GET("FetchMidStats/{SummonerId}")
     Observable<Data> GetMidStatsForSummoner(@Path("SummonerId") long summonerId);
 
-    @GET("FetchADCStats/{SummonerId}")
+    @GET("FetchAdcStats/{SummonerId}")
     Observable<Data> GetAdcStatsForSummoner(@Path("SummonerId") long summonerId);
 
     @GET("FetchSupportStats/{SummonerId}")
@@ -42,4 +43,6 @@ public interface RESTApiExecutor {
     @GET("FetchSummonerId/{SummonerName}/{Region}")
     Observable<LongWrapper> GetSummonerId(@Path("SummonerName") String summonerName, @Path("Region") String region);
 
+    @GET("FetchWinRate/{SummonerId}/{Role}")
+    Observable<DoubleWrapper> GetWinRateForRole(@Path("SummonerId") long summonerId, @Path("Role") String role);
 }

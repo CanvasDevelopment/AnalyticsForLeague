@@ -48,6 +48,10 @@ public class LoginView extends AppCompatActivity implements LoginContract.LoginV
         loginPresenter.LoginTestUser();
     }
 
+    @OnClick(R.id.login_with_credentials)
+    public void loginWithCredentials() {
+        showMessage("Error: Analysis.gg is not available in your region yet.");
+    }
 
     @Override
     public void launchHomeActivity() {

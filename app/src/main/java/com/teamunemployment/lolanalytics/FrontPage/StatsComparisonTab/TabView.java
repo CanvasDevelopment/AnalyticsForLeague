@@ -79,7 +79,8 @@ public class TabView extends Fragment implements TabContract.View {
 
     @Override
     public void setErrorMessage(String errorMessage) {
-        errorMessageTextBox.setText(errorMessage);
+        // not using this for now.
+        //errorMessageTextBox.setText(errorMessage);
     }
 
     public void setRole(int role) {

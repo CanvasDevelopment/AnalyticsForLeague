@@ -47,7 +47,7 @@ public class TabPresenter implements TabContract.Presenter {
 
     @Override
     public void handleError(Throwable e) {
-        showMessageToUser("An error occurred while loading. Please check you have an internet connection and try again");
+        showMessageToUser("An error occurred while loading fresh data. Please check you have an internet connection and retry.");
         view.setErrorMessage("An error occured while loading. Please check that you have an internet connection.");
     }
 
@@ -65,6 +65,7 @@ public class TabPresenter implements TabContract.Presenter {
 
     @Override
     public void start() {
+
         if (view == null) {
             throw new IllegalStateException("Please set a view before calling start on this presenter");
         }
