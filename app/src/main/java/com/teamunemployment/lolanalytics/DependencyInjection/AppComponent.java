@@ -2,11 +2,11 @@ package com.teamunemployment.lolanalytics.DependencyInjection;
 
 import com.teamunemployment.lolanalytics.FrontPage.BaseActivityModule;
 import com.teamunemployment.lolanalytics.FrontPage.BaseActivityView;
-import com.teamunemployment.lolanalytics.Login.LoginContract;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.MatchHistoryTabView;
 import com.teamunemployment.lolanalytics.Login.LoginModule;
 import com.teamunemployment.lolanalytics.Login.LoginView;
-import com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab.StatisticsTabModule;
-import com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab.TabView;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.StatisticsTabModule;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.TabView;
 
 import javax.inject.Singleton;
 
@@ -21,5 +21,5 @@ public interface AppComponent {
     void InjectView(TabView tabView);
     void InjectView(LoginView loginView);
     void InjectView(BaseActivityView baseActivityView);
-
+    void InjectView(MatchHistoryTabView matchHistoryTabView);
 }

@@ -17,7 +17,7 @@ import com.ncapdevi.fragnav.FragNavController;
 import com.teamunemployment.lolanalytics.App;
 import com.teamunemployment.lolanalytics.Data.Statics;
 import com.teamunemployment.lolanalytics.R;
-import com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab.TabView;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.TabView;
 
 
 import java.util.ArrayList;
@@ -99,7 +99,7 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
         });
     }
 
-    /**
+    /** TODO move to child tab
      * Create fragments for the different tabs, and add them to our frag controller.
      * @param savedInstanceState
      */
@@ -135,6 +135,11 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
 
     @Override
     public void setCorrectTabFragment(int tab) {
+
+        // Get current viewpager item.
+        // set role
+        // refresh
+
         switch (tab) {
             case 0:
                 // TOP

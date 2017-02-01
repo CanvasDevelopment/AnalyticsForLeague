@@ -5,8 +5,7 @@ import android.app.Application;
 import com.teamunemployment.lolanalytics.DependencyInjection.AppComponent;
 import com.teamunemployment.lolanalytics.DependencyInjection.AppModule;
 import com.teamunemployment.lolanalytics.DependencyInjection.DaggerAppComponent;
-import com.teamunemployment.lolanalytics.Login.LoginModule;
-import com.teamunemployment.lolanalytics.FrontPage.StatsComparisonTab.StatisticsTabModule;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.StatisticsTabModule;
 
 /**
  * @author Josiah Kendall.

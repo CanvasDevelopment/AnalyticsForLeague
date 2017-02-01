@@ -16,7 +16,6 @@ import static org.mockito.Mockito.verify;
 /**
  * @author Josiah Kendall
  */
-
 public class BaseActivityPresenterTests {
 
     @Test
@@ -49,7 +48,7 @@ public class BaseActivityPresenterTests {
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(1);
         baseActivityPresenter.onWinRateLoaded(12);
-        verify(baseActivityModel, times(1)).fetchWinRateForRole(anyLong(), anyInt(), any(BaseActivityContract.Presenter.class));
+        verify(baseActivityModel, times(1)).fetchWinRateForRole(anyLong(), anyString(), any(BaseActivityContract.Presenter.class));
     }
 
     @Test
@@ -70,7 +69,7 @@ public class BaseActivityPresenterTests {
         BaseActivityView view = mock(BaseActivityView.class);
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(1);
-        view.setCorrectTabFragment(1);
+        verify(view, times(1)).setCorrectTabFragment(1);
     }
 
     @Test

@@ -4,10 +4,14 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.RenamingDelegatingContext;
+import android.widget.Toast;
 
+import com.teamunemployment.lolanalytics.Data.Realm.RealmMigrator;
 import com.teamunemployment.lolanalytics.Data.RealmExecutor;
 import com.teamunemployment.lolanalytics.Data.Statics;
 import com.teamunemployment.lolanalytics.Data.model.Data;
+import com.teamunemployment.lolanalytics.Data.model.MatchHistoryData;
+import com.teamunemployment.lolanalytics.Data.model.MatchSummary;
 import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
 
 import junit.framework.Assert;
@@ -18,8 +22,13 @@ import org.junit.runner.RunWith;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
+import io.realm.DynamicRealm;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmMigration;
+import io.realm.RealmSchema;
 
 /**
  * @author Josiah Kendall
@@ -104,6 +113,106 @@ public class RealmTests {
         Assert.assertEquals(result.getId(), 1);
         Assert.assertEquals(result.getFriendlyStats(), 8.3);
         realm.close();
+    }
+
+    @Test
+    public void TestThatWeCanMIgrateRealm() {
+
+    }
+
+    @Test
+    public void TestThatWeCanSaveMatchListOfOne() {
+
+        Realm.init(context);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+                .name("default1.realm")
+                .schemaVersion(2)
+                .migration(new RealmMigrator())
+                .build();
+
+
+        long SUMMONERID = -1;
+        int ROLE = Statics.TOP;
+        int preSaveMatchSize = 0;
+
+        RealmExecutor realmExecutor = new RealmExecutor(context);
+        Realm realm = RealmExecutor.GetRealmInstance(realmConfiguration);
+
+        MatchHistoryData matchHistoryDataReturned = realmExecutor.FindMatchHistory(ROLE, SUMMONERID, realm);
+        List<MatchSummary> items = matchHistoryDataReturned.getItems();
+        if (items != null) {
+            preSaveMatchSize = items.size();
+        }
+
+        // Create our match history data object
+        MatchHistoryData matchHistoryData = new MatchHistoryData();
+        matchHistoryData.setRole(Statics.TOP);
+        matchHistoryData.setSeason(7);
+
+        // Build the list of one.
+        MatchSummary matchSummary = new MatchSummary();
+        matchSummary.setRole(Statics.TOP);
+        matchSummary.setId(1234);
+        matchSummary.setValue(2.34);
+        matchSummary.setSummonerId(-1);
+        ArrayList<MatchSummary> matchSummaries = new ArrayList<>();
+        matchSummaries.add(matchSummary);
+
+        matchHistoryData.setItems(matchSummaries);
+
+        realmExecutor.SaveMatchHistory(realm, matchHistoryData);
+        matchHistoryDataReturned = realmExecutor.FindMatchHistory(ROLE, SUMMONERID, realm);
+
+        items = matchHistoryDataReturned.getItems();
+
+        Assert.assertTrue(items.size()  == preSaveMatchSize);
+
+        MatchSummary matchSummary1 = items.get(items.size()-1);
+
+        Assert.assertEquals(matchSummary1.getId(), matchSummary.getId());
+        Assert.assertEquals(matchSummary1.getRole(), matchSummary.getRole());
+        Assert.assertEquals(matchSummary1.getValue(), matchSummary.getValue());
+        realm.close();
+    }
+
+    @Test
+    public void TestThatWeCanSaveMatchSummary() {
+        Realm.init(context);
+
+        long SUMMONERID = -1;
+        int ROLE = Statics.TOP;
+        int preSaveMatchSize = 0;
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+                .name("default1.realm")
+                .schemaVersion(2)
+                .migration(new RealmMigrator())
+                .build();
+
+        RealmExecutor realmExecutor = new RealmExecutor(context);
+        Realm realm = RealmExecutor.GetRealmInstance(realmConfiguration);
+
+        // Create our match history data object
+        MatchHistoryData matchHistoryData = new MatchHistoryData();
+        matchHistoryData.setRole(Statics.TOP);
+        matchHistoryData.setSeason(7);
+
+        // Build the list of one.
+        MatchSummary matchSummary = new MatchSummary();
+        matchSummary.setRole(Statics.TOP);
+        matchSummary.setId(1234);
+        matchSummary.setValue(2.34);
+        matchSummary.setSummonerId(-1);
+
+        realmExecutor.SaveSingleMatchSummary(realm,matchSummary);
+        MatchSummary matchSummary1 = realmExecutor.FindMatchSummary(realm, matchSummary.getId());
+        Assert.assertTrue(matchSummary.getValue() == matchSummary1.getValue());
+        Assert.assertTrue(matchSummary.getRole() == matchSummary1.getRole());
+        realm.close();
+    }
+
+    @Test
+    public void TestThatWeCanUpdateMatchSummary() {
+
     }
 
 }
