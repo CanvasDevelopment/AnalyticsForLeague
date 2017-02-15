@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.BarChartCardModel;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.BarChartModel;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
 import com.teamunemployment.lolanalytics.R;
 
 import java.util.ArrayList;
@@ -21,17 +21,17 @@ import javax.inject.Inject;
 public class TabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<CardData> pojos;
-    private BarChartCardModel barChartCardModel;
+    private BarChartModel barChartModel;
 
     @Inject
-    public TabRecyclerAdapter(BarChartCardModel barChartCardModel) {
-        this.barChartCardModel = barChartCardModel;
+    public TabRecyclerAdapter(BarChartModel barChartModel) {
+        this.barChartModel = barChartModel;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
-        BarChartCardView cardView = new BarChartCardView(v, parent.getContext(), barChartCardModel);
+        BarChartCardView cardView = new BarChartCardView(v, parent.getContext(), barChartModel);
         return cardView;
     }
 

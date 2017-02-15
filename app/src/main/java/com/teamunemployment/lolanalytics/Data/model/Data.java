@@ -1,6 +1,6 @@
 package com.teamunemployment.lolanalytics.Data.model;
 
-import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
 
 import java.util.List;
 

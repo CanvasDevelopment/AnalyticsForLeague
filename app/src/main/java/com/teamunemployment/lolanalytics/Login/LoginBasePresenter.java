@@ -9,7 +9,7 @@ import javax.inject.Inject;
 /**
  * @author Josiah Kendall
  */
-public class LoginPresenter implements LoginContract.Presenter {
+public class LoginBasePresenter implements LoginContract.BasePresenter {
 
     private LoginContract.LoginView view;
 
@@ -17,7 +17,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     private LoginModel loginModel;
 
     @Inject
-    public LoginPresenter(ArrayAdapterFactory arrayAdapterFactory,  LoginModel loginModel) {
+    public LoginBasePresenter(ArrayAdapterFactory arrayAdapterFactory, LoginModel loginModel) {
         this.arrayAdapterFactory = arrayAdapterFactory;
         this.loginModel = loginModel;
     }
@@ -30,6 +30,31 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void handleError(Throwable e) {
         view.showMessage("Sorry, an error occurred. Please try again");
+    }
+
+    @Override
+    public void restart() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void stop() {
+
+    }
+
+    @Override
+    public void destroy() {
+
     }
 
 

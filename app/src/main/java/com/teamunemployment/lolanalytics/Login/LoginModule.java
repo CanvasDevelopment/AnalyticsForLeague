@@ -1,6 +1,5 @@
 package com.teamunemployment.lolanalytics.Login;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
@@ -29,7 +28,7 @@ public class LoginModule {
     }
 
     @Provides
-    LoginPresenter provideLoginPresenter(ArrayAdapterFactory arrayAdapterFactory, LoginModel loginModel) {
-        return new LoginPresenter(arrayAdapterFactory, loginModel);
+    LoginBasePresenter provideLoginPresenter(ArrayAdapterFactory arrayAdapterFactory, LoginModel loginModel) {
+        return new LoginBasePresenter(arrayAdapterFactory, loginModel);
     }
 }

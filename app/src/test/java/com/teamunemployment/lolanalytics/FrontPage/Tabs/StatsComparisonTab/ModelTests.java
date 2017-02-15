@@ -10,8 +10,8 @@ import com.teamunemployment.lolanalytics.Data.model.Data;
 import org.junit.Before;
 import org.junit.Test;
 
+import io.reactivex.Observable;
 import io.realm.Realm;
-import rx.Observable;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;

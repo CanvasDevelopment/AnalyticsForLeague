@@ -1,6 +1,6 @@
 package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab;
 
-import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.BarChartCardModel;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.BarChartModel;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class AdapterTests {
 
     @Test(expected = IllegalStateException.class)
     public void TestThatWeGetIllegalStateExceptionIfWeBindBeforeSettingData() {
-        TabRecyclerAdapter tabRecyclerAdapter = new TabRecyclerAdapter(mock(BarChartCardModel.class));
+        TabRecyclerAdapter tabRecyclerAdapter = new TabRecyclerAdapter(mock(BarChartModel.class));
         tabRecyclerAdapter.onBindViewHolder(mock(BarChartCardView.class), 1);
     }
 

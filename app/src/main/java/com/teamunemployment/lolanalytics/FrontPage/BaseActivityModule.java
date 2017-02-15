@@ -13,12 +13,12 @@ import dagger.Provides;
 public class BaseActivityModule {
 
     @Provides
-    BaseActivityModel provideBaseActivityModel(RealmExecutor realmExecutor, RESTApiExecutor restApiExecutor) {
-        return new BaseActivityModel(restApiExecutor, realmExecutor);
+    BaseActivityPersistenceInteractor provideBaseActivityModel(RealmExecutor realmExecutor, RESTApiExecutor restApiExecutor) {
+        return new BaseActivityPersistenceInteractor(restApiExecutor, realmExecutor);
     }
 
     @Provides
-    BaseActivityPresenter provideBaseActivityPresenter(BaseActivityModel baseActivityModel) {
-        return new BaseActivityPresenter(baseActivityModel);
+    BaseActivityBasePresenter provideBaseActivityPresenter(BaseActivityPersistenceInteractor baseActivityPersistenceInteractor) {
+        return new BaseActivityBasePresenter(baseActivityPersistenceInteractor);
     }
 }

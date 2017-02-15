@@ -1,8 +1,8 @@
 package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab;
 
-import com.teamunemployment.lolanalytics.PresenterContract;
+import com.teamunemployment.lolanalytics.BasePresenterContract;
 import com.teamunemployment.lolanalytics.ViewContract;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public interface TabContract {
 
-    interface Presenter extends PresenterContract {
+    interface BasePresenter extends BasePresenterContract {
         void addDataToAdapter(ArrayList<CardData> cardDatas);
         void setView(View viewFragmentContract, int lane);
     }

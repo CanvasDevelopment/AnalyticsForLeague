@@ -1,63 +1,97 @@
-package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab;
+package com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Model.MatchHistoryCardData;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.BarChartModel;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
 import com.teamunemployment.lolanalytics.R;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
  * @author Josiah Kendall.
- * Not sure if this needs to be a specific chart class (e.g bar chart) It will probably work as a generic
- * chart view. Chart library seems to handle the polymorphism really well.
  */
-public class BarChartCardView extends RecyclerView.ViewHolder implements ChartCardViewContract {
+
+public class MatchHistoryCardView extends RecyclerView.ViewHolder implements MatchHistoryCardViewContract {
 
     private Context context;
-    private CardView cardInner;
-
+    private View cardBase;
     private BarChartModel barChartModel;
 
-    @Bind(R.id.chart) BarChart barChart;
+    @Bind(R.id.champ_name) TextView champNameTextView;
+    @Bind(R.id.chart1) BarChart barChart1;
+    @Bind(R.id.chart2) BarChart barChart2;
+    @Bind(R.id.chart3) BarChart barChart3;
+    @Bind(R.id.chart4) BarChart barChart4;
 
-    @Bind(R.id.graph_title) TextView title;
+    private MatchHistoryBasePresenter matchHistoryBasePresenter;
 
-    public BarChartCardView(View itemView, Context context, BarChartModel barChartModel) {
+    public MatchHistoryCardView(View itemView, Context context, MatchHistoryBasePresenter matchHistoryBasePresenter, BarChartModel barChartModel) {
         super(itemView);
+        this.cardBase = itemView;
         this.context = context;
-        this.cardInner = (CardView) itemView;
+        ButterKnife.bind(this, itemView);
+        this.matchHistoryBasePresenter = matchHistoryBasePresenter;
         this.barChartModel = barChartModel;
-        ButterKnife.bind(this, cardInner);
     }
 
-    /**
-     * Set the title on the card that comes with the dataset from the server.
-     * @param titleString
-     */
-    public void setTitle(String titleString) {
-        title.setText(titleString);
+    public void loadData(long matchId) {
+        matchHistoryBasePresenter.LoadCardData(matchId, this);
     }
 
-    /**
-     * Set the data to the bar chart.
-     * @param cardData The pojo with the data on it.
-     */
-    public void setBarChartData(CardData cardData) {
+    @Override
+    public void setGraph1(CardData cardData) {
+        setUpBarChart(barChart1, cardData);
+    }
 
+    @Override
+    public void setGraph2(CardData cardData) {
+        setUpBarChart(barChart2, cardData);
+
+    }
+
+    @Override
+    public void setGraph3(CardData cardData) {
+        setUpBarChart(barChart3, cardData);
+
+    }
+
+    @Override
+    public void setGraph4(CardData cardData) {
+        setUpBarChart(barChart4, cardData);
+
+    }
+
+    @Override
+    public void setChampName(String champName) {
+        champNameTextView.setText(champName);
+    }
+
+    @Override
+    public void setChampIcon(String champIconUrl) {
+
+    }
+
+    @Override
+    public void setKDA(String kdaString) {
+
+    }
+
+    // This is reused code from somewhere else - need to sort this out.
+    private void setUpBarChart(BarChart barChart, CardData cardData) {
         BarDataSet barDataSet = barChartModel.FetchBarDataSet(cardData);
         barDataSet.setValueTextColor(context.getResources().getColor(R.color.grey));
         barDataSet.setColors(new int[]{R.color.teal, R.color.pink}, context); // Would be real cool to not use context here if possible.
@@ -103,10 +137,5 @@ public class BarChartCardView extends RecyclerView.ViewHolder implements ChartCa
 
         // Refresh.
         barChart.invalidate();
-    }
-
-    @Override
-    public void AddChart(Chart chart) {
-        cardInner.addView(chart);
     }
 }

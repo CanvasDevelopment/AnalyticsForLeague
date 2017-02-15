@@ -10,13 +10,13 @@ public class MatchHistoryData {
     public long SummonerId;
     public int season;
     public int role;
-    public ArrayList<MatchSummary> items;
+    public ArrayList<MatchIdWrapper> items;
 
     public void setSummonerId(long summonerId) {
         SummonerId = summonerId;
     }
 
-    public void setItems(ArrayList<MatchSummary> items) {
+    public void setItems(ArrayList<MatchIdWrapper> items) {
         this.items = items;
     }
 
@@ -32,7 +32,7 @@ public class MatchHistoryData {
         return SummonerId;
     }
 
-    public ArrayList<MatchSummary> getItems() {
+    public ArrayList<MatchIdWrapper> getItems() {
         return items;
     }
 

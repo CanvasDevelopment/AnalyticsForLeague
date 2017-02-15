@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.StatsComparisonTab.Model;
+package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model;
 
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;

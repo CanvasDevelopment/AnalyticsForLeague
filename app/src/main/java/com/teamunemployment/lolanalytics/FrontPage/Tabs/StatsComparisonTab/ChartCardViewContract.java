@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.StatsComparisonTab;
+package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab;
 
 import com.github.mikephil.charting.charts.Chart;
 

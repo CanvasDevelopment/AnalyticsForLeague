@@ -23,9 +23,8 @@
             android:layout_alignParentTop="true"
             android:background="@color/midGrey">
 
-            <android.support.v4.widget.CircleImageView
+            <ImageView
                 android:id="@+id/good_or_bad_state_icon"
-
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginBottom="32dp"
@@ -34,7 +33,7 @@
                 android:src="@drawable/jg" />
 
             <TextView
-                android:id="@+id/graph_title"
+                android:id="@+id/champ_name"
                 style="@style/Base.TextAppearance.AppCompat.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="18dp"
@@ -68,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/chart_header"
             android:orientation="horizontal"
-            android:minHeight="120dp"
+            android:minHeight="220dp"
             android:layout_alignParentStart="true">
 
             <com.github.mikephil.charting.charts.BarChart
@@ -77,28 +76,31 @@
                 android:layout_gravity="center_vertical"
                 android:layout_margin="12dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
+
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/chart2"
-                android:layout_weight="1"
+                android:layout_weight="0"
+                android:visibility="gone"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="12dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
+
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/chart3"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="12dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/chart4"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="12dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/chart_icons_wrapper"
@@ -107,28 +109,29 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <android.support.v4.widget.CircleImageView
+            <ImageView
                 android:id="@+id/kills_indicator"
                 android:layout_weight="1"
                 android:layout_margin="12dp"
                 android:src="@drawable/jg"
                 android:layout_width="12dp"
                 android:layout_height="12dp" />
-            <android.support.v4.widget.CircleImageView
+            <ImageView
                 android:id="@+id/deaths_indicator"
-                android:layout_weight="1"
+                android:layout_weight="0"
+                android:visibility="gone"
                 android:layout_margin="12dp"
                 android:src="@drawable/jg"
                 android:layout_width="12dp"
                 android:layout_height="12dp" />
-            <android.support.v4.widget.CircleImageView
+            <ImageView
                 android:id="@+id/cs_indicator"
                 android:layout_margin="12dp"
                 android:layout_weight="1"
                 android:src="@drawable/jg"
                 android:layout_width="12dp"
                 android:layout_height="12dp" />
-            <android.support.v4.widget.CircleImageView
+            <ImageView
                 android:id="@+id/damage_indicator"
                 android:layout_margin="12dp"
                 android:layout_weight="1"

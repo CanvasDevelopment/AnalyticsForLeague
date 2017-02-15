@@ -10,14 +10,15 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Scheduler;
-import rx.Subscriber;
-import rx.schedulers.Schedulers;
 
 import static org.mockito.Mockito.mock;
 
@@ -57,15 +58,20 @@ public class RetrofitTests {
         Observable<Data> averagesObservable = RESTApiExecutor.GetMidStatsForSummoner(1234567);
         averagesObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(mock(Scheduler.class))
-                .subscribe(new Subscriber<Data>() {
+                .subscribe(new Observer<Data>() {
 
                     @Override
-                    public void onCompleted() {
+                    public void onError(Throwable e) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
                     }
 

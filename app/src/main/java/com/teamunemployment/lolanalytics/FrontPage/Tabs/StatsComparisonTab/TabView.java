@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 public class TabView extends Fragment implements TabContract.View {
 
     @Inject
-    public TabPresenter presenter;
+    public TabBasePresenter presenter;
 
     public android.view.View rootView;
 

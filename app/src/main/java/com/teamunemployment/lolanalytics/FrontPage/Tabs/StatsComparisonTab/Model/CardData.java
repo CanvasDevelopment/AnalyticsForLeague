@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.StatsComparisonTab.Model;
+package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

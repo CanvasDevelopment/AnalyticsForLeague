@@ -20,8 +20,8 @@ public class BaseActivityPresenterTests {
 
     @Test
     public void handleTabPress_SetsTabIcon() {
-        BaseActivityModel baseActivityModel = mock(BaseActivityModel.class);
-        BaseActivityPresenter baseActivityPresenter = new BaseActivityPresenter(baseActivityModel);
+        BaseActivityPersistenceInteractor baseActivityPersistenceInteractor = mock(BaseActivityPersistenceInteractor.class);
+        BaseActivityBasePresenter baseActivityPresenter = new BaseActivityBasePresenter(baseActivityPersistenceInteractor);
         BaseActivityView view = mock(BaseActivityView.class);
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(1);
@@ -31,8 +31,8 @@ public class BaseActivityPresenterTests {
 
     @Test
     public void handleTabPress_SetsRoleName() {
-        BaseActivityModel baseActivityModel = mock(BaseActivityModel.class);
-        BaseActivityPresenter baseActivityPresenter = new BaseActivityPresenter(baseActivityModel);
+        BaseActivityPersistenceInteractor baseActivityPersistenceInteractor = mock(BaseActivityPersistenceInteractor.class);
+        BaseActivityBasePresenter baseActivityPresenter = new BaseActivityBasePresenter(baseActivityPersistenceInteractor);
         BaseActivityView view = mock(BaseActivityView.class);
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(1);
@@ -42,19 +42,19 @@ public class BaseActivityPresenterTests {
 
     @Test
     public void handleTabPress_RequestsWinRate() {
-        BaseActivityModel baseActivityModel = mock(BaseActivityModel.class);
-        BaseActivityPresenter baseActivityPresenter = new BaseActivityPresenter(baseActivityModel);
+        BaseActivityPersistenceInteractor baseActivityPersistenceInteractor = mock(BaseActivityPersistenceInteractor.class);
+        BaseActivityBasePresenter baseActivityPresenter = new BaseActivityBasePresenter(baseActivityPersistenceInteractor);
         BaseActivityView view = mock(BaseActivityView.class);
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(1);
         baseActivityPresenter.onWinRateLoaded(12);
-        verify(baseActivityModel, times(1)).fetchWinRateForRole(anyLong(), anyString(), any(BaseActivityContract.Presenter.class));
+        verify(baseActivityPersistenceInteractor, times(1)).fetchWinRateForRole(anyLong(), anyString(), any(BaseActivityContract.BasePresenter.class));
     }
 
     @Test
     public void onWinRateLoaded_setsWinRate() {
-        BaseActivityModel baseActivityModel = mock(BaseActivityModel.class);
-        BaseActivityPresenter baseActivityPresenter = new BaseActivityPresenter(baseActivityModel);
+        BaseActivityPersistenceInteractor baseActivityPersistenceInteractor = mock(BaseActivityPersistenceInteractor.class);
+        BaseActivityBasePresenter baseActivityPresenter = new BaseActivityBasePresenter(baseActivityPersistenceInteractor);
         BaseActivityView view = mock(BaseActivityView.class);
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(1);
@@ -64,8 +64,8 @@ public class BaseActivityPresenterTests {
 
     @Test
     public void TestThatWeCanSetCorrectFragmentTab() {
-        BaseActivityModel baseActivityModel = mock(BaseActivityModel.class);
-        BaseActivityPresenter baseActivityPresenter = new BaseActivityPresenter(baseActivityModel);
+        BaseActivityPersistenceInteractor baseActivityPersistenceInteractor = mock(BaseActivityPersistenceInteractor.class);
+        BaseActivityBasePresenter baseActivityPresenter = new BaseActivityBasePresenter(baseActivityPersistenceInteractor);
         BaseActivityView view = mock(BaseActivityView.class);
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(1);
@@ -74,8 +74,8 @@ public class BaseActivityPresenterTests {
 
     @Test
     public void TestThatWeSetSpecificsCorrect_TOP() {
-        BaseActivityModel baseActivityModel = mock(BaseActivityModel.class);
-        BaseActivityPresenter baseActivityPresenter = new BaseActivityPresenter(baseActivityModel);
+        BaseActivityPersistenceInteractor baseActivityPersistenceInteractor = mock(BaseActivityPersistenceInteractor.class);
+        BaseActivityBasePresenter baseActivityPresenter = new BaseActivityBasePresenter(baseActivityPersistenceInteractor);
         BaseActivityView view = mock(BaseActivityView.class);
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(0);
@@ -87,8 +87,8 @@ public class BaseActivityPresenterTests {
 
     @Test
     public void TestThatWeSetSpecificsCorrect_JUNGLE() {
-        BaseActivityModel baseActivityModel = mock(BaseActivityModel.class);
-        BaseActivityPresenter baseActivityPresenter = new BaseActivityPresenter(baseActivityModel);
+        BaseActivityPersistenceInteractor baseActivityPersistenceInteractor = mock(BaseActivityPersistenceInteractor.class);
+        BaseActivityBasePresenter baseActivityPresenter = new BaseActivityBasePresenter(baseActivityPersistenceInteractor);
         BaseActivityView view = mock(BaseActivityView.class);
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(1);
@@ -100,8 +100,8 @@ public class BaseActivityPresenterTests {
 
     @Test
     public void TestThatWeSetSpecificsCorrect_MID() {
-        BaseActivityModel baseActivityModel = mock(BaseActivityModel.class);
-        BaseActivityPresenter baseActivityPresenter = new BaseActivityPresenter(baseActivityModel);
+        BaseActivityPersistenceInteractor baseActivityPersistenceInteractor = mock(BaseActivityPersistenceInteractor.class);
+        BaseActivityBasePresenter baseActivityPresenter = new BaseActivityBasePresenter(baseActivityPersistenceInteractor);
         BaseActivityView view = mock(BaseActivityView.class);
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(2);
@@ -113,8 +113,8 @@ public class BaseActivityPresenterTests {
 
     @Test
     public void TestThatWeSetSpecificsCorrect_MARKSMAN() {
-        BaseActivityModel baseActivityModel = mock(BaseActivityModel.class);
-        BaseActivityPresenter baseActivityPresenter = new BaseActivityPresenter(baseActivityModel);
+        BaseActivityPersistenceInteractor baseActivityPersistenceInteractor = mock(BaseActivityPersistenceInteractor.class);
+        BaseActivityBasePresenter baseActivityPresenter = new BaseActivityBasePresenter(baseActivityPersistenceInteractor);
         BaseActivityView view = mock(BaseActivityView.class);
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(3);
@@ -126,8 +126,8 @@ public class BaseActivityPresenterTests {
 
     @Test
     public void TestThatWeSetSpecificsCorrect_SUPPORT() {
-        BaseActivityModel baseActivityModel = mock(BaseActivityModel.class);
-        BaseActivityPresenter baseActivityPresenter = new BaseActivityPresenter(baseActivityModel);
+        BaseActivityPersistenceInteractor baseActivityPersistenceInteractor = mock(BaseActivityPersistenceInteractor.class);
+        BaseActivityBasePresenter baseActivityPresenter = new BaseActivityBasePresenter(baseActivityPersistenceInteractor);
         BaseActivityView view = mock(BaseActivityView.class);
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(4);

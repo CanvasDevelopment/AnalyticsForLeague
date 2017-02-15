@@ -6,50 +6,54 @@ import com.teamunemployment.lolanalytics.Data.model.DoubleWrapper;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * @author Josiah Kendall
+ * Interactor for fetching
  */
 
-public class BaseActivityModel {
+public class BaseActivityPersistenceInteractor {
 
     // Our repositories.
-
     private RealmExecutor realmExecutor;
     private RESTApiExecutor restApiExecutor;
 
     @Inject
-    public BaseActivityModel(RESTApiExecutor restApiExecutor, RealmExecutor realmExecutor) {
+    public BaseActivityPersistenceInteractor(RESTApiExecutor restApiExecutor, RealmExecutor realmExecutor) {
         this.restApiExecutor = restApiExecutor;
         this.realmExecutor = realmExecutor;
     }
 
-    public void fetchWinRateForRole(long summonerId, String role, final BaseActivityContract.Presenter presenter) {
+    public void fetchWinRateForRole(long summonerId, String role, final BaseActivityContract.BasePresenter presenter) {
 
         Observable<DoubleWrapper> winRateObsservable = restApiExecutor.GetWinRateForRole(summonerId, role);
         winRateObsservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
-                .map(new Func1<DoubleWrapper, DoubleWrapper>() {
-                    @Override
-                    public DoubleWrapper call(DoubleWrapper doubleWrapper) {
-                       // realmExecutor. TODO - cache
-                        return doubleWrapper;
-                    }
-                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<DoubleWrapper>() {
-            @Override
-            public void onCompleted() {
-
-            }
+                .map(doubleWrapper -> {
+                    // realmExecutor. TODO - cache
+                    return doubleWrapper;
+                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<DoubleWrapper>() {
 
             @Override
             public void onError(Throwable e) {
                 presenter.handleError(e);
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+
             }
 
             @Override

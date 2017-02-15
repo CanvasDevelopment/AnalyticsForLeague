@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.StatsComparisonTab.Model;
+package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model;
 
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -14,12 +14,12 @@ import javax.inject.Inject;
  *
  * This is the model for our Adapter.
  */
-public class BarChartCardModel {
+public class BarChartModel {
 
     private BarChartFactory barChartFactory;
 
     @Inject
-    public BarChartCardModel(BarChartFactory barChartFactory) {
+    public BarChartModel(BarChartFactory barChartFactory) {
         this.barChartFactory = barChartFactory;
     }
 

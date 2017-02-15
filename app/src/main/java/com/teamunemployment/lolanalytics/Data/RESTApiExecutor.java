@@ -4,10 +4,15 @@ import com.teamunemployment.lolanalytics.Data.model.Data;
 import com.teamunemployment.lolanalytics.Data.model.DoubleWrapper;
 import com.teamunemployment.lolanalytics.Data.model.LongWrapper;
 import com.teamunemployment.lolanalytics.Data.model.MatchHistoryData;
+import com.teamunemployment.lolanalytics.Data.model.MatchIdWrapper;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Model.MatchHistoryCardData;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatCollection;
 
+import java.util.ArrayList;
+
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import rx.Observable;
 
 /**
  * @author Josiah Kendall
@@ -47,8 +52,12 @@ public interface RESTApiExecutor {
     @GET("FetchWinRate/{SummonerId}/{Role}")
     Observable<DoubleWrapper> GetWinRateForRole(@Path("SummonerId") long summonerId, @Path("Role") String role);
 
-    @GET("FetchMatchListForSummonerInRole/{SummonerId}/{Role}")
-    Observable<MatchHistoryData> GetMatchListForSummonerInSpecificRole(@Path("SummonerId") long summonerId, @Path("Role") int role);
+    @GET("FetchMatchList/{UserId}/{Role}")
+    Observable<MatchHistoryData> GetMatchListForSummonerInSpecificRole(@Path("UserId") long summonerId, @Path("Role") int role);
 
+    @GET("GetAnalysisStatCollection/{Role}/{SummonerId}")
+    Observable<StatCollection> GetAnalysisStatCollection(@Path("Role") int role, @Path("SummonerId") long summonerId);
 
+    @GET("FetchPerformance/{MatchId}/{UserId}")
+    Observable<MatchHistoryCardData> GetMatchHistoryCardData(@Path("MatchId") long matchId, @Path("UserId") long userId);
 }

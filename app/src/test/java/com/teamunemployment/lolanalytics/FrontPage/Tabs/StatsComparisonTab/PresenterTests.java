@@ -23,7 +23,7 @@ public class PresenterTests {
     public void TestThatWeThrowIllegalStatExceptionIfStartIsCalledBeforeViewSet() {
         TabModel tabModel = mock(TabModel.class);
         TabRecyclerAdapter tabRecyclerAdapter = mock(TabRecyclerAdapter.class);
-        TabPresenter presenter = new TabPresenter(tabModel, tabRecyclerAdapter);
+        TabBasePresenter presenter = new TabBasePresenter(tabModel, tabRecyclerAdapter);
         presenter.start();
     }
 
@@ -31,7 +31,7 @@ public class PresenterTests {
     public void TestThatWeThrowIllegalStateExceptionIfWeGiveIllegalLaneValueTooLow() {
         TabModel tabModel = mock(TabModel.class);
         TabRecyclerAdapter tabRecyclerAdapter = mock(TabRecyclerAdapter.class);
-        TabPresenter presenter = new TabPresenter(tabModel, tabRecyclerAdapter);
+        TabBasePresenter presenter = new TabBasePresenter(tabModel, tabRecyclerAdapter);
         presenter.setView(null, 0);
     }
 
@@ -39,7 +39,7 @@ public class PresenterTests {
     public void TestThatWeGiveillegalStateExceptionIfWeGiveIllegalLaneValueTooHigh() {
         TabModel tabModel = mock(TabModel.class);
         TabRecyclerAdapter tabRecyclerAdapter = mock(TabRecyclerAdapter.class);
-        TabPresenter presenter = new TabPresenter(tabModel, tabRecyclerAdapter);
+        TabBasePresenter presenter = new TabBasePresenter(tabModel, tabRecyclerAdapter);
         presenter.setView(null, 5);
     }
 
@@ -48,7 +48,7 @@ public class PresenterTests {
         TabModel tabModel = mock(TabModel.class);
         TabRecyclerAdapter tabRecyclerAdapter = mock(TabRecyclerAdapter.class);
         TabView tabView = mock(TabView.class);
-        TabPresenter presenter = new TabPresenter(tabModel, tabRecyclerAdapter);
+        TabBasePresenter presenter = new TabBasePresenter(tabModel, tabRecyclerAdapter);
         presenter.setView(tabView, 2);
         verify(tabModel, times(1)).CreateCachedDataObservable(anyLong(), anyInt());
     }
@@ -58,7 +58,7 @@ public class PresenterTests {
         TabModel tabModel = mock(TabModel.class);
         TabRecyclerAdapter tabRecyclerAdapter = mock(TabRecyclerAdapter.class);
         TabView tabView = mock(TabView.class);
-        TabPresenter presenter = new TabPresenter(tabModel, tabRecyclerAdapter);
+        TabBasePresenter presenter = new TabBasePresenter(tabModel, tabRecyclerAdapter);
         presenter.setView(tabView, 2);
         verify(tabModel, times(1)).CreateLaneDataObservable(anyLong(), anyInt());
     }
@@ -68,7 +68,7 @@ public class PresenterTests {
         TabModel tabModel = mock(TabModel.class);
         TabRecyclerAdapter tabRecyclerAdapter = mock(TabRecyclerAdapter.class);
         TabView tabView = mock(TabView.class);
-        TabPresenter presenter = new TabPresenter(tabModel, tabRecyclerAdapter);
+        TabBasePresenter presenter = new TabBasePresenter(tabModel, tabRecyclerAdapter);
         presenter.setView(tabView, 1);
         presenter.addDataToAdapter(null);
         verify(tabView, times(1)).setLoadingVisibile(false);
@@ -79,7 +79,7 @@ public class PresenterTests {
         TabModel tabModel = mock(TabModel.class);
         TabRecyclerAdapter tabRecyclerAdapter = mock(TabRecyclerAdapter.class);
         TabView tabView = mock(TabView.class);
-        TabPresenter presenter = new TabPresenter(tabModel, tabRecyclerAdapter);
+        TabBasePresenter presenter = new TabBasePresenter(tabModel, tabRecyclerAdapter);
         presenter.setView(tabView, 1);
         presenter.handleError(mock(Throwable.class));
         verify(tabView, times(1)).setErrorMessage(anyString());

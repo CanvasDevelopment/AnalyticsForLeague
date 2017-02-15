@@ -3,15 +3,15 @@ package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab;
 import android.app.Application;
 import android.content.Context;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.teamunemployment.lolanalytics.Data.RealmExecutor;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.BarChartCardModel;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.BarChartFactory;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.BarChartModel;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.BarChartFactory;
 import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
 
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -37,7 +37,7 @@ public class StatisticsTabModule {
         // Currently using this for testing - will be removed in the future.
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl("https://lolanalyticsv3.appspot.com/_ah/api/myApi/v1/")
                 .build();
 
@@ -57,17 +57,17 @@ public class StatisticsTabModule {
     }
 
     @Provides
-    TabPresenter provideBasePresenter(TabModel tabModel, TabRecyclerAdapter tabRecyclerAdapter) {
-        return new TabPresenter(tabModel, tabRecyclerAdapter);
+    TabBasePresenter provideBasePresenter(TabModel tabModel, TabRecyclerAdapter tabRecyclerAdapter) {
+        return new TabBasePresenter(tabModel, tabRecyclerAdapter);
     }
 
     @Provides
-    BarChartCardModel provideBarChartCardModel(BarChartFactory barChartFactory) {
-        return new BarChartCardModel(barChartFactory);
+    BarChartModel provideBarChartCardModel(BarChartFactory barChartFactory) {
+        return new BarChartModel(barChartFactory);
     }
 
     @Provides
-    TabRecyclerAdapter provideBaseRecyclerAdapter(BarChartCardModel barChartCardModel) {
-        return new TabRecyclerAdapter(barChartCardModel);
+    TabRecyclerAdapter provideBaseRecyclerAdapter(BarChartModel barChartModel) {
+        return new TabRecyclerAdapter(barChartModel);
     }
 }

@@ -1,28 +1,28 @@
 package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab;
 
 import com.teamunemployment.lolanalytics.Data.model.Data;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * @author Josiah Kendall.
- * Presenter for the tabs.
+ * BasePresenter for the tabs.
  */
-public class TabPresenter implements TabContract.Presenter {
+public class TabBasePresenter implements TabContract.BasePresenter {
 
-    private static final String TAG = "Presenter";
+    private static final String TAG = "BasePresenter";
     private TabContract.View view;
     private TabModel tabModel;
     private TabRecyclerAdapter tabRecyclerAdapter;
     private int lane = -1;
 
     @Inject
-    public TabPresenter(TabModel tabModel, TabRecyclerAdapter tabRecyclerAdapter) {
+    public TabBasePresenter(TabModel tabModel, TabRecyclerAdapter tabRecyclerAdapter) {
         this.tabModel = tabModel;
         this.tabRecyclerAdapter = tabRecyclerAdapter;
     }
@@ -49,6 +49,31 @@ public class TabPresenter implements TabContract.Presenter {
     public void handleError(Throwable e) {
         showMessageToUser("An error occurred while loading fresh data. Please check you have an internet connection and retry.");
         view.setErrorMessage("An error occured while loading. Please check that you have an internet connection.");
+    }
+
+    @Override
+    public void restart() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void stop() {
+
+    }
+
+    @Override
+    public void destroy() {
+
     }
 
 

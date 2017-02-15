@@ -1,11 +1,10 @@
 package com.teamunemployment.lolanalytics.LoginTests;
 
-import android.content.Context;
 import android.widget.ArrayAdapter;
 
 import com.teamunemployment.lolanalytics.Login.ArrayAdapterFactory;
+import com.teamunemployment.lolanalytics.Login.LoginBasePresenter;
 import com.teamunemployment.lolanalytics.Login.LoginModel;
-import com.teamunemployment.lolanalytics.Login.LoginPresenter;
 import com.teamunemployment.lolanalytics.Login.LoginView;
 
 import org.junit.Test;
@@ -30,7 +29,7 @@ public class LoginPresenterTests {
         ArrayAdapter<CharSequence> adapter = mock(ArrayAdapter.class);
         when(arrayAdapterFactory.getArrayAdapter(anyInt(), anyInt())).thenReturn(adapter);
         LoginModel loginModel = mock(LoginModel.class);
-        LoginPresenter loginPresenter = new LoginPresenter(arrayAdapterFactory, loginModel);
+        LoginBasePresenter loginPresenter = new LoginBasePresenter(arrayAdapterFactory, loginModel);
         LoginView loginView = mock(LoginView.class);
         loginPresenter.setView(loginView);
 

@@ -1,9 +1,9 @@
-package com.teamunemployment.lolanalytics.StatsComparisonTab;
+package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab;
 
 import com.github.mikephil.charting.data.BarDataSet;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.BarChartCardModel;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.BarChartFactory;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.BarChartModel;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.BarChartFactory;
 
 import org.junit.Test;
 
@@ -15,10 +15,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-
 /**
  * @author Josiah Kendall
  */
+
 public class BarChartModeTests {
 
     @Test
@@ -26,10 +26,10 @@ public class BarChartModeTests {
         BarChartFactory barChartFactory = mock(BarChartFactory.class);
         BarDataSet dataSet = mock(BarDataSet.class);
         when(barChartFactory.createBarChartDataSet(anyList(), anyString())).thenReturn(dataSet);
-        BarChartCardModel barChartCardModel = new BarChartCardModel(barChartFactory);
+        BarChartModel barChartModel = new BarChartModel(barChartFactory);
 
         CardData cardData = new CardData(23, 34, "This is a test");
-        barChartCardModel.FetchBarDataSet(cardData);
+        barChartModel.FetchBarDataSet(cardData);
         verify(barChartFactory, times(2)).GenerateBarEntry(anyFloat(), anyFloat());
     }
 

@@ -4,9 +4,13 @@ import android.content.Context;
 
 import com.teamunemployment.lolanalytics.Data.Realm.RealmMigrator;
 import com.teamunemployment.lolanalytics.Data.model.Data;
+import com.teamunemployment.lolanalytics.Data.model.LongWrapper;
 import com.teamunemployment.lolanalytics.Data.model.MatchHistoryData;
+import com.teamunemployment.lolanalytics.Data.model.MatchIdWrapper;
 import com.teamunemployment.lolanalytics.Data.model.MatchSummary;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatSummary;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatPoint;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,6 +71,11 @@ public class RealmExecutor {
         return realm.where(MatchSummary.class).equalTo("id", id).findFirst();
     }
 
+    // Private version for fetching a single object by id.
+    private StatPoint findSingleStatPoint(Realm realm, long id) {
+        return realm.where(StatPoint.class).equalTo("id", id).findFirst();
+    }
+
     /**
      * Fetch a list of all the pojos in a realm that have a given role and summonerId.
      * @param realm The database to fetch from
@@ -121,18 +130,15 @@ public class RealmExecutor {
      */
     public void SaveSingleMatchSummary(Realm realm, final MatchSummary matchSummary) {
 
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                MatchSummary preExistingObject = findSingleMatchSummary(realm, matchSummary.getId());
-                if (preExistingObject == null) {
-                    preExistingObject = realm.createObject(MatchSummary.class, matchSummary.getId());
-                }
-
-                preExistingObject.setSummonerId(matchSummary.getSummonerId());
-                preExistingObject.setValue(matchSummary.getValue());
-                preExistingObject.setRole(matchSummary.getRole());
+        realm.executeTransaction(realm1 -> {
+            MatchSummary preExistingObject = findSingleMatchSummary(realm1, matchSummary.getId());
+            if (preExistingObject == null) {
+                preExistingObject = realm1.createObject(MatchSummary.class, matchSummary.getId());
             }
+
+            preExistingObject.setSummonerId(matchSummary.getSummonerId());
+            preExistingObject.setValue(matchSummary.getValue());
+            preExistingObject.setRole(matchSummary.getRole());
         });
     }
 
@@ -175,24 +181,139 @@ public class RealmExecutor {
      * @return The results as a {@link MatchHistoryData} object.
      */
     public MatchHistoryData FindMatchHistory(int role, long summonerId, Realm realm) {
-        RealmResults<MatchSummary> results = findMatchSummariesUsingRoleAndSummonerId(realm, role, summonerId);
-        MatchSummary[] matchSummaries = new MatchSummary[results.size()];
-        List<MatchSummary> items = Arrays.asList(results.toArray(matchSummaries));
-        MatchHistoryData matchHistoryData = new MatchHistoryData();
-        matchHistoryData.setRole(role);
-        matchHistoryData.setItems(new ArrayList<>(items));
-        return matchHistoryData;
+//        RealmResults<MatchSummary> results = findMatchSummariesUsingRoleAndSummonerId(realm, role, summonerId);
+//        MatchSummary[] matchSummaries = new MatchSummary[results.size()];
+//        List<MatchIdWrapper> items = Arrays.asList(results.toArray(matchSummaries));
+//        MatchHistoryData matchHistoryData = new MatchHistoryData();
+//        matchHistoryData.setRole(role);
+//        matchHistoryData.setItems(new ArrayList<MatchIdWrapper>(items));
+      //  return matchHistoryData;
+        return null;
     }
 
     public MatchSummary FindMatchSummary(Realm realm, long matchSummaryId) {
         return findSingleMatchSummary(realm, matchSummaryId);
     }
 
+    @Deprecated
     public void SaveMatchHistory(Realm realm, MatchHistoryData matchHistoryData) {
-        List<MatchSummary> matchSummaries = matchHistoryData.getItems();
-        Iterator<MatchSummary> matchSummaryIterator = matchSummaries.iterator();
+        List<MatchIdWrapper> matchSummaries = matchHistoryData.getItems();
+        Iterator<MatchIdWrapper> matchSummaryIterator = matchSummaries.iterator();
         while (matchSummaryIterator.hasNext()) {
-            SaveSingleMatchSummary(realm, matchSummaryIterator.next());
+       //     SaveSingleMatchSummary(realm, matchSummaryIterator.next());
         }
+    }
+
+    /**
+     * Load a stat point.
+     * @param realm The realm database we are using to load from.
+     * @param statPoint The {@link StatPoint} instance that we are after.
+     */
+    public void SaveStatPoint(Realm realm, StatPoint statPoint) {
+        realm.executeTransaction(realm1 -> {
+            StatPoint preExistingObject = findSingleStatPoint(realm1, statPoint.getId());
+            if (preExistingObject == null) {
+                preExistingObject = realm1.createObject(StatPoint.class, statPoint.getId());
+            }
+
+            preExistingObject.setStatId(statPoint.getStatId());
+            preExistingObject.setxValue(statPoint.getxValue());
+            preExistingObject.setyValue(statPoint.getyValue());
+        });
+    }
+
+    public StatPoint LoadStatPoint(Realm realm, long id) {
+        return findSingleStatPoint(realm, id);
+    }
+
+    private StatSummary findSingleStatData(Realm realm, long id) {
+        return realm.where(StatSummary.class).equalTo("id", id).findFirst();
+    }
+
+    /**
+     * Save a stat data object. This does two things
+     *
+     *
+     * @param realm The realm db to use.
+     * @param statSummary The {@link StatSummary} to save.
+     */
+    public void SaveStatSummary(Realm realm, StatSummary statSummary) {
+        realm.executeTransaction(realm1 -> {
+            StatSummary preExistingObject = findSingleStatData(realm1, statSummary.getId());
+            if (preExistingObject == null) {
+                preExistingObject = realm1.createObject(StatSummary.class, statSummary.getId());
+            }
+
+            preExistingObject.setGoalvalue(statSummary.getGoalvalue());
+            preExistingObject.setHasGoal(statSummary.getHasGoal());
+
+            preExistingObject.setImprovementValue(statSummary.getImprovementValue());
+            preExistingObject.setStatName(statSummary.getStatName());
+        });
+    }
+
+    public StatSummary LoadStatData(Realm realm, long id) {
+        return findSingleStatData(realm, id);
+    }
+
+    public void SaveArrayOfStatPoints(Realm realm, ArrayList<StatPoint> statPoints) {
+        for (StatPoint statPoint : statPoints) {
+            // Save our stat point
+            SaveStatPoint(realm, statPoint);
+        }
+    }
+
+    /**
+     * Load an arraylist of {@link StatPoint} objects for a stat.
+     * @param realm The db to load with.
+     * @param statId The statistic the points belong to.
+     * @return The arraylist of statpoints.
+     */
+    public ArrayList<StatPoint> FindStatPoints(Realm realm, long statId) {
+        ArrayList<StatPoint> statPoints = new ArrayList<>();
+        RealmResults<StatPoint> results = realm.where(StatPoint.class).equalTo("statId", statId).findAll();
+        StatPoint[] statPointsArray = new StatPoint[results.size()];
+        List<StatPoint> items = Arrays.asList(results.toArray(statPointsArray));
+        return new ArrayList<>(items);
+    }
+
+    /**
+     * Save an arraylist of matchIds.
+     * @param realm The realm db to use with saving
+     * @param matchIds The matchIds to save
+     */
+    public void SaveMatchList(Realm realm, ArrayList<MatchIdWrapper> matchIds) {
+
+        for (MatchIdWrapper matchId: matchIds) {
+            saveMatchId(realm, matchId);
+        }
+    }
+
+    private MatchIdWrapper findSingleMatchId(Realm realm, long matchId) {
+        return realm.where(MatchIdWrapper.class).equalTo("matchId", matchId).findFirst();
+    }
+
+    private void saveMatchId(Realm realm, MatchIdWrapper matchIdWrapper) {
+        realm.executeTransaction(realm1 -> {
+            MatchIdWrapper preexisitingMatchId = findSingleMatchId(realm1, matchIdWrapper.getMatchId());
+            if (preexisitingMatchId == null) {
+                preexisitingMatchId = realm1.createObject(MatchIdWrapper.class, matchIdWrapper.getMatchId());
+            }
+            preexisitingMatchId.setRole(matchIdWrapper.getRole());
+            preexisitingMatchId.setSummonerId(matchIdWrapper.getSummonerId());
+        });
+    }
+
+    /**
+     * Load all the ids for a summoner with a specific role.
+     * @param realm
+     * @param summonerId
+     * @return
+     */
+    public ArrayList<MatchIdWrapper> LoadMatchList(Realm realm, long summonerId) {
+        RealmResults<MatchIdWrapper> results = realm.where(MatchIdWrapper.class).equalTo("summonerId", summonerId).findAll();
+        MatchIdWrapper[] statPointsArray = new MatchIdWrapper[results.size()];
+        List<MatchIdWrapper> items = Arrays.asList(results.toArray(statPointsArray));
+        return new ArrayList<>(items);
     }
 }

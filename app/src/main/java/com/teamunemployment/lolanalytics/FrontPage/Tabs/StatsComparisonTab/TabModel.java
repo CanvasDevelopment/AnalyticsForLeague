@@ -5,7 +5,7 @@ import android.content.Context;
 import com.teamunemployment.lolanalytics.Data.Statics;
 import com.teamunemployment.lolanalytics.Data.model.Data;
 import com.teamunemployment.lolanalytics.Data.model.LongWrapper;
-import com.teamunemployment.lolanalytics.StatsComparisonTab.Model.CardData;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
 import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
 import com.teamunemployment.lolanalytics.Data.RealmExecutor;
 
@@ -13,13 +13,12 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
-import rx.Observable;
-import rx.Subscriber;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * @author Josiah Kendall
@@ -79,15 +78,12 @@ public class TabModel {
     public Observable<Data> CreateCachedDataObservable(final long summonerId, final int lane) {
 
         // Create an observable for fetching our cached data, as we want to get this off of the base thread.
-        Observable observable = Observable.create(new Observable.OnSubscribe<Data>() {
-            @Override
-            public void call(Subscriber<? super Data> subscriber) {
-                Realm.init(context);
-                Realm realm = Realm.getDefaultInstance();
-                Data data = realmExecutor.FindDataForRole(lane, summonerId, realm);
-                subscriber.onNext(data);
-                subscriber.onCompleted();
-            }
+        Observable observable = Observable.create((ObservableEmitter<Data> emitter) -> {
+            Realm.init(context);
+            Realm realm = Realm.getDefaultInstance();
+            Data data = realmExecutor.FindDataForRole(lane, summonerId, realm);
+            emitter.onNext(data);
+            emitter.onComplete();
         });
 
         return observable;
@@ -98,36 +94,20 @@ public class TabModel {
      * This is done to keep the presenter as thin as possible.
      * @param tabPresenterContract
      */
-    public void FetchData(final TabContract.Presenter tabPresenterContract, Observable<Data> averagesObservable) {
+    public void FetchData(final TabContract.BasePresenter tabPresenterContract, Observable<Data> averagesObservable) {
 
         // Send the request on a new thread, but observe on the base thread.
         averagesObservable
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.computation())
                 // Use the map to write to the database.
-                .map(new Func1<Data, Data>() {
-                    @Override
-                    public Data call(Data data) {
-                        realmExecutor.WriteDataObjectToRealm(data);
-                        return data;
-                    }
+                .map(data -> {
+                    realmExecutor.WriteDataObjectToRealm(data);
+                    return data;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Data>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        tabPresenterContract.handleError(e);
-                    }
-
-                    @Override
-                    public void onNext(Data data) {
-                        tabPresenterContract.addDataToAdapter(new ArrayList<CardData>(data.getItems()));
-                    }
+                .subscribe(data -> {
+                    tabPresenterContract.addDataToAdapter(new ArrayList<CardData>(data.getItems()));
                 });
     }
 
@@ -147,25 +127,13 @@ public class TabModel {
         return new Long(-1);
     }
 
-    public void FetchCacheData(final TabContract.Presenter tabPresenterContract, Observable<Data> cachedDataObservable) {
+    public void FetchCacheData(final TabContract.BasePresenter tabPresenterContract, Observable<Data> cachedDataObservable) {
         cachedDataObservable.
+                // Currently running this on the main thread, because issues arise with creating realm objects on one thread then using them on another.
                 subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Data>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        tabPresenterContract.handleError(e);
-                    }
-
-                    @Override
-                    public void onNext(Data data) {
-                        tabPresenterContract.addDataToAdapter(new ArrayList<CardData>(data.getItems()));
-                    }
+                .subscribe(data -> {
+                    tabPresenterContract.addDataToAdapter(new ArrayList<CardData>(data.getItems()));
                 });
     }
 }

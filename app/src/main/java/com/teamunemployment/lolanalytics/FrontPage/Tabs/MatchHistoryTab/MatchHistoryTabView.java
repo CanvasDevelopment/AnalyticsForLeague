@@ -17,6 +17,8 @@ import com.teamunemployment.lolanalytics.App;
 import com.teamunemployment.lolanalytics.Data.Statics;
 import com.teamunemployment.lolanalytics.R;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -25,14 +27,16 @@ import butterknife.ButterKnife;
  */
 public class MatchHistoryTabView extends Fragment implements MatchHistoryTabContract.View {
 
-    @Bind(R.id.root) CoordinatorLayout coordinatorLayout;
+   // @Bind(R.id.root) CoordinatorLayout coordinatorLayout;
     @Bind(R.id.recycler) RecyclerView recycler;
     @Bind(R.id.progress_spinner) ProgressBar progressBar;
     @Bind(R.id.error_message) TextView errorMessageTextBox;
 
     private View rootView;
+    private int role;
 
-    public MatchHistoryPresenter presenter;
+    @Inject
+    public MatchHistoryBasePresenter presenter;
 
     @Nullable
     @Override
@@ -47,14 +51,19 @@ public class MatchHistoryTabView extends Fragment implements MatchHistoryTabCont
 
         presenter.setView(this);
         // Top is default role
-        presenter.setRole(Statics.TOP);
+        presenter.setRole(role);
         presenter.start();
         return rootView;
     }
 
     @Override
     public void showMessage(String message) {
-        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
+       // Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setRole(int role) {
+        this.role = role;
     }
 
     @Override
