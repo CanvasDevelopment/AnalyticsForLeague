@@ -57,8 +57,8 @@ public class StatisticsTabModule {
     }
 
     @Provides
-    TabBasePresenter provideBasePresenter(TabModel tabModel, TabRecyclerAdapter tabRecyclerAdapter) {
-        return new TabBasePresenter(tabModel, tabRecyclerAdapter);
+    TabPresenter provideBasePresenter(TabModel tabModel, TabRecyclerAdapter tabRecyclerAdapter) {
+        return new TabPresenter(tabModel, tabRecyclerAdapter);
     }
 
     @Provides

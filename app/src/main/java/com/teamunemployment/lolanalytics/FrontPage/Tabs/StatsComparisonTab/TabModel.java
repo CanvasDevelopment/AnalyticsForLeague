@@ -8,6 +8,7 @@ import com.teamunemployment.lolanalytics.Data.model.LongWrapper;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
 import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
 import com.teamunemployment.lolanalytics.Data.RealmExecutor;
+import com.teamunemployment.lolanalytics.Utils.Network;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ import io.realm.Realm;
  *  - Remote Server.
  */
 public class TabModel {
-    // Logging tag
+    // Logging tag'
     private static final String TAG = "TabModel";
     private RESTApiExecutor RESTApiExecutor;
     private RealmExecutor realmExecutor;
@@ -76,7 +77,6 @@ public class TabModel {
      * @return Our ready observble.
      */
     public Observable<Data> CreateCachedDataObservable(final long summonerId, final int lane) {
-
         // Create an observable for fetching our cached data, as we want to get this off of the base thread.
         Observable observable = Observable.create((ObservableEmitter<Data> emitter) -> {
             Realm.init(context);
@@ -94,15 +94,22 @@ public class TabModel {
      * This is done to keep the presenter as thin as possible.
      * @param tabPresenterContract
      */
-    public void FetchData(final TabContract.BasePresenter tabPresenterContract, Observable<Data> averagesObservable) {
+    public void FetchData(final TabModelContract.Presenter tabPresenterContract, Observable<Data> averagesObservable) {
+
+        // TODO find better solution to this here. Also notify the user.
+        if (!Network.isConnectingToInternet(context)) {
+            return;
+        }
+
+        Realm realm = Realm.getDefaultInstance();
 
         // Send the request on a new thread, but observe on the base thread.
         averagesObservable
             .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
                 // Use the map to write to the database.
                 .map(data -> {
-                    realmExecutor.WriteDataObjectToRealm(data);
+                    realmExecutor.WriteDataObjectToRealm(data, realm);
                     return data;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -127,7 +134,7 @@ public class TabModel {
         return new Long(-1);
     }
 
-    public void FetchCacheData(final TabContract.BasePresenter tabPresenterContract, Observable<Data> cachedDataObservable) {
+    public void FetchCacheData(final TabModelContract.Presenter tabPresenterContract, Observable<Data> cachedDataObservable) {
         cachedDataObservable.
                 // Currently running this on the main thread, because issues arise with creating realm objects on one thread then using them on another.
                 subscribeOn(AndroidSchedulers.mainThread())

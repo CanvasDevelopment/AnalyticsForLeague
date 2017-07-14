@@ -6,7 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.teamunemployment.lolanalytics.Data.model.MatchIdWrapper;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Cards.MatchHistoryCardView;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatDefinition;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.BarChartModel;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.TabContract;
 import com.teamunemployment.lolanalytics.R;
 
 import java.util.ArrayList;
@@ -16,14 +20,14 @@ import java.util.ArrayList;
  *
  * Adapter for the Match History tab view.
  */
-public class MatchHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MatchHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements TabContract.TabAdapter{
 
     private ArrayList<MatchIdWrapper> matchIds;
 
-    private MatchHistoryBasePresenter matchHistoryBasePresenter;
+    private MatchHistoryPresenter matchHistoryBasePresenter;
     private BarChartModel barChartModel;
 
-    public MatchHistoryAdapter(MatchHistoryBasePresenter matchHistoryBasePresenter, BarChartModel barChartModel) {
+    public MatchHistoryAdapter(MatchHistoryPresenter matchHistoryBasePresenter, BarChartModel barChartModel) {
         this.matchHistoryBasePresenter = matchHistoryBasePresenter;
         this.barChartModel = barChartModel;
     }
@@ -42,7 +46,7 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         MatchHistoryCardView cardView = (MatchHistoryCardView) holder;
 
         if (matchIds == null) {
-            throw new IllegalStateException("SetData() must be called before binding adapter");
+            throw new IllegalStateException("setPlayerAnalysisAdapterData() must be called before binding adapter");
         }
 
         // Load our data
@@ -56,5 +60,20 @@ public class MatchHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public void setData(ArrayList<MatchIdWrapper> matchIds) {
         this.matchIds = matchIds;
+    }
+
+    @Override
+    public void setMatchHistoryAdapterData(ArrayList<MatchIdWrapper> matchIds) {
+        this.matchIds = matchIds;
+    }
+
+    @Override
+    public void setPlayerAnalysisAdapterData(ArrayList<StatDefinition> statDefinitions) {
+        throw new IllegalStateException("This is a matchHistoryAdapter. Please use the appropriate method.");
+    }
+
+    @Override
+    public void setStatComparisonAdapterData(ArrayList<CardData> cardDatas) {
+        throw new IllegalStateException("This is a matchHistoryAdapter. Please use the appropriate method.");
     }
 }

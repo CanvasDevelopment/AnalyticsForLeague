@@ -24,7 +24,6 @@ import org.junit.runner.RunWith;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -45,7 +44,7 @@ public class RealmTests {
     @Test
     public void TestWeCanGetSingleObjectFromRealDb() throws FileNotFoundException {
         RealmExecutor realmExecutor = new RealmExecutor(context);
-        Realm realm = RealmExecutor.GetRealmInstance();
+        Realm realm = Realm.getDefaultInstance();
         CardData cardData = new CardData(12, 5, "test", 1, 0, -1);
         realmExecutor.WriteSingleObjectToRealm(cardData);
         CardData result = realmExecutor.GetCardDataByCardId(realm, 1);
@@ -59,14 +58,14 @@ public class RealmTests {
     @Test
     public void TestWeCanSaveAndLoadListOfData() {
         RealmExecutor realmExecutor = new RealmExecutor(context);
-
+        Realm.init(context);
         ArrayList<CardData> cardDatas = new ArrayList<>();
-        CardData cardData = new CardData(12, 5, "test", 1, Statics.TOP, -1);
-        CardData cardData1 = new CardData(12, 5, "test", 2, Statics.TOP, -1);
-        CardData cardData2 = new CardData(12, 5, "test", 3, Statics.TOP, -1);
-        CardData cardData3 = new CardData(12, 5, "test", 4, Statics.TOP, -1);
-        CardData cardData4 = new CardData(12, 5, "test", 5, Statics.TOP, -1);
-        CardData cardData5 = new CardData(12, 5, "test", 6, Statics.TOP, 1);
+        CardData cardData = new CardData(12, 5, "test", 1, Statics.TOP, -2);
+        CardData cardData1 = new CardData(12, 5, "test", 2, Statics.TOP, -2);
+        CardData cardData2 = new CardData(12, 5, "test", 3, Statics.TOP, -2);
+        CardData cardData3 = new CardData(12, 5, "test", 4, Statics.TOP, -2);
+        CardData cardData4 = new CardData(12, 5, "test", 5, Statics.TOP, -2);
+        CardData cardData5 = new CardData(12, 5, "test", 6, Statics.TOP, -2);
 
         cardDatas.add(cardData);
         cardDatas.add(cardData1);
@@ -77,12 +76,12 @@ public class RealmTests {
 
         Data data = new Data();
         data.setItems(cardDatas);
-
-        realmExecutor.WriteDataObjectToRealm(data);
         Realm realm = Realm.getDefaultInstance();
-        Data cached = realmExecutor.FindDataForRole(Statics.TOP, -1, realm);
 
-        Assert.assertEquals(cached.getItems().size(), 5);
+        realmExecutor.WriteDataObjectToRealm(data, realm);
+        Data cached = realmExecutor.FindDataForRole(Statics.TOP, -2, realm);
+
+        Assert.assertEquals(cached.getItems().size(), 6);
         Assert.assertEquals(cached.getItems().get(0).getId(), 1);
         Assert.assertEquals(cached.getItems().get(1).getId(), 2);
         Assert.assertEquals(cached.getItems().get(2).getId(), 3);
@@ -93,13 +92,12 @@ public class RealmTests {
     @Test
     public void TestThatWeCanUpdateValue() {
         RealmExecutor realmExecutor = new RealmExecutor(context);
+        Realm.init(context);
         Realm realm = Realm.getDefaultInstance();
         CardData cardData = new CardData(12, 5, "test", 1, Statics.TOP, -1);
         realmExecutor.WriteSingleObjectToRealm(cardData);
         CardData result = realmExecutor.GetCardDataByCardId(realm, 1);
         // Need to re init real so we dont get errors
-        Realm.init(context);
-        Realm.getDefaultInstance();
         Assert.assertEquals(result.getId(), 1);
         Assert.assertEquals(result.getEnemyStats(), 12.0);
         Assert.assertEquals(result.getFriendlyStats(), 5.0);
@@ -218,7 +216,7 @@ public class RealmTests {
     public void SaveStatPoint_SavesStatPointAndLoadStatPoint_LoadsStatPoint() {
         Realm.init(context);
         RealmExecutor realmExecutor = new RealmExecutor(context);
-        Realm realm = RealmExecutor.GetRealmInstance();
+        Realm realm = Realm.getDefaultInstance();
         StatPoint statPoint = new StatPoint();
         statPoint.setId(1);
         statPoint.setyValue(12);
@@ -245,7 +243,7 @@ public class RealmTests {
 
         Realm.init(context);
         RealmExecutor realmExecutor = new RealmExecutor(context);
-        Realm realm = RealmExecutor.GetRealmInstance();
+        Realm realm = Realm.getDefaultInstance();
         realmExecutor.SaveStatSummary(realm, statSummary);
 
         StatSummary statSummary1 = realmExecutor.LoadStatData(realm, statSummary.getId());
@@ -263,12 +261,13 @@ public class RealmTests {
 
         ArrayList<StatPoint> statPoints = new ArrayList<>();
         StatPoint statPoint = new StatPoint();
-        statPoint.setId(234);
+        statPoint.setStatId(234);
         statPoint.setyValue(1);
         statPoint.setxValue(1.2);
 
         StatPoint statPoint2 = new StatPoint();
-        statPoint2.setId(234);
+        statPoint.setId(1);
+        statPoint2.setStatId(234);
         statPoint2.setyValue(1);
         statPoint2.setxValue(1.2);
 
@@ -277,7 +276,8 @@ public class RealmTests {
 
         Realm.init(context);
         RealmExecutor realmExecutor = new RealmExecutor(context);
-        Realm realm = RealmExecutor.GetRealmInstance();
+        Realm realm = Realm.getDefaultInstance();
+        Realm.init(context);
         realmExecutor.SaveArrayOfStatPoints(realm, statPoints);
 
         ArrayList<StatPoint> statPoints1 = realmExecutor.FindStatPoints(realm, 234);
@@ -288,17 +288,17 @@ public class RealmTests {
     public void SaveArrayOfMatchIds_SavesArrayOfMAtchIds() {
         MatchIdWrapper matchIdWrapper = new MatchIdWrapper();
         matchIdWrapper.setMatchId(12345);
-        matchIdWrapper.setSummonerId(-1);
+        matchIdWrapper.setSummonerId(-2);
         matchIdWrapper.setRole(1);
 
         MatchIdWrapper matchIdWrapper2 = new MatchIdWrapper();
         matchIdWrapper2.setMatchId(12346);
-        matchIdWrapper2.setSummonerId(-1);
+        matchIdWrapper2.setSummonerId(-2);
         matchIdWrapper2.setRole(1);
 
         MatchIdWrapper matchIdWrapper3 = new MatchIdWrapper();
         matchIdWrapper3.setMatchId(12347);
-        matchIdWrapper3.setSummonerId(-1);
+        matchIdWrapper3.setSummonerId(-2);
         matchIdWrapper3.setRole(1);
 
         ArrayList<MatchIdWrapper> matchIdWrappers = new ArrayList<>();
@@ -308,13 +308,10 @@ public class RealmTests {
 
         Realm.init(context);
         RealmExecutor realmExecutor = new RealmExecutor(context);
-        Realm realm = RealmExecutor.GetRealmInstance();
+        Realm realm = Realm.getDefaultInstance();
         realmExecutor.SaveMatchList(realm, matchIdWrappers);
-        ArrayList<MatchIdWrapper> matchIdWrappers1 = realmExecutor.LoadMatchList(realm, -1);
+        ArrayList<MatchIdWrapper> matchIdWrappers1 = realmExecutor.LoadMatchList(realm, -2);
         Assert.assertEquals(matchIdWrappers1.size(), 3);
-
-
-
     }
 
 

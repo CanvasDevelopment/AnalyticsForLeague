@@ -1,5 +1,7 @@
 package com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab;
 
+import android.content.Context;
+
 import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
 import com.teamunemployment.lolanalytics.Data.RealmExecutor;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatCollection;
@@ -37,19 +39,21 @@ public class PlayerAnalysisInteractorTests {
 
     @Test
     public void LoadStatAnalysisCardObects_CachesToRealmDb() {
+        Context context = mock(Context.class);
         RESTApiExecutor restApiExecutor = mock(RESTApiExecutor.class);
         StatCollection statCollection = new StatCollection();
         Observable<StatCollection> statCollectionObservable = Observable.just(statCollection);
-        when(restApiExecutor.GetAnalysisStatCollection(anyInt(), anyLong())).thenReturn(statCollectionObservable);
+        when(restApiExecutor.GetAnalysisStatCollection(anyInt(), anyLong(), anyInt())).thenReturn(statCollectionObservable);
         final RealmExecutor realmExecutor = mock(RealmExecutor.class);
-        PlayerAnalysisPersistanceInteracter playerAnalysisPersistanceInteracter = new PlayerAnalysisPersistanceInteracter(restApiExecutor, realmExecutor);
+
+        PlayerAnalysisPersistanceInteracter playerAnalysisPersistanceInteracter = new PlayerAnalysisPersistanceInteracter(restApiExecutor, realmExecutor, context);
         Function<StatCollection, StatCollection> mappingFunc = collection -> {
             Assert.fail("Not yet implemented");
             return collection;
         };
 
         TestObserver<StatCollection> testObserver = new TestObserver<>();
-        playerAnalysisPersistanceInteracter.LoadStatAnalysisCardObjects(1, -1, testObserver, mappingFunc);
+        playerAnalysisPersistanceInteracter.LoadStatAnalysisCardObjects(1, -1, 1, testObserver);
     }
 
 

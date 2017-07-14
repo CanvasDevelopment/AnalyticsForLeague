@@ -1,7 +1,7 @@
 package com.teamunemployment.lolanalytics.FrontPage;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.teamunemployment.lolanalytics.BasePresenterContract;
+import com.teamunemployment.lolanalytics.PresenterContract;
 import com.teamunemployment.lolanalytics.ViewContract;
 
 /**
@@ -10,7 +10,7 @@ import com.teamunemployment.lolanalytics.ViewContract;
 
 public interface BaseActivityContract {
 
-    interface BasePresenter extends BasePresenterContract {
+    interface Presenter extends PresenterContract {
         void handleTabPress(int tab);
         void onWinRateLoaded(double winRate);
         void setUpTabFragments();

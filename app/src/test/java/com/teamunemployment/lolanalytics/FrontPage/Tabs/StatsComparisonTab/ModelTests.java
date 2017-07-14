@@ -28,7 +28,7 @@ public class ModelTests {
     TabModel tabModel;
     RESTApiExecutor RESTApiExecutor;
     RealmExecutor realmExecutor;
-    TabContract tabContract;
+    TabModelContract tabModelContract;
 
     @Before
     public void init() {
@@ -36,7 +36,7 @@ public class ModelTests {
         RESTApiExecutor = mock(RESTApiExecutor.class);
         realmExecutor = mock(RealmExecutor.class);
         tabModel = new TabModel(RESTApiExecutor, realmExecutor, context);
-        tabContract = mock(TabContract.class);
+        tabModelContract = mock(TabModelContract.class);
     }
 
     @Test

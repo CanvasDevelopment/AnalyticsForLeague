@@ -30,7 +30,7 @@ public class LoginModel {
     }
 
 
-    public void requestLoginAttempt(String summonerName, String region, final LoginContract.BasePresenter presenter) {
+    public void requestLoginAttempt(String summonerName, String region, final LoginContract.Presenter presenter) {
         Observable<LongWrapper> longWrapperObservable = restApiExecutor.GetSummonerId(summonerName, region);
         longWrapperObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

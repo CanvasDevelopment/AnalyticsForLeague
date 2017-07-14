@@ -4,11 +4,12 @@ import android.content.Context;
 
 import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
 import com.teamunemployment.lolanalytics.Data.RealmExecutor;
-import com.teamunemployment.lolanalytics.Data.model.LongWrapper;
 import com.teamunemployment.lolanalytics.Data.model.MatchHistoryData;
 import com.teamunemployment.lolanalytics.Data.model.MatchIdWrapper;
 import com.teamunemployment.lolanalytics.Data.model.MatchSummary;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Cards.MatchHistoryCardViewContract;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Model.MatchHistoryCardData;
+import com.teamunemployment.lolanalytics.Utils.Network;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 
 /**
- * TODO refactor this class to not have hardcoded observers. TDD to ensure complete.
+ * TODO refactor this class to not have hardcoded observers.
  * @author Josiah Kendall
  */
 public class MatchHistoryInteractor {
@@ -37,7 +38,7 @@ public class MatchHistoryInteractor {
         this.context = context;
     }
 
-    public void LoadCachedMatchHistoryData(final int role, final long summonerId, final MatchHistoryTabContract.BasePresenter presenter) {
+    public void LoadCachedMatchHistoryData(final int role, final long summonerId, final MatchHistoryTabContract.Presenter presenter) {
         // Create an observable for fetching our cached data, as we want to get this off of the base thread.
         Observable<ArrayList<MatchIdWrapper>> observable = Observable.create((ObservableEmitter<ArrayList<MatchIdWrapper>> emitter) -> {
             Realm.init(context);
@@ -45,6 +46,7 @@ public class MatchHistoryInteractor {
             ArrayList<MatchIdWrapper> data = realmExecutor.LoadMatchList(realm, summonerId);
             emitter.onNext(data);
             emitter.onComplete();
+
         });
 
         observable.subscribeOn(AndroidSchedulers.mainThread()) // Gotta be on the main thread for realm. If performance is an issue, use fetchAsync()
@@ -72,7 +74,16 @@ public class MatchHistoryInteractor {
                 });
     }
 
-    public void LoadFreshMatchHistoryData(int role, long summonerId, final MatchHistoryBasePresenter presenter) {
+    /**
+     * Fetch our match history data from the server.
+     * @param role The role we want the data for.
+     * @param summonerId .
+     * @param presenter The presenter to return the data to.
+     */
+    public void LoadFreshMatchHistoryData(int role, long summonerId, final MatchHistoryPresenter presenter) {
+        if (!Network.isConnectingToInternet(context)) {
+            return;
+        }
         Observable<MatchHistoryData> matchHistoryDataObservable = restApiExecutor.GetMatchListForSummonerInSpecificRole(summonerId, role);
         matchHistoryDataObservable
                 .subscribeOn(Schedulers.io())
@@ -81,7 +92,6 @@ public class MatchHistoryInteractor {
                     Realm.init(context);
                     Realm realm = Realm.getDefaultInstance();
                     realmExecutor.SaveMatchList(realm, matchHistoryData.getItems());
-                    // Issue - cant close realm here, because we need to use matchHistoryData.
                     return matchHistoryData.getItems();
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -110,11 +120,11 @@ public class MatchHistoryInteractor {
     }
 
     // Think these two methods might be useless.
-    public Observable<MatchSummary> LoadFreshMatchSummary(long matchId, MatchHistoryBasePresenter matchHistoryPresenter) {
+    public Observable<MatchSummary> LoadFreshMatchSummary(long matchId, MatchHistoryPresenter matchHistoryPresenter) {
         return null;
     }
 
-    public Observable<MatchSummary> LoadCachedMatchSummary(long matchId, MatchHistoryBasePresenter matchHistoryPresenter) {
+    public Observable<MatchSummary> LoadCachedMatchSummary(long matchId, MatchHistoryPresenter matchHistoryPresenter) {
         return null;
     }
 
@@ -123,18 +133,48 @@ public class MatchHistoryInteractor {
      * @param id The id of the match as per saved in our database. may or may not be the same as the Riot match id.
      * @param presenter The presenter to return the data to when we are done loading.
      */
-    public void LoadMatchDetails(long id, MatchHistoryTabContract.BasePresenter presenter, MatchHistoryCardViewContract cardViewContract) {
+    public void LoadMatchDetails(long id,
+                                 MatchHistoryTabContract.Presenter presenter,
+                                 MatchHistoryCardViewContract cardViewContract) {
+        // Fetch from the cache.
+        Realm.init(context);
+        Realm realm = Realm.getDefaultInstance();
+        MatchHistoryCardData matchHistoryCardData = realmExecutor.GetSingleMatchHistoryCard(realm, id);
+        if (matchHistoryCardData != null) {
+            cardViewContract.setChampName(matchHistoryCardData.getChampName());
+            cardViewContract.setGraph1(matchHistoryCardData.getKills());
+            cardViewContract.setGraph2(matchHistoryCardData.getDeaths());
+            cardViewContract.setGraph3(matchHistoryCardData.getCsTotal());
+            cardViewContract.setKDA("3/2/5"); // TODO
+        } else {
+            // If there is nothing there, fetch from the server.
+            if (Network.isConnectingToInternet(context)) {
+                fetchFreshMatchDetails(id, presenter, cardViewContract);
+            }
+        }
+    }
+
+    /**
+     * THis should only ever be fetched once, as match details should never change.
+     * @param id
+     * @param presenter
+     * @param cardViewContract
+     */
+    private void fetchFreshMatchDetails(final long id, MatchHistoryTabContract.Presenter presenter, MatchHistoryCardViewContract cardViewContract) {
         Observable<MatchHistoryCardData> matchHistoryCardDataObservable = restApiExecutor.GetMatchHistoryCardData(id, -1); // TODO
         matchHistoryCardDataObservable
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.computation())
                 .map(matchHistoryCardData -> {
-//            Realm.init(context);
-//            Realm realm = Realm.getDefaultInstance(); TODO
-//            //realmExecutor.SaveMatchList(realm, matchHistoryData);
-//            // Issue - cant close realm here, because we need to use matchHistoryData.
-            return matchHistoryCardData;
-        }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<MatchHistoryCardData>() {
+                    Realm.init(context);
+                    Realm realm = Realm.getDefaultInstance();
+
+                    matchHistoryCardData.setMatchId(id);
+                    realmExecutor.SaveMatchHistoryCardData(realm, matchHistoryCardData);
+                    return matchHistoryCardData;
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MatchHistoryCardData>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -148,6 +188,7 @@ public class MatchHistoryInteractor {
             @Override
             public void onError(Throwable e) {
                 // TODO
+                presenter.handleError(e);
             }
 
             @Override

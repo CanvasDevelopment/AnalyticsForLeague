@@ -18,7 +18,7 @@ public class BaseActivityModule {
     }
 
     @Provides
-    BaseActivityBasePresenter provideBaseActivityPresenter(BaseActivityPersistenceInteractor baseActivityPersistenceInteractor) {
-        return new BaseActivityBasePresenter(baseActivityPersistenceInteractor);
+    BaseActivityPresenter provideBaseActivityPresenter(BaseActivityPersistenceInteractor baseActivityPersistenceInteractor) {
+        return new BaseActivityPresenter(baseActivityPersistenceInteractor);
     }
 }

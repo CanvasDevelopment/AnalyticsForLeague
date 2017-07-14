@@ -1,5 +1,7 @@
 package com.teamunemployment.lolanalytics.Data.Realm;
 
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
+
 import io.realm.DynamicRealm;
 import io.realm.FieldAttribute;
 import io.realm.RealmMigration;
@@ -25,6 +27,20 @@ public class RealmMigrator implements RealmMigration{
                     .addField("role", int.class);
 
             oldVersion += 1;
+        }
+
+        // Not sure what happened to 1
+        if (oldVersion ==2) {
+            realmSchema.create("MatchHistoryCardData")
+                    .addField("matchId", long.class, FieldAttribute.PRIMARY_KEY)
+                    .addField("champId", long.class)
+                    .addField("champName", String.class)
+                    .addField("kills", CardData.class)
+                    .addField("deaths", CardData.class)
+                    .addField("csFirstTen",CardData.class)
+                    .addField("csSecondTen", CardData.class)
+                    .addField("csTotal", CardData.class);
+
         }
     }
 }

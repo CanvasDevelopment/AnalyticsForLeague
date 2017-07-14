@@ -1,10 +1,11 @@
 package com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab;
 
-import com.teamunemployment.lolanalytics.BasePresenterContract;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Cards.MatchHistoryCardViewContract;
+import com.teamunemployment.lolanalytics.PresenterContract;
 import com.teamunemployment.lolanalytics.Data.model.MatchIdWrapper;
 import com.teamunemployment.lolanalytics.Data.model.MatchSummary;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Model.MatchHistoryCardData;
-import com.teamunemployment.lolanalytics.ViewContract;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.TabContract;
 
 import java.util.ArrayList;
 
@@ -13,10 +14,10 @@ import java.util.ArrayList;
  */
 public class MatchHistoryTabContract {
 
-    interface BasePresenter extends BasePresenterContract {
+    interface Presenter extends PresenterContract {
         void LoadDataForRole(int role, long summonerId);
         void LoadMatchSummary(long matchId);
-        void setView(MatchHistoryTabContract.View view);
+        void setView(TabContract.View view);
         void onMatchSummaryLoadedSuccessfully(MatchSummary matchSummary);
         void onError(Throwable e);
         void onMatchListLoadedSuccessfully(ArrayList<MatchIdWrapper> matchHistoryData);
@@ -24,12 +25,4 @@ public class MatchHistoryTabContract {
         void LoadCardData(long id, MatchHistoryCardViewContract cardViewContract);
         void SetLoadedCardData(MatchHistoryCardData matchHistoryCardData, MatchHistoryCardViewContract cardViewContract);
     }
-
-    interface View extends ViewContract {
-        void setRole(int role);
-        void setAdapter(MatchHistoryAdapter adapter);
-        void updateActivityRole(int role);
-
-    }
-
 }

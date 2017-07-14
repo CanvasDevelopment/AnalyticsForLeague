@@ -2,11 +2,17 @@ package com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Model;
 
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * @author Josiah Kendall
  */
 
-public class MatchHistoryCardData {
+public class MatchHistoryCardData extends RealmObject{
+
+    @PrimaryKey
+    private long matchId;
     private long champId;
     private String champName;
     private CardData kills;
@@ -19,7 +25,7 @@ public class MatchHistoryCardData {
     public MatchHistoryCardData() {}
 
     //
-    public MatchHistoryCardData(long champId, String champName, CardData kills, CardData deaths, CardData csFirstTen, CardData csSecondTen, CardData csTotal) {
+    public MatchHistoryCardData(long champId, String champName, CardData kills, CardData deaths, CardData csFirstTen, CardData csSecondTen, CardData csTotal, long matchId) {
         this.champId = champId;
         this.champName = champName;
         this.kills = kills;
@@ -27,6 +33,7 @@ public class MatchHistoryCardData {
         this.csSecondTen = csSecondTen;
         this.csTotal = csTotal;
         this.deaths = deaths;
+        this.matchId = matchId;
     }
 
     public void setChampId(long champId) {
@@ -57,6 +64,10 @@ public class MatchHistoryCardData {
         this.kills = kills;
     }
 
+    public void setMatchId(long matchId) {
+        this.matchId = matchId;
+    }
+
     public CardData getCsFirstTen() {
         return csFirstTen;
     }
@@ -83,5 +94,9 @@ public class MatchHistoryCardData {
 
     public String getChampName() {
         return champName;
+    }
+
+    public long getMatchId() {
+        return matchId;
     }
 }

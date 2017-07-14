@@ -7,6 +7,7 @@ import com.teamunemployment.lolanalytics.Data.model.MatchHistoryData;
 import com.teamunemployment.lolanalytics.Data.model.MatchIdWrapper;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Model.MatchHistoryCardData;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatCollection;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatDefinitionWrapper;
 
 import java.util.ArrayList;
 
@@ -55,9 +56,12 @@ public interface RESTApiExecutor {
     @GET("FetchMatchList/{UserId}/{Role}")
     Observable<MatchHistoryData> GetMatchListForSummonerInSpecificRole(@Path("UserId") long summonerId, @Path("Role") int role);
 
-    @GET("GetAnalysisStatCollection/{Role}/{SummonerId}")
-    Observable<StatCollection> GetAnalysisStatCollection(@Path("Role") int role, @Path("SummonerId") long summonerId);
+    @GET("GetStatHistory/{Role}/{SummonerId}/{StatId}")
+    Observable<StatCollection> GetAnalysisStatCollection(@Path("Role") int role, @Path("SummonerId") long summonerId, int statId);
 
     @GET("FetchPerformance/{MatchId}/{UserId}")
     Observable<MatchHistoryCardData> GetMatchHistoryCardData(@Path("MatchId") long matchId, @Path("UserId") long userId);
+
+    @GET("FetchStatDefinitions/{SummonerId}/{Role}")
+    Observable<StatDefinitionWrapper> GetStatDefinitions(@Path("SummonerId") long summonerId, @Path("Role") int role);
 }

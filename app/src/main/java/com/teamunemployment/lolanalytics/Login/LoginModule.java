@@ -28,7 +28,7 @@ public class LoginModule {
     }
 
     @Provides
-    LoginBasePresenter provideLoginPresenter(ArrayAdapterFactory arrayAdapterFactory, LoginModel loginModel) {
-        return new LoginBasePresenter(arrayAdapterFactory, loginModel);
+    LoginPresenter provideLoginPresenter(ArrayAdapterFactory arrayAdapterFactory, LoginModel loginModel) {
+        return new LoginPresenter(arrayAdapterFactory, loginModel);
     }
 }

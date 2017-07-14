@@ -4,10 +4,11 @@ import android.content.Context;
 
 import com.teamunemployment.lolanalytics.Data.Realm.RealmMigrator;
 import com.teamunemployment.lolanalytics.Data.model.Data;
-import com.teamunemployment.lolanalytics.Data.model.LongWrapper;
 import com.teamunemployment.lolanalytics.Data.model.MatchHistoryData;
 import com.teamunemployment.lolanalytics.Data.model.MatchIdWrapper;
 import com.teamunemployment.lolanalytics.Data.model.MatchSummary;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.CoachTab.Model.Entry;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Model.MatchHistoryCardData;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatSummary;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatPoint;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 /**
@@ -32,14 +34,15 @@ import io.realm.RealmResults;
 public class RealmExecutor {
 
     private Context context;
+    private static Realm realmInstance;
 
     public static Realm GetRealmInstance() {
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
-                .name("default1.realm")
-                .schemaVersion(2)
-                .migration(new RealmMigrator())
-                .build();
-        return Realm.getInstance(realmConfiguration);
+
+            RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+                    .schemaVersion(4)
+                    .migration(new RealmMigrator())
+                    .build();
+            return Realm.getInstance(realmConfiguration);
     }
 
     public static Realm GetRealmInstance(RealmConfiguration configuration) {
@@ -57,12 +60,21 @@ public class RealmExecutor {
      * @return The required data.
      */
     public CardData GetCardDataByCardId(Realm realm, int id) {
-        CardData cardData = findSingleObjectUsingRealm(realm, id);
-        return cardData;
+        return findSingleObjectUsingRealm(realm, id);
+    }
+
+    /**
+     * Fetch a single Match History card by its Id.
+     * @param realm
+     * @param id
+     * @return
+     */
+    public MatchHistoryCardData GetSingleMatchHistoryCard(Realm realm, long id) {
+        return findSingleMatchDetail(realm, id);
     }
 
     // Private version for fetching a single object by id.
-    private CardData findSingleObjectUsingRealm(Realm realm, int id) {
+    private CardData findSingleObjectUsingRealm(Realm realm, long id) {
         return realm.where(CardData.class).equalTo("id", id).findFirst();
     }
 
@@ -149,7 +161,7 @@ public class RealmExecutor {
      * Store an entire data object (and array of CardObject in a specific role)
      * @param data
      */
-    public void WriteDataObjectToRealm(final Data data) {
+    public void WriteDataObjectToRealm(final Data data, Realm realm) {
         List<CardData> pojos = data.getItems();
         Iterator<CardData> iterator = pojos.iterator();
         while (iterator.hasNext()) {
@@ -195,6 +207,36 @@ public class RealmExecutor {
         return findSingleMatchSummary(realm, matchSummaryId);
     }
 
+    /**
+     * Save the card data for a match summary
+     * @param realmInstance The db instance to use.
+     * @param matchHistoryCardData The card data to save.
+     */
+    public void SaveMatchHistoryCardData(Realm realmInstance, MatchHistoryCardData matchHistoryCardData) {
+        //TODO
+        matchHistoryCardData.setDeaths(new CardData(3, 2, "Deaths"));
+        realmInstance.executeTransaction(realm1 -> {
+            MatchHistoryCardData preExistingData = findSingleMatchDetail(realm1, matchHistoryCardData.getMatchId());
+            if (preExistingData == null) {
+                preExistingData = realm1.createObject(MatchHistoryCardData.class, matchHistoryCardData.getMatchId());
+
+                CardData csfirstTen = realm1.copyToRealmOrUpdate(matchHistoryCardData.getCsFirstTen());
+                CardData csSecondTen = realm1.copyToRealmOrUpdate(matchHistoryCardData.getCsSecondTen());
+                CardData csTotal = realm1.copyToRealmOrUpdate(matchHistoryCardData.getCsTotal());
+                CardData deaths = realm1.copyToRealmOrUpdate(matchHistoryCardData.getDeaths());
+                CardData kills = realm1.copyToRealmOrUpdate(matchHistoryCardData.getKills());
+
+                preExistingData.setChampId(matchHistoryCardData.getChampId());
+                preExistingData.setChampName("Champ 1");
+                preExistingData.setCsFirstTen(csfirstTen);
+                preExistingData.setCsSecondTen(csSecondTen);
+                preExistingData.setCsTotal(csTotal);
+                preExistingData.setDeaths(deaths);
+                preExistingData.setKills(kills);
+            }
+        });
+    }
+
     @Deprecated
     public void SaveMatchHistory(Realm realm, MatchHistoryData matchHistoryData) {
         List<MatchIdWrapper> matchSummaries = matchHistoryData.getItems();
@@ -205,7 +247,7 @@ public class RealmExecutor {
     }
 
     /**
-     * Load a stat point.
+     * Load a stat point from a specified realm database.
      * @param realm The realm database we are using to load from.
      * @param statPoint The {@link StatPoint} instance that we are after.
      */
@@ -216,6 +258,7 @@ public class RealmExecutor {
                 preExistingObject = realm1.createObject(StatPoint.class, statPoint.getId());
             }
 
+            // Save the values
             preExistingObject.setStatId(statPoint.getStatId());
             preExistingObject.setxValue(statPoint.getxValue());
             preExistingObject.setyValue(statPoint.getyValue());
@@ -226,14 +269,16 @@ public class RealmExecutor {
         return findSingleStatPoint(realm, id);
     }
 
+    private MatchHistoryCardData findSingleMatchDetail(Realm realm, long id) {
+        return realm.where(MatchHistoryCardData.class).equalTo("matchId", id).findFirst();
+    }
+
     private StatSummary findSingleStatData(Realm realm, long id) {
         return realm.where(StatSummary.class).equalTo("id", id).findFirst();
     }
 
     /**
      * Save a stat data object. This does two things
-     *
-     *
      * @param realm The realm db to use.
      * @param statSummary The {@link StatSummary} to save.
      */
@@ -246,7 +291,6 @@ public class RealmExecutor {
 
             preExistingObject.setGoalvalue(statSummary.getGoalvalue());
             preExistingObject.setHasGoal(statSummary.getHasGoal());
-
             preExistingObject.setImprovementValue(statSummary.getImprovementValue());
             preExistingObject.setStatName(statSummary.getStatName());
         });
@@ -270,7 +314,6 @@ public class RealmExecutor {
      * @return The arraylist of statpoints.
      */
     public ArrayList<StatPoint> FindStatPoints(Realm realm, long statId) {
-        ArrayList<StatPoint> statPoints = new ArrayList<>();
         RealmResults<StatPoint> results = realm.where(StatPoint.class).equalTo("statId", statId).findAll();
         StatPoint[] statPointsArray = new StatPoint[results.size()];
         List<StatPoint> items = Arrays.asList(results.toArray(statPointsArray));
@@ -314,6 +357,17 @@ public class RealmExecutor {
         RealmResults<MatchIdWrapper> results = realm.where(MatchIdWrapper.class).equalTo("summonerId", summonerId).findAll();
         MatchIdWrapper[] statPointsArray = new MatchIdWrapper[results.size()];
         List<MatchIdWrapper> items = Arrays.asList(results.toArray(statPointsArray));
+        return new ArrayList<>(items);
+    }
+
+    public ArrayList<Entry> LoadEntries(long summonerId, int statId, Realm realm) {
+        RealmResults<Entry> results = realm.where(Entry.class)
+                                .equalTo("summonerId", summonerId)
+                                .equalTo("statId", statId)
+                                .findAll();
+
+        Entry[] entries =new Entry[results.size()];
+        List<Entry> items = Arrays.asList(results.toArray(entries));
         return new ArrayList<>(items);
     }
 }

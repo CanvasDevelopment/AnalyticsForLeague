@@ -19,6 +19,7 @@ public class StatSummary extends RealmObject {
     private double goalvalue;
     private String statName;
     private double improvementValue;
+    private String subName;
 
     public void setId(long id) {
         this.id = id;
@@ -26,6 +27,14 @@ public class StatSummary extends RealmObject {
 
     public void setImprovementValue(double improvementValue) {
         this.improvementValue = improvementValue;
+    }
+
+    public void setSubName(String subName) {
+        this.subName = subName;
+    }
+
+    public String getSubName() {
+        return subName;
     }
 
     public void setStatName(String statName) {

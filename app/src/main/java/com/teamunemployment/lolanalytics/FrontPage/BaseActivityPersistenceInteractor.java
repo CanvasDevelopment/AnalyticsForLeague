@@ -30,7 +30,7 @@ public class BaseActivityPersistenceInteractor {
         this.realmExecutor = realmExecutor;
     }
 
-    public void fetchWinRateForRole(long summonerId, String role, final BaseActivityContract.BasePresenter presenter) {
+    public void fetchWinRateForRole(long summonerId, String role, final BaseActivityContract.Presenter presenter) {
 
         Observable<DoubleWrapper> winRateObsservable = restApiExecutor.GetWinRateForRole(summonerId, role);
         winRateObsservable

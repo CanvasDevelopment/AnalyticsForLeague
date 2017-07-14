@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue">
+        android:background="@color/colorPrimary">
 
         <RelativeLayout
             android:id="@+id/buttons_wrapper"
@@ -23,14 +23,18 @@
                 android:id="@+id/login_with_credentials"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="@color/colorPrimaryDark"
                 android:text="Login "
-                android:textColor="@color/blue" />
+                android:textColor="@color/white" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/login_without_credentials"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/login_with_credentials"
+                android:background="@color/colorPrimaryDark"
                 android:text="Demo "
                 android:textColor="@color/blue" />
         </RelativeLayout>
@@ -39,9 +43,11 @@
             android:id="@+id/main_icon"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="72dp"
-            android:src="@drawable/icon" />
+            android:src="@drawable/icon"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/user_name_header"
@@ -52,7 +58,7 @@
             android:layout_marginTop="24dp"
             android:padding="4dp"
             android:text="User name"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="@color/white"
             android:textSize="14sp" />
 
         <android.support.v7.widget.AppCompatEditText
@@ -77,7 +83,7 @@
             android:layout_below="@+id/user_name"
             android:padding="4dp"
             android:text="Region"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="@color/white"
             android:textSize="14sp" />
 
         <android.support.design.widget.TextInputLayout

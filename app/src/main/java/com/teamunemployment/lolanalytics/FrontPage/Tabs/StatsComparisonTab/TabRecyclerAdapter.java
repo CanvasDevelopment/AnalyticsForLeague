@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.teamunemployment.lolanalytics.Data.model.MatchIdWrapper;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatDefinition;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.BarChartModel;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.TabContract;
 import com.teamunemployment.lolanalytics.R;
 
 import java.util.ArrayList;
@@ -18,7 +21,7 @@ import javax.inject.Inject;
  *
  * Adapter for the recycler view used in the tabs.
  */
-public class TabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements TabContract.TabAdapter{
 
     private ArrayList<CardData> pojos;
     private BarChartModel barChartModel;
@@ -41,7 +44,7 @@ public class TabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         BarChartCardView cardView = (BarChartCardView) holder;
 
         if (pojos == null) {
-            throw new IllegalStateException("SetData() must be called before binding adapter");
+            throw new IllegalStateException("setPlayerAnalysisAdapterData() must be called before binding adapter");
         }
 
         CardData data = pojos.get(position);
@@ -59,8 +62,18 @@ public class TabRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return pojos.size();
     }
 
+    @Override
+    public void setMatchHistoryAdapterData(ArrayList<MatchIdWrapper> matchIds) {
+        throw new IllegalStateException("This is a StatCOmparisonAdapter. Please use the appropriate method.");
+    }
 
-    public void SetData(ArrayList<CardData> cardDatas) {
+    @Override
+    public void setPlayerAnalysisAdapterData(ArrayList<StatDefinition> statDefinitions) {
+        throw new IllegalStateException("This is a StatComparisonAdapter. Please use the appropriate method.");
+    }
+
+    @Override
+    public void setStatComparisonAdapterData(ArrayList<CardData> cardDatas) {
         this.pojos = cardDatas;
     }
 }

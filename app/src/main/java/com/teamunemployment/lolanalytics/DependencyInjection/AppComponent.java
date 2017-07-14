@@ -2,8 +2,12 @@ package com.teamunemployment.lolanalytics.DependencyInjection;
 
 import com.teamunemployment.lolanalytics.FrontPage.BaseActivityModule;
 import com.teamunemployment.lolanalytics.FrontPage.BaseActivityView;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.MatchHistoryModule;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.CoachTab.CoachTabModule;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.CoachTab.CoachView;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Dependencies.MatchHistoryModule;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.MatchHistoryTabView;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.PlayerAnalysisModule;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.PlayerAnalysisView;
 import com.teamunemployment.lolanalytics.Login.LoginModule;
 import com.teamunemployment.lolanalytics.Login.LoginView;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.StatisticsTabModule;
@@ -17,10 +21,14 @@ import dagger.Component;
  * @author Josiah Kendall.
  */
 @Singleton
-@Component(modules = {AppModule.class, StatisticsTabModule.class, LoginModule.class, BaseActivityModule.class, MatchHistoryModule.class})
+@Component(modules = {AppModule.class, StatisticsTabModule.class, LoginModule.class,
+        BaseActivityModule.class, MatchHistoryModule.class, PlayerAnalysisModule.class,
+        CoachTabModule.class})
 public interface AppComponent {
     void InjectView(TabView tabView);
     void InjectView(LoginView loginView);
     void InjectView(BaseActivityView baseActivityView);
     void InjectView(MatchHistoryTabView matchHistoryTabView);
+    void InjectView(PlayerAnalysisView playerAnalysisView);
+    void InjectView(CoachView coachView);
 }

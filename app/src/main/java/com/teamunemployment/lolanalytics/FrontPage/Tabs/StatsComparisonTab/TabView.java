@@ -7,12 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.teamunemployment.lolanalytics.App;
+
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.TabContract;
 import com.teamunemployment.lolanalytics.R;
 
 import javax.inject.Inject;
@@ -28,15 +28,15 @@ import butterknife.ButterKnife;
 public class TabView extends Fragment implements TabContract.View {
 
     @Inject
-    public TabBasePresenter presenter;
+    public TabPresenter presenter;
 
     public android.view.View rootView;
 
     @Bind(R.id.recycler) RecyclerView recycler;
-    @Bind(R.id.progress_spinner) ProgressBar progressBar;
+    //@Bind(R.id.progress_spinner) ProgressBar progressBar;
     @Bind(R.id.error_message) TextView errorMessageTextBox;
 
-    private int role = -1;
+    private int role = 0;
 
     @Nullable
     @Override
@@ -57,20 +57,12 @@ public class TabView extends Fragment implements TabContract.View {
         return rootView;
     }
 
-    @Override
-    public void setAdapter(TabRecyclerAdapter tabRecyclerAdapter) {
-        // TODO: Think about giving the presenter an instance of context here. Or using dagger, this is on the base thread and it doesnt need to be.
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-        recycler.setLayoutManager(layoutManager);
-        recycler.setAdapter(tabRecyclerAdapter);
-    }
 
-    @Override
     public void setLoadingVisibile(boolean visibile) {
         if (visibile) {
-            progressBar.setVisibility(View.VISIBLE);
+         //   progressBar.setVisibility(View.VISIBLE);
         } else {
-            progressBar.setVisibility(View.INVISIBLE);
+          //  progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -80,13 +72,17 @@ public class TabView extends Fragment implements TabContract.View {
         Snackbar.make(rootView, s, Snackbar.LENGTH_LONG).show();
     }
 
-    @Override
-    public void setErrorMessage(String errorMessage) {
-        // not using this for now.
-        //errorMessageTextBox.setText(errorMessage);
-    }
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    @Override
+    public void setAdapter(TabContract.TabAdapter adapter) {
+        TabRecyclerAdapter tabRecyclerAdapter = (TabRecyclerAdapter) adapter;
+        // TODO: Think about giving the presenter an instance of context here. Or using dagger, this is on the base thread and it doesnt need to be.
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+        recycler.setLayoutManager(layoutManager);
+        recycler.setAdapter(tabRecyclerAdapter);
     }
 }

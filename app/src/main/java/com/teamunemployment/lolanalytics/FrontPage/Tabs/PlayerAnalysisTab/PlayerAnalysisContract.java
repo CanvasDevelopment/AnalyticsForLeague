@@ -1,20 +1,21 @@
 package com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab;
 
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatCollection;
-import com.teamunemployment.lolanalytics.BasePresenterContract;
+import com.teamunemployment.lolanalytics.PresenterContract;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.TabContract;
 import com.teamunemployment.lolanalytics.ViewContract;
 
 /**
  * @author Josiah Kendall
  */
 public class PlayerAnalysisContract {
-    interface BasePresenter extends BasePresenterContract {
+    interface Presenter extends PresenterContract {
         void LoadStatList(int role, long summonerId);
-        void LoadStatDetails(long statId, long summonerId);
-        void setView(PlayerAnalysisContract.View view);
+        void LoadStatDetails(int statId, long summonerId, PlayerAnalysisCardViewContract cardViewContract);
+        void setView(TabContract.View view);
     }
 
     interface View extends ViewContract {
-        void setStatCollectionData(StatCollection statCollection);
+        void setAdapter(PlayerAnalysisAdapter adapter);
+        void setRole(int role);
     }
 }

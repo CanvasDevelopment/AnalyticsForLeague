@@ -25,7 +25,7 @@ import butterknife.OnClick;
 public class LoginView extends AppCompatActivity implements LoginContract.LoginView {
 
     @Inject
-    public LoginBasePresenter loginPresenter;
+    public LoginPresenter loginPresenter;
 
     @Bind(R.id.regions_spinner) AppCompatSpinner regionSpinner;
 
