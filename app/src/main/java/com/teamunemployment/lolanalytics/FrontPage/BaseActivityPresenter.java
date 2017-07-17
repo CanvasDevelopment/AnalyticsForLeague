@@ -78,32 +78,22 @@ public class BaseActivityPresenter implements BaseActivityContract.Presenter {
         switch (tab) {
             case TOP:
                 baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"TOP",this);
-                view.setRoleName("Top");
-                view.setTabIcon(R.drawable.top);
                 view.setCorrectTabFragment(FragNavController.TAB1);
                 break;
             case JUNGLE:
                 baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"JUNGLE",this);
-                view.setRoleName("Jungle");
-                view.setTabIcon(R.drawable.jg);
                 view.setCorrectTabFragment(FragNavController.TAB2);
                 break;
             case MID:
                 baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"MID",this);
-                view.setRoleName("Mid");
-                view.setTabIcon(R.drawable.mid);
                 view.setCorrectTabFragment(FragNavController.TAB3);
                 break;
             case MARKSMAN:
                 baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"MARKSMAN",this);
-                view.setRoleName("Marksman");
-                view.setTabIcon(R.drawable.bot);
                 view.setCorrectTabFragment(FragNavController.TAB4);
                 break;
             case SUPPORT:
                 baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"PLAYMAKER",this);
-                view.setRoleName("Support");
-                view.setTabIcon(R.drawable.sup);
                 view.setCorrectTabFragment(FragNavController.TAB5);
                 break;
         }
@@ -111,7 +101,7 @@ public class BaseActivityPresenter implements BaseActivityContract.Presenter {
 
     @Override
     public void onWinRateLoaded(double winRate) {
-        view.setWinRate(winRate);
+
     }
 
     @Override

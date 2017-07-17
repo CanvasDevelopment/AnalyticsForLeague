@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_top"
+        android:title="@string/top"
+        android:icon="@drawable/top" />
+    <item android:id="@+id/action_jungle"
+        android:title="@string/jungle"
+        android:icon="@drawable/jg" />
+    <item android:id="@+id/action_mid"
+        android:title="@string/mid"
+        android:icon="@drawable/mid" />
+    <item android:id="@+id/action_adc"
+        android:title="@string/carry"
+        android:icon="@drawable/bot" />
+    <item android:id="@+id/action_support"
+        android:title="@string/support"
+        android:icon="@drawable/sup" />
+</menu>

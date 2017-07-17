@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -14,13 +15,19 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.teamunemployment.lolanalytics.App;
+import com.teamunemployment.lolanalytics.Data.model.Champ;
+import com.teamunemployment.lolanalytics.FrontPage.Search.SearchContract;
+import com.teamunemployment.lolanalytics.FrontPage.Search.SearchPresenter;
 import com.teamunemployment.lolanalytics.R;
 
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -28,20 +35,21 @@ import de.hdodenhof.circleimageview.CircleImageView;
  *
  * This is the base class of the main application page. Holds the bottom bar and the fragment viewpager.
  */
-public class BaseActivityView extends AppCompatActivity implements BaseActivityContract.View{
+public class BaseActivityView extends AppCompatActivity implements BaseActivityContract.View, SearchContract.View {
 
     private TabAdapter tabAdapter;
 
     @Inject
     public BaseActivityPresenter presenter;
 
-    @Bind(R.id.bottomBar) AHBottomNavigation bottomBar;
-    @Bind(R.id.win_rate_details) TextView winRateTextView;
-    @Bind(R.id.user_name) TextView userNameTextView;
-    @Bind(R.id.role_icon) CircleImageView roleIcon;
-    @Bind(R.id.collapsable_toolbar_holder) CollapsingToolbarLayout collapsingToolbar;
+    @Inject
+    public SearchPresenter searchPresenter;
+//    @Bind(R.id.bottomBar) AHBottomNavigation bottomBar;
+
     @Bind(R.id.container) ViewPager viewPager;
     @Bind(R.id.tabs) TabLayout tabLayout;
+    @Bind(R.id.champ_fab) FloatingActionButton champFab;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +60,7 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
         ButterKnife.bind(this);
         presenter.setView(this);
 
-        // Defaults
-        setRoleName("Top");
-        setTabIcon(R.drawable.top);
-
-        setUpBottomBar();
+       // setUpBottomBar();
         setUpTabs();
     }
 
@@ -66,11 +70,11 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
     private void setUpBottomBar() {
 
         // Bottom bar appearance.
-        bottomBar.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        bottomBar.setAccentColor(ContextCompat.getColor(this, R.color.colorAccent));
-        bottomBar.setInactiveColor(ContextCompat.getColor(this, R.color.bluegrey));
-        bottomBar.setBehaviorTranslationEnabled(true);
-        presenter.setUpBottomBar(bottomBar);
+//        bottomBar.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+//        bottomBar.setAccentColor(ContextCompat.getColor(this, R.color.colorAccent));
+//        bottomBar.setInactiveColor(ContextCompat.getColor(this, R.color.bluegrey));
+//        bottomBar.setBehaviorTranslationEnabled(true);
+//        presenter.setUpBottomBar(bottomBar);
     }
 
     private void setUpTabs() {
@@ -93,22 +97,56 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
     }
 
     @Override
-    public void setWinRate(double winRate) {
-        String winRateString = winRate + "%";
-        winRateTextView.setText(winRateString);
+    public void ShowOverlay() {
+
     }
 
     @Override
-    public void setTabIcon(int icon) {
-        int color = Color.parseColor("#ffffff");
-        roleIcon.setColorFilter(color);
-        roleIcon.setImageResource(icon);
+    public void HideOverlay() {
+
     }
 
     @Override
-    public void setRoleName(String string) {
-        // Not doin this atm
-        //collapsingToolbar.setTitle(string);
+    public void SetChampFabIconAsACross() {
+
     }
 
+    @Override
+    public void SetChampFabIconAsNone() {
+
+    }
+
+    @Override
+    public void SetChampFabIconAsSelectedChamp(String champIconUrl) {
+
+    }
+
+    @Override
+    public void ShowChampList() {
+
+    }
+
+    @Override
+    public void HideChampList() {
+
+    }
+
+    @Override
+    public void ShowSearchBar() {
+
+    }
+
+    @Override
+    public void HideSearchBar() {
+
+    }
+
+    @Override
+    public void SetChampList(ArrayList<Champ> champs) {
+
+    }
+
+    @OnClick(R.id.champ_fab) void handleChampFilterClick() {
+        searchPresenter.handleSearchClick();
+    }
 }

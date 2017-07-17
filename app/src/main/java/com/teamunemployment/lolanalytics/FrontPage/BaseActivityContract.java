@@ -19,8 +19,5 @@ public interface BaseActivityContract {
 
     interface View extends ViewContract {
         void setCorrectTabFragment(int tab);
-        void setWinRate(double winRate);
-        void setTabIcon(int icon);
-        void setRoleName(String string);
     }
 }
