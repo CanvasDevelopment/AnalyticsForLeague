@@ -17,6 +17,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -54,12 +55,12 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
 
     @Bind(R.id.container) ViewPager viewPager;
     @Bind(R.id.tabs) TabLayout tabLayout;
-    @Bind(R.id.champ_fab)
-    CircularImageView champFab;
+    @Bind(R.id.champ_fab) CircularImageView champFab;
     @Bind(R.id.champ_search_list) RecyclerView champList;
     @Bind(R.id.search_card) CardView searchBox;
     @Bind(R.id.search_input) EditText searchInput;
     @Bind(R.id.overlay) View overlay;
+    @Bind(R.id.clear_search) ImageView clearSearchButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -177,6 +178,24 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
         }
     }
 
+    @Override
+    public void ClearSearchText() {
+
+        if (searchInput.getText() != null) {
+            searchInput.getText().clear();
+        }
+    }
+
+    @Override
+    public void ShowClearSearchTextButton() {
+        clearSearchButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void HideClearSearchTextButton() {
+        clearSearchButton.setVisibility(View.INVISIBLE);
+    }
+
     @OnClick(R.id.champ_fab) void handleChampFilterClick() {
         searchPresenter.handleSearchFabClick();
     }
@@ -184,6 +203,10 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
     @OnClick(R.id.overlay) void consumeOverlayClicks() {
         // Probably just hide when this happens
         searchPresenter.handleSearchFabClick();
+    }
+
+    @OnClick(R.id.clear_search) void clearSearchText() {
+        searchPresenter.ClearSearchText();
     }
 
 

@@ -59,7 +59,11 @@ public class SearchPresenter implements SearchContract.Presenter {
      * @param searchText
      */
     public void searchForChamp(String searchText) {
-
+        if (searchText != null && searchText.length() > 0) {
+            searchView.ShowClearSearchTextButton();
+        } else {
+            searchView.HideClearSearchTextButton();
+        }
     }
 
     private void openSearchView() {
@@ -93,5 +97,9 @@ public class SearchPresenter implements SearchContract.Presenter {
         champ.setChampUrl("");
         champs.add(0, champ);
         searchView.SetChampList(champs);
+    }
+
+    public void ClearSearchText() {
+        searchView.ClearSearchText();
     }
 }

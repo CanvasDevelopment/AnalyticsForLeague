@@ -141,5 +141,23 @@ public class SearchPresenterTests {
         searchPresenter.HandleChampClick(champ);
         verify(searchInteractor, times(1)).SetCurrentChamp(null);
     }
+
+    @Test
+    public void EnsureThatWeClearTextWhenWeClickOnTheClearTextButtonForTheSearchBox() {
+        searchPresenter.ClearSearchText();
+        verify(searchView, times(1)).ClearSearchText();
+    }
+
+    @Test
+    public void EnsureThatWeShow_ClearSearchInputButton_WhenWeAddText() {
+        searchPresenter.searchForChamp("sfff");
+        verify(searchView, times(1)).ShowClearSearchTextButton();
+    }
+
+    @Test
+    public void EnsureThatWeHide_ClearSearchInputButton_WhenWeHaveNoTextLeft() {
+        searchPresenter.searchForChamp("");
+        verify(searchView, times(1)).HideClearSearchTextButton();
+    }
 }
 
