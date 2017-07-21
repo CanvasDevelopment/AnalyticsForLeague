@@ -46,13 +46,14 @@
         android:layout_gravity="bottom"
         android:alpha="0"/>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/champ_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
         android:layout_above="@+id/navigation"
+        app:civ_border_color="@color/colorAccent"
+        android:elevation="6dp"
         android:layout_margin="24dp"
-        app:backgroundTint="@color/blue"
         app:layout_anchor="@+id/fab_anchor" />
 
     <RelativeLayout
@@ -80,8 +81,9 @@
 
     <View
         android:id="@+id/overlay"
+        android:visibility="gone"
         android:background="#000000"
-        android:alpha="0.7"
+        android:alpha="0.75"
         android:elevation="4dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

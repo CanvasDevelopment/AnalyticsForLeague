@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -18,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 import com.teamunemployment.lolanalytics.App;
 import com.teamunemployment.lolanalytics.Data.model.Champ;
@@ -52,7 +54,8 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
 
     @Bind(R.id.container) ViewPager viewPager;
     @Bind(R.id.tabs) TabLayout tabLayout;
-    @Bind(R.id.champ_fab) FloatingActionButton champFab;
+    @Bind(R.id.champ_fab)
+    CircularImageView champFab;
     @Bind(R.id.champ_search_list) RecyclerView champList;
     @Bind(R.id.search_card) CardView searchBox;
     @Bind(R.id.search_input) EditText searchInput;
@@ -122,8 +125,7 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
 
     @Override
     public void SetChampFabIconAsACross() {
-        //Picasso.with(this).load(R.drawable.ca).centerCrop().into(champFab);
-        // TODO
+        champFab.setImageResource(R.drawable.ic_cancel_white_24px);
     }
 
     @Override
@@ -133,7 +135,8 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
 
     @Override
     public void SetChampFabIconAsSelectedChamp(String champIconUrl) {
-        Picasso.with(this).load(champIconUrl).into(champFab);
+        Picasso.with(this).load(R.drawable.khazix).into(champFab);
+        champFab.setBorderColor(ContextCompat.getColor(this, R.color.colorAccent));
     }
 
     @Override

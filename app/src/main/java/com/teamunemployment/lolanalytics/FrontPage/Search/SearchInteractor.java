@@ -56,6 +56,7 @@ public class SearchInteractor {
     }
 
     public Champ GetCurrentSetChamp() {
+        currentFilteredChamp = new Champ();
         return currentFilteredChamp;
     }
 
