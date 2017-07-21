@@ -41,8 +41,6 @@ public class TabAdapter extends FragmentPagerAdapter {
         } else if (position == 1) {
 
             resultFragment = new PlayerAnalysisView();
-        } else {
-            resultFragment = new CoachView();
         }
 
         currentTab = (TabContract.View) resultFragment;
@@ -53,18 +51,16 @@ public class TabAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 3 total pages.
-        return 3;
+        return 2;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "HISTORY";
+                return "Statistics";
             case 1:
-                return "ANALYSIS";
-            case 2:
-                return "PERFORMANCE";
+                return "Analyse";
         }
         return null;
     }
