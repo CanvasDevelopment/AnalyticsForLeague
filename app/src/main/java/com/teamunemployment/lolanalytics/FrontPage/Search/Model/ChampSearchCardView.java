@@ -40,7 +40,11 @@ public class ChampSearchCardView extends RecyclerView.ViewHolder implements View
      */
     public void SetChamp(Champ champ) {
         this.champ = champ;
-        // set champ image with url
+        if (champ.getChampUrl().isEmpty()) {
+            // set our clear filter
+            champImage.setImageResource(R.drawable.ic_account_circle_black_24dp);
+            return;
+        }
         Picasso.with(context).load(champ.getChampId()).into(champImage);
     }
 

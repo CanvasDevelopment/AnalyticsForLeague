@@ -130,7 +130,7 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
 
     @Override
     public void SetChampFabIconAsNone() {
-
+        champFab.setImageResource(R.drawable.ic_account_circle_white_24px);
     }
 
     @Override

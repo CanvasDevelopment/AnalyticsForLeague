@@ -38,6 +38,10 @@ public class SearchPresenter implements SearchContract.Presenter {
      * @param champ The champ a user clicked on.
      */
     public void HandleChampClick(Champ champ) {
+        // Champurl is empty if we clicked on the "Clear" icon. Therefore we need to wipe the champ settings.
+        if (champ.getChampUrl().isEmpty()) {
+            champ = null;
+        }
         searchInteractor.SetCurrentChamp(champ);
         closeSearchView();
     }
@@ -72,6 +76,8 @@ public class SearchPresenter implements SearchContract.Presenter {
         Champ champ = searchInteractor.GetCurrentSetChamp();
         if (champ != null) {
             searchView.SetChampFabIconAsSelectedChamp(champ.getChampUrl());
+        } else {
+            searchView.SetChampFabIconAsNone();
         }
         searchView.ShowChampList();
         searchView.ShowSearchBar();
@@ -83,6 +89,9 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void SetChampRequestResponse(ArrayList<Champ> champs) {
+        Champ champ = new Champ();
+        champ.setChampUrl("");
+        champs.add(0, champ);
         searchView.SetChampList(champs);
     }
 }

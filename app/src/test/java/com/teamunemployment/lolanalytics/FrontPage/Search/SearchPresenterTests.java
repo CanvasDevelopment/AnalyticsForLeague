@@ -133,5 +133,13 @@ public class SearchPresenterTests {
         searchPresenter.handleSearchFabClick();
         verify(searchView, times(1)).ensureKeyboardIsHidden();
     }
+
+    @Test
+    public void EnsureThatWeClearChampSettingWhenWeSelectClearChampInAdapter() {
+        Champ champ = new Champ();
+        champ.setChampUrl("");
+        searchPresenter.HandleChampClick(champ);
+        verify(searchInteractor, times(1)).SetCurrentChamp(null);
+    }
 }
 
