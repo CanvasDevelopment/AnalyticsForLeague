@@ -1,7 +1,14 @@
 package com.teamunemployment.lolanalytics.FrontPage.Search;
 
+import android.support.v7.widget.RecyclerView;
+import android.view.ViewGroup;
+
 import com.teamunemployment.lolanalytics.Data.model.Champ;
 import com.teamunemployment.lolanalytics.FrontPage.Search.Model.ChampSearchCardView;
+import com.teamunemployment.lolanalytics.FrontPage.Search.Model.OffSetViewHolder;
+import com.teamunemployment.lolanalytics.Utils.Constant;
+
+import junit.framework.Assert;
 
 import org.junit.Test;
 
@@ -41,6 +48,23 @@ public class SearchCardViewTests {
         ArrayList<Champ> arrayList = new ArrayList<>();
         ChampSearchCardView searchCardView = mock(ChampSearchCardView.class);
         searchListAdapter.onBindViewHolder(searchCardView, 0);
+    }
+
+    @Test // Fails because layout inflater is not mocked
+    public void EnsureWeOffSetChampSearchScrollSlightly() {
+        SearchPresenter searchPresenter = mock(SearchPresenter.class);
+        SearchListAdapter searchListAdapter = new SearchListAdapter(searchPresenter);
+        RecyclerView.ViewHolder viewHolder = searchListAdapter.onCreateViewHolder(mock(ViewGroup.class), Constant.ViewType.OFFSET_VIEW);
+        Assert.assertTrue(viewHolder instanceof OffSetViewHolder);
+
+    }
+
+    @Test
+    public void EnsureWeDontSetChampToBlankItem() {
+        SearchPresenter searchPresenter = mock(SearchPresenter.class);
+        SearchListAdapter searchListAdapter = new SearchListAdapter(searchPresenter);
+        searchListAdapter.onBindViewHolder(mock(OffSetViewHolder.class), 0);
+
     }
 
 

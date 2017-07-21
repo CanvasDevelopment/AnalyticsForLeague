@@ -93,9 +93,11 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void SetChampRequestResponse(ArrayList<Champ> champs) {
+        Champ offSetChamp = new Champ();
+        champs.add(0, offSetChamp);
         Champ champ = new Champ();
         champ.setChampUrl("");
-        champs.add(0, champ);
+        champs.add(1, champ);
         searchView.SetChampList(champs);
     }
 
