@@ -33,8 +33,9 @@ public class PlayerAnalysisPresenterTests {
         PlayerAnalysisPresenter playerAnalysisPresenter = new PlayerAnalysisPresenter(playerAnalysisPersistanceInteracter, context);
         PlayerAnalysisView view = mock(PlayerAnalysisView.class);
         playerAnalysisPresenter.setView(view);
+        playerAnalysisPresenter.setRole(1);
         playerAnalysisPresenter.start();
-        verify(playerAnalysisPersistanceInteracter, times(1)).LoadStatAnalysisCardObjects(anyInt(), anyLong(), anyInt(), any(Observer.class));
+        verify(playerAnalysisPersistanceInteracter, times(1)).LoadStatTypes(anyInt(), anyLong(), any(Observer.class));
     }
 
     @Test(expected = IllegalStateException.class)

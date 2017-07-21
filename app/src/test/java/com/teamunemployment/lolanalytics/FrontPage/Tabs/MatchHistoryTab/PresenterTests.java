@@ -106,7 +106,7 @@ public class PresenterTests {
         MatchHistoryTabView tabView = mock(MatchHistoryTabView.class);
         presenter.setView(tabView);
 
-        presenter.onError(new Throwable());
+        presenter.onError(mock(Throwable.class));
         verify(tabView, times(1)).showMessage("An error occurred. Please try again.");
     }
 
@@ -122,7 +122,7 @@ public class PresenterTests {
         CardData cs2 = new CardData(5.8, 7.2);
         CardData cs3 = new CardData(58, 72);
 
-        MatchHistoryCardData matchHistoryCardData = new MatchHistoryCardData(1, "Vi", kills, deaths, cs1, cs2,cs3,1 );
+        MatchHistoryCardData matchHistoryCardData = new MatchHistoryCardData(1, "vi", kills, deaths, cs1, cs2,cs3,1 );
         presenter.SetLoadedCardData(matchHistoryCardData, cardViewContract);
         verify(cardViewContract, times(1)).setGraph1(kills);
     }
@@ -139,9 +139,9 @@ public class PresenterTests {
         CardData cs2 = new CardData(5.8, 7.2);
         CardData cs3 = new CardData(58, 72);
 
-        MatchHistoryCardData matchHistoryCardData = new MatchHistoryCardData(1, "Vi", kills, deaths, cs1, cs2,cs3, 1);
+        MatchHistoryCardData matchHistoryCardData = new MatchHistoryCardData(1, "vi", kills, deaths, cs1, cs2,cs3, 1);
         presenter.SetLoadedCardData(matchHistoryCardData, cardViewContract);
-        verify(cardViewContract, times(1)).setGraph2(deaths);
+        verify(cardViewContract, times(1)).setGraph2(cs3);
     }
 
     @Test
@@ -156,7 +156,7 @@ public class PresenterTests {
         CardData cs2 = new CardData(5.8, 7.2);
         CardData cs3 = new CardData(58, 72);
 
-        MatchHistoryCardData matchHistoryCardData = new MatchHistoryCardData(1, "Vi", kills, deaths, cs1, cs2,cs3, 1);
+        MatchHistoryCardData matchHistoryCardData = new MatchHistoryCardData(1, "vi", kills, deaths, cs1, cs2,cs3, 1);
         presenter.SetLoadedCardData(matchHistoryCardData, cardViewContract);
         verify(cardViewContract, times(1)).setGraph3(cs1);
     }

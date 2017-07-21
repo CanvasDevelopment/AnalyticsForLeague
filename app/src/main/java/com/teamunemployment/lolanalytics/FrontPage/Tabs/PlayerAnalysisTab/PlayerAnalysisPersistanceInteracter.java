@@ -52,8 +52,8 @@ public class PlayerAnalysisPersistanceInteracter {
                                       int statId,
                                       Observer<StatCollection> observer,
                                       Function<StatCollection, StatCollection> mapFunction) {
-        Realm realm = Realm.getDefaultInstance();
         Realm.init(context);
+        Realm realm = Realm.getDefaultInstance();
         ArrayList<Entry> statResults = fetchMockData();
         ArrayList<Entry> enemyStatResults = fetchMockEnemyData();
         StatCollection statCollection = new StatCollection();

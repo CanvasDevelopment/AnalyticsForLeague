@@ -71,7 +71,7 @@ public class PresenterTests {
         TabPresenter presenter = new TabPresenter(tabModel, tabRecyclerAdapter);
         presenter.setView(tabView, 1);
         presenter.addDataToAdapter(null);
-        verify(tabView, times(1)).setLoadingVisibile(false);
+        verify(tabView, times(1)).setLoadingVisible(false);
     }
 
     @Test

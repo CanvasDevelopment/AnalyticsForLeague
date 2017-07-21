@@ -33,7 +33,16 @@ public class SearchPresenter implements SearchContract.Presenter {
         this.searchView = searchView;
     }
 
-    public void handleSearchClick() {
+    /**
+     * Set the champ that the user clicked on.
+     * @param champ The champ a user clicked on.
+     */
+    public void HandleChampClick(Champ champ) {
+        searchInteractor.SetCurrentChamp(champ);
+        closeSearchView();
+    }
+
+    public void handleSearchFabClick() {
         if(searchButtonState == OPEN) {
             closeSearchView();
         } else {
@@ -41,25 +50,35 @@ public class SearchPresenter implements SearchContract.Presenter {
         }
     }
 
+    /**
+     * Search for a champion
+     * @param searchText
+     */
+    public void searchForChamp(String searchText) {
+
+    }
+
     private void openSearchView() {
         searchView.ShowOverlay();
         searchView.SetChampFabIconAsACross();
         searchView.ShowChampList();
         searchView.ShowSearchBar();
-        searchInteractor.GetFavouriteChamps();
+        searchInteractor.GetFavouriteChamps(this);
         searchButtonState = OPEN;
     }
 
     private void closeSearchView() {
         searchView.HideOverlay();
         Champ champ = searchInteractor.GetCurrentSetChamp();
-        searchView.SetChampFabIconAsSelectedChamp(champ.getChampUrl());
+        if (champ != null) {
+            searchView.SetChampFabIconAsSelectedChamp(champ.getChampUrl());
+        }
         searchView.ShowChampList();
         searchView.ShowSearchBar();
         searchView.HideChampList();
         searchView.HideSearchBar();
-        searchInteractor.GetFavouriteChamps();
-        searchButtonState = OPEN;
+        searchView.ensureKeyboardIsHidden();
+        searchButtonState = ClOSED;
     }
 
     @Override

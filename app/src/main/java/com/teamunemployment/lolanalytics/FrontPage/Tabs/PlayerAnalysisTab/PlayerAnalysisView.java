@@ -71,4 +71,9 @@ public class PlayerAnalysisView extends Fragment implements TabContract.View {
         recycler.setLayoutManager(layoutManager);
         recycler.setAdapter(adapter1);
     }
+
+    @Override
+    public void setLoadingVisible(boolean visible) {
+
+    }
 }

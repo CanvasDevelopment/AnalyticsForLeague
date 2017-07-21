@@ -72,4 +72,9 @@ public class MatchHistoryTabView extends Fragment implements TabContract.View {
         recycler.setLayoutManager(layoutManager);
         recycler.setAdapter(matchHistoryAdapter);
     }
+
+    @Override
+    public void setLoadingVisible(boolean visible) {
+
+    }
 }

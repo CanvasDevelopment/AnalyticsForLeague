@@ -24,5 +24,6 @@ public interface SearchContract {
         void ShowSearchBar();
         void HideSearchBar();
         void SetChampList(ArrayList<Champ> champs);
+        void ensureKeyboardIsHidden();
     }
 }

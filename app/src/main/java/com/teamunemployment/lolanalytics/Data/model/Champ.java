@@ -7,6 +7,7 @@ package com.teamunemployment.lolanalytics.Data.model;
 public class Champ {
     private String champName;
     private String champUrl;
+    private int champId;
 
     public void setChampName(String champName) {
         this.champName = champName;
@@ -22,5 +23,13 @@ public class Champ {
 
     public String getChampUrl() {
         return champUrl;
+    }
+
+    public void setChampResId(int resId) {
+        this.champId = resId;
+    }
+
+    public int getChampId() {
+        return champId;
     }
 }

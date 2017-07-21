@@ -1,22 +1,28 @@
 package com.teamunemployment.lolanalytics.FrontPage;
 
-import android.graphics.Color;
+import android.content.Context;
 import android.os.Bundle;
 
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.squareup.picasso.Picasso;
 import com.teamunemployment.lolanalytics.App;
 import com.teamunemployment.lolanalytics.Data.model.Champ;
 import com.teamunemployment.lolanalytics.FrontPage.Search.SearchContract;
+import com.teamunemployment.lolanalytics.FrontPage.Search.SearchListAdapter;
 import com.teamunemployment.lolanalytics.FrontPage.Search.SearchPresenter;
 import com.teamunemployment.lolanalytics.R;
 
@@ -28,14 +34,13 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * @author Josiah Kendall.
  *
  * This is the base class of the main application page. Holds the bottom bar and the fragment viewpager.
  */
-public class BaseActivityView extends AppCompatActivity implements BaseActivityContract.View, SearchContract.View {
+public class BaseActivityView extends AppCompatActivity implements BaseActivityContract.View, SearchContract.View, TextWatcher {
 
     private TabAdapter tabAdapter;
 
@@ -44,11 +49,14 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
 
     @Inject
     public SearchPresenter searchPresenter;
-//    @Bind(R.id.bottomBar) AHBottomNavigation bottomBar;
 
     @Bind(R.id.container) ViewPager viewPager;
     @Bind(R.id.tabs) TabLayout tabLayout;
     @Bind(R.id.champ_fab) FloatingActionButton champFab;
+    @Bind(R.id.champ_search_list) RecyclerView champList;
+    @Bind(R.id.search_card) CardView searchBox;
+    @Bind(R.id.search_input) EditText searchInput;
+    @Bind(R.id.overlay) View overlay;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +66,13 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
         ((App) getApplication()).getNetComponent().InjectView(this);
 
         ButterKnife.bind(this);
+
+        // Set views for our presenter
         presenter.setView(this);
+        searchPresenter.setSearchView(this);
+
+        // set listener for our search
+        searchInput.addTextChangedListener(this);
 
        // setUpBottomBar();
         setUpTabs();
@@ -98,17 +112,18 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
 
     @Override
     public void ShowOverlay() {
-
+        overlay.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void HideOverlay() {
-
+        overlay.setVisibility(View.GONE);
     }
 
     @Override
     public void SetChampFabIconAsACross() {
-
+        //Picasso.with(this).load(R.drawable.ca).centerCrop().into(champFab);
+        // TODO
     }
 
     @Override
@@ -118,35 +133,81 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
 
     @Override
     public void SetChampFabIconAsSelectedChamp(String champIconUrl) {
-
+        Picasso.with(this).load(champIconUrl).into(champFab);
     }
 
     @Override
     public void ShowChampList() {
-
+        champList.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void HideChampList() {
-
+        champList.setVisibility(View.GONE);
     }
 
     @Override
     public void ShowSearchBar() {
-
+        searchBox.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void HideSearchBar() {
-
+        searchBox.setVisibility(View.GONE);
     }
 
     @Override
     public void SetChampList(ArrayList<Champ> champs) {
+        SearchListAdapter searchListAdapter = new SearchListAdapter(searchPresenter);
+        searchListAdapter.SetData(champs);
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this);
+        horizontalLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        champList.setLayoutManager(horizontalLayoutManager);
+        champList.setAdapter(searchListAdapter);
+    }
 
+    @Override
+    public void ensureKeyboardIsHidden() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     @OnClick(R.id.champ_fab) void handleChampFilterClick() {
-        searchPresenter.handleSearchClick();
+        searchPresenter.handleSearchFabClick();
+    }
+
+    @OnClick(R.id.overlay) void consumeOverlayClicks() {
+        // Probably just hide when this happens
+    }
+
+
+    /**
+     * Required for our text watcher for the search. Do not remove
+     * @param charSequence
+     * @param i
+     * @param i1
+     * @param i2
+     */
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+    /**
+     * Handle a text input into our search box. Update on each key
+     * @param charSequence
+     * @param i
+     * @param i1
+     * @param i2
+     */
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        searchPresenter.searchForChamp(charSequence.toString());
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
     }
 }

@@ -54,8 +54,8 @@ public class RetrofitTests {
                 .client(okHttpClient)
                 .build();
 
-        RESTApiExecutor RESTApiExecutor = retrofit.create(RESTApiExecutor.class);
-        Observable<Data> averagesObservable = RESTApiExecutor.GetMidStatsForSummoner(1234567);
+        RESTApiExecutor rESTApiExecutor = retrofit.create(RESTApiExecutor.class);
+        Observable<Data> averagesObservable = rESTApiExecutor.GetMidStatsForSummoner(1234567);
         averagesObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(mock(Scheduler.class))
                 .subscribe(new Observer<Data>() {

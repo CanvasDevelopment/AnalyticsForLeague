@@ -58,7 +58,8 @@ public class TabView extends Fragment implements TabContract.View {
     }
 
 
-    public void setLoadingVisibile(boolean visibile) {
+    @Override
+    public void setLoadingVisible(boolean visibile) {
         if (visibile) {
          //   progressBar.setVisibility(View.VISIBLE);
         } else {

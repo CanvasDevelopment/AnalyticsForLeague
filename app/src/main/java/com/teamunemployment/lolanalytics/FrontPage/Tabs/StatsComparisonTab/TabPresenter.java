@@ -50,7 +50,6 @@ public class TabPresenter implements TabModelContract.Presenter {
 
     @Override
     public void handleError(Throwable e) {
-        Log.e("StatsComparison", "Error: " + e.getMessage());
         // showMessageToUser("An error occurred while loading fresh data. Please check you have an internet connection and retry.");
        // view.setErrorMessage("An error occured while loading. Please check that you have an internet connection.");
     }
@@ -88,6 +87,7 @@ public class TabPresenter implements TabModelContract.Presenter {
     @Override
     public void addDataToAdapter(ArrayList<CardData> cardDatas) {
         tabRecyclerAdapter.setStatComparisonAdapterData(cardDatas);
+        view.setLoadingVisible(false);
         view.setAdapter(tabRecyclerAdapter);
     }
 

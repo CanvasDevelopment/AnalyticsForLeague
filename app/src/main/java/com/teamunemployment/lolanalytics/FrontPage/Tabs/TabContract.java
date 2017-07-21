@@ -17,6 +17,7 @@ public interface TabContract {
     interface View extends ViewContract {
         void setRole(int role);
         void setAdapter(TabAdapter adapter);
+        void setLoadingVisible(boolean visible);
     }
 
     /**

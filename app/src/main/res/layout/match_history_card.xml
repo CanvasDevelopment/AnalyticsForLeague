@@ -91,7 +91,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/good_or_bad_state_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -116,7 +116,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/enemy_champ_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"

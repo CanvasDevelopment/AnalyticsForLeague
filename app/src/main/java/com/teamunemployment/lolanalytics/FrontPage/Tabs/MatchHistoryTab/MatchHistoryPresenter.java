@@ -97,7 +97,7 @@ public class MatchHistoryPresenter implements MatchHistoryTabContract.Presenter 
 
     @Override
     public void onError(Throwable e) {
-        Log.e("MatchHistory", "Error: " + e.getMessage());
+//        Log.e("MatchHistory", "Error: " + e.getMessage());
         view.showMessage("An error occurred. Please try again.");
     }
 

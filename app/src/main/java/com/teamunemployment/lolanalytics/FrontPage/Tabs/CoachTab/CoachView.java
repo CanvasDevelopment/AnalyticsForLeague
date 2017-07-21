@@ -129,6 +129,11 @@ public class CoachView extends Fragment implements CoachContract.View{
 
     }
 
+    @Override
+    public void setLoadingVisible(boolean visible) {
+
+    }
+
 //    private ArrayList<Entry> getMockData() {
 //
 //    }
