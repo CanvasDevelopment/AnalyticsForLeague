@@ -136,7 +136,6 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
     @Override
     public void SetChampFabIconAsSelectedChamp(String champIconUrl) {
         Picasso.with(this).load(R.drawable.khazix).into(champFab);
-        champFab.setBorderColor(ContextCompat.getColor(this, R.color.colorAccent));
     }
 
     @Override
