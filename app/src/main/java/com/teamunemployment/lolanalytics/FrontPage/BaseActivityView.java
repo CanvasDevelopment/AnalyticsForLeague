@@ -183,6 +183,7 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
 
     @OnClick(R.id.overlay) void consumeOverlayClicks() {
         // Probably just hide when this happens
+        searchPresenter.handleSearchFabClick();
     }
 
 
