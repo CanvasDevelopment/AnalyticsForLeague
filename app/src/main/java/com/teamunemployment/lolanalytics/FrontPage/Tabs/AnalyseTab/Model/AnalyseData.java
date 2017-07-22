@@ -7,15 +7,15 @@ package com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.Model;
 public class AnalyseData {
 
     private String title;
-    private double enemyPercentTotal;
-    private double heroPercentTotal;
+    private float enemyPercentTotal;
+    private float heroPercentTotal;
     private double recentChange;
 
-    public double getEnemyPercentTotal() {
+    public float getEnemyPercentTotal() {
         return enemyPercentTotal;
     }
 
-    public double getHeroPercentTotal() {
+    public float getHeroPercentTotal() {
         return heroPercentTotal;
     }
 
@@ -27,11 +27,11 @@ public class AnalyseData {
         return title;
     }
 
-    public void setEnemyPercentTotal(double enemyPercentTotal) {
+    public void setEnemyPercentTotal(float enemyPercentTotal) {
         this.enemyPercentTotal = enemyPercentTotal;
     }
 
-    public void setHeroPercentTotal(double heroPercentTotal) {
+    public void setHeroPercentTotal(float heroPercentTotal) {
         this.heroPercentTotal = heroPercentTotal;
     }
 

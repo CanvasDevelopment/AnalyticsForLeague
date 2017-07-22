@@ -10,4 +10,6 @@ public class Constant {
         public static final int OFFSET_VIEW = 0;
         public static final int STANDARD_VIEW = 1;
     }
+
+    public static final String ROLE_KEY = "role";
 }

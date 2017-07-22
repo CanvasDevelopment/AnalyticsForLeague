@@ -101,7 +101,7 @@ public class AnalysePresenter implements AnalyseTabContract.Presenter {
     }
 
     @Override
-    public void OnCardBinding(AnalyseCardViewHolder viewHolder, int position) {
+    public void OnCardBinding(AnalyseTabContract.CardView viewHolder, int position) {
         AnalyseData data = filterList.get(position);
         viewHolder.SetGraph(data.getEnemyPercentTotal(), data.getHeroPercentTotal());
         viewHolder.SetChange(data.getRecentChange());

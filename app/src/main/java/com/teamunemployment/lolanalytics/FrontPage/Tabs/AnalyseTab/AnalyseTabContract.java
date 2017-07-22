@@ -1,5 +1,7 @@
 package com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab;
 
+import android.support.v7.widget.RecyclerView;
+
 import com.teamunemployment.lolanalytics.Data.model.Champ;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.Model.AnalyseCardViewHolder;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.Model.AnalyseData;
@@ -17,11 +19,12 @@ public interface AnalyseTabContract {
         void SetPlaceHolderVisible();
         void SetPlaceHolderInvisible();
         void SetPlaceHolderString(String string);
+        void SetChamp(Champ champ);
     }
 
     interface CardView {
         void SetTitle(String title);
-        void SetGraph(double enemyStat, double heroStat);
+        void SetGraph(float enemyStat, float heroStat);
         void SetChange(double change);
         void SetItemPosition(int position);
     }
@@ -34,7 +37,7 @@ public interface AnalyseTabContract {
         void SetRole(int support);
         void SetChamp(Champ champ);
         void SetPlaceHolder(String noResults);
-        void OnCardBinding(AnalyseCardViewHolder viewHolder, int position);
+        void OnCardBinding(AnalyseTabContract.CardView viewHolder, int position);
         void HandleItemClick(int position);
 
     }

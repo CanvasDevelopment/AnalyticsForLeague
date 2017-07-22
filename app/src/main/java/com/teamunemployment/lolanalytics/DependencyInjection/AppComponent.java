@@ -2,6 +2,8 @@ package com.teamunemployment.lolanalytics.DependencyInjection;
 
 import com.teamunemployment.lolanalytics.FrontPage.BaseActivityModule;
 import com.teamunemployment.lolanalytics.FrontPage.BaseActivityView;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.AnalyseTabView;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.Model.AnalyseTabModule;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.CoachTab.CoachTabModule;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.CoachTab.CoachView;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Dependencies.MatchHistoryModule;
@@ -23,7 +25,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class, StatisticsTabModule.class, LoginModule.class,
         BaseActivityModule.class, MatchHistoryModule.class, PlayerAnalysisModule.class,
-        CoachTabModule.class})
+        CoachTabModule.class, AnalyseTabModule.class})
 public interface AppComponent {
     void InjectView(TabView tabView);
     void InjectView(LoginView loginView);
@@ -31,4 +33,5 @@ public interface AppComponent {
     void InjectView(MatchHistoryTabView matchHistoryTabView);
     void InjectView(PlayerAnalysisView playerAnalysisView);
     void InjectView(CoachView coachView);
+    void InjectView(AnalyseTabView analyseTabView);
 }
