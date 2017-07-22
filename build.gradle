@@ -1,0 +1,32 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+        // Realm
+        classpath 'io.realm:realm-gradle-plugin:2.2.2'
+        // retrolambda
+        classpath 'me.tatarka:gradle-retrolambda:3.5.0'
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+        jcenter()
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

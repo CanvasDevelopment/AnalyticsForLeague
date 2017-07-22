@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.AnalyseAdapter;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.AnalysePresenter;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.AnalyseTabContract;
 
 /**
@@ -13,9 +14,10 @@ import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.AnalyseTabCon
 public class AnalyseCardViewHolder extends RecyclerView.ViewHolder implements AnalyseTabContract.CardView {
 
     private int position;
-
-    public AnalyseCardViewHolder(View itemView) {
+    private AnalysePresenter presenter;
+    public AnalyseCardViewHolder(View itemView, AnalysePresenter analysePresenter) {
         super(itemView);
+        this.presenter = analysePresenter;
     }
 
     @Override
