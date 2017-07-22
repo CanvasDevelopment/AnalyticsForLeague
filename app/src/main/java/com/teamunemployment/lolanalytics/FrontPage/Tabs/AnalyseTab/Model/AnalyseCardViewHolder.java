@@ -7,6 +7,8 @@ import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.AnalyseAdapte
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.AnalysePresenter;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.AnalyseTabContract;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by Josiah Kendall
  */
@@ -15,8 +17,10 @@ public class AnalyseCardViewHolder extends RecyclerView.ViewHolder implements An
 
     private int position;
     private AnalysePresenter presenter;
+
     public AnalyseCardViewHolder(View itemView, AnalysePresenter analysePresenter) {
         super(itemView);
+        ButterKnife.bind(this ,itemView);
         this.presenter = analysePresenter;
     }
 
