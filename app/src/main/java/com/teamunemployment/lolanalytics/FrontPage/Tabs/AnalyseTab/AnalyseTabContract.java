@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import com.teamunemployment.lolanalytics.Data.model.Champ;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.Model.AnalyseCardViewHolder;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.Model.AnalyseData;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.TabContract;
 
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 
 public interface AnalyseTabContract {
 
-    interface View {
+    interface View extends TabContract.View {
         void SetAdapter(AnalyseAdapter adapter);
         void SetPlaceHolderVisible();
         void SetPlaceHolderInvisible();

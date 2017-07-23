@@ -1,14 +1,17 @@
 package com.teamunemployment.lolanalytics.FrontPage;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.AnalyseTabView;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.CoachTab.CoachView;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.MatchHistoryTabView;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.PlayerAnalysisView;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.TabView;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.TabContract;
+import com.teamunemployment.lolanalytics.Utils.Constant;
 
 /**
  * @author Josiah Kendall.
@@ -16,7 +19,7 @@ import com.teamunemployment.lolanalytics.FrontPage.Tabs.TabContract;
 public class TabAdapter extends FragmentPagerAdapter {
 
     private TabContract.View currentTab;
-
+    private int role = 1;
     public TabAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -39,8 +42,10 @@ public class TabAdapter extends FragmentPagerAdapter {
         if (position == 0) {
             resultFragment = new MatchHistoryTabView();
         } else if (position == 1) {
-
-            resultFragment = new PlayerAnalysisView();
+            resultFragment = new AnalyseTabView();
+            Bundle args = new Bundle();
+            args.putInt(Constant.ROLE_KEY, 1);
+            resultFragment.setArguments(args);
         }
 
         currentTab = (TabContract.View) resultFragment;

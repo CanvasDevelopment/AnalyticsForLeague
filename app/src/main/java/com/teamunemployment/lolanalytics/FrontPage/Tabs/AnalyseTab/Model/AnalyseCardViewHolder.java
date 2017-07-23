@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -60,11 +62,31 @@ public class AnalyseCardViewHolder extends RecyclerView.ViewHolder implements An
 
         PieDataSet set = new PieDataSet(entries, "");
         int[] MATERIAL_COLORS = {
-                rgb("#2ecc71"), rgb("#f1c40f")
+                rgb("#FF3D00"),rgb("#00E676")
         };
         set.setColors(MATERIAL_COLORS);
+        set.setDrawValues(false);
         PieData data = new PieData(set);
         pieChart.setData(data);
+        pieChart.setDrawMarkers(false);
+        pieChart.setUsePercentValues(false);
+        pieChart.setDrawSliceText(false);
+        pieChart.setHighlightPerTapEnabled(false);
+        Float floater = heroStat;
+
+        pieChart.setCenterText(Integer.toString(floater.intValue()).concat("%"));
+        pieChart.setCenterTextColor(R.color.colorAccent);
+        pieChart.setDrawEntryLabels(false);
+
+        // Dont want to display a description.
+        Description description = new Description();
+        description.setText("");
+        pieChart.setDescription(description);
+
+        // Customize legend.
+        pieChart.getLegend().setForm(Legend.LegendForm.CIRCLE);
+        pieChart.getLegend().setEnabled(false);
+        pieChart.invalidate();
 
     }
 

@@ -23,7 +23,7 @@ public class AnalyseAdapter extends RecyclerView.Adapter<AnalyseCardViewHolder>
 
     @Override
     public void onBindViewHolder(AnalyseCardViewHolder holder, int position) {
-
+        presenter.OnCardBinding(holder, position);
     }
 
 

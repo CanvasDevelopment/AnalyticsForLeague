@@ -17,7 +17,6 @@ public class AnalyseInteractor {
     }
 
     public void RequestFilterList(int role, AnalysePresenter presenter) {
-        ArrayList<AnalyseData> datas = new ArrayList<>();
         presenter.SetFilterRequestResponse(removeMeAfterMocking());
     }
 

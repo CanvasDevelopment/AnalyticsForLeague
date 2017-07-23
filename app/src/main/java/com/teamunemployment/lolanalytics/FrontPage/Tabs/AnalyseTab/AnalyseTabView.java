@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.teamunemployment.lolanalytics.App;
 import com.teamunemployment.lolanalytics.Data.model.Champ;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.TabContract;
 import com.teamunemployment.lolanalytics.R;
 import com.teamunemployment.lolanalytics.Utils.Constant;
 
@@ -52,6 +53,7 @@ public class AnalyseTabView extends Fragment implements AnalyseTabContract.View 
         // Set our view. This starts the loading of data.
         presenter.SetView(this);
         presenter.SetRole(role);
+        presenter.Start();
 
         return rootView;
     }
@@ -82,5 +84,25 @@ public class AnalyseTabView extends Fragment implements AnalyseTabContract.View 
     public void SetChamp(Champ champ) {
         presenter.SetChamp(champ);
         presenter.Start();
+    }
+
+    @Override
+    public void setRole(int role) {
+        presenter.SetRole(role);
+    }
+
+    @Override
+    public void setAdapter(TabContract.TabAdapter adapter) {
+
+    }
+
+    @Override
+    public void setLoadingVisible(boolean visible) {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+
     }
 }
