@@ -100,7 +100,7 @@ public class AnalyseCardViewHolder extends RecyclerView.ViewHolder implements An
         this.position = position;
     }
 
-    @OnClick({R.id.performance_pie, R.id.performance_change, R.id.analyse_card_title, R.id.root_analyse_item})
+    @OnClick(R.id.root_analyse_item)
     public void handleClick() {
         presenter.HandleItemClick(position);
     }

@@ -11,7 +11,8 @@ import com.teamunemployment.lolanalytics.R;
  * Created by Josiah Kendall
  */
 
-public class AnalyseAdapter extends RecyclerView.Adapter<AnalyseCardViewHolder>
+public class AnalyseAdapter
+        extends RecyclerView.Adapter<AnalyseCardViewHolder>
         implements AnalyseTabContract.Adapter{
 
     private AnalyseTabContract.Presenter presenter;
@@ -25,8 +26,6 @@ public class AnalyseAdapter extends RecyclerView.Adapter<AnalyseCardViewHolder>
     public void onBindViewHolder(AnalyseCardViewHolder holder, int position) {
         presenter.OnCardBinding(holder, position);
     }
-
-
 
     @Override
     public int getItemCount() {
