@@ -32,4 +32,13 @@ public class Champ {
     public int getChampId() {
         return champId;
     }
+
+    @Override
+    public String toString() {
+        return champName;
+    }
+
+    public void setChampId(int champId) {
+        this.champId = champId;
+    }
 }

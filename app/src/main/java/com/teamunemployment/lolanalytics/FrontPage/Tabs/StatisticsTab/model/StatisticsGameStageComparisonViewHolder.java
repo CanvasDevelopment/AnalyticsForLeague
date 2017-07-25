@@ -19,4 +19,24 @@ public class StatisticsGameStageComparisonViewHolder
         super(itemView);
         this.presenter = presenter;
     }
+
+    @Override
+    public void setTitle(String title) {
+
+    }
+
+    @Override
+    public void setEarlyGame(GameStageStatisticModel earlyGame) {
+
+    }
+
+    @Override
+    public void setMidGame(GameStageStatisticModel midGame) {
+
+    }
+
+    @Override
+    public void setLateGame(GameStageStatisticModel lateGame) {
+
+    }
 }
