@@ -1,8 +1,12 @@
 package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.teamunemployment.lolanalytics.Data.model.Champ;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.ThreeGameStageStatistic;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.StatisticsCardDataObject;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.StatisticsGameStageComparisonViewHolder;
+import com.teamunemployment.lolanalytics.R;
 import com.teamunemployment.lolanalytics.Utils.Filters.ChampSingleton;
 import com.teamunemployment.lolanalytics.Utils.Filters.RoleSingleton;
 import com.teamunemployment.lolanalytics.Utils.RoleUtils;
@@ -21,7 +25,7 @@ public class StatisticsTabPresenter implements StatisticsTabContract.Presenter {
     private RoleSingleton roleSingleton;
     private RoleUtils roleUtils;
     private StatisticsTabContract.View view;
-    private ArrayList<ThreeGameStageStatistic> listData;
+    private ArrayList<StatisticsCardDataObject> listData;
 
     public StatisticsTabPresenter(
             StatisticsTabInteractor statisticsTabInteractor,
@@ -40,11 +44,12 @@ public class StatisticsTabPresenter implements StatisticsTabContract.Presenter {
     @Override
     public void onCardBinding(StatisticsGameStageComparisonViewHolder holder, int position) {
         // handle binding of the card
-        ThreeGameStageStatistic gameStageStatistic = listData.get(position);
+        StatisticsCardDataObject gameStageStatistic = listData.get(position);
         holder.setTitle(gameStageStatistic.getTitle());
-        holder.setEarlyGame(gameStageStatistic.getEarlyGame());
-        holder.setMidGame(gameStageStatistic.getMidGame());
-        holder.setLateGame(gameStageStatistic.getLateGame());
+        holder.setEarlyGame(gameStageStatistic.getEarlyGameChartData(), gameStageStatistic.getPerformancePercentage());
+        holder.setMidGame(gameStageStatistic.getMidGameChartData(), gameStageStatistic.getPerformancePercentage());
+        holder.setLateGame(gameStageStatistic.getLateGameChartData(), gameStageStatistic.getPerformancePercentage());
+
     }
 
     @Override
@@ -75,7 +80,7 @@ public class StatisticsTabPresenter implements StatisticsTabContract.Presenter {
     }
 
     @Override
-    public void handleDataResponse(ArrayList<ThreeGameStageStatistic> data) {
+    public void handleDataResponse(ArrayList<StatisticsCardDataObject> data) {
         this.listData = data;
         // when we set the adapter, it updates the data. Should probably find a better solution to this.
         if (listData.size() > 0) {
@@ -98,5 +103,39 @@ public class StatisticsTabPresenter implements StatisticsTabContract.Presenter {
             view.setListHidden();
             view.setPlaceholderString(placeholdermessage);
         }
+    }
+
+    /**
+     * Style a pie chart. This method gives the pie chart certain style features.
+     *  - No Title
+     *  - No Description
+     *  - No slice values
+     *  - No Key
+     *  - Visible center text set to the accent color in the theme
+     *  - tap-able slices - which can be tapped to show the raw values
+     * @param pieChart
+     * @return The pie chart with the updated styles
+     */
+    @Override
+    public PieChart prepClickableDetailChart(PieChart pieChart) {
+
+        pieChart.setDrawMarkers(false);
+        pieChart.setUsePercentValues(false);
+        pieChart.setDrawSliceText(false);
+        pieChart.setHighlightPerTapEnabled(true);
+
+        pieChart.setCenterTextColor(R.color.colorAccent);
+        pieChart.setDrawEntryLabels(false);
+
+        // Dont want to display a description.
+        Description description = new Description();
+        description.setText("");
+        pieChart.setDescription(description);
+        pieChart.getDescription().setEnabled(false);
+
+        // Hide the legend. The reason that we set the legend is because
+        pieChart.getLegend().setForm(Legend.LegendForm.CIRCLE);
+        pieChart.getLegend().setEnabled(false);
+        return pieChart;
     }
 }

@@ -91,6 +91,7 @@ public class AnalyseTabView extends Fragment implements AnalyseTabContract.View 
         presenter.SetRole(role);
     }
 
+    // TODO remove this shit
     @Override
     public void setAdapter(TabContract.TabAdapter adapter) {
 

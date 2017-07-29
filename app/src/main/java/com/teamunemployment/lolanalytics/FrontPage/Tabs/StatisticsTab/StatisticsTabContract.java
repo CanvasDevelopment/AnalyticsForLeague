@@ -1,7 +1,8 @@
 package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab;
 
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.GameStageStatisticModel;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.ThreeGameStageStatistic;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.StatisticsCardDataObject;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.StatisticsGameStageComparisonViewHolder;
 
 import java.util.ArrayList;
@@ -28,14 +29,15 @@ public interface StatisticsTabContract {
         void setView(View view);
         void start();
         void refreshData();
-        void handleDataResponse(ArrayList<ThreeGameStageStatistic> data);
+        void handleDataResponse(ArrayList<StatisticsCardDataObject> data);
+        PieChart prepClickableDetailChart(PieChart pieChart);
     }
 
     interface CardView {
         void setTitle(String title);
-        void setEarlyGame(GameStageStatisticModel earlyGame);
-        void setMidGame(GameStageStatisticModel midGame);
-        void setLateGame(GameStageStatisticModel lateGame);
+        void setEarlyGame(PieData data, String centerText);
+        void setMidGame(PieData data, String centerText);
+        void setLateGame(PieData data, String centerText);
     }
 
     interface Adapter {

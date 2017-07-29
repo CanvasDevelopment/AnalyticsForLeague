@@ -1,8 +1,9 @@
 package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab;
 
+import com.github.mikephil.charting.data.PieData;
 import com.teamunemployment.lolanalytics.Data.model.Champ;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.GameStageStatisticModel;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.ThreeGameStageStatistic;
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.StatisticsCardDataObject;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.StatisticsGameStageComparisonViewHolder;
 import com.teamunemployment.lolanalytics.Utils.Filters.ChampSingleton;
 import com.teamunemployment.lolanalytics.Utils.Filters.RoleSingleton;
@@ -14,6 +15,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -47,16 +49,16 @@ public class StatisticsTabPresenterTests {
 
     @Test
     public void ensureThatWeSetAndShowTheAdapterWhenWeHaveData() {
-        ArrayList<ThreeGameStageStatistic> dataModels = new ArrayList<>();
-        ThreeGameStageStatistic threeGameStageStatistic = new ThreeGameStageStatistic();
-        dataModels.add(threeGameStageStatistic);
+        ArrayList<StatisticsCardDataObject> dataModels = new ArrayList<>();
+        StatisticsCardDataObject statisticsCardDataObject = new StatisticsCardDataObject();
+        dataModels.add(statisticsCardDataObject);
         presenter.handleDataResponse(dataModels);
         verify(view, times(1)).setAdapter(adapter);
     }
 
     @Test
     public void EnsureThatWeShowPlaceholderWhenWeHaveNoData() {
-        ArrayList<ThreeGameStageStatistic> dataModels = new ArrayList<>();
+        ArrayList<StatisticsCardDataObject> dataModels = new ArrayList<>();
         presenter.handleDataResponse(dataModels);
         verify(view, times(0)).setAdapter(adapter);
         verify(view, times(1)).setNoDataPlaceholderVisible();
@@ -64,23 +66,23 @@ public class StatisticsTabPresenterTests {
 
     @Test
     public void EnsureThatWeHideListWhenWeHaveNoData() {
-        ArrayList<ThreeGameStageStatistic> dataModels = new ArrayList<>();
+        ArrayList<StatisticsCardDataObject> dataModels = new ArrayList<>();
         presenter.handleDataResponse(dataModels);
         verify(view, times(1)).setListHidden();
     }
 
     @Test
     public void EnsureThatWeHidePlaceholderWhenWeHaveData() {
-        ArrayList<ThreeGameStageStatistic> dataModels = new ArrayList<>();
-        ThreeGameStageStatistic threeGameStageStatistic = new ThreeGameStageStatistic();
-        dataModels.add(threeGameStageStatistic);
+        ArrayList<StatisticsCardDataObject> dataModels = new ArrayList<>();
+        StatisticsCardDataObject statisticsCardDataObject = new StatisticsCardDataObject();
+        dataModels.add(statisticsCardDataObject);
         presenter.handleDataResponse(dataModels);
         verify(view, times(1)).setNoDataPlaceholderHidden();
     }
 
     @Test
     public void EnsureThatWeSetTheCorrectPlaceholderMessageForChampAndRole() {
-        ArrayList<ThreeGameStageStatistic> dataModels = new ArrayList<>();
+        ArrayList<StatisticsCardDataObject> dataModels = new ArrayList<>();
         Champ champ = new Champ();
         champ.setChampName("Vi");
         when(champSingleton.getCurrentChamp()).thenReturn(champ);
@@ -93,7 +95,7 @@ public class StatisticsTabPresenterTests {
 
     @Test
     public void EnsureThatWeSetTheCorrectPlaceholerMessageWhenWeHaveJustARole() {
-        ArrayList<ThreeGameStageStatistic> dataModels = new ArrayList<>();
+        ArrayList<StatisticsCardDataObject> dataModels = new ArrayList<>();
         when(champSingleton.getCurrentChamp()).thenReturn(null);
         when(roleSingleton.getRole()).thenReturn(1);
         when(roleUtils.GetRoleName(1)).thenReturn("JUNGLE");
@@ -129,10 +131,11 @@ public class StatisticsTabPresenterTests {
     public void EnsureThatWeSetStatTitleCorrectly() {
         String title = "Creep Score vs Opponent";
         StatisticsGameStageComparisonViewHolder holder = mock(StatisticsGameStageComparisonViewHolder.class);
-        ArrayList<ThreeGameStageStatistic> dataModels = new ArrayList<>();
-        ThreeGameStageStatistic threeGameStageStatistic = new ThreeGameStageStatistic();
-        threeGameStageStatistic.setTitle(title);
-        dataModels.add(threeGameStageStatistic);
+        ArrayList<StatisticsCardDataObject> dataModels = new ArrayList<>();
+        StatisticsCardDataObject statisticsCardDataObject = new StatisticsCardDataObject();
+        statisticsCardDataObject.setTitle(title);
+        statisticsCardDataObject.setPerformancePercentage("");
+        dataModels.add(statisticsCardDataObject);
         presenter.handleDataResponse(dataModels);
         presenter.onCardBinding(holder, 0);
         verify(holder, times(1)).setTitle(title);
@@ -142,45 +145,70 @@ public class StatisticsTabPresenterTests {
     public void EnsureThatWeSetEarlyGameStatsCorrectly() {
         String title = "Creep Score vs Opponent";
         StatisticsGameStageComparisonViewHolder holder = mock(StatisticsGameStageComparisonViewHolder.class);
-        ArrayList<ThreeGameStageStatistic> dataModels = new ArrayList<>();
-        ThreeGameStageStatistic threeGameStageStatistic = new ThreeGameStageStatistic();
-        threeGameStageStatistic.setTitle(title);
-        GameStageStatisticModel earlyGame = mock(GameStageStatisticModel.class);
-        threeGameStageStatistic.setEarlyGame(earlyGame);
-        dataModels.add(threeGameStageStatistic);
+        ArrayList<StatisticsCardDataObject> dataModels = new ArrayList<>();
+        StatisticsCardDataObject statisticsCardDataObject = new StatisticsCardDataObject();
+        statisticsCardDataObject.setTitle(title);
+        String percentage = "Percentage";
+        statisticsCardDataObject.setPerformancePercentage(percentage);
+        PieData earlyGame = mock(PieData.class);
+        statisticsCardDataObject.setEarlyGameChartData(earlyGame);
+        dataModels.add(statisticsCardDataObject);
         presenter.handleDataResponse(dataModels);
         presenter.onCardBinding(holder, 0);
-        verify(holder, times(1)).setEarlyGame(earlyGame);
+        verify(holder, times(1)).setEarlyGame(earlyGame, percentage);
     }
 
     @Test
     public void EnsureThatWeSetMidGameStatsCorrectly() {
         String title = "Creep Score vs Opponent";
         StatisticsGameStageComparisonViewHolder holder = mock(StatisticsGameStageComparisonViewHolder.class);
-        ArrayList<ThreeGameStageStatistic> dataModels = new ArrayList<>();
-        ThreeGameStageStatistic threeGameStageStatistic = new ThreeGameStageStatistic();
-        threeGameStageStatistic.setTitle(title);
-        GameStageStatisticModel midGame = mock(GameStageStatisticModel.class);
-        threeGameStageStatistic.setMidGame(midGame);
-        dataModels.add(threeGameStageStatistic);
+        ArrayList<StatisticsCardDataObject> dataModels = new ArrayList<>();
+        StatisticsCardDataObject statisticsCardDataObject = new StatisticsCardDataObject();
+        statisticsCardDataObject.setTitle(title);
+        String percentage = "Percentage";
+        statisticsCardDataObject.setPerformancePercentage(percentage);
+        PieData midGame = mock(PieData.class);
+        statisticsCardDataObject.setMidGameChartData(midGame);
+        dataModels.add(statisticsCardDataObject);
         presenter.handleDataResponse(dataModels);
         presenter.onCardBinding(holder, 0);
-        verify(holder, times(1)).setMidGame(midGame);
+        verify(holder, times(1)).setMidGame(midGame, percentage);
     }
 
     @Test
     public void EnsureThatWeSetLateGameStatsCorrectly() {
         String title = "Creep Score vs Opponent";
         StatisticsGameStageComparisonViewHolder holder = mock(StatisticsGameStageComparisonViewHolder.class);
-        ArrayList<ThreeGameStageStatistic> dataModels = new ArrayList<>();
-        ThreeGameStageStatistic threeGameStageStatistic = new ThreeGameStageStatistic();
-        threeGameStageStatistic.setTitle(title);
-        GameStageStatisticModel lateGame = mock(GameStageStatisticModel.class);
-        threeGameStageStatistic.setLateGame(lateGame);
-        dataModels.add(threeGameStageStatistic);
+        ArrayList<StatisticsCardDataObject> dataModels = new ArrayList<>();
+        StatisticsCardDataObject statisticsCardDataObject = new StatisticsCardDataObject();
+        statisticsCardDataObject.setTitle(title);
+        PieData lateGame = mock(PieData.class);
+        String percentage = "Percentage";
+        statisticsCardDataObject.setPerformancePercentage(percentage);
+
+        statisticsCardDataObject.setLateGameChartData(lateGame);
+        dataModels.add(statisticsCardDataObject);
         presenter.handleDataResponse(dataModels);
         presenter.onCardBinding(holder, 0);
-        verify(holder, times(1)).setLateGame(lateGame);
+        verify(holder, times(1)).setLateGame(lateGame, percentage);
+    }
+
+    @Test
+    public void EnsureThatWeSetStatPercentageCorrectly() {
+        String title = "Creep Score vs Opponent";
+        StatisticsGameStageComparisonViewHolder holder = mock(StatisticsGameStageComparisonViewHolder.class);
+        ArrayList<StatisticsCardDataObject> dataModels = new ArrayList<>();
+        StatisticsCardDataObject statisticsCardDataObject = new StatisticsCardDataObject();
+        statisticsCardDataObject.setTitle(title);
+        PieData lateGame = mock(PieData.class);
+        String percentage = "54%";
+        statisticsCardDataObject.setPerformancePercentage(percentage);
+
+        statisticsCardDataObject.setLateGameChartData(lateGame);
+        dataModels.add(statisticsCardDataObject);
+        presenter.handleDataResponse(dataModels);
+        presenter.onCardBinding(holder, 0);
+        verify(holder, times(1)).setLateGame(lateGame, percentage);
     }
 
     // TODO decide if these pie things need to be in their own class.
