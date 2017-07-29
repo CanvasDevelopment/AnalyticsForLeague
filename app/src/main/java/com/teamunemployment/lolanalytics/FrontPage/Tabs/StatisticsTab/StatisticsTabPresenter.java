@@ -46,9 +46,9 @@ public class StatisticsTabPresenter implements StatisticsTabContract.Presenter {
         // handle binding of the card
         StatisticsCardDataObject gameStageStatistic = listData.get(position);
         holder.setTitle(gameStageStatistic.getTitle());
-        holder.setEarlyGame(gameStageStatistic.getEarlyGameChartData(), gameStageStatistic.getPerformancePercentage());
-        holder.setMidGame(gameStageStatistic.getMidGameChartData(), gameStageStatistic.getPerformancePercentage());
-        holder.setLateGame(gameStageStatistic.getLateGameChartData(), gameStageStatistic.getPerformancePercentage());
+        holder.setEarlyGame(gameStageStatistic.getEarlyGameChartData(), gameStageStatistic.getEarlyGamePerformancePercentage());
+        holder.setMidGame(gameStageStatistic.getMidGameChartData(), gameStageStatistic.getEarlyGamePerformancePercentage());
+        holder.setLateGame(gameStageStatistic.getLateGameChartData(), gameStageStatistic.getEarlyGamePerformancePercentage());
 
     }
 

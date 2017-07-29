@@ -12,7 +12,9 @@ public class StatisticsCardDataObject {
     private PieData earlyGameChartData;
     private PieData midGameChartData;
     private PieData lateGameChartData;
-    private String performancePercentage;
+    private String earlyGamePerformancePercentage;
+    private String midGamePerformancePercentage;
+    private String lateGamePerformancePercentage;
 
     public void setTitle(String title) {
         this.title = title;
@@ -46,11 +48,27 @@ public class StatisticsCardDataObject {
         return midGameChartData;
     }
 
-    public void setPerformancePercentage(String performancePercentage) {
-        this.performancePercentage = performancePercentage;
+    public void setEarlyGamePerformancePercentage(String earlyGamePerformancePercentage) {
+        this.earlyGamePerformancePercentage = earlyGamePerformancePercentage;
     }
 
-    public String getPerformancePercentage() {
-        return performancePercentage;
+    public String getEarlyGamePerformancePercentage() {
+        return earlyGamePerformancePercentage;
+    }
+
+    public String getLateGamePerformancePercentage() {
+        return lateGamePerformancePercentage;
+    }
+
+    public void setLateGamePerformancePercentage(String lateGamePerformancePercentage) {
+        this.lateGamePerformancePercentage = lateGamePerformancePercentage;
+    }
+
+    public String getMidGamePerformancePercentage() {
+        return midGamePerformancePercentage;
+    }
+
+    public void setMidGamePerformancePercentage(String midGamePerformancePercentage) {
+        this.midGamePerformancePercentage = midGamePerformancePercentage;
     }
 }

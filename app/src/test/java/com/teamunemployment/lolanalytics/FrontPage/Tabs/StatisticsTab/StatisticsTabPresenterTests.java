@@ -2,7 +2,6 @@ package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab;
 
 import com.github.mikephil.charting.data.PieData;
 import com.teamunemployment.lolanalytics.Data.model.Champ;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.GameStageStatisticModel;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.StatisticsCardDataObject;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.StatisticsGameStageComparisonViewHolder;
 import com.teamunemployment.lolanalytics.Utils.Filters.ChampSingleton;
@@ -15,7 +14,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -134,7 +132,7 @@ public class StatisticsTabPresenterTests {
         ArrayList<StatisticsCardDataObject> dataModels = new ArrayList<>();
         StatisticsCardDataObject statisticsCardDataObject = new StatisticsCardDataObject();
         statisticsCardDataObject.setTitle(title);
-        statisticsCardDataObject.setPerformancePercentage("");
+        statisticsCardDataObject.setEarlyGamePerformancePercentage("");
         dataModels.add(statisticsCardDataObject);
         presenter.handleDataResponse(dataModels);
         presenter.onCardBinding(holder, 0);
@@ -149,7 +147,7 @@ public class StatisticsTabPresenterTests {
         StatisticsCardDataObject statisticsCardDataObject = new StatisticsCardDataObject();
         statisticsCardDataObject.setTitle(title);
         String percentage = "Percentage";
-        statisticsCardDataObject.setPerformancePercentage(percentage);
+        statisticsCardDataObject.setEarlyGamePerformancePercentage(percentage);
         PieData earlyGame = mock(PieData.class);
         statisticsCardDataObject.setEarlyGameChartData(earlyGame);
         dataModels.add(statisticsCardDataObject);
@@ -166,7 +164,7 @@ public class StatisticsTabPresenterTests {
         StatisticsCardDataObject statisticsCardDataObject = new StatisticsCardDataObject();
         statisticsCardDataObject.setTitle(title);
         String percentage = "Percentage";
-        statisticsCardDataObject.setPerformancePercentage(percentage);
+        statisticsCardDataObject.setEarlyGamePerformancePercentage(percentage);
         PieData midGame = mock(PieData.class);
         statisticsCardDataObject.setMidGameChartData(midGame);
         dataModels.add(statisticsCardDataObject);
@@ -184,7 +182,7 @@ public class StatisticsTabPresenterTests {
         statisticsCardDataObject.setTitle(title);
         PieData lateGame = mock(PieData.class);
         String percentage = "Percentage";
-        statisticsCardDataObject.setPerformancePercentage(percentage);
+        statisticsCardDataObject.setEarlyGamePerformancePercentage(percentage);
 
         statisticsCardDataObject.setLateGameChartData(lateGame);
         dataModels.add(statisticsCardDataObject);
@@ -202,7 +200,7 @@ public class StatisticsTabPresenterTests {
         statisticsCardDataObject.setTitle(title);
         PieData lateGame = mock(PieData.class);
         String percentage = "54%";
-        statisticsCardDataObject.setPerformancePercentage(percentage);
+        statisticsCardDataObject.setEarlyGamePerformancePercentage(percentage);
 
         statisticsCardDataObject.setLateGameChartData(lateGame);
         dataModels.add(statisticsCardDataObject);

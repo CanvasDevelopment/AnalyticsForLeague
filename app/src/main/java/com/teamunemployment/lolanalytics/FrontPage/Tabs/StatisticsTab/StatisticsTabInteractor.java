@@ -1,5 +1,9 @@
 package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab;
 
+import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.model.StatisticsCardDataObject;
+
+import java.util.ArrayList;
+
 /**
  * Created by Josiah Kendall
  *
@@ -14,7 +18,13 @@ public class StatisticsTabInteractor {
      * @param presenter                 The presenter that we will callback when we have the data.
      * @return                          The statistics for this summoner in the specified role.
      */
-    public void getStatistics(int role, StatisticsTabContract.Presenter presenter) {}
+    public void getStatistics(int role, StatisticsTabContract.Presenter presenter) {
+
+        ArrayList<StatisticsCardDataObject> data = new ArrayList<>();
+
+        StatisticsCardDataObject object1 = new StatisticsCardDataObject();
+        object1.setEarlyGamePerformancePercentage("54%");
+    }
 
     /**
      * Get the statistics for this summoner in the given role with the given champ.
