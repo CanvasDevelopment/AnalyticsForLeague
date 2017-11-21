@@ -2,6 +2,8 @@ package com.teamunemployment.lolanalytics.FrontPage.Tabs.CoachTab;
 
 import android.content.Context;
 
+import javax.inject.Singleton;
+
 import dagger.Provides;
 import dagger.Module;
 
@@ -10,6 +12,7 @@ import dagger.Module;
  */
 
 @Module
+
 public class CoachTabModule {
 
     @Provides

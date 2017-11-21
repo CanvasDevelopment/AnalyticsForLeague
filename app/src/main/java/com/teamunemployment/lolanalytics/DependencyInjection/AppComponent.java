@@ -10,10 +10,11 @@ import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Dependen
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.MatchHistoryTabView;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.PlayerAnalysisModule;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.PlayerAnalysisView;
-import com.teamunemployment.lolanalytics.Login.LoginModule;
-import com.teamunemployment.lolanalytics.Login.LoginView;
+import com.teamunemployment.lolanalytics.login.LoginModule;
+import com.teamunemployment.lolanalytics.login.LoginView;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.StatisticsTabModule;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.TabView;
+import com.teamunemployment.lolanalytics.io.di.IoModuleDagger2;
 
 import javax.inject.Singleton;
 
@@ -25,7 +26,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class, StatisticsTabModule.class, LoginModule.class,
         BaseActivityModule.class, MatchHistoryModule.class, PlayerAnalysisModule.class,
-        CoachTabModule.class, AnalyseTabModule.class})
+        CoachTabModule.class, AnalyseTabModule.class, IoModuleDagger2.class})
 public interface AppComponent {
     void InjectView(TabView tabView);
     void InjectView(LoginView loginView);

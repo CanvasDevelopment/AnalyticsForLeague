@@ -6,8 +6,8 @@ import com.teamunemployment.lolanalytics.Data.Statics;
 import com.teamunemployment.lolanalytics.Data.model.Data;
 import com.teamunemployment.lolanalytics.Data.model.LongWrapper;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
-import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
-import com.teamunemployment.lolanalytics.Data.RealmExecutor;
+import com.teamunemployment.lolanalytics.io.RESTApiExecutor;
+import com.teamunemployment.lolanalytics.io.RealmExecutor;
 import com.teamunemployment.lolanalytics.Utils.Network;
 
 import java.util.ArrayList;

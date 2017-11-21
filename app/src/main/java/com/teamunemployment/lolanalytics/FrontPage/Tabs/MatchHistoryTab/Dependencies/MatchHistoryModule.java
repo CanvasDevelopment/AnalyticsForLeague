@@ -2,8 +2,8 @@ package com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Depende
 
 import android.content.Context;
 
-import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
-import com.teamunemployment.lolanalytics.Data.RealmExecutor;
+import com.teamunemployment.lolanalytics.io.RESTApiExecutor;
+import com.teamunemployment.lolanalytics.io.RealmExecutor;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.MatchHistoryInteractor;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.MatchHistoryPresenter;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.BarChartModel;
@@ -16,6 +16,7 @@ import dagger.Provides;
  */
 
 @Module
+
 public class MatchHistoryModule {
     @Provides
     MatchHistoryPresenter provideMatchHistoryBasePresenter(MatchHistoryInteractor matchHistoryInteractor, BarChartModel barChartModel) {

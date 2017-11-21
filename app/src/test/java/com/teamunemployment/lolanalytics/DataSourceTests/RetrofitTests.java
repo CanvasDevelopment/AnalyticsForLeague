@@ -1,24 +1,8 @@
 package com.teamunemployment.lolanalytics.DataSourceTests;
 
-import com.teamunemployment.lolanalytics.Data.model.Data;
-import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
-import com.teamunemployment.lolanalytics.Mock.MockHttpClient;
-
-import junit.framework.Assert;
-
 import org.junit.Test;
 
 import java.io.IOException;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static org.mockito.Mockito.mock;
 

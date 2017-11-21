@@ -1,26 +1,12 @@
 package com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab;
 
-import android.content.Context;
-
-import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
-import com.teamunemployment.lolanalytics.Data.RealmExecutor;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatCollection;
-
-import junit.framework.Assert;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import io.reactivex.Observable;
 import io.reactivex.android.plugins.RxAndroidPlugins;
-import io.reactivex.functions.Function;
-import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.Schedulers;
 
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * @author Josiah Kendall

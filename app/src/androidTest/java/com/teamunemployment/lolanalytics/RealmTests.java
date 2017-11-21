@@ -6,7 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.test.RenamingDelegatingContext;
 
 import com.teamunemployment.lolanalytics.Data.Realm.RealmMigrator;
-import com.teamunemployment.lolanalytics.Data.RealmExecutor;
+import com.teamunemployment.lolanalytics.io.RealmExecutor;
 import com.teamunemployment.lolanalytics.Data.Statics;
 import com.teamunemployment.lolanalytics.Data.model.Data;
 import com.teamunemployment.lolanalytics.Data.model.MatchHistoryData;

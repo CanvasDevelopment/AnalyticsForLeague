@@ -1,5 +1,6 @@
-package com.teamunemployment.lolanalytics.Login;
+package com.teamunemployment.lolanalytics.login;
 
+import android.text.Editable;
 import android.widget.ArrayAdapter;
 
 import com.teamunemployment.lolanalytics.PresenterContract;
@@ -10,15 +11,17 @@ import com.teamunemployment.lolanalytics.ViewContract;
  */
 public interface LoginContract {
     interface Presenter extends PresenterContract {
-        void LoginTestUser();
+        void loginTestUser();
         void setView(LoginContract.LoginView loginView);
-        void handleLogin(String username, String region);
-        void setLoginResult(long loginResult);
+        void handleLogin();
+        void handleLoginResult(long loginResult);
     }
 
     interface LoginView extends ViewContract {
         void launchHomeActivity();
         void setRegionSpinnerAdapter(ArrayAdapter<CharSequence> adapter);
+        String getUserName();
+        String getRegion();
     }
 
 }

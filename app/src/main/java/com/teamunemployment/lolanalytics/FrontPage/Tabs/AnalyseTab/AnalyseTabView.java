@@ -18,7 +18,7 @@ import com.teamunemployment.lolanalytics.Utils.Constant;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -30,8 +30,8 @@ public class AnalyseTabView extends Fragment implements AnalyseTabContract.View 
     @Inject
     AnalysePresenter presenter;
 
-    @Bind(R.id.recycler) RecyclerView recyclerView;
-    @Bind(R.id.error_message) TextView errorMessageView;
+    @BindView(R.id.recycler) RecyclerView recyclerView;
+    @BindView(R.id.error_message) TextView errorMessageView;
 
     @Nullable
     @Override

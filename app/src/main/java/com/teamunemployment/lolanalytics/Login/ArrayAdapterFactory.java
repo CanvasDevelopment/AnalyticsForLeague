@@ -1,9 +1,7 @@
-package com.teamunemployment.lolanalytics.Login;
+package com.teamunemployment.lolanalytics.login;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
-
-import com.teamunemployment.lolanalytics.R;
 
 import javax.inject.Inject;
 

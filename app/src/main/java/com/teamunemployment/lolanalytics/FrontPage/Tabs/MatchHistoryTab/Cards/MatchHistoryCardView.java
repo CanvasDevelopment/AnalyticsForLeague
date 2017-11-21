@@ -16,7 +16,8 @@ import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
 import com.teamunemployment.lolanalytics.R;
 
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -29,10 +30,10 @@ public class MatchHistoryCardView extends RecyclerView.ViewHolder implements Mat
     private View cardBase;
     private BarChartModel barChartModel;
 
-    @Bind(R.id.champ_name) TextView champNameTextView;
-    @Bind(R.id.chart1) BarChart barChart1;
-    @Bind(R.id.chart2) BarChart barChart2;
-    @Bind(R.id.chart3) BarChart barChart3;
+    @BindView(R.id.champ_name) TextView champNameTextView;
+    @BindView(R.id.chart1) BarChart barChart1;
+    @BindView(R.id.chart2) BarChart barChart2;
+    @BindView(R.id.chart3) BarChart barChart3;
 
     private MatchHistoryPresenter matchHistoryBasePresenter;
 

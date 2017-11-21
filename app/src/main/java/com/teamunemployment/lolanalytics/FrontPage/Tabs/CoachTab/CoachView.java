@@ -24,7 +24,8 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -33,7 +34,7 @@ import butterknife.ButterKnife;
 
 public class CoachView extends Fragment implements CoachContract.View{
 
-    @Bind(R.id.win_rate_chart) LineChart lineChart;
+    @BindView(R.id.win_rate_chart) LineChart lineChart;
 
     @Inject
     public CoachPresenter presenter;

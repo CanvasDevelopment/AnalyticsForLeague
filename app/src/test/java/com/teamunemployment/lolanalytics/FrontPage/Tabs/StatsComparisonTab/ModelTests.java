@@ -3,19 +3,13 @@ package com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab;
 import android.content.Context;
 
 import com.teamunemployment.lolanalytics.Data.Statics;
-import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
-import com.teamunemployment.lolanalytics.Data.RealmExecutor;
-import com.teamunemployment.lolanalytics.Data.model.Data;
+import com.teamunemployment.lolanalytics.io.RESTApiExecutor;
+import com.teamunemployment.lolanalytics.io.RealmExecutor;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import io.reactivex.Observable;
-import io.realm.Realm;
-
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;

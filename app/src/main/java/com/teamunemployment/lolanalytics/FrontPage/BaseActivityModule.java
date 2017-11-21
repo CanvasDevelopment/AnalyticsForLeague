@@ -1,7 +1,7 @@
 package com.teamunemployment.lolanalytics.FrontPage;
 
-import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
-import com.teamunemployment.lolanalytics.Data.RealmExecutor;
+import com.teamunemployment.lolanalytics.io.RESTApiExecutor;
+import com.teamunemployment.lolanalytics.io.RealmExecutor;
 import com.teamunemployment.lolanalytics.FrontPage.Search.SearchInteractor;
 import com.teamunemployment.lolanalytics.FrontPage.Search.SearchPresenter;
 
@@ -12,6 +12,7 @@ import dagger.Provides;
  * @author Josiah Kendall
  */
 @Module
+
 public class BaseActivityModule {
 
     @Provides

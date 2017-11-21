@@ -1,9 +1,9 @@
-package com.teamunemployment.lolanalytics.Login;
+package com.teamunemployment.lolanalytics.login;
 
 import android.content.Context;
 
-import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
-import com.teamunemployment.lolanalytics.Data.RealmExecutor;
+import com.teamunemployment.lolanalytics.io.RESTApiExecutor;
+import com.teamunemployment.lolanalytics.io.RealmExecutor;
 
 import dagger.Module;
 import dagger.Provides;

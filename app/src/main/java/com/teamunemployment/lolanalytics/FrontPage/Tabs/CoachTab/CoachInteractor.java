@@ -2,16 +2,10 @@ package com.teamunemployment.lolanalytics.FrontPage.Tabs.CoachTab;
 
 import android.content.Context;
 
-import com.teamunemployment.lolanalytics.Data.RealmExecutor;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.CoachTab.Model.Entry;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.CoachTab.Model.WinRateResult;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
-
-import io.reactivex.Observable;
-import io.realm.Realm;
 
 
 /**

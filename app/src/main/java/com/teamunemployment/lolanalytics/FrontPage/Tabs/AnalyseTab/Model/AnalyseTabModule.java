@@ -5,6 +5,8 @@ import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.AnalyseIntera
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.AnalyseTab.AnalysePresenter;
 import com.teamunemployment.lolanalytics.Utils.RoleUtils;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 

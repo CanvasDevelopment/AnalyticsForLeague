@@ -28,7 +28,7 @@ import com.teamunemployment.lolanalytics.R;
 import java.util.ArrayList;
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -44,12 +44,12 @@ public class AnalysisCardView extends RecyclerView.ViewHolder implements PlayerA
     private boolean collapsed = true;
     private StatDefinition statDefinition;
 
-    @Bind(R.id.total_change) TextView improvementValue;
-    @Bind(R.id.graph_wrapper) RelativeLayout graphWrapper;
-    @Bind(R.id.line_chart) LineChart lineChart;
-    @Bind(R.id.item_title) TextView title;
-    @Bind(R.id.list_item_subtitle) TextView subTitle;
-    @Bind(R.id.trend) ImageView trendView;
+    @BindView(R.id.total_change) TextView improvementValue;
+    @BindView(R.id.graph_wrapper) RelativeLayout graphWrapper;
+    @BindView(R.id.line_chart) LineChart lineChart;
+    @BindView(R.id.item_title) TextView title;
+    @BindView(R.id.list_item_subtitle) TextView subTitle;
+    @BindView(R.id.trend) ImageView trendView;
 
     public AnalysisCardView(View itemView, Context context, PlayerAnalysisPresenter playerAnalysisBasePresenter) {
         super(itemView);

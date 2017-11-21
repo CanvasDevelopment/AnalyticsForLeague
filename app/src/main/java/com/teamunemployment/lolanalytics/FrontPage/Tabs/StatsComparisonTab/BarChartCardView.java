@@ -17,7 +17,7 @@ import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
 import com.teamunemployment.lolanalytics.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -32,9 +32,9 @@ public class BarChartCardView extends RecyclerView.ViewHolder implements ChartCa
 
     private BarChartModel barChartModel;
 
-    @Bind(R.id.chart) BarChart barChart;
+    @BindView(R.id.chart) BarChart barChart;
 
-    @Bind(R.id.graph_title) TextView title;
+    @BindView(R.id.graph_title) TextView title;
 
     public BarChartCardView(View itemView, Context context, BarChartModel barChartModel) {
         super(itemView);

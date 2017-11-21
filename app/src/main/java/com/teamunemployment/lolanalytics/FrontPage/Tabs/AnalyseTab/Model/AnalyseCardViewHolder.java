@@ -19,7 +19,8 @@ import com.teamunemployment.lolanalytics.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -36,9 +37,9 @@ public class AnalyseCardViewHolder extends RecyclerView.ViewHolder implements An
     private int position;
     private AnalyseTabContract.Presenter presenter;
 
-    @Bind(R.id.performance_pie) PieChart pieChart;
-    @Bind(R.id.analyse_card_title) TextView titleTextView;
-    @Bind(R.id.performance_change) TextView performanceChange;
+    @BindView(R.id.performance_pie) PieChart pieChart;
+    @BindView(R.id.analyse_card_title) TextView titleTextView;
+    @BindView(R.id.performance_change) TextView performanceChange;
 
     public AnalyseCardViewHolder(View itemView, AnalyseTabContract.Presenter analysePresenter) {
         super(itemView);

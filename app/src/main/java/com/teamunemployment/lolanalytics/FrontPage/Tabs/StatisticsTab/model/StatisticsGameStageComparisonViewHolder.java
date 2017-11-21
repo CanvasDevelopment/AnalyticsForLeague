@@ -9,7 +9,8 @@ import com.github.mikephil.charting.data.PieData;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatisticsTab.StatisticsTabContract;
 import com.teamunemployment.lolanalytics.R;
 
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -22,10 +23,10 @@ public class StatisticsGameStageComparisonViewHolder
 
     private StatisticsTabContract.Presenter presenter;
 
-    @Bind(R.id.chart_1) PieChart chart1;
-    @Bind(R.id.chart_2) PieChart chart2;
-    @Bind(R.id.chart_3) PieChart chart3;
-    @Bind(R.id.stat_card_title) TextView title;
+    @BindView(R.id.chart_1) PieChart chart1;
+    @BindView(R.id.chart_2) PieChart chart2;
+    @BindView(R.id.chart_3) PieChart chart3;
+    @BindView(R.id.stat_card_title) TextView title;
 
     public StatisticsGameStageComparisonViewHolder(View itemView, StatisticsTabContract.Presenter presenter) {
         super(itemView);

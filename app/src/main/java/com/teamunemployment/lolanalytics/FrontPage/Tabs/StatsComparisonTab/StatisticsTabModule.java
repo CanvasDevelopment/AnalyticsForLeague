@@ -4,10 +4,10 @@ import android.app.Application;
 import android.content.Context;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.teamunemployment.lolanalytics.Data.RealmExecutor;
+import com.teamunemployment.lolanalytics.io.RealmExecutor;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.BarChartModel;
 import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.BarChartFactory;
-import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
+import com.teamunemployment.lolanalytics.io.RESTApiExecutor;
 
 import dagger.Module;
 import dagger.Provides;

@@ -1,7 +1,7 @@
 package com.teamunemployment.lolanalytics.FrontPage;
 
-import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
-import com.teamunemployment.lolanalytics.Data.RealmExecutor;
+import com.teamunemployment.lolanalytics.io.RESTApiExecutor;
+import com.teamunemployment.lolanalytics.io.RealmExecutor;
 import com.teamunemployment.lolanalytics.Data.model.DoubleWrapper;
 
 import javax.inject.Inject;

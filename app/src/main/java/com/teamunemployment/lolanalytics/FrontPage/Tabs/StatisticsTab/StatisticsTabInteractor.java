@@ -23,7 +23,11 @@ public class StatisticsTabInteractor {
         ArrayList<StatisticsCardDataObject> data = new ArrayList<>();
 
         StatisticsCardDataObject object1 = new StatisticsCardDataObject();
+
+        // TODO
         object1.setEarlyGamePerformancePercentage("54%");
+        object1.setMidGamePerformancePercentage("52%");
+        object1.setLateGamePerformancePercentage("54%");
     }
 
     /**

@@ -16,7 +16,7 @@ import com.teamunemployment.lolanalytics.R;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -25,9 +25,9 @@ import butterknife.ButterKnife;
 public class PlayerAnalysisView extends Fragment implements TabContract.View {
 
     // @Bind(R.id.root) CoordinatorLayout coordinatorLayout;
-    @Bind(R.id.recycler) RecyclerView recycler;
-    //@Bind(R.id.progress_spinner) ProgressBar progressBar;
-    @Bind(R.id.error_message) TextView errorMessageTextBox;
+    @BindView(R.id.recycler) RecyclerView recycler;
+    //@BindView(R.id.progress_spinner) ProgressBar progressBar;
+    @BindView(R.id.error_message) TextView errorMessageTextBox;
 
     private int role;
 

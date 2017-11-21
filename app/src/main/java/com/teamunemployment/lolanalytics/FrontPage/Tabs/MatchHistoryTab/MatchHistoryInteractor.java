@@ -2,8 +2,8 @@ package com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab;
 
 import android.content.Context;
 
-import com.teamunemployment.lolanalytics.Data.RESTApiExecutor;
-import com.teamunemployment.lolanalytics.Data.RealmExecutor;
+import com.teamunemployment.lolanalytics.io.RESTApiExecutor;
+import com.teamunemployment.lolanalytics.io.RealmExecutor;
 import com.teamunemployment.lolanalytics.Data.model.MatchHistoryData;
 import com.teamunemployment.lolanalytics.Data.model.MatchIdWrapper;
 import com.teamunemployment.lolanalytics.Data.model.MatchSummary;

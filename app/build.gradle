@@ -1,17 +1,18 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'realm-android'
-apply plugin: 'me.tatarka.retrolambda'
-
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.teamunemployment.lolanalytics"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 3
-        versionName "2017.1"
+        versionName "2017.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -35,9 +36,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.google.code.gson:gson:2.5'
-    compile 'com.android.support:cardview-v7:25.1.1'
+    compile 'com.android.support:appcompat-v7:27.0.0'
+    compile 'com.android.support:cardview-v7:27.0.0'
 
     ////////////////////////////
     // Third party Libraries
@@ -51,14 +51,16 @@ dependencies {
     // Charts/graphs library.
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
     // butterknife view bindings.
-    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
     // Okhttp used for networking
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
 
     // Retrofit shit
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.google.code.gson:gson:2.5'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     // Image loading
     compile 'com.squareup.picasso:picasso:2.5.2'
@@ -68,22 +70,29 @@ dependencies {
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     // Because RxAndroid releases are few and far between, we also
     // explicitly depend on RxJava's latest version for bug fixes and new features.
-    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
 
     // Dependency Injection
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.2'
     compile 'com.google.dagger:dagger:2.2'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.2'
 
-
+    compile 'org.koin:koin-android:0.5.1'
+    compile 'co.metalab.asyncawait:asyncawait:1.0.0'
+//    compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
     ///////////////////////
     // Test shit
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'org.mockito:mockito-core:2.6.3'
     androidTestCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support:support-annotations:25.1.1'
+    androidTestCompile 'com.android.support:support-annotations:27.0.0'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
 
+}
+repositories {
+    mavenCentral()
+    google()
 }

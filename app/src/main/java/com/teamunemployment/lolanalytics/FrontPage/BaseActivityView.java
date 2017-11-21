@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -53,14 +53,14 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
     @Inject
     public SearchPresenter searchPresenter;
 
-    @Bind(R.id.container) ViewPager viewPager;
-    @Bind(R.id.tabs) TabLayout tabLayout;
-    @Bind(R.id.champ_fab) CircularImageView champFab;
-    @Bind(R.id.champ_search_list) RecyclerView champList;
-    @Bind(R.id.search_card) CardView searchBox;
-    @Bind(R.id.search_input) EditText searchInput;
-    @Bind(R.id.overlay) View overlay;
-    @Bind(R.id.clear_search) ImageView clearSearchButton;
+    @BindView(R.id.container) ViewPager viewPager;
+    @BindView(R.id.tabs) TabLayout tabLayout;
+    @BindView(R.id.champ_fab) CircularImageView champFab;
+    @BindView(R.id.champ_search_list) RecyclerView champList;
+    @BindView(R.id.search_card) CardView searchBox;
+    @BindView(R.id.search_input) EditText searchInput;
+    @BindView(R.id.overlay) View overlay;
+    @BindView(R.id.clear_search) ImageView clearSearchButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

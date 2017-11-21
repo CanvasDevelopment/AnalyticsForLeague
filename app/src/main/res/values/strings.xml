@@ -6,4 +6,9 @@
     <string name="carry">Carry</string>
     <string name="support">Support</string>
     <string name="search">Search</string>
+    <string name="LoginActivity">LoginContext</string>
+    <string name="AppContext">AppContext</string>
+    <string name="BaseUrl">https://lolanalyticsv3.appspot.com/_ah/api/myApi/v1/</string>
+    <string name="username">Username</string>
+    <string name="proceed">Proceed</string>
 </resources>

@@ -10,7 +10,8 @@ import com.teamunemployment.lolanalytics.Data.model.Champ;
 import com.teamunemployment.lolanalytics.FrontPage.Search.SearchPresenter;
 import com.teamunemployment.lolanalytics.R;
 
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -24,7 +25,7 @@ public class ChampSearchCardView extends RecyclerView.ViewHolder implements View
     private Champ champ;
     private Context context;
 
-    @Bind(R.id.champ_circle_icon) CircularImageView champImage;
+    @BindView(R.id.champ_circle_icon) CircularImageView champImage;
 
     public ChampSearchCardView(View itemView, SearchPresenter searchPresenter, Context context) {
         super(itemView);
