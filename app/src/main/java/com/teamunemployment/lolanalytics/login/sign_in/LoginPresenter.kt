@@ -8,7 +8,7 @@ import javax.inject.Inject
  * @author Josiah Kendall
  */
 class LoginPresenter @Inject
-constructor(val arrayAdapterFactory: ArrayAdapterFactory, val loginModel: LoginModel) : LoginContract.Presenter {
+constructor(val arrayAdapterFactory: ArrayAdapterFactory, val loginInteractor: LoginInteractor) : LoginContract.Presenter {
 
     private var view: LoginContract.LoginView? = null
     private val loginErrors = LoginErrorMessages()
@@ -51,7 +51,7 @@ constructor(val arrayAdapterFactory: ArrayAdapterFactory, val loginModel: LoginM
     override fun requestSync() {
         val userName = view!!.userName
         val region = view!!.region
-        loginModel.syncAUser(userName, region, this)
+        loginInteractor.syncAUser(userName, region, this)
     }
 
     /**

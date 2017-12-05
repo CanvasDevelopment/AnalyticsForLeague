@@ -1,8 +1,11 @@
 package com.teamunemployment.lolanalytics
 
 import android.app.Application
+import android.arch.persistence.room.Room
+import com.teamunemployment.lolanalytics.data.room.Database
 
 import com.teamunemployment.lolanalytics.di.AppComponent
+import com.teamunemployment.lolanalytics.extensions.objectOf
 import com.teamunemployment.lolanalytics.login.di.SignInModule
 import com.teamunemployment.lolanalytics.io.di.IoModule
 import org.koin.android.ext.android.startAndroidContext
@@ -18,18 +21,23 @@ class App : Application() {
 
     val netComponent: AppComponent? = null
 
+    companion object {
+        lateinit var database : Database
+    }
+
     override fun onCreate() {
         super.onCreate()
 
-        startAndroidContext(this, modules())
-        // Initialise dagger2.
-        //        appComponent = DaggerAppComponent.builder()
-        //                // Modules go here
-        //                .appModule(new AppModule(this)) //
-        //                .statisticsTabModule(new StatisticsTabModule())
-        //                .loginModule(new ToDelete())
-        //                .build();
+        // Initialise our room database
+        database = Room.databaseBuilder(
+                    this,
+                    Database::class.java,
+                    "analytics_for_league.db"
+        )
+        .build()
 
+        // initialise koin
+        startAndroidContext(this, modules())
     }
 
     private fun modules() : List<AndroidModule> {

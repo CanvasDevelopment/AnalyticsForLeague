@@ -20,14 +20,14 @@ public class ToDelete {
     ArrayAdapterFactory provideArrayAdapterFactory(Context context) {
         return new ArrayAdapterFactory(context);
     }
+//
+//    @Provides
+//    LoginInteractor provideLoginModel(LoginRemoteRepo loginRemoteRepo, RealmExecutor realmExecutor) {
+//        return  new LoginInteractor(loginRemoteRepo, realmExecutor);
+//    }
 
     @Provides
-    LoginModel provideLoginModel(LoginRemoteRepo loginRemoteRepo, RealmExecutor realmExecutor) {
-        return  new LoginModel(loginRemoteRepo, realmExecutor);
-    }
-
-    @Provides
-    LoginPresenter provideLoginPresenter(ArrayAdapterFactory arrayAdapterFactory, LoginModel loginModel) {
-        return new LoginPresenter(arrayAdapterFactory, loginModel);
+    LoginPresenter provideLoginPresenter(ArrayAdapterFactory arrayAdapterFactory, LoginInteractor loginInteractor) {
+        return new LoginPresenter(arrayAdapterFactory, loginInteractor);
     }
 }

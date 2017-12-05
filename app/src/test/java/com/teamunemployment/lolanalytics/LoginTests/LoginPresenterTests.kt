@@ -16,7 +16,7 @@ class LoginPresenterTests {
     private lateinit var arrayAdapterCaptor : ArgumentCaptor<ArrayAdapter<CharSequence>>
 
     private lateinit var arrayAdapterFactory : ArrayAdapterFactory
-    private lateinit var loginModel : LoginModel
+    private lateinit var loginInteractor: LoginInteractor
     private lateinit var presenter : LoginPresenter
     private val view = mock(LoginContract.LoginView::class.java)
     private val loginErrorMessages = LoginErrorMessages()
@@ -25,8 +25,8 @@ class LoginPresenterTests {
     fun `Do The Mahi`() {
         MockitoAnnotations.initMocks(this)
         arrayAdapterFactory = mock(ArrayAdapterFactory::class.java)
-        loginModel = mock(LoginModel::class.java)
-        presenter = LoginPresenter(arrayAdapterFactory, loginModel)
+        loginInteractor = mock(LoginInteractor::class.java)
+        presenter = LoginPresenter(arrayAdapterFactory, loginInteractor)
 
     }
 
