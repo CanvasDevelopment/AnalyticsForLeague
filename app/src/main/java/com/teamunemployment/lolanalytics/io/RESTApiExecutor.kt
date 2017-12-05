@@ -1,15 +1,12 @@
 package com.teamunemployment.lolanalytics.io
 
-import com.teamunemployment.lolanalytics.Data.model.Data
-import com.teamunemployment.lolanalytics.Data.model.DoubleWrapper
-import com.teamunemployment.lolanalytics.Data.model.LongWrapper
-import com.teamunemployment.lolanalytics.Data.model.MatchHistoryData
-import com.teamunemployment.lolanalytics.Data.model.MatchIdWrapper
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Model.MatchHistoryCardData
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatCollection
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatDefinitionWrapper
-
-import java.util.ArrayList
+import com.teamunemployment.lolanalytics.data.model.Data
+import com.teamunemployment.lolanalytics.data.model.DoubleWrapper
+import com.teamunemployment.lolanalytics.data.model.LongWrapper
+import com.teamunemployment.lolanalytics.data.model.MatchHistoryData
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.MatchHistoryCardData
+import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatCollection
+import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatDefinitionWrapper
 
 import io.reactivex.Observable
 import retrofit2.http.GET

@@ -1,6 +1,6 @@
 package com.teamunemployment.lolanalytics.Utils;
 
-import com.teamunemployment.lolanalytics.Data.Statics;
+import com.teamunemployment.lolanalytics.data.Statics;
 
 /**
  * Created by Josiah Kendall

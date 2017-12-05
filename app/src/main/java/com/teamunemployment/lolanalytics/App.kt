@@ -2,8 +2,8 @@ package com.teamunemployment.lolanalytics
 
 import android.app.Application
 
-import com.teamunemployment.lolanalytics.DependencyInjection.AppComponent
-import com.teamunemployment.lolanalytics.login.di.LoginModule
+import com.teamunemployment.lolanalytics.di.AppComponent
+import com.teamunemployment.lolanalytics.login.di.SignInModule
 import com.teamunemployment.lolanalytics.io.di.IoModule
 import org.koin.android.ext.android.startAndroidContext
 import org.koin.android.module.AndroidModule
@@ -27,14 +27,14 @@ class App : Application() {
         //                // Modules go here
         //                .appModule(new AppModule(this)) //
         //                .statisticsTabModule(new StatisticsTabModule())
-        //                .loginModule(new LoginModule())
+        //                .loginModule(new ToDelete())
         //                .build();
 
     }
 
     private fun modules() : List<AndroidModule> {
         val list = ArrayList<AndroidModule>()
-        list.add(LoginModule())
+        list.add(SignInModule())
         list.add(IoModule())
         return list
     }

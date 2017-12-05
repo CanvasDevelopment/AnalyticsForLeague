@@ -1,13 +1,13 @@
-package com.teamunemployment.lolanalytics.Data.model;
+package com.teamunemployment.lolanalytics.data.model;
 
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatsComparisonTab.Model.CardData;
 
 import java.util.List;
 
 /**
  * @author Josiah Kendall
- * This is the data wrapper for our objects that get returned from the server. We need this for retorfit
- * because Google App Engine has to return an object, which gets put inside a "data:" variable.
+ * This is the value wrapper for our objects that get returned from the server. We need this for retorfit
+ * because Google App Engine has to return an object, which gets put inside a "value:" variable.
  */
 public class Data {
 

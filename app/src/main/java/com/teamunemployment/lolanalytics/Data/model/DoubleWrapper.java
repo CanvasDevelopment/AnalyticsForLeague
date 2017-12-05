@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.Data.model;
+package com.teamunemployment.lolanalytics.data.model;
 
 /**
  * @author Josiah Kendall.

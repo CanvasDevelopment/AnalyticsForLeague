@@ -1,8 +1,7 @@
 package com.teamunemployment.lolanalytics.LoginTests
 
 import android.widget.ArrayAdapter
-import com.teamunemployment.lolanalytics.R
-import com.teamunemployment.lolanalytics.login.*
+import com.teamunemployment.lolanalytics.login.sign_in.*
 import org.junit.Before
 import org.junit.Test
 import org.mockito.*
@@ -36,7 +35,7 @@ class LoginPresenterTests {
 
 //        `when`(arrayAdapterFactory.getArrayAdapter(Mockito.anyInt(),Mockito.anyInt() )).thenReturn(arrayAdapterCaptor.capture())
         presenter.setView(view)
-        presenter.handleLoginResult(404)
+        presenter.handleSyncResult(404)
         verify(view, times(1)).showMessage(loginErrorMessages.`404`())
     }
 

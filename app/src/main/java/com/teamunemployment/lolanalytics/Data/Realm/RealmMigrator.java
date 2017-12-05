@@ -1,6 +1,6 @@
-package com.teamunemployment.lolanalytics.Data.Realm;
+package com.teamunemployment.lolanalytics.data.realm;
 
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatsComparisonTab.Model.CardData;
 
 import io.realm.DynamicRealm;
 import io.realm.FieldAttribute;

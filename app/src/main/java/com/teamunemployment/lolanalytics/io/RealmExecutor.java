@@ -2,16 +2,16 @@ package com.teamunemployment.lolanalytics.io;
 
 import android.content.Context;
 
-import com.teamunemployment.lolanalytics.Data.Realm.RealmMigrator;
-import com.teamunemployment.lolanalytics.Data.model.Data;
-import com.teamunemployment.lolanalytics.Data.model.MatchHistoryData;
-import com.teamunemployment.lolanalytics.Data.model.MatchIdWrapper;
-import com.teamunemployment.lolanalytics.Data.model.MatchSummary;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.CoachTab.Model.Entry;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.MatchHistoryTab.Model.MatchHistoryCardData;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatSummary;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatPoint;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
+import com.teamunemployment.lolanalytics.data.realm.RealmMigrator;
+import com.teamunemployment.lolanalytics.data.model.Data;
+import com.teamunemployment.lolanalytics.data.model.MatchHistoryData;
+import com.teamunemployment.lolanalytics.data.model.MatchIdWrapper;
+import com.teamunemployment.lolanalytics.data.model.MatchSummary;
+import com.teamunemployment.lolanalytics.front_page.Tabs.CoachTab.Model.Entry;
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.MatchHistoryCardData;
+import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatSummary;
+import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatPoint;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatsComparisonTab.Model.CardData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +20,6 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 /**
@@ -29,7 +28,7 @@ import io.realm.RealmResults;
  * This is our access to the Realm NoSQL database that is used instead of sqlite. For more information
  * on realm see https://realm.io/.
  *
- * Basically acts a simplified proxy to realm with specific methods for the data types required.
+ * Basically acts a simplified proxy to realm with specific methods for the value types required.
  */
 public class RealmExecutor {
 
@@ -54,10 +53,10 @@ public class RealmExecutor {
     }
 
     /**
-     * Fetch a single data object for a card based on id that is assigned to that specific card on the
+     * Fetch a single value object for a card based on id that is assigned to that specific card on the
      * server.
-     * @param id The id of the card data that we want
-     * @return The required data.
+     * @param id The id of the card value that we want
+     * @return The required value.
      */
     public CardData GetCardDataByCardId(Realm realm, int id) {
         return findSingleObjectUsingRealm(realm, id);
@@ -111,8 +110,8 @@ public class RealmExecutor {
     }
 
     /**
-     * Write a card data instance to the database.
-     * @param cardData The data to save.
+     * Write a card value instance to the database.
+     * @param cardData The value to save.
      */
     public void WriteSingleObjectToRealm(final CardData cardData) {
         Realm.init(context);
@@ -137,8 +136,8 @@ public class RealmExecutor {
     }
 
     /**
-     * Write a card data instance to the database.
-     * @param matchSummary The data to save.
+     * Write a card value instance to the database.
+     * @param matchSummary The value to save.
      */
     public void SaveSingleMatchSummary(Realm realm, final MatchSummary matchSummary) {
 
@@ -158,7 +157,7 @@ public class RealmExecutor {
 
 
     /**
-     * Store an entire data object (and array of CardObject in a specific role)
+     * Store an entire value object (and array of CardObject in a specific role)
      * @param data
      */
     public void WriteDataObjectToRealm(final Data data, Realm realm) {
@@ -170,7 +169,7 @@ public class RealmExecutor {
     }
 
     /**
-     * Find all the data for a role for that summoner
+     * Find all the value for a role for that summoner
      * @param role
      * @param summonerId
      * @return
@@ -208,9 +207,9 @@ public class RealmExecutor {
     }
 
     /**
-     * Save the card data for a match summary
+     * Save the card value for a match summary
      * @param realmInstance The db instance to use.
-     * @param matchHistoryCardData The card data to save.
+     * @param matchHistoryCardData The card value to save.
      */
     public void SaveMatchHistoryCardData(Realm realmInstance, MatchHistoryCardData matchHistoryCardData) {
 
@@ -278,7 +277,7 @@ public class RealmExecutor {
     }
 
     /**
-     * Save a stat data object. This does two things
+     * Save a stat value object. This does two things
      * @param realm The realm db to use.
      * @param statSummary The {@link StatSummary} to save.
      */

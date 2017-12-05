@@ -1,19 +1,17 @@
-package com.teamunemployment.lolanalytics.Data.model;
-
-import io.realm.RealmObject;
+package com.teamunemployment.lolanalytics.data.model;
 
 /**
  * @author Josiah Kendall
  */
 
 public class LongWrapper {
-    public Long data;
+    public Long value;
 
-    public Long getData() {
-        return data;
+    public Long getValue() {
+        return value;
     }
 
-    public void setData(Long data) {
-        this.data = data;
+    public void setValue(Long value) {
+        this.value = value;
     }
 }

@@ -1,8 +1,8 @@
 package com.teamunemployment.lolanalytics.Model.Contracts;
 
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatCollection;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatSummary;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatPoint;
+import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatCollection;
+import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatSummary;
+import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatPoint;
 
 /**
  * @author Josiah Kendall

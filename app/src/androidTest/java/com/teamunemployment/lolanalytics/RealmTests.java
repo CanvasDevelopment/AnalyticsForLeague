@@ -5,16 +5,16 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.RenamingDelegatingContext;
 
-import com.teamunemployment.lolanalytics.Data.Realm.RealmMigrator;
+import com.teamunemployment.lolanalytics.data.realm.RealmMigrator;
 import com.teamunemployment.lolanalytics.io.RealmExecutor;
-import com.teamunemployment.lolanalytics.Data.Statics;
-import com.teamunemployment.lolanalytics.Data.model.Data;
-import com.teamunemployment.lolanalytics.Data.model.MatchHistoryData;
-import com.teamunemployment.lolanalytics.Data.model.MatchIdWrapper;
-import com.teamunemployment.lolanalytics.Data.model.MatchSummary;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatSummary;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.PlayerAnalysisTab.Model.StatPoint;
-import com.teamunemployment.lolanalytics.FrontPage.Tabs.StatsComparisonTab.Model.CardData;
+import com.teamunemployment.lolanalytics.data.Statics;
+import com.teamunemployment.lolanalytics.data.model.Data;
+import com.teamunemployment.lolanalytics.data.model.MatchHistoryData;
+import com.teamunemployment.lolanalytics.data.model.MatchIdWrapper;
+import com.teamunemployment.lolanalytics.data.model.MatchSummary;
+import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatSummary;
+import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatPoint;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatsComparisonTab.Model.CardData;
 
 import junit.framework.Assert;
 
@@ -141,7 +141,7 @@ public class RealmTests {
 //            preSaveMatchSize = items.size();
 //        }
 //
-//        // Create our match history data object
+//        // Create our match history value object
 //        MatchHistoryData matchHistoryData = new MatchHistoryData();
 //        matchHistoryData.setRole(Statics.TOP);
 //        matchHistoryData.setSeason(7);
@@ -188,7 +188,7 @@ public class RealmTests {
         RealmExecutor realmExecutor = new RealmExecutor(context);
         Realm realm = RealmExecutor.GetRealmInstance(realmConfiguration);
 
-        // Create our match history data object
+        // Create our match history value object
         MatchHistoryData matchHistoryData = new MatchHistoryData();
         matchHistoryData.setRole(Statics.TOP);
         matchHistoryData.setSeason(7);

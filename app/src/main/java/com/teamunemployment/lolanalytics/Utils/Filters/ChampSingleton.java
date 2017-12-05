@@ -1,6 +1,6 @@
 package com.teamunemployment.lolanalytics.Utils.Filters;
 
-import com.teamunemployment.lolanalytics.Data.model.Champ;
+import com.teamunemployment.lolanalytics.data.model.Champ;
 
 import javax.inject.Singleton;
 

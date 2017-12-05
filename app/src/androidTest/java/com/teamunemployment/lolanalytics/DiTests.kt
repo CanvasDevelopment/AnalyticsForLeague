@@ -2,7 +2,7 @@ package com.teamunemployment.lolanalytics
 
 import android.app.Application
 import android.support.test.InstrumentationRegistry
-import com.teamunemployment.lolanalytics.login.di.LoginModule
+import com.teamunemployment.lolanalytics.login.di.SignInModule
 import com.teamunemployment.lolanalytics.io.di.IoModule
 import org.junit.Test
 import org.koin.Koin
@@ -23,7 +23,7 @@ class DiTests {
 
     private fun allModules() : List<AndroidModule> {
         val modulesList = ArrayList<AndroidModule>()
-        modulesList.add(LoginModule())
+        modulesList.add(SignInModule())
         modulesList.add(IoModule())
         return modulesList
     }
