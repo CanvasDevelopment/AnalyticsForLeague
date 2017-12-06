@@ -6512,7 +6512,7 @@ instanceKlass java/lang/annotation/Inherited
 instanceKlass org/gradle/api/NonExtensible
 instanceKlass sun/reflect/annotation/AnnotationParser
 instanceKlass org/gradle/api/internal/NoConventionMapping
-instanceKlass org/apache/commons/collections/map/AbstractHashedMap$HashEntry
+instanceKlass org/apache/commons/collections/urlMap/AbstractHashedMap$HashEntry
 instanceKlass org/apache/commons/collections/KeyValue
 instanceKlass org/apache/commons/collections/MapIterator
 instanceKlass org/apache/commons/collections/IterableMap
@@ -8507,7 +8507,7 @@ instanceKlass com/google/common/cache/LocalCache$WeakEntry
 instanceKlass com/google/common/cache/LocalCache$WeakValueReference
 instanceKlass java/beans/WeakIdentityMap$Entry
 instanceKlass org/codehaus/groovy/util/ReferenceType$WeakRef
-instanceKlass org/apache/commons/collections/map/AbstractReferenceMap$WeakRef
+instanceKlass org/apache/commons/collections/urlMap/AbstractReferenceMap$WeakRef
 instanceKlass java/io/ObjectStreamClass$FieldReflectorKey
 instanceKlass java/io/ObjectStreamClass$WeakClassKey
 instanceKlass java/lang/invoke/MethodType$ConcurrentWeakInternSet$WeakEntry
@@ -9035,7 +9035,7 @@ instanceKlass com/google/common/collect/AbstractMultiset
 instanceKlass org/gradle/api/internal/DefaultDomainObjectCollection
 instanceKlass java/util/TreeMap$Values
 instanceKlass com/google/common/collect/AbstractMapBasedMultimap$WrappedCollection
-instanceKlass org/apache/commons/collections/map/AbstractHashedMap$Values
+instanceKlass org/apache/commons/collections/urlMap/AbstractHashedMap$Values
 instanceKlass java/util/LinkedHashMap$LinkedValues
 instanceKlass java/util/AbstractQueue
 instanceKlass com/google/common/collect/ImmutableCollection
@@ -9108,8 +9108,8 @@ instanceKlass java/util/EnumSet
 instanceKlass java/util/TreeMap$KeySet
 instanceKlass java/util/TreeSet
 instanceKlass com/google/common/collect/Sets$ImprovedAbstractSet
-instanceKlass org/apache/commons/collections/map/AbstractHashedMap$EntrySet
-instanceKlass org/apache/commons/collections/map/AbstractHashedMap$KeySet
+instanceKlass org/apache/commons/collections/urlMap/AbstractHashedMap$EntrySet
+instanceKlass org/apache/commons/collections/urlMap/AbstractHashedMap$KeySet
 instanceKlass java/util/TreeMap$EntrySet
 instanceKlass java/lang/ProcessEnvironment$CheckedKeySet
 instanceKlass java/util/concurrent/CopyOnWriteArraySet
@@ -9143,7 +9143,7 @@ instanceKlass com/google/common/collect/HashBiMap
 instanceKlass java/util/EnumMap
 instanceKlass com/google/common/cache/LocalCache
 instanceKlass com/google/common/collect/Maps$ImprovedAbstractMap
-instanceKlass org/apache/commons/collections/map/AbstractHashedMap
+instanceKlass org/apache/commons/collections/urlMap/AbstractHashedMap
 instanceKlass java/util/Collections$SingletonMap
 instanceKlass com/google/common/collect/MapMaker$NullConcurrentMap
 instanceKlass com/google/common/collect/MapMakerInternalMap
