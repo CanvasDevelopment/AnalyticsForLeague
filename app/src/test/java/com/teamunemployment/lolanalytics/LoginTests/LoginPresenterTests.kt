@@ -35,7 +35,7 @@ class LoginPresenterTests {
 
 //        `when`(arrayAdapterFactory.getArrayAdapter(Mockito.anyInt(),Mockito.anyInt() )).thenReturn(arrayAdapterCaptor.capture())
         presenter.setView(view)
-        presenter.handleSyncResult(404)
+        presenter.handleSyncResult(404, -1)
         verify(view, times(1)).showMessage(loginErrorMessages.`404`())
     }
 

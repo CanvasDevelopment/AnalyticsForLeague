@@ -26,6 +26,7 @@ import io.realm.Realm;
  * @author Josiah Kendall
  */
 public class MatchHistoryInteractor {
+    Network network = new Network();
 
     private RESTApiExecutor restApiExecutor;
     private RealmExecutor realmExecutor;
@@ -81,7 +82,7 @@ public class MatchHistoryInteractor {
      * @param presenter The presenter to return the value to.
      */
     public void LoadFreshMatchHistoryData(int role, long summonerId, final MatchHistoryPresenter presenter) {
-        if (!Network.isConnectingToInternet(context)) {
+        if (!network.isConnectingToInternet(context)) {
             return;
         }
         Observable<MatchHistoryData> matchHistoryDataObservable = restApiExecutor.GetMatchListForSummonerInSpecificRole(summonerId, role);
@@ -148,7 +149,7 @@ public class MatchHistoryInteractor {
             cardViewContract.setKDA("3/2/5"); // TODO
         } else {
             // If there is nothing there, fetch from the server.
-            if (Network.isConnectingToInternet(context)) {
+            if (network.isConnectingToInternet(context)) {
                 fetchFreshMatchDetails(id, presenter, cardViewContract);
             }
         }

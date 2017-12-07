@@ -31,6 +31,8 @@ import io.realm.Realm;
 
 public class PlayerAnalysisPersistanceInteracter {
 
+    Network network = new Network();
+
     private RESTApiExecutor restApiExecutor;
     private RealmExecutor realmExecutor;
     private Context context;
@@ -66,7 +68,7 @@ public class PlayerAnalysisPersistanceInteracter {
             statCollectionObservable
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.computation())
-                    .map(mapFunction)
+                    .urlMap(mapFunction)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(observer);
         }
@@ -109,7 +111,7 @@ public class PlayerAnalysisPersistanceInteracter {
                                Observer<StatDefinitionWrapper> observerCallback,
                                Function<StatDefinitionWrapper, StatDefinitionWrapper> mapFunction) {
 
-        if (Network.isConnectingToInternet(context)) {
+        if (network.isConnectingToInternet(context)) {
             Observable<StatDefinitionWrapper> statDefinitionWrapperObservable = restApiExecutor.GetStatDefinitions(summonerId, role);
             statDefinitionWrapperObservable.
                     subscribeOn(Schedulers.io())

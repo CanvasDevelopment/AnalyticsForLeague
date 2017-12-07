@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.teamunemployment.lolanalytics.data.room.Database
+import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
 import com.teamunemployment.lolanalytics.login.sign_in.ArrayAdapterFactory
 import com.teamunemployment.lolanalytics.login.sign_in.LoginInteractor
 import com.teamunemployment.lolanalytics.login.sign_in.LoginPresenter
@@ -24,13 +25,7 @@ class SignInModule : AndroidModule() {
             provide { LoginPresenter(get(), get()) }
             provide { ArrayAdapterFactory(get()) }
             provide { applicationContext.baseContext!!} bind Context::class
-            provide { val retrofit : Retrofit = Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .baseUrl("https://lolanalyticsv3.appspot.com/_ah/api/myApi/v1/")
-                    .build()
-
-                retrofit.create(LoginRemoteRepo::class.java)}
+            provide { RetrofitFactory() }
         }
     }
 

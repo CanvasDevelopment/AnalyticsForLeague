@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class MatchHistoryTabContract {
 
-    interface Presenter extends PresenterContract {
+    public interface Presenter extends PresenterContract {
         void LoadDataForRole(int role, long summonerId);
         void LoadMatchSummary(long matchId);
         void setView(TabContract.View view);

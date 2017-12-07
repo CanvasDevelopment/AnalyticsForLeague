@@ -95,9 +95,9 @@ public class TabModel {
      * @param tabPresenterContract
      */
     public void FetchData(final TabModelContract.Presenter tabPresenterContract, Observable<Data> averagesObservable) {
-
+        Network network = new Network();
         // TODO find better solution to this here. Also notify the user.
-        if (!Network.isConnectingToInternet(context)) {
+        if (!network.isConnectingToInternet(context)) {
             return;
         }
 
@@ -107,7 +107,7 @@ public class TabModel {
         averagesObservable
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-                // Use the map to write to the database.
+                // Use the urlMap to write to the database.
                 .map(data -> {
                     realmExecutor.WriteDataObjectToRealm(data, realm);
                     return data;

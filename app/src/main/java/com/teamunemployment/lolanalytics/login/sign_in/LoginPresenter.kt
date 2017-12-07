@@ -8,10 +8,11 @@ import javax.inject.Inject
  * @author Josiah Kendall
  */
 class LoginPresenter @Inject
-constructor(val arrayAdapterFactory: ArrayAdapterFactory, val loginInteractor: LoginInteractor) : LoginContract.Presenter {
+constructor(private val arrayAdapterFactory: ArrayAdapterFactory, private val loginInteractor: LoginInteractor) : LoginContract.Presenter {
 
     private var view: LoginContract.LoginView? = null
     private val loginErrors = LoginErrorMessages()
+
     override fun start() {
         setRegionAdapter()
     }

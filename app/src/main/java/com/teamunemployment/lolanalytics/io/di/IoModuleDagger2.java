@@ -15,14 +15,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class IoModuleDagger2 {
 
-    @Provides
-    public RESTApiExecutor provideRestApiExecuor() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("https://lolanalyticsv3.appspot.com/_ah/api/myApi/v1/")
-                .build();
-
-        return retrofit.create(RESTApiExecutor.class);
-    }
+//    @Provides
+//    public RESTApiExecutor provideRestApiExecuor() {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .baseUrl("https://lolanalyticsv3.appspot.com/_ah/api/myApi/v1/")
+//                .build();
+//
+//        return retrofit.create(RESTApiExecutor.class);
+//    }
 }
