@@ -13,7 +13,7 @@ public interface LoginContract {
         void loginTestUser();
         void setView(LoginContract.LoginView loginView);
         void requestSync();
-        void handleSyncResult(Integer code, long loginResult);
+        void handleSyncResult(Integer code);
     }
 
     interface LoginView extends ViewContract {

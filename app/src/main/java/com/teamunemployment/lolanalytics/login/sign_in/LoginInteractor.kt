@@ -3,6 +3,7 @@ package com.teamunemployment.lolanalytics.login.sign_in
 import co.metalab.asyncawait.async
 import com.teamunemployment.lolanalytics.Utils.Network
 import com.teamunemployment.lolanalytics.data.model.LongWrapper
+import com.teamunemployment.lolanalytics.data.model.Result
 import com.teamunemployment.lolanalytics.data.room.Database
 import com.teamunemployment.lolanalytics.data.room.summoner.Summoner
 import com.teamunemployment.lolanalytics.data.room.summoner.SummonerDao
@@ -33,38 +34,42 @@ constructor(private val retrofitFactory: RetrofitFactory, database: Database) {
      * @param region The region we need to send the request to - todo
      * @param presenter
      */
-    fun syncAUser(summonerName: String, region: String, presenter: LoginContract.Presenter) {
+    fun registerAUser(summonerName: String, region: String, presenter: LoginContract.Presenter) {
         val url = network.getUrl(region)
         loginRemoteRepo = retrofitFactory.produceRetrofitInterface(LoginRemoteRepo::class.java,url)
 
         async {
-            // We want to check if a user exists. If they do, we want to log them in and trigger a sync.
-            // This request
+            // Send call to server to register user // todo check if she exists first
+            val call : Call<Result<SummonerDetails>> = loginRemoteRepo.register(summonerName)
+            val response : Response<Result<SummonerDetails>> =  await {call.execute()}
 
-            val call : Call<LongWrapper> = loginRemoteRepo.register(summonerName)
-            val response : Response<LongWrapper> =  await {call.execute()}
-            val summonerId : LongWrapper = response.get()
+            // Process the data into a usable state
+            val result : Result<SummonerDetails> = response.get()
+            val summonerDetails = result.data
+
             // handle the result
-            presenter.handleSyncResult(response.code(), summonerId.value)
-            if (response.code() == 200) {
-                val summoner = Summoner(summonerId.value,"",0,"") // todo get all the data not just the summoner id
-                summonerDao.createSummoner(summoner)
+            presenter.handleSyncResult(result.resultCode)
+
+            // Cache the data (if we worked out ok)
+            if (result.resultCode == 200) {
+                val summoner = Summoner(summonerDetails.id,summonerDetails.name,summonerDetails.summonerLevel,"todo") // todo get the summoner devision
+                await { summonerDao.createSummoner(summoner) }
             }
-        }.onError {
-            // Should also probably log this, rather than returning to the user
-            presenter.handleError(Throwable("An error occurred in the coroutine"))
         }
+//                .onError {
+//                    // Should also probably log this, rather than returning to the user
+//                    presenter.handleError(Throwable("An error occurred in the coroutine"))
+//                }
     }
 
     /**
-     * Helper method to get the result from the [LongWrapper] and get rid of the null.
+     * Helper method to get the result from the [Result] and get rid of the null.
      */
-    private fun Response<LongWrapper>.get() : LongWrapper {
+    private fun Response<Result<SummonerDetails>>.get() : Result<SummonerDetails> {
         if (body() != null) {
             return body()!!
         }
-        val result = LongWrapper()
-        result.value = (-1).toLong()
-        return result
+
+        return Result(-1, SummonerDetails(-1,-1,"",-1,-1,-1))
     }
 }

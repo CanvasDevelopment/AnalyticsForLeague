@@ -65,7 +65,7 @@ public class BaseActivityView extends AppCompatActivity implements BaseActivityC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base);
 
-        ((App) getApplication()).getNetComponent().InjectView(this);
+//        ((App) getApplication()).getNetComponent().InjectView(this);
 
         ButterKnife.bind(this);
 

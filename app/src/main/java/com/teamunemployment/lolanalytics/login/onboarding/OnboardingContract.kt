@@ -4,8 +4,8 @@ package com.teamunemployment.lolanalytics.login.onboarding
  * Created by Josiah Kendall
  */
 interface OnboardingContract {
-    interface view {
-
+    interface View {
+        fun showMessage(message : String)
     }
 
     interface Presenter {

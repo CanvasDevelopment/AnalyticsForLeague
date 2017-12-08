@@ -10,7 +10,7 @@ import javax.inject.Inject
 class LoginPresenter @Inject
 constructor(private val arrayAdapterFactory: ArrayAdapterFactory, private val loginInteractor: LoginInteractor) : LoginContract.Presenter {
 
-    private var view: LoginContract.LoginView? = null
+    private lateinit var view: LoginContract.LoginView
     private val loginErrors = LoginErrorMessages()
 
     override fun start() {
@@ -18,7 +18,7 @@ constructor(private val arrayAdapterFactory: ArrayAdapterFactory, private val lo
     }
 
     override fun handleError(e: Throwable) {
-        view!!.showMessage("Sorry, an error occurred. Please try again")
+        view.showMessage("Sorry, an error occurred. Please try again")
     }
 
     override fun restart() {
@@ -42,7 +42,7 @@ constructor(private val arrayAdapterFactory: ArrayAdapterFactory, private val lo
     }
 
     override fun loginTestUser() {
-        view!!.launchOnboardingActivity()
+        view.launchOnboardingActivity()
     }
 
     override fun setView(loginView: LoginContract.LoginView) {
@@ -50,27 +50,27 @@ constructor(private val arrayAdapterFactory: ArrayAdapterFactory, private val lo
     }
 
     override fun requestSync() {
-        val userName = view!!.userName
-        val region = view!!.region
-        loginInteractor.syncAUser(userName, region, this)
+        val userName = view.userName
+        val region = view.region
+        loginInteractor.registerAUser(userName, region, this)
     }
 
     /**
-     * Set the correct syncAUser result to the view.
-     * @param loginResult The result returned from the syncAUser attempt.
+     * Set the correct registerAUser result to the view.
+     * @param loginResult The result returned from the registerAUser attempt.
      *                      Codes :
      *                          404: The user does not exist
      *                          500: The server failed to log you in.
      *                          200: Ok
      *                          -1 : General error message.
      */
-    override fun handleSyncResult(code: Int, summonerId : Long) {
+    override fun handleSyncResult(code: Int) {
         when(code) {
-            404 -> view!!.showMessage(loginErrors.`404`())
-            500 -> view!!.showMessage(loginErrors.`500`())
-            -1 -> view!!.showMessage(loginErrors.default())
+            404 -> view.showMessage(loginErrors.`404`())
+            500 -> view.showMessage(loginErrors.`500`())
+            -1 -> view.showMessage(loginErrors.default())
             else -> {
-                view!!.launchOnboardingActivity()
+                view.launchOnboardingActivity()
             }
         }
     }
@@ -79,6 +79,6 @@ constructor(private val arrayAdapterFactory: ArrayAdapterFactory, private val lo
         val adapter = arrayAdapterFactory.getArrayAdapter(R.array.regions_array,
                 android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(R.layout.region_spinner_item)
-        view!!.setRegionSpinnerAdapter(adapter)
+        view.setRegionSpinnerAdapter(adapter)
     }
 }

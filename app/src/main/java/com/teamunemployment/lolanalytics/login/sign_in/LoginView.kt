@@ -15,7 +15,7 @@ import org.koin.android.ext.android.inject
 /**
  * @author Josiah Kendall
  *
- * Simple syncAUser screen for new users.
+ * Simple registerAUser screen for new users.
  */
 class LoginView : AppCompatActivity(), LoginContract.LoginView {
 
