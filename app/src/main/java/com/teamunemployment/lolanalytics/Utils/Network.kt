@@ -3,13 +3,16 @@ package com.teamunemployment.lolanalytics.Utils
 import android.content.Context
 import android.net.ConnectivityManager
 import com.teamunemployment.lolanalytics.BuildConfig
+import com.teamunemployment.lolanalytics.data.room.Database
+import com.teamunemployment.lolanalytics.data.room.summoner.SummonerDao
 
 /**
  * @author Josiah Kendall
  */
 
-class Network {
+class Network(private val database: Database) {
 
+    private val summonerDao = database.summonerDao()
     private val localDebugUrl = "http://192.168.1.3:8080/_ah/api/"
 
     fun isConnectingToInternet(context: Context): Boolean {
@@ -29,6 +32,13 @@ class Network {
         if (BuildConfig.DEBUG) {
             return localDebugUrl
         }
+        TODO("Write and test")
         return ""
+    }
+
+    fun getUrl(summonerId : Long) : String {
+        // Todo make this logic async
+        val summoner = summonerDao.loadSummoner(summonerId)
+        return getUrl(summoner.region)
     }
 }

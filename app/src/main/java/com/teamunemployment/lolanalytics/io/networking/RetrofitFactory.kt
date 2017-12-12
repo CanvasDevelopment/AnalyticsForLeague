@@ -10,6 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitFactory {
 
+
+
     /**
      * Produce a retrofit interface.
      * @param type      The type of interface that we want to produce

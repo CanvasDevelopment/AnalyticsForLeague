@@ -13,11 +13,11 @@ public interface LoginContract {
         void loginTestUser();
         void setView(LoginContract.LoginView loginView);
         void requestSync();
-        void handleSyncResult(Integer code);
+        void handleSyncResult(Integer code, Long summonerId);
     }
 
     interface LoginView extends ViewContract {
-        void launchOnboardingActivity();
+        void launchOnboardingActivity(Long summonerId);
         void setRegionSpinnerAdapter(ArrayAdapter<CharSequence> adapter);
         String getUserName();
         String getRegion();

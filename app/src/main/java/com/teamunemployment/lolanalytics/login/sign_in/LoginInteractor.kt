@@ -20,9 +20,8 @@ import javax.inject.Inject
  */
 
 class LoginInteractor @Inject
-constructor(private val retrofitFactory: RetrofitFactory, database: Database) {
+constructor(private val retrofitFactory: RetrofitFactory, database: Database, private val network: Network) {
 
-    private val network = Network()
     private val summonerDao = database.summonerDao()
     private lateinit var loginRemoteRepo : LoginRemoteRepo
 
@@ -48,11 +47,11 @@ constructor(private val retrofitFactory: RetrofitFactory, database: Database) {
             val summonerDetails = result.data
 
             // handle the result
-            presenter.handleSyncResult(result.resultCode)
+            presenter.handleSyncResult(result.resultCode, summonerDetails.id)
 
             // Cache the data (if we worked out ok)
             if (result.resultCode == 200) {
-                val summoner = Summoner(summonerDetails.id,summonerDetails.name,summonerDetails.summonerLevel,"todo") // todo get the summoner devision
+                val summoner = Summoner(summonerDetails.id,summonerDetails.name,summonerDetails.summonerLevel,"todo", region) // todo get the summoner devision
                 await { summonerDao.createSummoner(summoner) }
             }
         }

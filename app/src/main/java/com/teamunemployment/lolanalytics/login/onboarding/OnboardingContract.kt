@@ -6,6 +6,7 @@ package com.teamunemployment.lolanalytics.login.onboarding
 interface OnboardingContract {
     interface View {
         fun showMessage(message : String)
+        fun launchHomeScreen()
     }
 
     interface Presenter {

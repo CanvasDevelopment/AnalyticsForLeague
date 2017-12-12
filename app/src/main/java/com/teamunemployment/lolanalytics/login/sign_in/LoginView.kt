@@ -8,6 +8,7 @@ import android.widget.Toast
 
 import com.teamunemployment.lolanalytics.front_page.BaseActivityView
 import com.teamunemployment.lolanalytics.R
+import com.teamunemployment.lolanalytics.login.onboarding.OnboardingView
 
 import kotlinx.android.synthetic.main.login_view.*
 import org.koin.android.ext.android.inject
@@ -34,16 +35,14 @@ class LoginView : AppCompatActivity(), LoginContract.LoginView {
     }
 
     private fun bindButtons() {
-        loginWithCredentials.setOnClickListener({
-            // Actually replace this
-            presenter.requestSync()
-            showMessage("Error: Analysis.gg is not available in your region yet.")
-        })
+        loginWithCredentials.setOnClickListener { presenter.requestSync() }
     }
 
-    override fun launchOnboardingActivity() {
-        val mainIntent = Intent(this, BaseActivityView::class.java)
+    override fun launchOnboardingActivity(summonerId : Long) {
+        val mainIntent = Intent(this, OnboardingView::class.java)
+        mainIntent.putExtra("summoner_id", summonerId)
         startActivity(mainIntent)
+        overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up )
     }
 
     override fun setRegionSpinnerAdapter(adapter: ArrayAdapter<CharSequence>) {

@@ -1,9 +1,6 @@
 package com.teamunemployment.lolanalytics.LoginTests.onboarding
 
-import com.teamunemployment.lolanalytics.login.onboarding.OnboardingContract
-import com.teamunemployment.lolanalytics.login.onboarding.OnboardingInteractor
-import com.teamunemployment.lolanalytics.login.onboarding.OnboardingMessages
-import com.teamunemployment.lolanalytics.login.onboarding.OnboardingPresenter
+import com.teamunemployment.lolanalytics.login.onboarding.*
 import org.junit.Test
 import org.mockito.Mockito.*
 
@@ -12,7 +9,7 @@ import org.mockito.Mockito.*
  */
 class OnboardingPresenterTests {
 
-    private val presenter = OnboardingPresenter(OnboardingInteractor())
+    private val presenter = OnboardingPresenter(OnboardingInteractor(mock(OnboardingService::class.java)))
     private val view = mock(OnboardingContract.View::class.java)
     private val messages = OnboardingMessages()
 
@@ -25,6 +22,8 @@ class OnboardingPresenterTests {
 
     @Test
     fun `Make sure the we launch the home screen on successfull sync`() {
-
+        presenter.setView(view)
+        presenter.handleSyncResult(true)
+        verify(view, times(1)).launchHomeScreen()
     }
 }

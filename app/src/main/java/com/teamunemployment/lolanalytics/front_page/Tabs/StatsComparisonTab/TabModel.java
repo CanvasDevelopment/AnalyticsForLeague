@@ -95,11 +95,11 @@ public class TabModel {
      * @param tabPresenterContract
      */
     public void FetchData(final TabModelContract.Presenter tabPresenterContract, Observable<Data> averagesObservable) {
-        Network network = new Network();
-        // TODO find better solution to this here. Also notify the user.
-        if (!network.isConnectingToInternet(context)) {
-            return;
-        }
+//        Network network = new Network();
+//        // TODO find better solution to this here. Also notify the user.
+//        if (!network.isConnectingToInternet(context)) {
+//            return;
+//        }
 
         Realm realm = Realm.getDefaultInstance();
 
@@ -113,9 +113,7 @@ public class TabModel {
                     return data;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(data -> {
-                    tabPresenterContract.addDataToAdapter(new ArrayList<CardData>(data.getItems()));
-                });
+                .subscribe(data -> tabPresenterContract.addDataToAdapter(new ArrayList<CardData>(data.getItems())));
     }
 
     /**

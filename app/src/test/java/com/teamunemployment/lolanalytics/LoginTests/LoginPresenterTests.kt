@@ -27,7 +27,6 @@ class LoginPresenterTests {
         arrayAdapterFactory = mock(ArrayAdapterFactory::class.java)
         loginInteractor = mock(LoginInteractor::class.java)
         presenter = LoginPresenter(arrayAdapterFactory, loginInteractor)
-
     }
 
     @Test

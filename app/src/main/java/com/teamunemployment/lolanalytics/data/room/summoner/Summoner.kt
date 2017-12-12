@@ -10,4 +10,5 @@ import android.arch.persistence.room.PrimaryKey
 data class Summoner(@PrimaryKey(autoGenerate = false) val summonerId : Long,
                     val summonerName : String,
                     val summonerDivisionLevel : Int,
-                    val summonerDivision : String)
+                    val summonerDivision : String,
+                    val region : String)

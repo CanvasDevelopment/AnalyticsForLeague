@@ -42,7 +42,7 @@ constructor(private val arrayAdapterFactory: ArrayAdapterFactory, private val lo
     }
 
     override fun loginTestUser() {
-        view.launchOnboardingActivity()
+//        view.launchOnboardingActivity()
     }
 
     override fun setView(loginView: LoginContract.LoginView) {
@@ -64,13 +64,13 @@ constructor(private val arrayAdapterFactory: ArrayAdapterFactory, private val lo
      *                          200: Ok
      *                          -1 : General error message.
      */
-    override fun handleSyncResult(code: Int) {
+    override fun handleSyncResult(code: Int, summonerId : Long) {
         when(code) {
             404 -> view.showMessage(loginErrors.`404`())
             500 -> view.showMessage(loginErrors.`500`())
             -1 -> view.showMessage(loginErrors.default())
             else -> {
-                view.launchOnboardingActivity()
+                view.launchOnboardingActivity(summonerId)
             }
         }
     }

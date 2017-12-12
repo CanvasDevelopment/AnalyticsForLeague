@@ -15,9 +15,12 @@ class OnboardingPresenter(private val onboardingInteractor: OnboardingInteractor
     /**
      * Do any setup shit required for this screen. Currently that is just that it kicks off a sync
      */
-    fun start() {
-        onboardingInteractor.requestSync(this)
-        // fetch user details to display - cos it will look pretty sweet
+    fun start(summonerId : Long) {
+        if (summonerId == (-1).toLong()) {
+            // TODO handle this
+        }
+        onboardingInteractor.requestSync(this, summonerId)
+//        TODO("Fetch user details about name, rank etc and show it at the top of the screen")
     }
 
     /**
@@ -25,8 +28,8 @@ class OnboardingPresenter(private val onboardingInteractor: OnboardingInteractor
      * @param totalMatches The total number of matches that need to be processed.
      */
     fun handleSyncProgressUpdate(matchesProcessed : Int, totalMatches : Int) {
-        // update the view - waiting on server functionality
-        TODO()
+
+        TODO("Waiting on server support for this feature")
     }
 
     /**
@@ -38,6 +41,9 @@ class OnboardingPresenter(private val onboardingInteractor: OnboardingInteractor
         // launch main screen
         if (!success) {
             view.showMessage(messages.syncFailure())
+            return
         }
+
+        view.launchHomeScreen()
     }
 }

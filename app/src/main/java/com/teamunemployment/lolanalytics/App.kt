@@ -8,6 +8,7 @@ import com.teamunemployment.lolanalytics.di.AppComponent
 import com.teamunemployment.lolanalytics.extensions.objectOf
 import com.teamunemployment.lolanalytics.login.di.SignInModule
 import com.teamunemployment.lolanalytics.io.di.IoModule
+import com.teamunemployment.lolanalytics.login.di.OnboardingModule
 import org.koin.android.ext.android.startAndroidContext
 import org.koin.android.module.AndroidModule
 
@@ -44,6 +45,7 @@ class App : Application() {
         val list = ArrayList<AndroidModule>()
         list.add(SignInModule())
         list.add(IoModule())
+        list.add(OnboardingModule())
         return list
     }
 
