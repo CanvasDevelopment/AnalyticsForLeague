@@ -21,6 +21,10 @@ public interface LoginContract {
         void setRegionSpinnerAdapter(ArrayAdapter<CharSequence> adapter);
         String getUserName();
         String getRegion();
+        void showLoginProgressSpinner();
+        void showLoginButton();
+        void hideProgressSpinner();
+        void hideLoginButton();
     }
 
 }

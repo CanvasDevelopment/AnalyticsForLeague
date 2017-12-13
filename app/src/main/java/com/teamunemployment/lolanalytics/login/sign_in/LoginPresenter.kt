@@ -18,11 +18,14 @@ constructor(private val arrayAdapterFactory: ArrayAdapterFactory, private val lo
     }
 
     override fun handleError(e: Throwable) {
-        view.showMessage("Sorry, an error occurred. Please try again")
+        view.showMessage(e.message)
+        view.showLoginButton()
+        view.hideProgressSpinner()
     }
 
     override fun restart() {
-
+        view.showLoginButton()
+        view.hideProgressSpinner()
     }
 
     override fun resume() {
@@ -52,6 +55,8 @@ constructor(private val arrayAdapterFactory: ArrayAdapterFactory, private val lo
     override fun requestSync() {
         val userName = view.userName
         val region = view.region
+        view.hideLoginButton()
+        view.showLoginProgressSpinner()
         loginInteractor.registerAUser(userName, region, this)
     }
 

@@ -1,5 +1,7 @@
 package com.teamunemployment.lolanalytics.LoginTests.onboarding
 
+import com.teamunemployment.lolanalytics.Utils.Network
+import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
 import com.teamunemployment.lolanalytics.login.onboarding.*
 import org.junit.Test
 import org.mockito.Mockito.*
@@ -9,7 +11,9 @@ import org.mockito.Mockito.*
  */
 class OnboardingPresenterTests {
 
-    private val presenter = OnboardingPresenter(OnboardingInteractor(mock(OnboardingService::class.java)))
+    private val retrofitFactory = mock(RetrofitFactory::class.java)
+    private val network = mock(Network::class.java)
+    private val presenter = OnboardingPresenter(OnboardingInteractor(retrofitFactory,network))
     private val view = mock(OnboardingContract.View::class.java)
     private val messages = OnboardingMessages()
 

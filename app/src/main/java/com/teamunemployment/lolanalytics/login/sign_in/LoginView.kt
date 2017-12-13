@@ -2,7 +2,9 @@ package com.teamunemployment.lolanalytics.login.sign_in
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 
@@ -20,6 +22,7 @@ import org.koin.android.ext.android.inject
  */
 class LoginView : AppCompatActivity(), LoginContract.LoginView {
 
+
     val presenter by inject<LoginPresenter>()
 
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,12 +34,14 @@ class LoginView : AppCompatActivity(), LoginContract.LoginView {
     }
 
     override fun showMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        Snackbar.make(login_root, message, Snackbar.LENGTH_LONG).show()
     }
 
     private fun bindButtons() {
         loginWithCredentials.setOnClickListener { presenter.requestSync() }
     }
+
+
 
     override fun launchOnboardingActivity(summonerId : Long) {
         val mainIntent = Intent(this, OnboardingView::class.java)
@@ -55,5 +60,21 @@ class LoginView : AppCompatActivity(), LoginContract.LoginView {
 
     override fun getRegion(): String {
         return regionSpinner.selectedItem.toString()
+    }
+
+    override fun showLoginProgressSpinner() {
+        loginProgress.visibility = View.VISIBLE
+    }
+
+    override fun showLoginButton() {
+        loginWithCredentials.visibility = View.VISIBLE
+    }
+
+    override fun hideProgressSpinner() {
+        loginProgress.visibility = View.INVISIBLE
+    }
+
+    override fun hideLoginButton() {
+        loginWithCredentials.visibility = View.INVISIBLE
     }
 }

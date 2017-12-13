@@ -54,11 +54,10 @@ constructor(private val retrofitFactory: RetrofitFactory, database: Database, pr
                 val summoner = Summoner(summonerDetails.id,summonerDetails.name,summonerDetails.summonerLevel,"todo", region) // todo get the summoner devision
                 await { summonerDao.createSummoner(summoner) }
             }
-        }
-//                .onError {
-//                    // Should also probably log this, rather than returning to the user
-//                    presenter.handleError(Throwable("An error occurred in the coroutine"))
-//                }
+        }.onError {
+                    // Should also probably log this, rather than returning to the user
+                    presenter.handleError(Throwable("Something went wrong - check your connection and try again"))
+                }
     }
 
     /**
