@@ -1,6 +1,6 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab;
 
-import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model.AnalyseData;
+import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model.AnalysisData;
 
 import java.util.ArrayList;
 
@@ -11,47 +11,49 @@ import java.util.ArrayList;
 public class AnalyseInteractor {
 
     public void RequestFilterList(int role, int champId, AnalyseTabContract.Presenter presenter) {
-        ArrayList<AnalyseData> datas = new ArrayList<>();
-        AnalyseData analyseData = new AnalyseData();
+        ArrayList<AnalysisData> datas = new ArrayList<>();
+        AnalysisData analysisData = new AnalysisData();
         presenter.SetFilterRequestResponse(removeMeAfterMocking());
     }
 
     public void RequestFilterList(int role, AnalysePresenter presenter) {
+
+        // send request to
         presenter.SetFilterRequestResponse(removeMeAfterMocking());
     }
 
     /**
      * TODO remove me
      */
-    private ArrayList<AnalyseData> removeMeAfterMocking() {
-        AnalyseData analyseData1 = new AnalyseData();
-        AnalyseData analyseData2 = new AnalyseData();
-        AnalyseData analyseData3 = new AnalyseData();
-        AnalyseData analyseData4 = new AnalyseData();
-        AnalyseData analyseData5 = new AnalyseData();
-        AnalyseData analyseData6 = new AnalyseData();
+    private ArrayList<AnalysisData> removeMeAfterMocking() {
+        AnalysisData analysisData1 = new AnalysisData();
+        AnalysisData analysisData2 = new AnalysisData();
+        AnalysisData analysisData3 = new AnalysisData();
+        AnalysisData analysisData4 = new AnalysisData();
+        AnalysisData analysisData5 = new AnalysisData();
+        AnalysisData analysisData6 = new AnalysisData();
 
-        analyseData1.setRecentChange(-3.1);
-        analyseData2.setRecentChange(-2.3);
-        analyseData3.setRecentChange(3.3);
+        analysisData1.setRecentChange(-3.1);
+        analysisData2.setRecentChange(-2.3);
+        analysisData3.setRecentChange(3.3);
 
-        analyseData1.setTitle("Early Game");
-        analyseData2.setTitle("Mid Game");
-        analyseData3.setTitle("Late Game");
+        analysisData1.setTitle("Early Game");
+        analysisData2.setTitle("Mid Game");
+        analysisData3.setTitle("Late Game");
 
-        analyseData1.setHeroPercentTotal(45);
-        analyseData2.setHeroPercentTotal(44);
-        analyseData3.setHeroPercentTotal(47);
+        analysisData1.setHeroPercentTotal(45);
+        analysisData2.setHeroPercentTotal(44);
+        analysisData3.setHeroPercentTotal(47);
 
-        analyseData1.setEnemyPercentTotal(55);
-        analyseData2.setEnemyPercentTotal(56);
-        analyseData3.setEnemyPercentTotal(53);
+        analysisData1.setEnemyPercentTotal(55);
+        analysisData2.setEnemyPercentTotal(56);
+        analysisData3.setEnemyPercentTotal(53);
 
-        ArrayList<AnalyseData> analyseDatalist = new ArrayList<AnalyseData>();
-        analyseDatalist.add(analyseData1);
-        analyseDatalist.add(analyseData2);
-        analyseDatalist.add(analyseData3);
-        return analyseDatalist;
+        ArrayList<AnalysisData> analysisDatalist = new ArrayList<AnalysisData>();
+        analysisDatalist.add(analysisData1);
+        analysisDatalist.add(analysisData2);
+        analysisDatalist.add(analysisData3);
+        return analysisDatalist;
 
     }
 }

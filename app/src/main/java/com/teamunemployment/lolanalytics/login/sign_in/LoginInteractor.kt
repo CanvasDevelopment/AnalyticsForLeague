@@ -2,12 +2,9 @@ package com.teamunemployment.lolanalytics.login.sign_in
 
 import co.metalab.asyncawait.async
 import com.teamunemployment.lolanalytics.Utils.Network
-import com.teamunemployment.lolanalytics.data.model.LongWrapper
 import com.teamunemployment.lolanalytics.data.model.Result
 import com.teamunemployment.lolanalytics.data.room.Database
 import com.teamunemployment.lolanalytics.data.room.summoner.Summoner
-import com.teamunemployment.lolanalytics.data.room.summoner.SummonerDao
-import com.teamunemployment.lolanalytics.io.RealmExecutor
 import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Response
@@ -21,7 +18,7 @@ import javax.inject.Inject
 
 class LoginInteractor @Inject
 constructor(private val retrofitFactory: RetrofitFactory, database: Database, private val network: Network) {
-
+    private lateinit var loginIo : LoginIo
     private val summonerDao = database.summonerDao()
     private lateinit var loginRemoteRepo : LoginRemoteRepo
 
@@ -36,28 +33,41 @@ constructor(private val retrofitFactory: RetrofitFactory, database: Database, pr
     fun registerAUser(summonerName: String, region: String, presenter: LoginContract.Presenter) {
         val url = network.getUrl(region)
         loginRemoteRepo = retrofitFactory.produceRetrofitInterface(LoginRemoteRepo::class.java,url)
-
+        loginIo = LoginIo(loginRemoteRepo)
         async {
             // Send call to server to register user // todo check if she exists first
             val call : Call<Result<SummonerDetails>> = loginRemoteRepo.register(summonerName)
             val response : Response<Result<SummonerDetails>> =  await {call.execute()}
-
             // Process the data into a usable state
             val result : Result<SummonerDetails> = response.get()
             val summonerDetails = result.data
-
             // handle the result
             presenter.handleSyncResult(result.resultCode, summonerDetails.id)
 
             // Cache the data (if we worked out ok)
             if (result.resultCode == 200) {
-                val summoner = Summoner(summonerDetails.id,summonerDetails.name,summonerDetails.summonerLevel,"todo", region) // todo get the summoner devision
-                await { summonerDao.createSummoner(summoner) }
+                await {  }
             }
         }.onError {
                     // Should also probably log this, rather than returning to the user
                     presenter.handleError(Throwable("Something went wrong - check your connection and try again"))
                 }
+    }
+
+    suspend fun doIoStuff(summonerName :String, region: String) : SummonerDetails {
+        val result = loginIo.registerUser(summonerName)
+        if (result.resultCode == 200) {
+            result.data.cache(region)
+        }
+
+        return result.data
+    }
+
+
+    fun SummonerDetails.cache(region: String) : SummonerDetails {
+        val summoner = Summoner(id,name,summonerLevel,"todo", region) // todo get the summoner devision
+        summonerDao.createSummoner(summoner)
+        return this
     }
 
     /**

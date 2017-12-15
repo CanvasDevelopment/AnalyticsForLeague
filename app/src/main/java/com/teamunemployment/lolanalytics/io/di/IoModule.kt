@@ -5,6 +5,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.teamunemployment.lolanalytics.R
 import com.teamunemployment.lolanalytics.io.RESTApiExecutor
 import com.teamunemployment.lolanalytics.io.RealmExecutor
+import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
 import org.koin.android.module.AndroidModule
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -26,7 +27,8 @@ class IoModule : AndroidModule() {
             }
 
             provide { RealmExecutor(applicationContext) }
-//            provide { context }
+            provide { RetrofitFactory() }
+
         }
     }
 

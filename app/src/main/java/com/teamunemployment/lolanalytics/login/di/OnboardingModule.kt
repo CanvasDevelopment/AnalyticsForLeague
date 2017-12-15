@@ -19,7 +19,6 @@ class OnboardingModule : AndroidModule() {
             provide { OnboardingPresenter(get()) }
             provide { OnboardingInteractor(get(),get())}
             provide { Room.inMemoryDatabaseBuilder(get(), Database::class.java).build() }
-            provide { RetrofitFactory() }
         }
     }
 }

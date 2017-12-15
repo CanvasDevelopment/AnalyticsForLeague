@@ -4,16 +4,14 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model;
  * Created by Josiah Kendall
  */
 
-public class AnalyseData {
+public class AnalysisData {
 
     private String title;
     private float enemyPercentTotal;
     private float heroPercentTotal;
     private double recentChange;
 
-    public float getEnemyPercentTotal() {
-        return enemyPercentTotal;
-    }
+    public float getEnemyPercentTotal() { return enemyPercentTotal; }
 
     public float getHeroPercentTotal() {
         return heroPercentTotal;

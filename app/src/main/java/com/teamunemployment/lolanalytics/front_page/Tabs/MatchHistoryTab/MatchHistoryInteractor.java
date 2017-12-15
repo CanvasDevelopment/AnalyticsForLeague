@@ -47,7 +47,6 @@ public class MatchHistoryInteractor {
             ArrayList<MatchIdWrapper> data = realmExecutor.LoadMatchList(realm, summonerId);
             emitter.onNext(data);
             emitter.onComplete();
-
         });
 
         observable.subscribeOn(AndroidSchedulers.mainThread()) // Gotta be on the main thread for realm. If performance is an issue, use fetchAsync()

@@ -2,7 +2,7 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab;
 
 import com.teamunemployment.lolanalytics.data.model.Champ;
 import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model.AnalyseCardViewHolder;
-import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model.AnalyseData;
+import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model.AnalysisData;
 import com.teamunemployment.lolanalytics.Utils.RoleUtils;
 
 import org.junit.Before;
@@ -72,8 +72,8 @@ public class AnalysePresenterTests {
 
     @Test
     public void EnsureThatWeSetTheAdapterAndTriggerDisplayWhenWeGetDataReturned() {
-        ArrayList<AnalyseData> arrayList = new ArrayList();
-        arrayList.add(mock(AnalyseData.class));
+        ArrayList<AnalysisData> arrayList = new ArrayList();
+        arrayList.add(mock(AnalysisData.class));
         view = mock(AnalyseTabContract.View.class);
         interactor = new AnalyseInteractor();
         analysePresenter.SetView(view);
@@ -84,7 +84,7 @@ public class AnalysePresenterTests {
 
     @Test
     public void EnsureThatWeDontSetAdapterWhenWeHaveNoData() {
-        ArrayList<AnalyseData> arrayList = new ArrayList();
+        ArrayList<AnalysisData> arrayList = new ArrayList();
         Champ champ = new Champ();
         champ.setChampName("Vi");
         when(roleUtils.GetRoleName(4)).thenReturn("SUPPORT");
@@ -95,7 +95,7 @@ public class AnalysePresenterTests {
 
     @Test
     public void EnsureThatWeSetCorrectPlaceholderMessageForRoleAndChamp() {
-        ArrayList<AnalyseData> arrayList = new ArrayList();
+        ArrayList<AnalysisData> arrayList = new ArrayList();
         Champ champ = new Champ();
         champ.setChampName("Vi");
         when(roleUtils.GetRoleName(4)).thenReturn("SUPPORT");
@@ -109,7 +109,7 @@ public class AnalysePresenterTests {
 
     @Test
     public void EnsureThatWeSetCorrectPlaceHolderMessageWithRoleAndNoChamp() {
-        ArrayList<AnalyseData> arrayList = new ArrayList();
+        ArrayList<AnalysisData> arrayList = new ArrayList();
         Champ champ = new Champ();
         champ.setChampName("Vi");
         when(roleUtils.GetRoleName(4)).thenReturn("SUPPORT");
@@ -124,7 +124,7 @@ public class AnalysePresenterTests {
 
     @Test(expected = IllegalStateException.class)
     public void EnsureThatIllegalStateExceptionGetsThrownIfWeTryToCreateAMessageWithoutARoleBeingSet() {
-        ArrayList<AnalyseData> arrayList = new ArrayList();
+        ArrayList<AnalysisData> arrayList = new ArrayList();
         Champ champ = new Champ();
         champ.setChampName("Vi");
         when(roleUtils.GetRoleName(6)).thenThrow(new IllegalStateException());
@@ -137,15 +137,15 @@ public class AnalysePresenterTests {
 
     @Test
     public void EnsureThatWeShowPlaceholderWhenWeSetPlaceHolderText() {
-        analysePresenter.SetPlaceHolder("hey there");
+        analysePresenter.setPlaceHolder("hey there");
         verify(view, times(1)).SetPlaceHolderVisible();
     }
 
     @Test
     public void EnsureThatWeHidePlaceholderWhenWeSetTheAdapter() {
-        ArrayList<AnalyseData> analyseDatas = new ArrayList<>();
-        analyseDatas.add(mock(AnalyseData.class));
-        analysePresenter.SetFilterRequestResponse(analyseDatas);
+        ArrayList<AnalysisData> analysisData = new ArrayList<>();
+        analysisData.add(mock(AnalysisData.class));
+        analysePresenter.SetFilterRequestResponse(analysisData);
         verify(view, times(1)).SetPlaceHolderInvisible();
     }
 
@@ -185,13 +185,13 @@ public class AnalysePresenterTests {
         float enemy = 54.2f;
         String title = "Early Game";
 
-        ArrayList<AnalyseData> datas = new ArrayList<>();
-        AnalyseData analyseData = new AnalyseData();
-        analyseData.setEnemyPercentTotal(enemy);
-        analyseData.setHeroPercentTotal(hero);
-        analyseData.setTitle(title);
-        analyseData.setRecentChange(change);
-        datas.add(analyseData);
+        ArrayList<AnalysisData> datas = new ArrayList<>();
+        AnalysisData analysisData = new AnalysisData();
+        analysisData.setEnemyPercentTotal(enemy);
+        analysisData.setHeroPercentTotal(hero);
+        analysisData.setTitle(title);
+        analysisData.setRecentChange(change);
+        datas.add(analysisData);
         analysePresenter.SetFilterRequestResponse(datas);
         AnalyseCardViewHolder viewHolder = mock(AnalyseCardViewHolder.class);
         analysePresenter.OnCardBinding(viewHolder, 0);
@@ -205,13 +205,13 @@ public class AnalysePresenterTests {
         float enemy = 54.2f;
         String title = "Early Game";
 
-        ArrayList<AnalyseData> datas = new ArrayList<>();
-        AnalyseData analyseData = new AnalyseData();
-        analyseData.setEnemyPercentTotal(enemy);
-        analyseData.setHeroPercentTotal(hero);
-        analyseData.setTitle(title);
-        analyseData.setRecentChange(change);
-        datas.add(analyseData);
+        ArrayList<AnalysisData> datas = new ArrayList<>();
+        AnalysisData analysisData = new AnalysisData();
+        analysisData.setEnemyPercentTotal(enemy);
+        analysisData.setHeroPercentTotal(hero);
+        analysisData.setTitle(title);
+        analysisData.setRecentChange(change);
+        datas.add(analysisData);
         analysePresenter.SetFilterRequestResponse(datas);
 
         AnalyseCardViewHolder viewHolder = mock(AnalyseCardViewHolder.class);
@@ -227,13 +227,13 @@ public class AnalysePresenterTests {
         float enemy = 54.2f;
         String title = "Early Game";
 
-        ArrayList<AnalyseData> datas = new ArrayList<>();
-        AnalyseData analyseData = new AnalyseData();
-        analyseData.setEnemyPercentTotal(enemy);
-        analyseData.setHeroPercentTotal(hero);
-        analyseData.setTitle(title);
-        analyseData.setRecentChange(change);
-        datas.add(analyseData);
+        ArrayList<AnalysisData> datas = new ArrayList<>();
+        AnalysisData analysisData = new AnalysisData();
+        analysisData.setEnemyPercentTotal(enemy);
+        analysisData.setHeroPercentTotal(hero);
+        analysisData.setTitle(title);
+        analysisData.setRecentChange(change);
+        datas.add(analysisData);
         analysePresenter.SetFilterRequestResponse(datas);
 
         AnalyseCardViewHolder viewHolder = mock(AnalyseCardViewHolder.class);
@@ -244,10 +244,10 @@ public class AnalysePresenterTests {
 
     @Test
     public void EnsureThatWeSetPositionToViewHolder() {
-        ArrayList<AnalyseData> datas = new ArrayList<>();
-        datas.add(mock(AnalyseData.class));
-        datas.add(mock(AnalyseData.class));
-        datas.add(mock(AnalyseData.class));
+        ArrayList<AnalysisData> datas = new ArrayList<>();
+        datas.add(mock(AnalysisData.class));
+        datas.add(mock(AnalysisData.class));
+        datas.add(mock(AnalysisData.class));
         analysePresenter.SetFilterRequestResponse(datas);
         AnalyseCardViewHolder viewHolder = mock(AnalyseCardViewHolder.class);
         analysePresenter.OnCardBinding(viewHolder, 2);

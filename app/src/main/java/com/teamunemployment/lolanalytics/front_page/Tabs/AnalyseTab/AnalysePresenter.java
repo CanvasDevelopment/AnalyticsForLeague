@@ -1,7 +1,7 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab;
 
 import com.teamunemployment.lolanalytics.data.model.Champ;
-import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model.AnalyseData;
+import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model.AnalysisData;
 import com.teamunemployment.lolanalytics.Utils.RoleUtils;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class AnalysePresenter implements AnalyseTabContract.Presenter {
 
     private int role = -1;
     private Champ champ = null;
-    private ArrayList<AnalyseData> filterList = new ArrayList<>();
+    private ArrayList<AnalysisData> filterList = new ArrayList<>();
 
     public AnalysePresenter(AnalyseInteractor analyseInteractor, AnalyseAdapter analyseAdapter, RoleUtils roleUtils) {
         this.analyseInteractor = analyseInteractor;
@@ -28,9 +28,11 @@ public class AnalysePresenter implements AnalyseTabContract.Presenter {
     }
 
     @Override
-    public void SetFilterRequestResponse(ArrayList<AnalyseData> analyseDatas) {
-        this.filterList = analyseDatas;
-        if (analyseDatas.size() > 0) {
+    public void SetFilterRequestResponse(ArrayList<AnalysisData> analysisData) {
+        this.filterList = analysisData;
+
+        // If we have data
+        if (analysisData.size() > 0) {
             view.SetAdapter(analyseAdapter);
             view.SetPlaceHolderInvisible();
         } else {
@@ -41,13 +43,13 @@ public class AnalysePresenter implements AnalyseTabContract.Presenter {
                         roleUtils.GetRoleName(role),
                         champ.getChampName()
                 );
-                SetPlaceHolder(message);
+                setPlaceHolder(message);
             } else {
                 String message = String.format(
                         "No games found playing %s",
                         roleUtils.GetRoleName(role)
                 );
-                SetPlaceHolder(message);
+                setPlaceHolder(message);
             }
         }
     }
@@ -94,14 +96,14 @@ public class AnalysePresenter implements AnalyseTabContract.Presenter {
     }
 
     @Override
-    public void SetPlaceHolder(String string) {
+    public void setPlaceHolder(String string) {
         view.SetPlaceHolderVisible();
         view.SetPlaceHolderString(string);
     }
 
     @Override
     public void OnCardBinding(AnalyseTabContract.CardView viewHolder, int position) {
-        AnalyseData data = filterList.get(position);
+        AnalysisData data = filterList.get(position);
         viewHolder.SetGraph(data.getEnemyPercentTotal(), data.getHeroPercentTotal());
         viewHolder.SetChange(data.getRecentChange());
         viewHolder.SetTitle(data.getTitle());
@@ -110,7 +112,7 @@ public class AnalysePresenter implements AnalyseTabContract.Presenter {
 
     @Override
     public void HandleItemClick(int position) {
-        AnalyseData filter = filterList.get(position);
+        AnalysisData filter = filterList.get(position);
         // launch new activtiy with the value.
     }
 }

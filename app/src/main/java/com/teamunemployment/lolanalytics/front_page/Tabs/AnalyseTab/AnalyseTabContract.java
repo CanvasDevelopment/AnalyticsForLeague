@@ -1,7 +1,7 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab;
 
 import com.teamunemployment.lolanalytics.data.model.Champ;
-import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model.AnalyseData;
+import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model.AnalysisData;
 import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract;
 
 import java.util.ArrayList;
@@ -28,13 +28,13 @@ public interface AnalyseTabContract {
     }
 
     interface Presenter {
-        void SetFilterRequestResponse(ArrayList<AnalyseData> analyseDatas);
+        void SetFilterRequestResponse(ArrayList<AnalysisData> analysisData);
         int GetFilterListSize();
         void SetView(View view);
         void Start();
         void SetRole(int support);
         void SetChamp(Champ champ);
-        void SetPlaceHolder(String noResults);
+        void setPlaceHolder(String noResults);
         void OnCardBinding(AnalyseTabContract.CardView viewHolder, int position);
         void HandleItemClick(int position);
 
