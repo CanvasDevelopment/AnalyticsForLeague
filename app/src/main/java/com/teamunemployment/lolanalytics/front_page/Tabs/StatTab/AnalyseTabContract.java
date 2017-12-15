@@ -1,7 +1,7 @@
-package com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab;
+package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab;
 
 import com.teamunemployment.lolanalytics.data.model.Champ;
-import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model.AnalysisData;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.AnalysisData;
 import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract;
 
 import java.util.ArrayList;

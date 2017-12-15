@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab;
+package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

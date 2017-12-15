@@ -1,8 +1,8 @@
-package com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model;
+package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model;
 
-import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.AnalyseAdapter;
-import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.AnalyseInteractor;
-import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.AnalysePresenter;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalyseAdapter;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalyseInteractor;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalysePresenter;
 import com.teamunemployment.lolanalytics.Utils.RoleUtils;
 
 import dagger.Module;

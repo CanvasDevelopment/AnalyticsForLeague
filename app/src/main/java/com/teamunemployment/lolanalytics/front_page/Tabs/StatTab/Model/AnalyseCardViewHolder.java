@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model;
+package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,7 +10,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.AnalyseTabContract;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalyseTabContract;
 import com.teamunemployment.lolanalytics.R;
 
 import java.util.ArrayList;

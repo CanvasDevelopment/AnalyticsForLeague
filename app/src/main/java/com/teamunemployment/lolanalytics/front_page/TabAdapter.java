@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.AnalyseTabView;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalyseTabView;
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.MatchHistoryTabView;
 import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract;
 import com.teamunemployment.lolanalytics.Utils.Constant;

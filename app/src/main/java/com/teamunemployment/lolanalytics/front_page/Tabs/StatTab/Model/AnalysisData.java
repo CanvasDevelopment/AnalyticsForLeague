@@ -1,4 +1,4 @@
-package com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model;
+package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model;
 
 /**
  * Created by Josiah Kendall

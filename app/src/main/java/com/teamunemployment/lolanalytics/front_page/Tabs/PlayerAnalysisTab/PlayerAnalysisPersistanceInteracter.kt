@@ -1,34 +1,17 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab
 
-import android.content.Context
 import co.metalab.asyncawait.async
 
-import com.github.mikephil.charting.data.Entry
-import com.teamunemployment.lolanalytics.io.RESTApiExecutor
-import com.teamunemployment.lolanalytics.io.RealmExecutor
-import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatCollection
-import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatDefinitionWrapper
-import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatSummary
 import com.teamunemployment.lolanalytics.Utils.Network
 import com.teamunemployment.lolanalytics.data.model.Result
 import com.teamunemployment.lolanalytics.data.room.Database
-import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatList
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatList
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.PlayerAnalysisRemoteRepo
 import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
-import com.teamunemployment.lolanalytics.login.sign_in.SummonerDetails
-
-import java.util.ArrayList
-import java.util.Random
 
 import javax.inject.Inject
 
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Function
-import io.reactivex.schedulers.Schedulers
-import io.realm.Realm
 import retrofit2.Call
-import kotlin.coroutines.experimental.suspendCoroutine
 
 
 /**
@@ -55,6 +38,12 @@ constructor(private val retrofitFactory: RetrofitFactory, private val database: 
             val result = playerAnalysisRemoteRepo.fetchStatList(role).await()
             val cache = result.cache()
             presenter.handleListResult(result)
+        }
+    }
+
+    fun loadIndividualStat(url : String) {
+        async {
+            val result = playerAnalysisRemoteRepo.fetchIndividualStat(url, summonerId).await()
         }
     }
 

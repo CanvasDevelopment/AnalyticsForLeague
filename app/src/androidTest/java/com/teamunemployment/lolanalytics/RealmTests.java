@@ -235,7 +235,7 @@ public class RealmTests {
     public void SaveStatSummary_SavesStatSummaryObjectAndLoadStatSummary_LoadsStatSummary() {
         StatSummary statSummary = new StatSummary();
         statSummary.setHasGoal(true);
-        statSummary.setStatName("Stat 1");
+        statSummary.setStatName("StatOverview 1");
         statSummary.setGoalvalue(23.1);
         statSummary.setId(234);
 
@@ -255,7 +255,7 @@ public class RealmTests {
     public void SaveArrayOfStatPoints_SavesArrayOfStatPoints() {
         StatSummary statSummary = new StatSummary();
         statSummary.setHasGoal(true);
-        statSummary.setStatName("Stat 1");
+        statSummary.setStatName("StatOverview 1");
         statSummary.setGoalvalue(23.1);
         statSummary.setId(234);
 

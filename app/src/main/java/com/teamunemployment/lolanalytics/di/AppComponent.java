@@ -2,8 +2,8 @@ package com.teamunemployment.lolanalytics.di;
 
 import com.teamunemployment.lolanalytics.front_page.BaseActivityModule;
 import com.teamunemployment.lolanalytics.front_page.BaseActivityView;
-import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.AnalyseTabView;
-import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model.AnalyseTabModule;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalyseTabView;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.AnalyseTabModule;
 import com.teamunemployment.lolanalytics.front_page.Tabs.CoachTab.CoachTabModule;
 import com.teamunemployment.lolanalytics.front_page.Tabs.CoachTab.CoachView;
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Dependencies.MatchHistoryModule;

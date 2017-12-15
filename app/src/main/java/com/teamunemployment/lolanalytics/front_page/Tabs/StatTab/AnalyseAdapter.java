@@ -1,10 +1,10 @@
-package com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab;
+package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.teamunemployment.lolanalytics.front_page.Tabs.AnalyseTab.Model.AnalyseCardViewHolder;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.AnalyseCardViewHolder;
 import com.teamunemployment.lolanalytics.R;
 
 /**
