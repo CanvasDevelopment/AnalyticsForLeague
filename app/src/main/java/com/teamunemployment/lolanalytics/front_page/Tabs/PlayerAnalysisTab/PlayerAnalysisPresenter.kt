@@ -66,7 +66,7 @@ constructor(private val playerAnalysisPersistanceInteracter: PlayerAnalysisPersi
             throw IllegalStateException("Role must be set before calling start()")
         }
 
-        playerAnalysisPersistanceInteracter.loadStatTypes(ROLE, -1, statDefinitionObserver)
+//        playerAnalysisPersistanceInteracter.loadStatTypes(ROLE, -1, statDefinitionObserver)
     }
 
     override fun handleError(e: Throwable) {

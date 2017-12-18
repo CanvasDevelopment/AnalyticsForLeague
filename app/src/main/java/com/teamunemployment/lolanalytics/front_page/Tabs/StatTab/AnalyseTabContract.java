@@ -2,6 +2,7 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab;
 
 import com.teamunemployment.lolanalytics.data.model.Champ;
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.AnalysisData;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatList;
 import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public interface AnalyseTabContract {
     }
 
     interface Presenter {
-        void SetFilterRequestResponse(ArrayList<AnalysisData> analysisData);
+        void setStatList(StatList statList);
         int GetFilterListSize();
         void SetView(View view);
         void Start();

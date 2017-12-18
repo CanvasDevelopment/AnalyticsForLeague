@@ -3,14 +3,11 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab
 import co.metalab.asyncawait.async
 import com.teamunemployment.lolanalytics.Utils.Network
 import com.teamunemployment.lolanalytics.data.model.Result
-import com.teamunemployment.lolanalytics.data.room.Database
 import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.PlayerAnalysisPresenter
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.AnalysisData
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatList
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatOverview
-import com.teamunemployment.lolanalytics.io.networking.Response
 import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
-import retrofit2.Call
 import ru.gildor.coroutines.retrofit.await
 
 import java.util.ArrayList
@@ -65,13 +62,13 @@ class AnalyseInteractor (private val retrofitFactory: RetrofitFactory,
     fun RequestFilterList(role: Int, champId: Int, presenter: AnalyseTabContract.Presenter) {
         val datas = ArrayList<AnalysisData>()
         val analysisData = AnalysisData()
-        presenter.SetFilterRequestResponse(removeMeAfterMocking())
+        presenter.setStatList(removeMeAfterMocking())
     }
 
     fun RequestFilterList(role: Int, presenter: AnalysePresenter) {
 
         // send request to
-        presenter.SetFilterRequestResponse(removeMeAfterMocking())
+        presenter.setStatList(removeMeAfterMocking())
     }
 
     /**
