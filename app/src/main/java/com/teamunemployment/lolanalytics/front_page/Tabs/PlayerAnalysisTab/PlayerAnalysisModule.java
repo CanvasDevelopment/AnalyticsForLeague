@@ -19,8 +19,8 @@ public class PlayerAnalysisModule {
         return new PlayerAnalysisPresenter(playerAnalysisPersistanceInteracter, context);
     }
 
-    @Provides
-    PlayerAnalysisPersistanceInteracter providePlayerAnalysisPersistanceInteracter(RESTApiExecutor restApiExecutor, RealmExecutor realmExecutor, Context context) {
-        return new PlayerAnalysisPersistanceInteracter(restApiExecutor, realmExecutor, context);
-    }
+//    @Provides
+//    PlayerAnalysisPersistanceInteracter providePlayerAnalysisPersistanceInteracter(RESTApiExecutor restApiExecutor, RealmExecutor realmExecutor, Context context) {
+//        return new PlayerAnalysisPersistanceInteracter(restApiExecutor, realmExecutor, context);
+//    }
 }

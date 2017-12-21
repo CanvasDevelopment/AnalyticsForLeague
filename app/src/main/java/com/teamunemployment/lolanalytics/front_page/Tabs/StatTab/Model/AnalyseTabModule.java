@@ -30,8 +30,8 @@ public class AnalyseTabModule {
         return new RoleUtils();
     }
 
-    @Provides
-    AnalyseInteractor provideAnalyseInteractor() {
-        return new AnalyseInteractor();
-    }
+//    @Provides
+//    AnalyseInteractor provideAnalyseInteractor() {
+//        return new AnalyseInteractor();
+//    }
 }

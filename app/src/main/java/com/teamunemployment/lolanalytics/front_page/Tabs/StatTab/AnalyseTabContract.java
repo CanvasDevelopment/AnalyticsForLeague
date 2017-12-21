@@ -22,22 +22,25 @@ public interface AnalyseTabContract {
     }
 
     interface CardView {
-        void SetTitle(String title);
-        void SetGraph(float enemyStat, float heroStat);
-        void SetChange(double change);
-        void SetItemPosition(int position);
+        void setTitle(String title);
+//        void SetGraph(float enemyStat, float heroStat);
+//        void SetChange(double change);
+//        void SetItemPosition(int position);
+        void setEarlyGame(float hero, float enemy);
+        void setMidGame(float hero, float enemy);
+        void setLateGame(float hero, float enemy);
     }
 
     interface Presenter {
         void setStatList(StatList statList);
-        int GetFilterListSize();
-        void SetView(View view);
-        void Start();
-        void SetRole(int support);
-        void SetChamp(Champ champ);
+        int getFilterListSize();
+        void setView(View view);
+        void start();
+        void setRole(int support);
+        void setChamp(Champ champ);
         void setPlaceHolder(String noResults);
-        void OnCardBinding(AnalyseTabContract.CardView viewHolder, int position);
-        void HandleItemClick(int position);
+        void onCardBinding(AnalyseTabContract.CardView viewHolder, int position);
+        void handleItemClick(int position);
 
     }
 

@@ -110,7 +110,7 @@ public class StatisticsTabPresenterTests {
         when(champSingleton.getCurrentChamp()).thenReturn(champ);
         when(roleSingleton.getRole()).thenReturn(1);
 
-        // Start and verify
+        // start and verify
         presenter.start();
         verify(interactor, times(1)).getStatistics(1,1, presenter);
     }
@@ -120,7 +120,7 @@ public class StatisticsTabPresenterTests {
         when(champSingleton.getCurrentChamp()).thenReturn(null);
         when(roleSingleton.getRole()).thenReturn(1);
 
-        // Start and verify
+        // start and verify
         presenter.start();
         verify(interactor, times(1)).getStatistics(1, presenter);
     }

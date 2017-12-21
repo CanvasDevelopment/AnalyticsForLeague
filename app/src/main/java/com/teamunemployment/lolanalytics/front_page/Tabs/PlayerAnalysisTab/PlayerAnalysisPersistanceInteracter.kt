@@ -28,33 +28,34 @@ constructor(private val retrofitFactory: RetrofitFactory, private val database: 
     /**
      * Load the list of stats that we want to display.
      * @param role The Role we want the stats for.
-     * @param summonerId The summoner we want the stats for.
+     * @param summonerId The summoner we want the
+     * stats for.
      */
-    fun loadStatTypes(role: Int, summonerId: Long, presenter: PlayerAnalysisPresenter) {
+//    fun loadStatTypes(role: Int, summonerId: Long, presenter: PlayerAnalysisPresenter) {
+//
+//        val url = network.getUrl(summonerId)
+//        playerAnalysisRemoteRepo = retrofitFactory.produceRetrofitInterface(PlayerAnalysisRemoteRepo::class.java, url)
+//        async {
+//            val result = playerAnalysisRemoteRepo.fetchStatList(role).await()
+//            val cache = result.cache()
+//            presenter.handleListResult(result)
+//        }
+//    }
 
-        val url = network.getUrl(summonerId)
-        playerAnalysisRemoteRepo = retrofitFactory.produceRetrofitInterface(PlayerAnalysisRemoteRepo::class.java, url)
-        async {
-            val result = playerAnalysisRemoteRepo.fetchStatList(role).await()
-            val cache = result.cache()
-            presenter.handleListResult(result)
-        }
-    }
+//    fun loadIndividualStat(url : String) {
+//        async {
+//            val result = playerAnalysisRemoteRepo.fetchIndividualStat(url, summonerId).await()
+//        }
+//    }
 
-    fun loadIndividualStat(url : String) {
-        async {
-            val result = playerAnalysisRemoteRepo.fetchIndividualStat(url, summonerId).await()
-        }
-    }
-
-    private suspend fun Call<Result<StatList>>.await() : Result<StatList> {
-        val result = execute()
-        if (result.isSuccessful && result.body() != null) {
-            return result.body()!!
-        }
-
-        return Result(500, StatList())
-    }
+//    private suspend fun Call<Result<StatList>>.await() : Result<StatList> {
+//        val result = execute()
+//        if (result.isSuccessful && result.body() != null) {
+//            return result.body()!!
+//        }
+//
+//        return Result(500, StatList())
+//    }
 
     suspend fun Result<StatList>.cache() : Boolean {
 

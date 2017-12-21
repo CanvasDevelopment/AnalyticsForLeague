@@ -6,7 +6,7 @@ import com.teamunemployment.lolanalytics.data.model.Result
 import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.PlayerAnalysisPresenter
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.AnalysisData
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatList
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatOverview
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatCard
 import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
 import ru.gildor.coroutines.retrofit.await
 
@@ -21,22 +21,21 @@ class AnalyseInteractor (private val retrofitFactory: RetrofitFactory,
 
     private lateinit var playerAnalysisRemoteRepo : PlayerAnalysisRemoteRepo
 
-
     fun loadStatTypes(role: Int, summonerId: Long, presenter: PlayerAnalysisPresenter) {
         val url = network.getUrl(summonerId)
         playerAnalysisRemoteRepo = retrofitFactory.produceRetrofitInterface(PlayerAnalysisRemoteRepo::class.java, url)
         async {
             val result = playerAnalysisRemoteRepo.fetchStatList(role).await()
-            val cache = result.cache()
+            val cacheResult = result.cache()
             presenter.handleListResult(result)
         }
     }
 
-    fun loadIndividualStat(url : String, summonerId: Long, presenter: PlayerAnalysisPresenter) {
+    fun loadIndividualStat(url : String, summonerId: Long, viewHolder: AnalyseTabContract.CardView, presenter: AnalysePresenter) {
         async {
             val result = playerAnalysisRemoteRepo.fetchIndividualStat(url, summonerId).await()
-            val cache = result.cache()
-            presenter.handleCardResult(result)
+            val cacheResult = result.cache()
+            presenter.handleCardResult(result, viewHolder)
         }
     }
 
@@ -52,8 +51,13 @@ class AnalyseInteractor (private val retrofitFactory: RetrofitFactory,
 
     private fun<T> cacheData(data : T) : Boolean {
         when(data) {
-            is StatList -> {return true}
-            is StatOverview -> {return true}
+            is StatList -> {
+                // do stat cache
+                return true
+            }
+            is StatCard -> {
+                return true
+            }
         }
 
         return false
@@ -62,13 +66,13 @@ class AnalyseInteractor (private val retrofitFactory: RetrofitFactory,
     fun RequestFilterList(role: Int, champId: Int, presenter: AnalyseTabContract.Presenter) {
         val datas = ArrayList<AnalysisData>()
         val analysisData = AnalysisData()
-        presenter.setStatList(removeMeAfterMocking())
+//        presenter.setStatList(removeMeAfterMocking())
     }
 
     fun RequestFilterList(role: Int, presenter: AnalysePresenter) {
 
         // send request to
-        presenter.setStatList(removeMeAfterMocking())
+//        presenter.setStatList(removeMeAfterMocking())
     }
 
     /**

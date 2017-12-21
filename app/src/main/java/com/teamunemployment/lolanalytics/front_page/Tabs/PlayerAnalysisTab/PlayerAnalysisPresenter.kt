@@ -8,8 +8,9 @@ import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model
 import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract
 import com.teamunemployment.lolanalytics.Model.Contracts.StatLoadingContract
 import com.teamunemployment.lolanalytics.data.model.Result
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalyseTabContract
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatList
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatOverview
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatCard
 
 import javax.inject.Inject
 
@@ -146,8 +147,8 @@ constructor(private val playerAnalysisPersistanceInteracter: PlayerAnalysisPersi
 
     }
 
-    fun handleCardResult(result: Result<StatOverview>) {
-
+    fun handleCardResult(result: Result<StatCard>, viewHolder: AnalyseTabContract.CardView) {
+        // set the details correctly
     }
 
     override fun setView(view: TabContract.View) {

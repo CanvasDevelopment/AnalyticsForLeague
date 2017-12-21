@@ -51,9 +51,9 @@ public class AnalyseTabView extends Fragment implements AnalyseTabContract.View 
         int role = args.getInt(Constant.ROLE_KEY, -1);
 
         // Set our view. This starts the loading of value.
-        presenter.SetView(this);
-        presenter.SetRole(role);
-        presenter.Start();
+        presenter.setView(this);
+        presenter.setRole(role);
+        presenter.start();
 
         return rootView;
     }
@@ -82,13 +82,13 @@ public class AnalyseTabView extends Fragment implements AnalyseTabContract.View 
 
     @Override
     public void SetChamp(Champ champ) {
-        presenter.SetChamp(champ);
-        presenter.Start();
+        presenter.setChamp(champ);
+        presenter.start();
     }
 
     @Override
     public void setRole(int role) {
-        presenter.SetRole(role);
+        presenter.setRole(role);
     }
 
     // TODO remove this shit

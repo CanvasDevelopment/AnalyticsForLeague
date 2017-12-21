@@ -24,12 +24,12 @@ public class AnalyseAdapter
 
     @Override
     public void onBindViewHolder(AnalyseCardViewHolder holder, int position) {
-        presenter.OnCardBinding(holder, position);
+        presenter.onCardBinding(holder, position);
     }
 
     @Override
     public int getItemCount() {
-        return presenter.GetFilterListSize();
+        return presenter.getFilterListSize();
     }
 
     @Override
