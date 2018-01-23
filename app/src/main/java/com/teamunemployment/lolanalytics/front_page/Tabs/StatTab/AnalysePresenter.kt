@@ -17,7 +17,7 @@ class AnalysePresenter(private val analyseInteractor: AnalyseInteractor, private
     private lateinit var view: AnalyseTabContract.View
 
     private var role = -1
-    private lateinit var champ: Champ
+    private var champ: Champ? = null
     private var filterList = ArrayList<AnalysisData>()
     private lateinit var statList : StatList
 
@@ -33,7 +33,7 @@ class AnalysePresenter(private val analyseInteractor: AnalyseInteractor, private
             val message = String.format(
                     "No games found playing %s with %s",
                     roleUtils.GetRoleName(role),
-                    champ.champName)
+                    champ!!.champName)
 
             setPlaceHolder(message)
         }
@@ -65,7 +65,7 @@ class AnalysePresenter(private val analyseInteractor: AnalyseInteractor, private
 
         // If we have a champ, include it. If we dont, don include it.
         if (champ != null) {
-            analyseInteractor.RequestFilterList(role, champ.champId, this)
+            analyseInteractor.RequestFilterList(role, champ!!.champId, this)
         } else {
             analyseInteractor.RequestFilterList(role, this)
         }
@@ -89,17 +89,6 @@ class AnalysePresenter(private val analyseInteractor: AnalyseInteractor, private
         val statUrl = statList.stats[position]
         viewHolder.setTitle(statUrl.title)
         analyseInteractor.loadIndividualStat("", -1, viewHolder,this)
-
-        fun result(statCard: StatCard) {
-//            viewHolder.SetGraph(data.enemyPercentTotal, data.heroPercentTotal)
-//            viewHolder.SetChange(data.recentChange)
-//            viewHolder.setTitle(data.title)
-//            viewHolder.SetItemPosition(position)
-        }
-//        val result = {
-//
-//        }
-
     }
 
     override fun handleItemClick(position: Int) {

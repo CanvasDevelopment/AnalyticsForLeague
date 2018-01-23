@@ -11,4 +11,7 @@
     <string name="BaseUrl">https://lolanalyticsv3.appspot.com/_ah/api/myApi/v1/</string>
     <string name="username">Username</string>
     <string name="proceed">Proceed</string>
+    <string name="early_game">Early Game</string>
+    <string name="mid_game">Mid Game</string>
+    <string name="late_game">Late Game</string>
 </resources>

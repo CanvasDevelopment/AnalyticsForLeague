@@ -45,8 +45,8 @@ public class MatchHistoryTabView extends Fragment implements TabContract.View {
 
         // Bind butterknife to our view.
         ButterKnife.bind(this, rootView);
-
         presenter.setView(this);
+
         // Top is default role
         presenter.setRole(role);
         presenter.start();

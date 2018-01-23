@@ -6,7 +6,7 @@ import com.teamunemployment.lolanalytics.data.model.Result
 import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.PlayerAnalysisPresenter
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.AnalysisData
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatList
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatCard
+import com.teaBmunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatCard
 import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
 import ru.gildor.coroutines.retrofit.await
 
@@ -26,7 +26,7 @@ class AnalyseInteractor (private val retrofitFactory: RetrofitFactory,
         playerAnalysisRemoteRepo = retrofitFactory.produceRetrofitInterface(PlayerAnalysisRemoteRepo::class.java, url)
         async {
             val result = playerAnalysisRemoteRepo.fetchStatList(role).await()
-            val cacheResult = result.cache()
+            result.cache()
             presenter.handleListResult(result)
         }
     }
@@ -34,7 +34,7 @@ class AnalyseInteractor (private val retrofitFactory: RetrofitFactory,
     fun loadIndividualStat(url : String, summonerId: Long, viewHolder: AnalyseTabContract.CardView, presenter: AnalysePresenter) {
         async {
             val result = playerAnalysisRemoteRepo.fetchIndividualStat(url, summonerId).await()
-            val cacheResult = result.cache()
+            result.cache()
             presenter.handleCardResult(result, viewHolder)
         }
     }

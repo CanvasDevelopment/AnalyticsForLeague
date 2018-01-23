@@ -10,6 +10,7 @@ import retrofit2.Call
  */
 interface PlayerAnalysisRemoteRepo {
 
+    // TODO
     fun fetchStatList(role : Int) : Call<Result<StatList>>
     fun fetchIndividualStat(url: String, summonerId: Long) : Call<Result<StatCard>>
 }

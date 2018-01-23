@@ -22,52 +22,19 @@ import io.reactivex.disposables.Disposable
  */
 class PlayerAnalysisPresenter @Inject
 constructor(private val playerAnalysisPersistanceInteracter: PlayerAnalysisPersistanceInteracter,
-        // TODO REFACTOR THIS CLASS
             private val context: Context) : PlayerAnalysisContract.Presenter, StatLoadingContract.StatCollectionContract {
-    private var view: TabContract.View? = null
+    private lateinit var view: TabContract.View
     private var ROLE = -1
-    private val summonerId: Long = -1
-
-
-    // TODO fix thius shit
-    private// set adapter
-    val statDefinitionObserver: Observer<StatDefinitionWrapper>
-        get() {
-            val thisPresenter = this
-            return object : Observer<StatDefinitionWrapper> {
-                override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onNext(value: StatDefinitionWrapper) {
-                    val playerAnalysisAdapter = PlayerAnalysisAdapter(context, thisPresenter)
-                    playerAnalysisAdapter.setPlayerAnalysisAdapterData(value.definitions)
-                    view!!.setAdapter(playerAnalysisAdapter)
-                }
-
-                override fun onError(e: Throwable) {
-                    thisPresenter.handleError(e)
-                }
-
-                override fun onComplete() {
-
-                }
-            }
-        }
 
     /**
      * Logic to how we load the initial value for the view.
      */
     override fun start() {
-        if (view == null) {
-            throw IllegalStateException("View must be set before calling start()")
-        }
 
         if (ROLE == -1) {
             throw IllegalStateException("Role must be set before calling start()")
         }
 
-//        playerAnalysisPersistanceInteracter.loadStatTypes(ROLE, -1, statDefinitionObserver)
     }
 
     override fun handleError(e: Throwable) {

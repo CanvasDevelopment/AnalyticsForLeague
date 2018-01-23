@@ -16,10 +16,44 @@
         android:background="@color/white">
 
         <LinearLayout
+            android:id="@+id/chart_icons_wrapper"
+            android:layout_marginTop="32dp"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/kills_indicator"
+                android:layout_weight="1"
+                android:layout_margin="12dp"
+                android:text="@string/early_game"
+                android:gravity="center"
+                android:layout_width="12dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/deaths"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/mid_game"
+                android:layout_width="12dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/cs_indicator"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:layout_width="12dp"
+                android:gravity="center"
+                android:text="@string/late_game"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/chart_summary_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/chart_header"
+            android:layout_below="@+id/chart_icons_wrapper"
             android:orientation="horizontal"
             android:minHeight="220dp"
             android:layout_alignParentStart="true">
@@ -30,7 +64,7 @@
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="12dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content"/>
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/chart2"
@@ -38,109 +72,40 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="12dp"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content"/>
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/chart3"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="12dp"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/chart_icons_wrapper"
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/heroChamp"
+            android:layout_margin="16dp"
+            android:src="@drawable/shyvanasquare"
             android:layout_below="@+id/chart_summary_wrapper"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_width="36dp"
+            card_view:civ_border="false"
+            android:layout_height="36dp" />
+        <TextView
+            android:id="@+id/resultAsChamp"
+            android:layout_toRightOf="@+id/heroChamp"
+            android:layout_toEndOf="@+id/heroChamp"
+            android:layout_alignTop="@+id/heroChamp"
+            android:text="Win as Shyvana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/kills_indicator"
-                android:layout_weight="1"
-                android:layout_margin="12dp"
-                android:text="Kills"
-                android:gravity="center"
-                android:layout_width="12dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/deaths"
-                android:layout_margin="12dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Deaths"
-                android:layout_width="12dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/cs_indicator"
-                android:layout_margin="12dp"
-                android:layout_weight="1"
-                android:layout_width="12dp"
-                android:gravity="center"
-                android:text="CS"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/chart_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#BF9BDE"
-            android:layout_margin="-3dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true">
-
-            <com.mikhaellopez.circularimageview.CircularImageView
-                android:id="@+id/good_or_bad_state_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginBottom="32dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="32dp"
-                android:src="@drawable/khasquare" />
-
-            <TextView
-                android:id="@+id/champ_name"
-                style="@style/Base.TextAppearance.AppCompat.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"
-                android:layout_alignTop="@+id/good_or_bad_state_icon"
-                android:layout_alignBottom="@+id/good_or_bad_state_icon"
-                android:layout_marginLeft="16dp"
-                android:layout_toRightOf="@+id/good_or_bad_state_icon"
-                android:gravity="center"
-
-                android:text="Master Yi"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <com.mikhaellopez.circularimageview.CircularImageView
-                android:id="@+id/enemy_champ_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginBottom="32dp"
-                android:layout_marginRight="24dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="32dp"
-                android:src="@drawable/shyvanasquare" />
-
-            <TextView
-                android:id="@+id/kda"
-                style="@style/Base.TextAppearance.AppCompat.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"
-                android:layout_toLeftOf="@+id/enemy_champ_icon"
-                android:layout_alignTop="@+id/good_or_bad_state_icon"
-                android:layout_alignBottom="@+id/enemy_champ_icon"
-                android:layout_marginRight="24dp"
-                android:gravity="center"
-                android:text="Shyvana"
-                android:textColor="@color/red"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-
+        <TextView
+            android:id="@+id/timeAgo"
+            android:layout_toEndOf="@+id/heroChamp"
+            android:layout_below="@+id/resultAsChamp"
+            android:text="2 hours ago"
+            style="@style/Base.TextAppearance.AppCompat.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>
