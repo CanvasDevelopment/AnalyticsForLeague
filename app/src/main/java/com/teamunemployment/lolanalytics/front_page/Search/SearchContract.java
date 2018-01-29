@@ -14,19 +14,19 @@ public interface SearchContract {
     }
 
     interface View {
-        void ShowOverlay();
-        void HideOverlay();
-        void SetChampFabIconAsACross();
-        void SetChampFabIconAsNone();
-        void SetChampFabIconAsSelectedChamp(String champIconUrl);
-        void ShowChampList();
-        void HideChampList();
-        void ShowSearchBar();
-        void HideSearchBar();
-        void SetChampList(ArrayList<Champ> champs);
+        void showOverlay();
+        void hideOverlay();
+        void setChampFabIconAsACross();
+        void setChampFabIconAsNone();
+        void setChampFabIconAsSelectedChamp(String champIconUrl);
+        void showChampList();
+        void hideChampList();
+        void showSearchBar();
+        void hideSearchBar();
+        void setChampList(ArrayList<Champ> champs);
         void ensureKeyboardIsHidden();
-        void ClearSearchText();
-        void ShowClearSearchTextButton();
-        void HideClearSearchTextButton();
+        void clearSearchField();
+        void showClearSearchTextButton();
+        void hideClearSearchTextButton();
     }
 }

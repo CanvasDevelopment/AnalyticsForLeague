@@ -3,10 +3,9 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab
 import co.metalab.asyncawait.async
 import com.teamunemployment.lolanalytics.Utils.Network
 import com.teamunemployment.lolanalytics.data.model.Result
-import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.PlayerAnalysisPresenter
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.AnalysisData
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatList
-import com.teaBmunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatCard
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatCard
 import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
 import ru.gildor.coroutines.retrofit.await
 
@@ -21,7 +20,7 @@ class AnalyseInteractor (private val retrofitFactory: RetrofitFactory,
 
     private lateinit var playerAnalysisRemoteRepo : PlayerAnalysisRemoteRepo
 
-    fun loadStatTypes(role: Int, summonerId: Long, presenter: PlayerAnalysisPresenter) {
+    fun loadStatTypes(role: Int, summonerId: Long, presenter: AnalysePresenter) {
         val url = network.getUrl(summonerId)
         playerAnalysisRemoteRepo = retrofitFactory.produceRetrofitInterface(PlayerAnalysisRemoteRepo::class.java, url)
         async {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -88,8 +89,10 @@
             android:src="@drawable/shyvanasquare"
             android:layout_below="@+id/chart_summary_wrapper"
             android:layout_width="36dp"
-            card_view:civ_border="false"
-            android:layout_height="36dp" />
+            card_view:civ_border_width="2dp"
+            card_view:civ_border_color="@color/blue"
+            card_view:civ_border="true"
+            android:layout_height="36dp"/>
         <TextView
             android:id="@+id/resultAsChamp"
             android:layout_toRightOf="@+id/heroChamp"
@@ -107,5 +110,17 @@
             style="@style/Base.TextAppearance.AppCompat.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/enemyChamp"
+            android:layout_margin="16dp"
+            android:layout_alignParentEnd="true"
+
+            app:civ_border_color="@color/red"
+            app:civ_border_width="2dp"
+            android:src="@drawable/khazix"
+            android:layout_below="@+id/chart_summary_wrapper"
+            android:layout_width="36dp"
+            card_view:civ_border="true"
+            android:layout_height="36dp" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

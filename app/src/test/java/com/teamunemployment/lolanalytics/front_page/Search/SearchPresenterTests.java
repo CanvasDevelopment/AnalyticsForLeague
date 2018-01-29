@@ -39,16 +39,16 @@ public class SearchPresenterTests {
     public void EnsureWeCanDisplayOverlayWhenChangeFilteredChampButtonIsClicked() {
 
         searchPresenter.handleSearchFabClick();
-        verify(searchView, times(1)).ShowOverlay();
+        verify(searchView, times(1)).showOverlay();
     }
 
     @Test
     public void EnsureThatWeHideOverlayWhenCloseIsClicked() {
         when(searchInteractor.GetCurrentSetChamp()).thenReturn(new Champ());
         searchPresenter.handleSearchFabClick();
-        verify(searchView, times(1)).ShowOverlay();
+        verify(searchView, times(1)).showOverlay();
         searchPresenter.handleSearchFabClick();
-        verify(searchView, times(1)).HideOverlay();
+        verify(searchView, times(1)).hideOverlay();
     }
 
     @Test
@@ -56,14 +56,14 @@ public class SearchPresenterTests {
 
         searchPresenter.handleSearchFabClick();
         searchPresenter.handleSearchFabClick();
-        verify(searchView, times(1)).SetChampFabIconAsSelectedChamp("/images/vi.jpg");
+        verify(searchView, times(1)).setChampFabIconAsSelectedChamp("/images/vi.jpg");
     }
 
     @Test
     public void EnsureWeSetSearchButtonToXButton() {
 
         searchPresenter.handleSearchFabClick();
-        verify(searchView, times(1)).SetChampFabIconAsACross();
+        verify(searchView, times(1)).setChampFabIconAsACross();
     }
 
     @Test
@@ -71,27 +71,27 @@ public class SearchPresenterTests {
 
         searchPresenter.handleSearchFabClick();
 
-        verify(searchView, times(1)).ShowChampList();
+        verify(searchView, times(1)).showChampList();
     }
 
     @Test
     public void EnsureThatWeCloseTheChampList() {
         searchPresenter.handleSearchFabClick();
         searchPresenter.handleSearchFabClick();
-        verify(searchView, times(1)).HideChampList();
+        verify(searchView, times(1)).hideChampList();
     }
 
     @Test
     public void EnsureThatWeShowTheSearchBar() {
         searchPresenter.handleSearchFabClick();
-        verify(searchView, times(1)).ShowSearchBar();
+        verify(searchView, times(1)).showSearchBar();
     }
 
     @Test
     public void EnsureThatWeCloseTheSearchBarOnSecondClick() {
         searchPresenter.handleSearchFabClick();
         searchPresenter.handleSearchFabClick();
-        verify(searchView, times(1)).HideSearchBar();
+        verify(searchView, times(1)).hideSearchBar();
     }
 
     @Test
@@ -100,7 +100,7 @@ public class SearchPresenterTests {
         ArrayList<Champ> champs = new ArrayList<>();
         verify(searchInteractor, times(1)).GetFavouriteChamps(searchPresenter);
         searchPresenter.SetChampRequestResponse(champs);
-        verify(searchView, times(1)).SetChampList(champs);
+        verify(searchView, times(1)).setChampList(champs);
     }
 
     @Test
@@ -114,7 +114,7 @@ public class SearchPresenterTests {
         champ.setChampUrl("test");
         champ.setChampName("me");
         searchPresenter.HandleChampClick(champ);
-        verify(searchView, times(1)).HideOverlay();
+        verify(searchView, times(1)).hideOverlay();
     }
 
     @Test
@@ -124,7 +124,7 @@ public class SearchPresenterTests {
         champ.setChampUrl(champUrl);
         champ.setChampName("me");
         searchPresenter.HandleChampClick(champ);
-        verify(searchView, times(1)).SetChampFabIconAsSelectedChamp(champUrl);
+        verify(searchView, times(1)).setChampFabIconAsSelectedChamp(champUrl);
     }
 
     @Test
@@ -145,19 +145,19 @@ public class SearchPresenterTests {
     @Test
     public void EnsureThatWeClearTextWhenWeClickOnTheClearTextButtonForTheSearchBox() {
         searchPresenter.ClearSearchText();
-        verify(searchView, times(1)).ClearSearchText();
+        verify(searchView, times(1)).clearSearchField();
     }
 
     @Test
     public void EnsureThatWeShow_ClearSearchInputButton_WhenWeAddText() {
         searchPresenter.searchForChamp("sfff");
-        verify(searchView, times(1)).ShowClearSearchTextButton();
+        verify(searchView, times(1)).showClearSearchTextButton();
     }
 
     @Test
     public void EnsureThatWeHide_ClearSearchInputButton_WhenWeHaveNoTextLeft() {
         searchPresenter.searchForChamp("");
-        verify(searchView, times(1)).HideClearSearchTextButton();
+        verify(searchView, times(1)).hideClearSearchTextButton();
     }
 }
 

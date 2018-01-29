@@ -18,9 +18,9 @@ import javax.inject.Inject
 
 class LoginInteractor @Inject
 constructor(private val retrofitFactory: RetrofitFactory, database: Database, private val network: Network) {
-    private lateinit var loginIo : LoginIo
+    private lateinit var loginIo: LoginIo
     private val summonerDao = database.summonerDao()
-    private lateinit var loginRemoteRepo : LoginRemoteRepo
+    private lateinit var loginRemoteRepo: LoginRemoteRepo
 
 
     /**
@@ -32,29 +32,29 @@ constructor(private val retrofitFactory: RetrofitFactory, database: Database, pr
      */
     fun registerAUser(summonerName: String, region: String, presenter: LoginContract.Presenter) {
         val url = network.getUrl(region)
-        loginRemoteRepo = retrofitFactory.produceRetrofitInterface(LoginRemoteRepo::class.java,url)
+        loginRemoteRepo = retrofitFactory.produceRetrofitInterface(LoginRemoteRepo::class.java, url)
         loginIo = LoginIo(loginRemoteRepo)
         async {
             // Send call to server to register user // todo check if she exists first
-            val call : Call<Result<SummonerDetails>> = loginRemoteRepo.register(summonerName)
-            val response : Response<Result<SummonerDetails>> =  await {call.execute()}
+            val call: Call<Result<SummonerDetails>> = loginRemoteRepo.register(summonerName)
+            val response: Response<Result<SummonerDetails>> = await { call.execute() }
             // Process the data into a usable state
-            val result : Result<SummonerDetails> = response.get()
+            val result: Result<SummonerDetails> = response.get()
             val summonerDetails = result.data
             // handle the result
             presenter.handleSyncResult(result.resultCode, summonerDetails.id)
 
             // Cache the data (if we worked out ok)
             if (result.resultCode == 200) {
-                await {  }
+                await { }
             }
         }.onError {
-                    // Should also probably log this, rather than returning to the user
-                    presenter.handleError(Throwable("Something went wrong - check your connection and try again"))
-                }
+            // Should also probably log this, rather than returning to the user
+            presenter.handleError(Throwable("Something went wrong - check your connection and try again"))
+        }
     }
 
-    suspend fun doIoStuff(summonerName :String, region: String) : SummonerDetails {
+    suspend fun doIoStuff(summonerName: String, region: String): SummonerDetails {
         val result = loginIo.registerUser(summonerName)
         if (result.resultCode == 200) {
             result.data.cache(region)
@@ -64,8 +64,8 @@ constructor(private val retrofitFactory: RetrofitFactory, database: Database, pr
     }
 
 
-    fun SummonerDetails.cache(region: String) : SummonerDetails {
-        val summoner = Summoner(id,name,summonerLevel,"todo", region) // todo get the summoner devision
+    fun SummonerDetails.cache(region: String): SummonerDetails {
+        val summoner = Summoner(id, name, summonerLevel, "todo", region) // todo get the summoner devision
         summonerDao.createSummoner(summoner)
         return this
     }
@@ -73,11 +73,11 @@ constructor(private val retrofitFactory: RetrofitFactory, database: Database, pr
     /**
      * Helper method to get the result from the [Result] and get rid of the null.
      */
-    private fun Response<Result<SummonerDetails>>.get() : Result<SummonerDetails> {
+    private fun Response<Result<SummonerDetails>>.get(): Result<SummonerDetails> {
         if (body() != null) {
             return body()!!
         }
 
-        return Result(-1, SummonerDetails(-1,-1,"",-1,-1,-1))
+        return Result(-1, SummonerDetails(-1, -1, "", -1, -1, -1))
     }
 }

@@ -10,7 +10,7 @@
 <RelativeLayout
     android:orientation="vertical"
     android:background="?android:attr/selectableItemBackground"
-    android:id="@+id/root_analyse_item"
+    android:id="@+id/cardBase"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 

@@ -2,23 +2,17 @@ package com.teamunemployment.lolanalytics.front_page
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 
-import com.mikhaellopez.circularimageview.CircularImageView
 import com.squareup.picasso.Picasso
-import com.teamunemployment.lolanalytics.App
 import com.teamunemployment.lolanalytics.data.model.Champ
 import com.teamunemployment.lolanalytics.front_page.Search.SearchContract
 import com.teamunemployment.lolanalytics.front_page.Search.SearchListAdapter
@@ -28,11 +22,11 @@ import com.teamunemployment.lolanalytics.R
 
 import java.util.ArrayList
 
-import javax.inject.Inject
-
 import butterknife.BindView
-import butterknife.ButterKnife
 import butterknife.OnClick
+import kotlinx.android.synthetic.main.base.*
+import kotlinx.android.synthetic.main.search_test.*
+import org.koin.android.ext.android.inject
 
 /**
  * @author Josiah Kendall.
@@ -43,35 +37,20 @@ class BaseActivityView : AppCompatActivity(), BaseActivityContract.View, SearchC
 
     private var tabAdapter: TabAdapter? = null
 
-    @Inject
-    var presenter: BaseActivityPresenter? = null
+    private val presenter by inject<BaseActivityPresenter>()
+    private val searchPresenter by inject<SearchPresenter>()
 
-    @Inject
-    var searchPresenter: SearchPresenter? = null
-
-    @BindView(R.id.container) internal var viewPager: ViewPager? = null
-    @BindView(R.id.tabs) internal var tabLayout: TabLayout? = null
-    @BindView(R.id.champ_fab) internal var champFab: CircularImageView? = null
-    @BindView(R.id.champ_search_list) internal var champList: RecyclerView? = null
-    @BindView(R.id.search_card) internal var searchBox: CardView? = null
-    @BindView(R.id.search_input) internal var searchInput: EditText? = null
-    @BindView(R.id.overlay) internal var overlay: View? = null
-    @BindView(R.id.clear_search) internal var clearSearchButton: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.base)
 
-        //        ((App) getApplication()).getNetComponent().InjectView(this);
-
-        ButterKnife.bind(this)
-
         // Set views for our presenter
-        presenter!!.setView(this)
-        searchPresenter!!.setSearchView(this)
+        presenter.setView(this)
+        searchPresenter.setSearchView(this)
 
         // set listener for our search
-        searchInput!!.addTextChangedListener(this)
+        searchInput.addTextChangedListener(this)
 
         // setUpBottomBar();
         setUpTabs()
@@ -92,8 +71,8 @@ class BaseActivityView : AppCompatActivity(), BaseActivityContract.View, SearchC
 
     private fun setUpTabs() {
         tabAdapter = TabAdapter(supportFragmentManager)
-        viewPager!!.adapter = tabAdapter
-        tabLayout!!.setupWithViewPager(viewPager)
+        viewPager.adapter = tabAdapter
+        tabs.setupWithViewPager(viewPager)
     }
 
     override fun showMessage(message: String) {
@@ -107,49 +86,49 @@ class BaseActivityView : AppCompatActivity(), BaseActivityContract.View, SearchC
         tabAdapter!!.setRole(tab)
     }
 
-    override fun ShowOverlay() {
+    override fun showOverlay() {
         overlay!!.visibility = View.VISIBLE
     }
 
-    override fun HideOverlay() {
+    override fun hideOverlay() {
         overlay!!.visibility = View.GONE
     }
 
-    override fun SetChampFabIconAsACross() {
-        champFab!!.setImageResource(R.drawable.ic_cancel_white_24px)
+    override fun setChampFabIconAsACross() {
+        champFab.setImageResource(R.drawable.ic_cancel_white_24px)
     }
 
-    override fun SetChampFabIconAsNone() {
-        champFab!!.setImageResource(R.drawable.ic_account_circle_white_24px)
+    override fun setChampFabIconAsNone() {
+        champFab.setImageResource(R.drawable.ic_account_circle_white_24px)
     }
 
-    override fun SetChampFabIconAsSelectedChamp(champIconUrl: String) {
+    override fun setChampFabIconAsSelectedChamp(champIconUrl: String) {
         Picasso.with(this).load(R.drawable.khazix).into(champFab)
     }
 
-    override fun ShowChampList() {
-        champList!!.visibility = View.VISIBLE
+    override fun showChampList() {
+        champSearchList!!.visibility = View.VISIBLE
     }
 
-    override fun HideChampList() {
-        champList!!.visibility = View.GONE
+    override fun hideChampList() {
+        champSearchList!!.visibility = View.GONE
     }
 
-    override fun ShowSearchBar() {
+    override fun showSearchBar() {
         searchBox!!.visibility = View.VISIBLE
     }
 
-    override fun HideSearchBar() {
+    override fun hideSearchBar() {
         searchBox!!.visibility = View.GONE
     }
 
-    override fun SetChampList(champs: ArrayList<Champ>) {
+    override fun setChampList(champs: ArrayList<Champ>) {
         val searchListAdapter = SearchListAdapter(searchPresenter)
         searchListAdapter.SetData(champs)
         val horizontalLayoutManager = LinearLayoutManager(this)
         horizontalLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        champList!!.layoutManager = horizontalLayoutManager
-        champList!!.adapter = searchListAdapter
+        champSearchList!!.layoutManager = horizontalLayoutManager
+        champSearchList!!.adapter = searchListAdapter
     }
 
     override fun ensureKeyboardIsHidden() {
@@ -160,32 +139,19 @@ class BaseActivityView : AppCompatActivity(), BaseActivityContract.View, SearchC
         }
     }
 
-    override fun ClearSearchText() {
+    override fun clearSearchField() {
 
         if (searchInput!!.text != null) {
             searchInput!!.text.clear()
         }
     }
 
-    override fun ShowClearSearchTextButton() {
+    override fun showClearSearchTextButton() {
         clearSearchButton!!.visibility = View.VISIBLE
     }
 
-    override fun HideClearSearchTextButton() {
+    override fun hideClearSearchTextButton() {
         clearSearchButton!!.visibility = View.INVISIBLE
-    }
-
-    @OnClick(R.id.champ_fab) internal fun handleChampFilterClick() {
-        searchPresenter!!.handleSearchFabClick()
-    }
-
-    @OnClick(R.id.overlay) internal fun consumeOverlayClicks() {
-        // Probably just hide when this happens
-        searchPresenter!!.handleSearchFabClick()
-    }
-
-    @OnClick(R.id.clear_search) internal fun clearSearchText() {
-        searchPresenter!!.ClearSearchText()
     }
 
 
@@ -206,7 +172,7 @@ class BaseActivityView : AppCompatActivity(), BaseActivityContract.View, SearchC
      * @param i2
      */
     override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-        searchPresenter!!.searchForChamp(charSequence.toString())
+        searchPresenter.searchForChamp(charSequence.toString())
     }
 
     override fun afterTextChanged(editable: Editable) {

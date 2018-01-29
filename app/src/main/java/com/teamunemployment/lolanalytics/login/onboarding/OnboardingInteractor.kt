@@ -35,9 +35,6 @@ class OnboardingInteractor(private val retrofitFactory: RetrofitFactory, private
 
 
 
-
-
-
     private fun Response<Result<String>>.get() : Result<String> {
         if (body() != null) {
             return body()!!

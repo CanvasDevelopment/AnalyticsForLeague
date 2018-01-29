@@ -2,9 +2,7 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
 
-import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
@@ -15,11 +13,6 @@ import com.teamunemployment.lolanalytics.R
 
 import java.util.ArrayList
 
-
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
-
 import com.github.mikephil.charting.utils.ColorTemplate.rgb
 import kotlinx.android.synthetic.main.analyse_card_item.view.*
 
@@ -29,26 +22,22 @@ import kotlinx.android.synthetic.main.analyse_card_item.view.*
  * This is the view item for
  */
 
-class AnalyseCardViewHolder(itemView: View, private val presenter: AnalyseTabContract.Presenter) : RecyclerView.ViewHolder(itemView), AnalyseTabContract.CardView {
+class AnalyseCardViewHolder(private val view: View, private val presenter: AnalyseTabContract.Presenter) : RecyclerView.ViewHolder(view), AnalyseTabContract.CardView {
 
     var itemPosition: Int = 0
 
-    private val pieChart = itemView.earlyGame
-
-    @BindView(R.id.analyseCardTitle) lateinit var titleTextView: TextView
-
     init {
-        ButterKnife.bind(
-                this,
-                itemView
-        )
+        view.cardBase.setOnClickListener { handleCardClick() }
     }
 
+    private val pieChart = itemView.earlyGame
+
     override fun setTitle(title: String) {
-        titleTextView.text = title
+        view.analyseCardTitle.text = title
     }
 
     override fun setEarlyGame(hero: Float, enemy: Float) {
+
     }
 
     override fun setMidGame(hero: Float, enemy: Float) {
@@ -62,12 +51,12 @@ class AnalyseCardViewHolder(itemView: View, private val presenter: AnalyseTabCon
     //    @Override
     @Deprecated("")
     fun SetGraph(enemyStat: Float, heroStat: Float) {
+
         // set the performance pie here
         val entries = ArrayList<PieEntry>()
 
         entries.add(PieEntry(enemyStat, "Opponent performance"))
         entries.add(PieEntry(heroStat, "My performance"))
-
 
         val set = PieDataSet(entries, "")
         val MATERIAL_COLORS = intArrayOf(rgb("#FF3D00"), rgb("#00E676"))
@@ -97,12 +86,11 @@ class AnalyseCardViewHolder(itemView: View, private val presenter: AnalyseTabCon
 
     //    @Override
     @Deprecated("")
-    fun SetChange(change: Double) {
+    fun setChange(change: Double) {
 //        performanceChange!!.text = java.lang.Double.toString(change)
     }
 
-    @OnClick(R.id.root_analyse_item)
-    fun handleClick() {
+    private fun handleCardClick() {
         presenter.handleItemClick(position)
     }
 }

@@ -6,6 +6,9 @@ import com.teamunemployment.lolanalytics.data.room.Database
 
 import com.teamunemployment.lolanalytics.di.AppComponent
 import com.teamunemployment.lolanalytics.extensions.objectOf
+import com.teamunemployment.lolanalytics.front_page.BaseActivityModule
+import com.teamunemployment.lolanalytics.front_page.Search.SearchModule
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.di.StatModule
 import com.teamunemployment.lolanalytics.login.di.SignInModule
 import com.teamunemployment.lolanalytics.io.di.IoModule
 import com.teamunemployment.lolanalytics.login.di.OnboardingModule
@@ -46,6 +49,9 @@ class App : Application() {
         list.add(SignInModule())
         list.add(IoModule())
         list.add(OnboardingModule())
+        list.add(BaseActivityModule())
+        list.add(SearchModule())
+        list.add(StatModule())
         return list
     }
 

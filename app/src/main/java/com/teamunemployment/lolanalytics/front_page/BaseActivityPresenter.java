@@ -77,23 +77,23 @@ public class BaseActivityPresenter implements BaseActivityContract.Presenter {
         long summonerId = -1; // TODO
         switch (tab) {
             case TOP:
-                baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"TOP",this);
+                baseActivityPersistenceInteractor.fetchWinRateForRole(-1/*todo*/,"TOP", "oce",this);
                 view.setCorrectTabFragment(FragNavController.TAB1);
                 break;
             case JUNGLE:
-                baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"JUNGLE",this);
+                baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"JUNGLE","oce",this); // todo
                 view.setCorrectTabFragment(FragNavController.TAB2);
                 break;
             case MID:
-                baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"MID",this);
+                baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"MID", "oce", this);
                 view.setCorrectTabFragment(FragNavController.TAB3);
                 break;
             case MARKSMAN:
-                baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"MARKSMAN",this);
+                baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"MARKSMAN", "oce",this);
                 view.setCorrectTabFragment(FragNavController.TAB4);
                 break;
             case SUPPORT:
-                baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"PLAYMAKER",this);
+                baseActivityPersistenceInteractor.fetchWinRateForRole(-1,"PLAYMAKER","oce",this);
                 view.setCorrectTabFragment(FragNavController.TAB5);
                 break;
         }

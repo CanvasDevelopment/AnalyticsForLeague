@@ -13,21 +13,22 @@ import java.util.ArrayList
  * Created by Josiah Kendall
  */
 
-class AnalysePresenter(private val analyseInteractor: AnalyseInteractor, private val analyseAdapter: AnalyseAdapter, private val roleUtils: RoleUtils) : AnalyseTabContract.Presenter {
+class AnalysePresenter(private val analyseInteractor: AnalyseInteractor,
+                       private val analyseAdapter: AnalyseAdapter,
+                       private val roleUtils: RoleUtils) : AnalyseTabContract.Presenter {
     private lateinit var view: AnalyseTabContract.View
 
     private var role = -1
     private var champ: Champ? = null
-    private var filterList = ArrayList<AnalysisData>()
+    private val filterList = ArrayList<AnalysisData>()
     private lateinit var statList : StatList
 
     override fun setStatList(statList : StatList) {
-
         this.statList = statList
         // If we have data
         if (statList.totalNumberOfGames > 0) {
-            view.SetAdapter(analyseAdapter)
-            view.SetPlaceHolderInvisible()
+            view.setAdapter(analyseAdapter)
+            view.setPlaceHolderInvisible()
         } else {
             // This means we have no value. Show an appropriate message to the user based on their settings.
             val message = String.format(
@@ -61,7 +62,7 @@ class AnalysePresenter(private val analyseInteractor: AnalyseInteractor, private
             throw IllegalStateException("Must set role before calling start")
         }
 
-        analyseAdapter.SetPresenter(this)
+        analyseAdapter.setPresenter(this)
 
         // If we have a champ, include it. If we dont, don include it.
         if (champ != null) {
@@ -79,9 +80,9 @@ class AnalysePresenter(private val analyseInteractor: AnalyseInteractor, private
         this.champ = champ
     }
 
-    override fun setPlaceHolder(string: String) {
-        view.SetPlaceHolderVisible()
-        view.SetPlaceHolderString(string)
+    override fun setPlaceHolder(noResults: String) {
+        view.setPlaceHolderVisible()
+        view.setPlaceHolderString(noResults)
     }
 
     override fun onCardBinding(viewHolder: AnalyseTabContract.CardView, position: Int) {

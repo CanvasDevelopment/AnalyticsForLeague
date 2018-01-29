@@ -60,33 +60,33 @@ public class SearchPresenter implements SearchContract.Presenter {
      */
     public void searchForChamp(String searchText) {
         if (searchText != null && searchText.length() > 0) {
-            searchView.ShowClearSearchTextButton();
+            searchView.showClearSearchTextButton();
         } else {
-            searchView.HideClearSearchTextButton();
+            searchView.hideClearSearchTextButton();
         }
     }
 
     private void openSearchView() {
-        searchView.ShowOverlay();
-        searchView.SetChampFabIconAsACross();
-        searchView.ShowChampList();
-        searchView.ShowSearchBar();
+        searchView.showOverlay();
+        searchView.setChampFabIconAsACross();
+        searchView.showChampList();
+        searchView.showSearchBar();
         searchInteractor.GetFavouriteChamps(this);
         searchButtonState = OPEN;
     }
 
     private void closeSearchView() {
-        searchView.HideOverlay();
+        searchView.hideOverlay();
         Champ champ = searchInteractor.GetCurrentSetChamp();
         if (champ != null) {
-            searchView.SetChampFabIconAsSelectedChamp(champ.getChampUrl());
+            searchView.setChampFabIconAsSelectedChamp(champ.getChampUrl());
         } else {
-            searchView.SetChampFabIconAsNone();
+            searchView.setChampFabIconAsNone();
         }
-        searchView.ShowChampList();
-        searchView.ShowSearchBar();
-        searchView.HideChampList();
-        searchView.HideSearchBar();
+        searchView.showChampList();
+        searchView.showSearchBar();
+        searchView.hideChampList();
+        searchView.hideSearchBar();
         searchView.ensureKeyboardIsHidden();
         searchButtonState = ClOSED;
     }
@@ -98,10 +98,10 @@ public class SearchPresenter implements SearchContract.Presenter {
         Champ champ = new Champ();
         champ.setChampUrl("");
         champs.add(1, champ);
-        searchView.SetChampList(champs);
+        searchView.setChampList(champs);
     }
 
     public void ClearSearchText() {
-        searchView.ClearSearchText();
+        searchView.clearSearchField();
     }
 }

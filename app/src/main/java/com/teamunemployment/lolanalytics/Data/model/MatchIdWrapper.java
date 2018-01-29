@@ -1,14 +1,11 @@
 package com.teamunemployment.lolanalytics.data.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
 /**
  * @author Josiah Kendall
  */
 
-public class MatchIdWrapper extends RealmObject {
-    @PrimaryKey
+public class MatchIdWrapper {
+
     private long matchId;
     private long summonerId;
     private int role;

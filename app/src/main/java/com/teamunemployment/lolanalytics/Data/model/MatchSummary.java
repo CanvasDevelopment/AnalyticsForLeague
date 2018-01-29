@@ -1,14 +1,10 @@
 package com.teamunemployment.lolanalytics.data.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
 /**
  * @author Josiah Kendall
  */
-public class MatchSummary extends RealmObject {
+public class MatchSummary {
 
-    @PrimaryKey
     public long id;
     public double value;
     public long summonerId;

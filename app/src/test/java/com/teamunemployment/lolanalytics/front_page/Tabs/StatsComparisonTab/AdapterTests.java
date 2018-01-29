@@ -1,5 +1,6 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.StatsComparisonTab;
 
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.BarChartCardView;
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatsComparisonTab.Model.BarChartModel;
 
 import org.junit.Before;

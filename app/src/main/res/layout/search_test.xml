@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <android.support.v7.widget.CardView
-        android:id="@+id/search_card"
+        android:id="@+id/searchBox"
         android:layout_width="250dp"
         android:layout_height="46dp"
         android:visibility="gone"
@@ -27,19 +27,19 @@
                 android:src="@mipmap/ic_search_black_24dp"/>
 
             <EditText
-                android:id="@+id/search_input"
+                android:id="@+id/searchInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_toEndOf="@id/search_icon"
-                android:layout_toStartOf="@+id/clear_search"
+                android:layout_toStartOf="@+id/clearSearchButton"
                 android:background="@android:color/transparent"
                 android:hint="@string/search"
                 android:maxLines="1"/>
             <ImageView
-                android:id="@+id/clear_search"
+                android:id="@+id/clearSearchButton"
                 android:layout_alignParentEnd="true"
                 android:alpha="0.6"
                 android:visibility="invisible"
@@ -54,8 +54,8 @@
         android:visibility="gone"
         android:padding="4dp"
         android:layout_marginLeft="50dp"
-        android:id="@+id/champ_search_list"
-        android:layout_below="@+id/search_card"
+        android:id="@+id/champSearchList"
+        android:layout_below="@+id/searchBox"
         android:layout_width="match_parent"
         android:background="@android:color/transparent"
         android:layout_height="wrap_content"/>

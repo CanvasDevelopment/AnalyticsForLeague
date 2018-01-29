@@ -1,11 +1,9 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards;
 
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatsComparisonTab.Model.CardData;
-
 /**
  * @author Josiah Kendall
  *
- * Contract for the cards in the {@link MatchHistoryTabView} list
+ * Contract for the cards in the
  */
 
 public interface MatchHistoryCardViewContract {
@@ -13,7 +11,9 @@ public interface MatchHistoryCardViewContract {
     void setGraph2(CardData cardData);
     void setGraph3(CardData cardData);
     void setGraph4(CardData cardData);
-    void setChampName(String champName);
-    void setChampIcon(String champIconUrl);
-    void setKDA(String kdaString);
+    void setHeroChampIcon(String champIconUrl);
+    void setEnemyChampIcon(String champIconUrl);
+    void setTimeStamp(String timeStamp);
+    void setResult(boolean win);
+    void setChamp(String champName);
 }

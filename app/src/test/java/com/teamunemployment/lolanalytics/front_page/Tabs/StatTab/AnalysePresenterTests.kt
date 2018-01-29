@@ -83,7 +83,7 @@ class AnalysePresenterTests {
         interactor = AnalyseInteractor(retrofitFactory, network)
         analysePresenter.setView(view)
         analysePresenter.setStatList(statList)
-        verify(view, times(1)).SetAdapter(analyseAdapter)
+        verify(view, times(1)).setAdapter(analyseAdapter)
     }
 
     @Test
@@ -96,7 +96,7 @@ class AnalysePresenterTests {
         `when`(roleUtils.GetRoleName(4)).thenReturn("SUPPORT")
         analysePresenter.setChamp(champ)
         analysePresenter.setStatList(statList)
-        verify(view, times(0)).SetAdapter(analyseAdapter)
+        verify(view, times(0)).setAdapter(analyseAdapter)
     }
 
     @Test
@@ -110,9 +110,9 @@ class AnalysePresenterTests {
         analysePresenter.setChamp(champ)
         analysePresenter.setRole(4)
         analysePresenter.setStatList(statList)
-        verify(view, times(0)).SetAdapter(analyseAdapter)
+        verify(view, times(0)).setAdapter(analyseAdapter)
         val noResults = "No games found playing SUPPORT with Vi"
-        verify(view, times(1)).SetPlaceHolderString(noResults)
+        verify(view, times(1)).setPlaceHolderString(noResults)
     }
 
     @Test
@@ -124,9 +124,9 @@ class AnalysePresenterTests {
         `when`(roleUtils.GetRoleName(4)).thenReturn("SUPPORT")
         analysePresenter.setRole(4)
         analysePresenter.setStatList(statList)
-        verify(view, times(0)).SetAdapter(analyseAdapter)
+        verify(view, times(0)).setAdapter(analyseAdapter)
         val noResults = "No games found playing SUPPORT"
-        verify(view, times(1)).SetPlaceHolderString(noResults)
+        verify(view, times(1)).setPlaceHolderString(noResults)
     }
 
 
@@ -140,13 +140,13 @@ class AnalysePresenterTests {
         analysePresenter.setChamp(champ)
         analysePresenter.setRole(6)
         analysePresenter.setStatList(statList)
-        verify(view, times(0)).SetAdapter(analyseAdapter)
+        verify(view, times(0)).setAdapter(analyseAdapter)
     }
 
     @Test
     fun ensureThatWeShowPlaceholderWhenWeSetPlaceHolderText() {
         analysePresenter.setPlaceHolder("hey there")
-        verify(view, times(1)).SetPlaceHolderVisible()
+        verify(view, times(1)).setPlaceHolderVisible()
     }
 
     @Test
@@ -154,14 +154,14 @@ class AnalysePresenterTests {
         val arrayList = ArrayList<AnalysisStatUrls>()
         val statList = StatList(arrayList, 1)
         analysePresenter.setStatList(statList)
-        verify(view, times(1)).SetPlaceHolderInvisible()
+        verify(view, times(1)).setPlaceHolderInvisible()
     }
 
     @Test
     fun ensureThatWeSetThePresenterToTheAdapterWhenWeStart() {
         analysePresenter.setRole(1)
         analysePresenter.start()
-        verify<AnalyseAdapter>(analyseAdapter, times(1)).SetPresenter(analysePresenter)
+        verify<AnalyseAdapter>(analyseAdapter, times(1)).setPresenter(analysePresenter)
     }
 
     @Test(expected = IllegalStateException::class)
@@ -258,7 +258,7 @@ class AnalysePresenterTests {
 
         val viewHolder = mock(AnalyseCardViewHolder::class.java)
         analysePresenter.onCardBinding(viewHolder, 0)
-        verify(viewHolder, times(1)).SetChange(change.toDouble())
+        verify(viewHolder, times(1)).setChange(change.toDouble())
     }
 
     @Test

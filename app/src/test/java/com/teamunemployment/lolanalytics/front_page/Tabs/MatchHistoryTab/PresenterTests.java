@@ -28,8 +28,8 @@ public class PresenterTests {
         MatchHistoryPresenter presenter = new MatchHistoryPresenter(matchHistoryInteractor, barChartModel);
 
         presenter.setView(mock(MatchHistoryTabView.class));
-        presenter.LoadDataForRole(Statics.TOP, -1);
-        verify(matchHistoryInteractor, times(1)).LoadFreshMatchHistoryData(Statics.TOP, -1, presenter);
+        presenter.loadDataForRole(Statics.TOP, -1);
+        verify(matchHistoryInteractor, times(1)).loadFreshMatchHistoryData(Statics.TOP, -1, presenter);
     }
 
     @Test(expected = IllegalStateException.class)
@@ -37,8 +37,8 @@ public class PresenterTests {
         MatchHistoryInteractor matchHistoryInteractor = mock(MatchHistoryInteractor.class);
         BarChartModel barChartModel = mock(BarChartModel.class);
         MatchHistoryPresenter presenter = new MatchHistoryPresenter(matchHistoryInteractor, barChartModel);
-        presenter.LoadDataForRole(Statics.TOP, -1);
-        verify(matchHistoryInteractor, times(1)).LoadFreshMatchHistoryData(Statics.TOP, -1, presenter);
+        presenter.loadDataForRole(Statics.TOP, -1);
+        verify(matchHistoryInteractor, times(1)).loadFreshMatchHistoryData(Statics.TOP, -1, presenter);
     }
 
     @Test(expected = IllegalStateException.class)
@@ -46,7 +46,7 @@ public class PresenterTests {
         MatchHistoryInteractor matchHistoryInteractor = mock(MatchHistoryInteractor.class);
         BarChartModel barChartModel = mock(BarChartModel.class);
         MatchHistoryPresenter presenter = new MatchHistoryPresenter(matchHistoryInteractor, barChartModel);
-        presenter.LoadMatchSummary(-1);
+        presenter.loadMatchSummary(-1);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class PresenterTests {
         BarChartModel barChartModel = mock(BarChartModel.class);
         MatchHistoryPresenter presenter = new MatchHistoryPresenter(matchHistoryInteractor, barChartModel);
         presenter.setView(mock(MatchHistoryTabView.class));
-        presenter.LoadMatchSummary(123456);
+        presenter.loadMatchSummary(123456);
         verify(matchHistoryInteractor, times(1)).LoadFreshMatchSummary(123456, presenter);
     }
 
@@ -65,8 +65,8 @@ public class PresenterTests {
         BarChartModel barChartModel = mock(BarChartModel.class);
         MatchHistoryPresenter presenter = new MatchHistoryPresenter(matchHistoryInteractor, barChartModel);
         presenter.setView(mock(MatchHistoryTabView.class));
-        presenter.LoadDataForRole(Statics.TOP, -1);
-        verify(matchHistoryInteractor, times(1)).LoadCachedMatchHistoryData(Statics.TOP, -1, presenter);
+        presenter.loadDataForRole(Statics.TOP, -1);
+        verify(matchHistoryInteractor, times(1)).loadCachedMatchHistoryData(Statics.TOP, -1, presenter);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class PresenterTests {
         BarChartModel barChartModel = mock(BarChartModel.class);
         MatchHistoryPresenter presenter = new MatchHistoryPresenter(matchHistoryInteractor, barChartModel);
         presenter.setView(mock(MatchHistoryTabView.class));
-        presenter.LoadMatchSummary(123456);
+        presenter.loadMatchSummary(123456);
         verify(matchHistoryInteractor, times(1)).LoadCachedMatchSummary(123456, presenter);
     }
 
@@ -121,7 +121,7 @@ public class PresenterTests {
         CardData cs3 = new CardData(58, 72);
 
         MatchHistoryCardData matchHistoryCardData = new MatchHistoryCardData(1, "vi", kills, deaths, cs1, cs2,cs3,1 );
-        presenter.SetLoadedCardData(matchHistoryCardData, cardViewContract);
+        presenter.setLoadedCardData(matchHistoryCardData, cardViewContract);
         verify(cardViewContract, times(1)).setGraph1(kills);
     }
 
@@ -138,7 +138,7 @@ public class PresenterTests {
         CardData cs3 = new CardData(58, 72);
 
         MatchHistoryCardData matchHistoryCardData = new MatchHistoryCardData(1, "vi", kills, deaths, cs1, cs2,cs3, 1);
-        presenter.SetLoadedCardData(matchHistoryCardData, cardViewContract);
+        presenter.setLoadedCardData(matchHistoryCardData, cardViewContract);
         verify(cardViewContract, times(1)).setGraph2(cs3);
     }
 
@@ -155,7 +155,7 @@ public class PresenterTests {
         CardData cs3 = new CardData(58, 72);
 
         MatchHistoryCardData matchHistoryCardData = new MatchHistoryCardData(1, "vi", kills, deaths, cs1, cs2,cs3, 1);
-        presenter.SetLoadedCardData(matchHistoryCardData, cardViewContract);
+        presenter.setLoadedCardData(matchHistoryCardData, cardViewContract);
         verify(cardViewContract, times(1)).setGraph3(cs1);
     }
 
