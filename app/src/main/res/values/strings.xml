@@ -14,4 +14,9 @@
     <string name="early_game">Early Game</string>
     <string name="mid_game">Mid Game</string>
     <string name="late_game">Late Game</string>
+    <string name="details">Details</string>
+    <string name="match_performance">Match Performance</string>
+    <string name="kills">Kills</string>
+    <string name="assists">Assists</string>
+    <string name="deaths">Deaths</string>
 </resources>

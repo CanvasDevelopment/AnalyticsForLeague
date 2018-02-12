@@ -65,13 +65,13 @@ constructor(private val retrofitFactory: RetrofitFactory, database: Database, pr
 
 
     fun SummonerDetails.cache(region: String): SummonerDetails {
-        val summoner = Summoner(id, name, summonerLevel, "todo", region) // todo get the summoner devision
+        val summoner = Summoner(id, name, summonerLevel, "todo", region) // todo getMatchIds the summoner devision
         summonerDao.createSummoner(summoner)
         return this
     }
 
     /**
-     * Helper method to get the result from the [Result] and get rid of the null.
+     * Helper method to getMatchIds the result from the [Result] and getMatchIds rid of the null.
      */
     private fun Response<Result<SummonerDetails>>.get(): Result<SummonerDetails> {
         if (body() != null) {

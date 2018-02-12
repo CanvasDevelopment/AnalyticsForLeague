@@ -22,7 +22,11 @@ public class BaseActivityPresenterTests {
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(1);
         baseActivityPresenter.onWinRateLoaded(12);
-        verify(baseActivityPersistenceInteractor, times(1)).fetchWinRateForRole(anyLong(), anyString(), any(BaseActivityContract.Presenter.class));
+        verify(baseActivityPersistenceInteractor, times(1)).fetchWinRateForRole(
+                                                                                            anyLong(),
+                                                                                            anyString(),
+                                                                                            anyString(),
+                                                                                            any(BaseActivityContract.Presenter.class));
     }
 
     @Test

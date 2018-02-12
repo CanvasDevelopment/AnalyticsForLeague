@@ -64,6 +64,10 @@ class AnalyseTabView : Fragment(), AnalyseTabContract.View {
         presenter.setRole(role)
     }
 
+    override fun launchDetailsActivity() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun setAdapter(adapter: TabContract.TabAdapter) {
 
     }

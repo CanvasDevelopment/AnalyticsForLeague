@@ -32,6 +32,10 @@
         <activity
             android:name=".login.sign_in.LoginView">
         </activity>
+
+        <activity
+            android:name=".front_page.Tabs.MatchHistoryTab.DetailsScreen.DetailsView"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

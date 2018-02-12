@@ -3,11 +3,11 @@ package com.teamunemployment.lolanalytics
 import android.app.Application
 import android.arch.persistence.room.Room
 import com.teamunemployment.lolanalytics.data.room.Database
+import com.teamunemployment.lolanalytics.di.BaseModule
 
-import com.teamunemployment.lolanalytics.di.AppComponent
-import com.teamunemployment.lolanalytics.extensions.objectOf
 import com.teamunemployment.lolanalytics.front_page.BaseActivityModule
 import com.teamunemployment.lolanalytics.front_page.Search.SearchModule
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.MatchHistoryModule
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.di.StatModule
 import com.teamunemployment.lolanalytics.login.di.SignInModule
 import com.teamunemployment.lolanalytics.io.di.IoModule
@@ -23,7 +23,6 @@ import org.koin.android.module.AndroidModule
 
 class App : Application() {
 
-    val netComponent: AppComponent? = null
 
     companion object {
         lateinit var database : Database
@@ -44,6 +43,7 @@ class App : Application() {
         startAndroidContext(this, modules())
     }
 
+
     private fun modules() : List<AndroidModule> {
         val list = ArrayList<AndroidModule>()
         list.add(SignInModule())
@@ -52,6 +52,8 @@ class App : Application() {
         list.add(BaseActivityModule())
         list.add(SearchModule())
         list.add(StatModule())
+        list.add(MatchHistoryModule())
+        list.add(BaseModule())
         return list
     }
 

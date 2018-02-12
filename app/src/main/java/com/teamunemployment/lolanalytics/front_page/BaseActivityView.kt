@@ -22,8 +22,6 @@ import com.teamunemployment.lolanalytics.R
 
 import java.util.ArrayList
 
-import butterknife.BindView
-import butterknife.OnClick
 import kotlinx.android.synthetic.main.base.*
 import kotlinx.android.synthetic.main.search_test.*
 import org.koin.android.ext.android.inject
@@ -40,7 +38,6 @@ class BaseActivityView : AppCompatActivity(), BaseActivityContract.View, SearchC
     private val presenter by inject<BaseActivityPresenter>()
     private val searchPresenter by inject<SearchPresenter>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.base)
@@ -54,6 +51,11 @@ class BaseActivityView : AppCompatActivity(), BaseActivityContract.View, SearchC
 
         // setUpBottomBar();
         setUpTabs()
+        setUpClickHandlers()
+    }
+
+    private fun setUpClickHandlers() {
+        champFab.setOnClickListener { searchPresenter.handleSearchFabClick() }
     }
 
     /**

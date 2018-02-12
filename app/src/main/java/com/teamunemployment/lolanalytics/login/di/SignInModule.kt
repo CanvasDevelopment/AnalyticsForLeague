@@ -2,7 +2,6 @@ package com.teamunemployment.lolanalytics.login.di
 
 import android.arch.persistence.room.Room
 import android.content.Context
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.teamunemployment.lolanalytics.Utils.Network
 import com.teamunemployment.lolanalytics.data.room.Database
 import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory

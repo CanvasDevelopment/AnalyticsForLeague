@@ -1,25 +1,33 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab
 
 import android.util.Log
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
 
 import com.teamunemployment.lolanalytics.data.Statics
-import com.teamunemployment.lolanalytics.data.model.MatchIdWrapper
 import com.teamunemployment.lolanalytics.data.model.MatchSummary
+import com.teamunemployment.lolanalytics.data.model.SummonerRapidAccessObject
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.MatchHistoryCardViewContract
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.BarChartModel
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.MatchHistoryGameStageData
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.MatchHistoryCardData
 import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract
 
 import java.util.ArrayList
 
 import javax.inject.Inject
+import com.github.mikephil.charting.data.PieEntry
+
+
 
 /**
  * @author Josiah Kendall.
  */
 class MatchHistoryPresenter @Inject
-constructor(private val matchHistoryInteractor: MatchHistoryInteractor, private val barChartModel: BarChartModel) : MatchHistoryTabContract.Presenter {
+constructor(private val matchHistoryInteractor: MatchHistoryInteractor,
+            private val summonerRapidAccessDataObject : SummonerRapidAccessObject) : MatchHistoryTabContract.Presenter {
 
+    private var role : Int = -1
     private lateinit var view: TabContract.View
 
     override fun start() {
@@ -52,8 +60,9 @@ constructor(private val matchHistoryInteractor: MatchHistoryInteractor, private 
 
     override fun loadDataForRole(role: Int, summonerId: Long) {
 
-        matchHistoryInteractor.loadCachedMatchHistoryData(role, -1, this)
-        matchHistoryInteractor.loadFreshMatchHistoryData(role, -1, this)
+        matchHistoryInteractor.loadMatches("oce",summonerId,role,20/*default*/,this)
+//        matchHistoryInteractor.loadCachedMatchHistoryData(role, -1, this)
+//        matchHistoryInteractor.loadFreshMatchHistoryData(role, -1, this)
     }
 
     override fun loadMatchSummary(matchId: Long) {
@@ -75,15 +84,15 @@ constructor(private val matchHistoryInteractor: MatchHistoryInteractor, private 
         view.showMessage("An error occurred. Please try again.")
     }
 
-    override fun onMatchListLoadedSuccessfully(matchHistoryData: ArrayList<MatchIdWrapper>) {
-        val matchHistoryAdapter = MatchHistoryAdapter(this, barChartModel)
+    override fun onMatchListLoadedSuccessfully(matchHistoryData: ArrayList<String>) {
+        val matchHistoryAdapter = MatchHistoryAdapter(this)
 
         matchHistoryAdapter.setData(matchHistoryData)
         view.setAdapter(matchHistoryAdapter)
     }
 
     override fun setRole(role: Int) {
-
+        this.role = role
     }
 
     /**
@@ -91,8 +100,8 @@ constructor(private val matchHistoryInteractor: MatchHistoryInteractor, private 
      * @param id The match id for the value we want to load.
      * @param cardViewContract The card object to present the value back to.
      */
-    override fun loadCardData(id: Long, cardViewContract: MatchHistoryCardViewContract) {
-        matchHistoryInteractor.LoadMatchDetails(id, this, cardViewContract)
+    override fun loadCardData(id : String, cardViewContract : MatchHistoryCardViewContract, region : String) {
+        matchHistoryInteractor.loadMatchDetails(id.toLong(), this, cardViewContract, region,summonerRapidAccessDataObject.summonerId )
     }
 
     /**
@@ -109,10 +118,42 @@ constructor(private val matchHistoryInteractor: MatchHistoryInteractor, private 
     override fun setLoadedCardData(matchHistoryCardData: MatchHistoryCardData,
                                    cardViewContract: MatchHistoryCardViewContract) {
         cardViewContract.setHeroChampIcon("NOT_DONE" + matchHistoryCardData.champId + ".png")
-        cardViewContract.setGraph1(matchHistoryCardData.kills)
-        cardViewContract.setGraph2(matchHistoryCardData.csTotal)
-        cardViewContract.setGraph3(matchHistoryCardData.csFirstTen)
-        cardViewContract.setGraph4(matchHistoryCardData.csSecondTen)
+        cardViewContract.setGraph1(matchHistoryCardData.earlyGame)
+        cardViewContract.setGraph2(matchHistoryCardData.midGame)
+        cardViewContract.setGraph3(matchHistoryCardData.lateGame)
+
+        val enemyStat = matchHistoryCardData.earlyGame.enemyStatValue +
+                matchHistoryCardData.midGame.enemyStatValue +
+                matchHistoryCardData.lateGame.enemyStatValue
+        val heroStat= matchHistoryCardData.earlyGame.heroStatValue +
+                matchHistoryCardData.midGame.heroStatValue+
+                matchHistoryCardData.lateGame.heroStatValue
+
+        val summaryPerformance = MatchHistoryGameStageData(enemyStat, heroStat)
+
+        cardViewContract.setSummaryChart(summaryPerformance)
+
     }
 
+    fun fetchPieDataSet(matchHistoryGameStageData: MatchHistoryGameStageData): PieDataSet {
+        val entries = ArrayList<PieEntry>()
+
+        entries.add(PieEntry(matchHistoryGameStageData.heroStatValue, "Hero"))
+        entries.add(PieEntry(matchHistoryGameStageData.enemyStatValue, "Enemy"))
+
+        return PieDataSet(entries, "")
+
+//        val data = PieData(set)
+//        pieChart.setData(data)
+//        pieChart.invalidate() // refres
+    }
+
+    fun fetchPieData(pieDataSet: PieDataSet): PieData{
+        return PieData(pieDataSet)
+    }
+
+    fun onDetailsButtonClick() {
+        // launch new view with sliding animation
+        view.launchDetailsActivity()
+    }
 }

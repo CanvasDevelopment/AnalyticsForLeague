@@ -60,7 +60,7 @@ public class TabAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Statistics";
+                return "History";
             case 1:
                 return "Analyse";
         }

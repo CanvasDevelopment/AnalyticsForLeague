@@ -4,11 +4,11 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 
-import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Description
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.MatchHistoryPresenter
 import com.squareup.picasso.Picasso
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.BarChartModel
+import com.teamunemployment.lolanalytics.R
 import kotlinx.android.synthetic.main.match_history_card.view.*
 
 /**
@@ -17,36 +17,32 @@ import kotlinx.android.synthetic.main.match_history_card.view.*
 
 class MatchHistoryCardView(private val cardBase: View,
                            private val context: Context,
-                           private val matchHistoryBasePresenter: MatchHistoryPresenter,
-                           private val barChartModel: BarChartModel) : RecyclerView.ViewHolder(cardBase), MatchHistoryCardViewContract {
-
-    // TODO put this in correct place
-    fun loadData(matchId: Long) {
-        matchHistoryBasePresenter.loadCardData(matchId, this)
+                           private val matchHistoryPresenter: MatchHistoryPresenter)
+    : RecyclerView.ViewHolder(cardBase),
+        MatchHistoryCardViewContract {
+    override fun setSummaryChart(matchHistoryGameStageData: MatchHistoryGameStageData) {
+        setUpPieChart(cardBase.performanceSummaryChart, matchHistoryGameStageData)
     }
 
-
-    override fun setGraph1(cardData: CardData) {
-        setUpBarChart(cardBase.chart1, cardData)
+    override fun setGraph1(matchHistoryGameStageData: MatchHistoryGameStageData) {
+        setUpPieChart(cardBase.chart1, matchHistoryGameStageData)
     }
 
-    override fun setGraph2(cardData: CardData) {
-        setUpBarChart(cardBase.chart2, cardData)
+    override fun setGraph2(matchHistoryGameStageData: MatchHistoryGameStageData) {
+        setUpPieChart(cardBase.chart2, matchHistoryGameStageData)
     }
 
-    override fun setGraph3(cardData: CardData) {
-        setUpBarChart(cardBase.chart3, cardData)
+    override fun setGraph3(matchHistoryGameStageData: MatchHistoryGameStageData) {
+        setUpPieChart(cardBase.chart3, matchHistoryGameStageData)
     }
 
-    override fun setGraph4(cardData: CardData) {
-        //  setUpBarChart(barChart4, cardData);
+    override fun setGraph4(matchHistoryGameStageData: MatchHistoryGameStageData) {
+        //  setUpPieChart(barChart4, matchHistoryGameStageData);
     }
-
 
     override fun setHeroChampIcon(champIconUrl: String) {
-        Picasso.with(context).load(champIconUrl).into(cardBase.heroChamp)
+//        Picasso.with(context).load(champIconUrl).into(cardBase.heroChamp)
     }
-
 
     override fun setEnemyChampIcon(champIconUrl: String?) {
         Picasso.with(context).load(champIconUrl).into(cardBase.enemyChamp)
@@ -65,52 +61,25 @@ class MatchHistoryCardView(private val cardBase: View,
     }
 
     // This is reused code from somewhere else - need to sort this out.
-    private fun setUpBarChart(barChart: BarChart, cardData: CardData) {
-////        val barDataSet = barChartModel.FetchBarDataSet(cardData)
-//        barDataSet.valueTextColor = context.resources.getColor(R.color.grey)
-//        barDataSet.setColors(intArrayOf(R.color.teal, R.color.pink), context) // Would be real cool to not use context here if possible.
-//
-//        val barData = barChartModel.FetchBarData(barDataSet)
-//        barChart.data = barData
-//
-//        // Below here is just setting the appearance of the graphs - no logic
-//        // X axis - horizontal
-//        val xAxis = barChart.xAxis
-//        xAxis.setDrawGridLines(false)
-//        xAxis.setDrawLabels(false)
-//        xAxis.setDrawAxisLine(false)
+    private fun setUpPieChart(pieChart: PieChart,
+                              matchHistoryGameStageData: MatchHistoryGameStageData) {
+        val pieDataSet = matchHistoryPresenter.fetchPieDataSet(matchHistoryGameStageData)
+        pieDataSet.valueTextColor = context.resources.getColor(R.color.grey)
+        pieDataSet.setColors(intArrayOf(R.color.teal, R.color.pink), context) // Would be real cool to not use context here if possible.
 
-        // Left axis
-        val yAxis = barChart.axisLeft
-        yAxis.axisMinimum = 0f
-        yAxis.setDrawLabels(false)
-        yAxis.setDrawGridLines(false)
-        yAxis.isEnabled = false
-
-        // Right axis
-        val yAxis2 = barChart.axisRight
-        yAxis2.setDrawLabels(false)
-        yAxis2.setDrawGridLines(false)
-        yAxis2.isEnabled = false
-        yAxis2.setDrawAxisLine(false)
+        val pieData = matchHistoryPresenter.fetchPieData(pieDataSet)
+        pieChart.data = pieData
 
         // Set appearance params.
         val description = Description()
         description.text = ""
-        barChart.description = description
-        barChart.setFitBars(false)
-        barChart.isHighlightPerTapEnabled = true
-        barChart.setDrawGridBackground(false)
-        barChart.isDoubleTapToZoomEnabled = false
-        barChart.isHighlightFullBarEnabled = false
-        barChart.isDragEnabled = false
-        barChart.setDrawBorders(false)
-        barChart.setDrawMarkers(false)
-        barChart.setTouchEnabled(false)
-        barChart.legend.isEnabled = false
+        pieChart.description = description
+        pieChart.setDrawEntryLabels(false)
+        pieChart.centerText = "51%"
+        pieChart.legend.isEnabled = false
 
         // Refresh.
-        barChart.invalidate()
-        barChart.animateY(300)
+        pieChart.invalidate()
+        pieChart.animateY(300)
     }
 }

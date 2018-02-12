@@ -38,6 +38,6 @@ class ChampSearchCardView(private val view: View, private val searchPresenter: S
 
     override fun onClick(view: View) {
         //searchPresenter.
-        searchPresenter.HandleChampClick(champ)
+        searchPresenter.handleChampClick(champ)
     }
 }

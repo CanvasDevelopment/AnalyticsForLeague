@@ -9,9 +9,6 @@ import java.util.ArrayList;
  */
 
 public interface SearchContract {
-    interface Presenter {
-        void SetChampRequestResponse(ArrayList<Champ> champs);
-    }
 
     interface View {
         void showOverlay();

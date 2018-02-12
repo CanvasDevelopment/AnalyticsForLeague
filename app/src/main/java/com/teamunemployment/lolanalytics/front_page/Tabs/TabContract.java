@@ -1,8 +1,5 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs;
 
-import com.teamunemployment.lolanalytics.data.model.MatchIdWrapper;
-import com.teamunemployment.lolanalytics.front_page.Tabs.PlayerAnalysisTab.Model.StatDefinition;
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatsComparisonTab.Model.CardData;
 import com.teamunemployment.lolanalytics.ViewContract;
 
 import java.util.ArrayList;
@@ -17,6 +14,8 @@ public interface TabContract {
         void setRole(int role);
         void setAdapter(TabAdapter adapter);
         void setLoadingVisible(boolean visible);
+
+        void launchDetailsActivity();
     }
 
     /**
@@ -25,8 +24,6 @@ public interface TabContract {
      */
     interface TabAdapter {
         // MatchHistoryAdapter
-        void setMatchHistoryAdapterData(ArrayList<MatchIdWrapper> matchIds);
-        void setPlayerAnalysisAdapterData(ArrayList<StatDefinition> statDefinitions);
-        void setStatComparisonAdapterData(ArrayList<CardData> cardDatas);
+        void setMatchHistoryAdapterData(ArrayList<String> matchIds);
     }
 }

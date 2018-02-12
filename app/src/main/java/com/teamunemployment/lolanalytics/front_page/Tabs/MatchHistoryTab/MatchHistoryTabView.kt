@@ -1,5 +1,6 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 
 import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract
 import com.teamunemployment.lolanalytics.R
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.DetailsView
+import com.teamunemployment.lolanalytics.login.onboarding.OnboardingView
 
 import kotlinx.android.synthetic.main.tab_view_fragment.*
 import org.koin.android.ext.android.inject
@@ -17,6 +20,7 @@ import org.koin.android.ext.android.inject
  * @author Josiah Kendall
  */
 class MatchHistoryTabView : Fragment(), TabContract.View {
+
 
     private var rootView: View? = null
     private var role: Int = 0
@@ -53,5 +57,11 @@ class MatchHistoryTabView : Fragment(), TabContract.View {
 
     override fun setLoadingVisible(visible: Boolean) {
 
+    }
+
+    override fun launchDetailsActivity() {
+        val detailsIntent = Intent(this.context, DetailsView::class.java)
+        startActivity(detailsIntent)
+        this.activity.overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up )
     }
 }

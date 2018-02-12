@@ -36,7 +36,7 @@ class AnalysePresenterTests {
      * START
      * set the presenter to our adapter.
      * ensure that our view is set
-     * get our current role, and champ if set
+     * getMatchIds our current role, and champ if set
      * request value
      *
      * HANDLE DATA RESPONSE
@@ -228,7 +228,7 @@ class AnalysePresenterTests {
     }
 
     fun produceRandomAnalysisUrl() : AnalysisStatUrls {
-        return AnalysisStatUrls(random.nextInt().toString(), random.nextInt().toString())
+        return AnalysisStatUrls(random.nextInt().toString(), random.nextInt().toString(), "title")
     }
 
     fun produceRandomCardData() : StatCard{

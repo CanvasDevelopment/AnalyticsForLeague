@@ -36,7 +36,7 @@
                 android:id="@+id/good_or_bad_state_icon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginLeft="48dp"
+                android:layout_marginStart="48dp"
                 android:layout_marginTop="32dp"
                 android:background="@color/teal"/>
             <TextView
@@ -45,8 +45,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="18dp"
                 android:layout_alignTop="@+id/good_or_bad_state_icon"
-                android:layout_marginLeft="16dp"
-                android:layout_toRightOf="@+id/good_or_bad_state_icon"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@+id/good_or_bad_state_icon"
                 android:gravity="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"

@@ -16,13 +16,13 @@ class MatchHistoryTabContract {
 
     interface Presenter : PresenterContract {
         fun loadDataForRole(role: Int, summonerId: Long)
-        fun loadMatchSummary(matchId: Long)
-        fun setView(view: TabContract.View)
-        fun onMatchSummaryLoadedSuccessfully(matchSummary: MatchSummary)
-        fun onError(e: Throwable)
-        fun onMatchListLoadedSuccessfully(matchHistoryData: ArrayList<MatchIdWrapper>)
+        fun loadMatchSummary(matchId : Long)
+        fun setView(view : TabContract.View)
+        fun onMatchSummaryLoadedSuccessfully(matchSummary : MatchSummary)
+        fun onError(e : Throwable)
+        fun onMatchListLoadedSuccessfully(matchHistoryData: ArrayList<String>)
         fun setRole(role: Int)
-        fun loadCardData(id: Long, cardViewContract: MatchHistoryCardViewContract)
-        fun setLoadedCardData(matchHistoryCardData: MatchHistoryCardData, cardViewContract: MatchHistoryCardViewContract)
+        fun loadCardData(id: String, cardViewContract : MatchHistoryCardViewContract, region : String)
+        fun setLoadedCardData(matchHistoryCardData : MatchHistoryCardData, cardViewContract : MatchHistoryCardViewContract)
     }
 }

@@ -2,7 +2,6 @@ package com.teamunemployment.lolanalytics.front_page
 
 import co.metalab.asyncawait.async
 import com.teamunemployment.lolanalytics.Utils.Network
-import com.teamunemployment.lolanalytics.io.RealmExecutor
 import com.teamunemployment.lolanalytics.data.model.DoubleWrapper
 import com.teamunemployment.lolanalytics.data.model.Result
 import com.teamunemployment.lolanalytics.data.room.Database
@@ -10,11 +9,6 @@ import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
 
 import javax.inject.Inject
 
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Response
 

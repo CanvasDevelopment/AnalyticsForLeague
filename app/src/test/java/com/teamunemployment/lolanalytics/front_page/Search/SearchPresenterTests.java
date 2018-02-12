@@ -98,8 +98,8 @@ public class SearchPresenterTests {
     public void EnsureThatWeSetFavouriteChampsWhenWeFirstLoad() {
         searchPresenter.handleSearchFabClick();
         ArrayList<Champ> champs = new ArrayList<>();
-        verify(searchInteractor, times(1)).GetFavouriteChamps(searchPresenter);
-        searchPresenter.SetChampRequestResponse(champs);
+        verify(searchInteractor, times(1)).getFavouriteChamps(searchPresenter);
+        searchPresenter.setChampRequestResponse(champs);
         verify(searchView, times(1)).setChampList(champs);
     }
 
@@ -113,7 +113,7 @@ public class SearchPresenterTests {
         Champ champ = new Champ();
         champ.setChampUrl("test");
         champ.setChampName("me");
-        searchPresenter.HandleChampClick(champ);
+        searchPresenter.handleChampClick(champ);
         verify(searchView, times(1)).hideOverlay();
     }
 
@@ -123,7 +123,7 @@ public class SearchPresenterTests {
         String champUrl = "/images/vi.jpg";
         champ.setChampUrl(champUrl);
         champ.setChampName("me");
-        searchPresenter.HandleChampClick(champ);
+        searchPresenter.handleChampClick(champ);
         verify(searchView, times(1)).setChampFabIconAsSelectedChamp(champUrl);
     }
 
@@ -138,13 +138,13 @@ public class SearchPresenterTests {
     public void EnsureThatWeClearChampSettingWhenWeSelectClearChampInAdapter() {
         Champ champ = new Champ();
         champ.setChampUrl("");
-        searchPresenter.HandleChampClick(champ);
-        verify(searchInteractor, times(1)).SetCurrentChamp(null);
+        searchPresenter.handleChampClick(champ);
+        verify(searchInteractor, times(1)).setCurrentChamp(null);
     }
 
     @Test
     public void EnsureThatWeClearTextWhenWeClickOnTheClearTextButtonForTheSearchBox() {
-        searchPresenter.ClearSearchText();
+        searchPresenter.clearSearchText();
         verify(searchView, times(1)).clearSearchField();
     }
 
