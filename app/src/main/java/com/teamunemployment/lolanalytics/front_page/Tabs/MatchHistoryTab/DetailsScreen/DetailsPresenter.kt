@@ -9,6 +9,7 @@ class DetailsPresenter(private val detailsInteractor: DetailsInteractor) {
 
     fun setView(view : DetailsView) {
         this.view = view
+        // test
     }
 
     /**
