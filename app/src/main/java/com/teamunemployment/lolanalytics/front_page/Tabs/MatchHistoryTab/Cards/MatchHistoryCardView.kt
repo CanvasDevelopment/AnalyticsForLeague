@@ -20,24 +20,24 @@ class MatchHistoryCardView(private val cardBase: View,
                            private val matchHistoryPresenter: MatchHistoryPresenter)
     : RecyclerView.ViewHolder(cardBase),
         MatchHistoryCardViewContract {
-    override fun setSummaryChart(matchHistoryGameStageData: MatchHistoryGameStageData) {
-        setUpPieChart(cardBase.performanceSummaryChart, matchHistoryGameStageData)
+    override fun setSummaryChart(gameStageStat: GameStageStat) {
+        setUpPieChart(cardBase.performanceSummaryChart, gameStageStat)
     }
 
-    override fun setGraph1(matchHistoryGameStageData: MatchHistoryGameStageData) {
-        setUpPieChart(cardBase.chart1, matchHistoryGameStageData)
+    override fun setGraph1(gameStageStat: GameStageStat) {
+        setUpPieChart(cardBase.chart1, gameStageStat)
     }
 
-    override fun setGraph2(matchHistoryGameStageData: MatchHistoryGameStageData) {
-        setUpPieChart(cardBase.chart2, matchHistoryGameStageData)
+    override fun setGraph2(gameStageStat: GameStageStat) {
+        setUpPieChart(cardBase.chart2, gameStageStat)
     }
 
-    override fun setGraph3(matchHistoryGameStageData: MatchHistoryGameStageData) {
-        setUpPieChart(cardBase.chart3, matchHistoryGameStageData)
+    override fun setGraph3(gameStageStat: GameStageStat) {
+        setUpPieChart(cardBase.chart3, gameStageStat)
     }
 
-    override fun setGraph4(matchHistoryGameStageData: MatchHistoryGameStageData) {
-        //  setUpPieChart(barChart4, matchHistoryGameStageData);
+    override fun setGraph4(gameStageStat: GameStageStat) {
+        //  setUpPieChart(barChart4, gameStageStat);
     }
 
     override fun setHeroChampIcon(champIconUrl: String) {
@@ -62,8 +62,8 @@ class MatchHistoryCardView(private val cardBase: View,
 
     // This is reused code from somewhere else - need to sort this out.
     private fun setUpPieChart(pieChart: PieChart,
-                              matchHistoryGameStageData: MatchHistoryGameStageData) {
-        val pieDataSet = matchHistoryPresenter.fetchPieDataSet(matchHistoryGameStageData)
+                              gameStageStat: GameStageStat) {
+        val pieDataSet = matchHistoryPresenter.fetchPieDataSet(gameStageStat)
         pieDataSet.valueTextColor = context.resources.getColor(R.color.grey)
         pieDataSet.setColors(intArrayOf(R.color.teal, R.color.pink), context) // Would be real cool to not use context here if possible.
 

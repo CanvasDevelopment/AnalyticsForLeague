@@ -27,6 +27,18 @@ class MockMatchHistoryServiceResponses {
     fun getMatchDetails() : String {
         return "{\n" +
                 "\t\"data\": {\n" +
+                "\t\t\"kda\" : [{\n" +
+                "\t\t\t\t\"enemyStatValue\": 4.0,\n" +
+                "\t\t\t\t\"heroStatValue\": 5.0\n" +
+                "\t\t\t},\n" +
+                "\t\t\t{\n" +
+                "\t\t\t\t\"enemyStatValue\": 3.0,\n" +
+                "\t\t\t\t\"heroStatValue\": 5.0\n" +
+                "\t\t\t},\n" +
+                "\t\t\t{\n" +
+                "\t\t\t\t\"enemyStatValue\": 4.0,\n" +
+                "\t\t\t\t\"heroStatValue\": 9.0\n" +
+                "}]," +
                 "\t\t\"Creeps\": [{\n" +
                 "\t\t\t\t\"enemyStatValue\": 45.4,\n" +
                 "\t\t\t\t\"heroStatValue\": 52.3\n" +

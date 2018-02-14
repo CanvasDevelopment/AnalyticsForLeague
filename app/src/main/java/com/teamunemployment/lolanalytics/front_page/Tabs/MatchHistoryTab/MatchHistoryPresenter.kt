@@ -1,7 +1,6 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab
 
 import android.util.Log
-import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 
@@ -9,7 +8,7 @@ import com.teamunemployment.lolanalytics.data.Statics
 import com.teamunemployment.lolanalytics.data.model.MatchSummary
 import com.teamunemployment.lolanalytics.data.model.SummonerRapidAccessObject
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.MatchHistoryCardViewContract
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.MatchHistoryGameStageData
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.GameStageStat
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.MatchHistoryCardData
 import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract
 
@@ -129,17 +128,17 @@ constructor(private val matchHistoryInteractor: MatchHistoryInteractor,
                 matchHistoryCardData.midGame.heroStatValue+
                 matchHistoryCardData.lateGame.heroStatValue
 
-        val summaryPerformance = MatchHistoryGameStageData(enemyStat, heroStat)
+        val summaryPerformance = GameStageStat(enemyStat, heroStat)
 
         cardViewContract.setSummaryChart(summaryPerformance)
 
     }
 
-    fun fetchPieDataSet(matchHistoryGameStageData: MatchHistoryGameStageData): PieDataSet {
+    fun fetchPieDataSet(gameStageStat: GameStageStat): PieDataSet {
         val entries = ArrayList<PieEntry>()
 
-        entries.add(PieEntry(matchHistoryGameStageData.heroStatValue, "Hero"))
-        entries.add(PieEntry(matchHistoryGameStageData.enemyStatValue, "Enemy"))
+        entries.add(PieEntry(gameStageStat.heroStatValue, "Hero"))
+        entries.add(PieEntry(gameStageStat.enemyStatValue, "Enemy"))
 
         return PieDataSet(entries, "")
 

@@ -7,14 +7,14 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards;
  */
 
 public interface MatchHistoryCardViewContract {
-    void setGraph1(MatchHistoryGameStageData matchHistoryGameStageData);
-    void setGraph2(MatchHistoryGameStageData matchHistoryGameStageData);
-    void setGraph3(MatchHistoryGameStageData matchHistoryGameStageData);
-    void setGraph4(MatchHistoryGameStageData matchHistoryGameStageData);
+    void setGraph1(GameStageStat gameStageStat);
+    void setGraph2(GameStageStat gameStageStat);
+    void setGraph3(GameStageStat gameStageStat);
+    void setGraph4(GameStageStat gameStageStat);
     void setHeroChampIcon(String champIconUrl);
     void setEnemyChampIcon(String champIconUrl);
     void setTimeStamp(String timeStamp);
     void setResult(boolean win);
     void setChamp(String champName);
-    void setSummaryChart(MatchHistoryGameStageData matchHistoryGameStageData);
+    void setSummaryChart(GameStageStat gameStageStat);
 }
