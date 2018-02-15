@@ -20,24 +20,24 @@ class MatchHistoryCardView(private val cardBase: View,
                            private val matchHistoryPresenter: MatchHistoryPresenter)
     : RecyclerView.ViewHolder(cardBase),
         MatchHistoryCardViewContract {
-    override fun setSummaryChart(gameStageStat: GameStageStat) {
-        setUpPieChart(cardBase.performanceSummaryChart, gameStageStat)
+    override fun setSummaryChart(HeadToHeadStat: HeadToHeadStat) {
+        setUpPieChart(cardBase.performanceSummaryChart, HeadToHeadStat)
     }
 
-    override fun setGraph1(gameStageStat: GameStageStat) {
-        setUpPieChart(cardBase.chart1, gameStageStat)
+    override fun setGraph1(HeadToHeadStat: HeadToHeadStat) {
+        setUpPieChart(cardBase.chart1, HeadToHeadStat)
     }
 
-    override fun setGraph2(gameStageStat: GameStageStat) {
-        setUpPieChart(cardBase.chart2, gameStageStat)
+    override fun setGraph2(HeadToHeadStat: HeadToHeadStat) {
+        setUpPieChart(cardBase.chart2, HeadToHeadStat)
     }
 
-    override fun setGraph3(gameStageStat: GameStageStat) {
-        setUpPieChart(cardBase.chart3, gameStageStat)
+    override fun setGraph3(HeadToHeadStat: HeadToHeadStat) {
+        setUpPieChart(cardBase.chart3, HeadToHeadStat)
     }
 
-    override fun setGraph4(gameStageStat: GameStageStat) {
-        //  setUpPieChart(barChart4, gameStageStat);
+    override fun setGraph4(HeadToHeadStat: HeadToHeadStat) {
+        //  setUpPieChart(barChart4, HeadToHeadStat);
     }
 
     override fun setHeroChampIcon(champIconUrl: String) {
@@ -62,8 +62,8 @@ class MatchHistoryCardView(private val cardBase: View,
 
     // This is reused code from somewhere else - need to sort this out.
     private fun setUpPieChart(pieChart: PieChart,
-                              gameStageStat: GameStageStat) {
-        val pieDataSet = matchHistoryPresenter.fetchPieDataSet(gameStageStat)
+                              HeadToHeadStat: HeadToHeadStat) {
+        val pieDataSet = matchHistoryPresenter.fetchPieDataSet(HeadToHeadStat)
         pieDataSet.valueTextColor = context.resources.getColor(R.color.grey)
         pieDataSet.setColors(intArrayOf(R.color.teal, R.color.pink), context) // Would be real cool to not use context here if possible.
 

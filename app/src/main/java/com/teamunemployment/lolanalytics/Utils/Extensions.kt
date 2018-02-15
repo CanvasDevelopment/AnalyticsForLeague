@@ -6,7 +6,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.teamunemployment.lolanalytics.R
 import com.teamunemployment.lolanalytics.data.model.Result
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.GameStageStat
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.HeadToHeadStat
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.MatchPerformanceDetails
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.MatchHistoryCardData
 import retrofit2.Response
@@ -28,7 +28,7 @@ fun Response<Result<MatchHistoryCardData>>.getMatchHistoryCardData() : Result<Ma
     }
 
     return Result(404, MatchHistoryCardData(-1,
-            -1,"",-1, GameStageStat(0f,0f), GameStageStat(0f,0f), GameStageStat(0f,0f)))
+            -1,"",-1, HeadToHeadStat(0f,0f), HeadToHeadStat(0f,0f), HeadToHeadStat(0f,0f)))
 }
 
 fun Response<Result<MatchPerformanceDetails>>.getMatchPerformanceDetails() : Result<MatchPerformanceDetails> {
@@ -39,7 +39,7 @@ fun Response<Result<MatchPerformanceDetails>>.getMatchPerformanceDetails() : Res
     return Result(404, MatchPerformanceDetails(ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList()))
 }
 
-fun GameStageStat.producePieChartData(context :Context): PieData {
+fun HeadToHeadStat.producePieChartData(context :Context): PieData {
     val entries = java.util.ArrayList<PieEntry>()
 
     entries.add(PieEntry(heroStatValue, "Hero"))

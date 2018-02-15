@@ -2,6 +2,7 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Detail
 
 import android.content.Context
 import com.teamunemployment.lolanalytics.Utils.producePieChartData
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.HeadToHeadStat
 
 /**
  * @author Josiah Kendall
@@ -33,24 +34,32 @@ class DetailsPresenter(private val detailsInteractor: DetailsInteractor,
     /**
      * Handle the response from the server.
      *
-     * @param code      This is the response code from the server. If this is not a 200, we fetch the
-     *                  appropriate error message and display it to the user.
-     * @param result    This is the actual data. If the [code] is a 200, then we should have some juicy
-     *                  data that we can display about the user and their performance in this match
-     *                  through a variety of pie charts
+     * @param code                  This is the response code from the server. If this is not a 200, we fetch the
+     *                              appropriate error message and display it to the user.
+     * @param result                This is the actual data. If the [code] is a 200, then we should have some juicy
+     *                              data that we can display about the user and their performance in this match
+     *                              through a variety of pie charts
+     * @param headToHeadPerformance The calculated performance stat [HeadToHeadStat] for each the
+     *                              hero and the villain
      */
-    fun handleDetailsResponse(code : Int, result : MatchPerformanceDetails) {
+    fun handleDetailsResponse(code : Int, result : MatchPerformanceDetails, headToHeadPerformance: HeadToHeadStat) {
         when(code) {
-            200 -> handleHealthyResponse(result)
+            200 -> handleHealthyResponse(result, headToHeadPerformance)
             404 -> view.showMessage(detailsErrorMessages.`404`())
             500 -> view.showMessage(detailsErrorMessages.`500`())
         }
     }
 
-    // pull apart the data and apply it to the correct pie charts
-    private fun handleHealthyResponse(result: MatchPerformanceDetails) {
+    /**
+     * Handle a 200 response. This method pulls apart the data and applies the correct data to the
+     * correct charts, using the extension method [producePieChartData] to create the pie chart data.
+     * @param result The data that we need to display on screen.
+     */
+    private fun handleHealthyResponse(result: MatchPerformanceDetails, headToHeadPerformance: HeadToHeadStat) {
 
-        // produce all our charts for data
+        // Produce all our charts for data. Note that the kills and deaths use the EARLY_GAME etc..
+        // variables because we want to just use the same style, for ease of programming.
+        view.setHeadToHeadPerformanceChart(headToHeadPerformance.producePieChartData(context))
         view.setKillsChart(result.kda[EARLY_GAME].producePieChartData(context))
         view.setDeathsChart(result.kda[MID_GAME].producePieChartData(context))
         view.setAssistsChart(result.kda[LATE_GAME].producePieChartData(context))
@@ -70,7 +79,6 @@ class DetailsPresenter(private val detailsInteractor: DetailsInteractor,
         view.setXpMidGameChart(result.xp[MID_GAME].producePieChartData(context))
         view.setXpLateGameChart(result.xp[LATE_GAME].producePieChartData(context))
     }
-
 
 
 }

@@ -2,6 +2,7 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Detail
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.github.mikephil.charting.data.ChartData
 import com.github.mikephil.charting.data.PieData
 import com.teamunemployment.lolanalytics.R
 
@@ -23,6 +24,9 @@ class DetailsView : AppCompatActivity() {
 
     }
 
+    fun setHeadToHeadPerformanceChart(headToHeadChartData: PieData) {
+
+    }
     fun setKillsChart(killsChartDataSet: PieData) {
 
     }
