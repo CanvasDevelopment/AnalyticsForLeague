@@ -1,18 +1,13 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen
 
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.teamunemployment.lolanalytics.R
 import com.teamunemployment.lolanalytics.Utils.earlyGame
 import com.teamunemployment.lolanalytics.Utils.lateGame
 import com.teamunemployment.lolanalytics.Utils.midGame
 import com.teamunemployment.lolanalytics.Utils.producePieChartData
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.HeadToHeadStat
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.model.GameStageView
-import kotlinx.android.synthetic.main.game_stage_details_section.view.*
-import kotlinx.android.synthetic.main.match_history_card.view.*
 
 /**
  * @author Josiah Kendall
@@ -80,9 +75,9 @@ class DetailsPresenter(private val detailsInteractor: DetailsInteractor,
         view.setDamageDealtEarlyGameChart(result.damageDealt[EARLY_GAME].producePieChartData(context))
         view.setDamageDealtMidGameChart(result.damageDealt[MID_GAME].producePieChartData(context))
         view.setDamageDealtLateGameChart(result.damageDealt[LATE_GAME].producePieChartData(context))
-        view.setDamagetakenEarlyGameChart(result.damagetaken[EARLY_GAME].producePieChartData(context))
-        view.setDamagetakenMidGameChart(result.damagetaken[MID_GAME].producePieChartData(context))
-        view.setDamagetakenLateGameChart(result.damagetaken[LATE_GAME].producePieChartData(context))
+        view.setDamageTakenEarlyGameChart(result.damagetaken[EARLY_GAME].producePieChartData(context))
+        view.setDamageTakenMidGameChart(result.damagetaken[MID_GAME].producePieChartData(context))
+        view.setDamageTakenLateGameChart(result.damagetaken[LATE_GAME].producePieChartData(context))
         view.setGoldEarlyGameChart(result.gold[EARLY_GAME].producePieChartData(context))
         view.setGoldMidGameChart(result.gold[MID_GAME].producePieChartData(context))
         view.setGoldLateGameChart(result.gold[LATE_GAME].producePieChartData(context))
@@ -109,16 +104,5 @@ class DetailsPresenter(private val detailsInteractor: DetailsInteractor,
 
         return gameStageView
     }
-
-
-
-    fun produceAndAttachMidGameView(): View {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    fun produceAndAttachLateGameView(): View {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
 
 }

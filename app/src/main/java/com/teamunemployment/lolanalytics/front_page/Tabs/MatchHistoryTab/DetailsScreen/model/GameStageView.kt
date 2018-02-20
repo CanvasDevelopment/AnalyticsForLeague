@@ -22,27 +22,27 @@ class GameStageView(private val title : TextView,
                     private val chart6Title : TextView) {
 
 
-    fun setChart1(data : PieData) {
+    fun setCreeps(data : PieData) {
         chart1.data = data
     }
 
-    fun setChart2(data : PieData) {
+    fun setDamageDealt(data : PieData) {
         chart2.data = data
     }
 
-    fun setChart3(data : PieData) {
+    fun setDamageTaken(data : PieData) {
         chart3.data = data
     }
 
-    fun setChart4(data : PieData) {
+    fun setXp(data : PieData) {
         chart4.data = data
     }
 
-    fun setChart5(data : PieData) {
+    fun setGold(data : PieData) {
         chart5.data = data
     }
 
-    fun setChart6(data : PieData) {
+    fun unused(data : PieData) {
         chart6.data = data
     }
 

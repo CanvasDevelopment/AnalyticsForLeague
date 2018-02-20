@@ -115,4 +115,25 @@
                 android:layout_height="match_parent" />
         </RelativeLayout>
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/earlyGameHolder"
+        android:layout_below="@+id/kdaHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/midGameHolder"
+        android:layout_below="@+id/earlyGameHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/lateGameHolder"
+        android:layout_below="@+id/midGameHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
 </RelativeLayout>
