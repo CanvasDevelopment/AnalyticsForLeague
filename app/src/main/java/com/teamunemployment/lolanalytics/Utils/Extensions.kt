@@ -51,3 +51,21 @@ fun HeadToHeadStat.producePieChartData(context :Context): PieData {
 
     return PieData(pieDataSet)
 }
+
+fun Float.calculatePercentageDifference(float: Float) : Float {
+    val difference = this - float
+    val total = this + float
+    return difference / total
+}
+
+fun ArrayList<HeadToHeadStat>.earlyGame() : HeadToHeadStat {
+    return this[0]
+}
+
+fun ArrayList<HeadToHeadStat>.midGame() : HeadToHeadStat {
+    return this[1]
+}
+
+fun ArrayList<HeadToHeadStat>.lateGame() : HeadToHeadStat {
+    return this[2]
+}

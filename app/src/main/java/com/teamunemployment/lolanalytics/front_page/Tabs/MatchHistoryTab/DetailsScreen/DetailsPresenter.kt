@@ -1,14 +1,25 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen
 
 import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.teamunemployment.lolanalytics.R
+import com.teamunemployment.lolanalytics.Utils.earlyGame
+import com.teamunemployment.lolanalytics.Utils.lateGame
+import com.teamunemployment.lolanalytics.Utils.midGame
 import com.teamunemployment.lolanalytics.Utils.producePieChartData
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.HeadToHeadStat
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.model.GameStageView
+import kotlinx.android.synthetic.main.game_stage_details_section.view.*
+import kotlinx.android.synthetic.main.match_history_card.view.*
 
 /**
  * @author Josiah Kendall
  */
 class DetailsPresenter(private val detailsInteractor: DetailsInteractor,
-                       private val context : Context) {
+                       private val context : Context,
+                       private val viewProducer: ViewProducer) {
 
     private val EARLY_GAME = 0
     private val MID_GAME = 1
@@ -60,9 +71,9 @@ class DetailsPresenter(private val detailsInteractor: DetailsInteractor,
         // Produce all our charts for data. Note that the kills and deaths use the EARLY_GAME etc..
         // variables because we want to just use the same style, for ease of programming.
         view.setHeadToHeadPerformanceChart(headToHeadPerformance.producePieChartData(context))
-        view.setKillsChart(result.kda[EARLY_GAME].producePieChartData(context))
-        view.setDeathsChart(result.kda[MID_GAME].producePieChartData(context))
-        view.setAssistsChart(result.kda[LATE_GAME].producePieChartData(context))
+        view.setKillsChart(result.kda.earlyGame().producePieChartData(context))
+        view.setDeathsChart(result.kda.midGame().producePieChartData(context))
+        view.setAssistsChart(result.kda.lateGame().producePieChartData(context))
         view.setCreepsEarlyGameChart(result.creeps[EARLY_GAME].producePieChartData(context))
         view.setCreepsMidGameChart(result.creeps[MID_GAME].producePieChartData(context))
         view.setCreepsLateGameChart(result.creeps[LATE_GAME].producePieChartData(context))
@@ -78,6 +89,35 @@ class DetailsPresenter(private val detailsInteractor: DetailsInteractor,
         view.setXpEarlyGameChart(result.xp[EARLY_GAME].producePieChartData(context))
         view.setXpMidGameChart(result.xp[MID_GAME].producePieChartData(context))
         view.setXpLateGameChart(result.xp[LATE_GAME].producePieChartData(context))
+    }
+
+    /**
+     * Create the game stage view that we want. This returns a gameStageView object that we can use to
+     * set data to the actual view.
+     * @param gameStage An int reflecting the game stage that we want. Must be [EARLY_GAME], [MID_GAME]
+     *                  or [LATE_GAME].
+     * @param parent    The parent that we want to add this view too.
+     */
+    fun produceGameStageView(gameStage : Int, parent : ViewGroup): GameStageView {
+        val gameStageView = viewProducer.produceGameStageView(parent)
+
+        when(gameStage) {
+            EARLY_GAME -> gameStageView.setViewTitle("Early Game")
+            MID_GAME-> gameStageView.setViewTitle("Mid Game")
+            LATE_GAME-> gameStageView.setViewTitle("Late Game")
+        }
+
+        return gameStageView
+    }
+
+
+
+    fun produceAndAttachMidGameView(): View {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun produceAndAttachLateGameView(): View {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 
