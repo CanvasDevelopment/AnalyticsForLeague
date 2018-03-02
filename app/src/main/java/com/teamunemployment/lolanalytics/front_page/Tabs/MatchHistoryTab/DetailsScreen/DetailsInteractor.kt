@@ -46,7 +46,7 @@ class DetailsInteractor(private val retrofitFactory: RetrofitFactory,
             val response: Response<Result<MatchPerformanceDetails>> = await { call.execute() }
 
             val result: Result<MatchPerformanceDetails> = response.getMatchPerformanceDetails()
-            val code = result.resultCode
+            val code = 200// todo replace with this when live : result.resultCode
             val headToHeadPerformance = calculatePerformanceForUser(result.data)
             presenter.handleDetailsResponse(code, result.data, headToHeadPerformance)
         }
@@ -134,7 +134,7 @@ class DetailsInteractor(private val retrofitFactory: RetrofitFactory,
         totalScoreDifference += (lateGameXpScoreDiff* 1)
 
         val heroTotalScore = 50 + (totalScoreDifference / 2)
-        val enemyTotalScore = 50 + (totalScoreDifference / 2)
+        val enemyTotalScore = 50 - (totalScoreDifference / 2)
 
         return HeadToHeadStat(enemyTotalScore, heroTotalScore)
     }

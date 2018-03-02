@@ -10,6 +10,6 @@ import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.H
 class MatchPerformanceDetails(val kda : ArrayList<HeadToHeadStat>,
                               val creeps : ArrayList<HeadToHeadStat>,
                               val damageDealt : ArrayList<HeadToHeadStat>,
-                              val damagetaken : ArrayList<HeadToHeadStat>,
+                              val damageTaken: ArrayList<HeadToHeadStat>,
                               val gold : ArrayList<HeadToHeadStat>,
                               val xp : ArrayList<HeadToHeadStat>)

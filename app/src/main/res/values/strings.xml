@@ -19,4 +19,6 @@
     <string name="kills">Kills</string>
     <string name="assists">Assists</string>
     <string name="deaths">Deaths</string>
+    <string name="damageDealt">Damage Dealt</string>
+    <string name="creeps">Creep Score</string>
 </resources>

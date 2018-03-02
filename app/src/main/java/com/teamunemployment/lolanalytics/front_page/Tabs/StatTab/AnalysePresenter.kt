@@ -90,6 +90,8 @@ class AnalysePresenter(private val analyseInteractor: AnalyseInteractor,
         val statUrl = statList.stats[position]
         viewHolder.setTitle(statUrl.title)
         analyseInteractor.loadIndividualStat("", -1, viewHolder,this)
+        // If card view individual instance - load individual with appropriate calllback
+        // else if cardview set, load set of details
     }
 
     override fun handleItemClick(position: Int) {

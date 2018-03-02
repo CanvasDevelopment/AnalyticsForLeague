@@ -6,9 +6,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 
-import com.teamunemployment.lolanalytics.front_page.BaseActivityView
 import com.teamunemployment.lolanalytics.R
 import com.teamunemployment.lolanalytics.login.onboarding.OnboardingView
 
@@ -47,7 +45,7 @@ class LoginView : AppCompatActivity(), LoginContract.LoginView {
         val mainIntent = Intent(this, OnboardingView::class.java)
         mainIntent.putExtra("summoner_id", summonerId)
         startActivity(mainIntent)
-        overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up )
+        overridePendingTransition( R.anim.slide_in_entry, R.anim.slide_out_entry)
     }
 
     override fun setRegionSpinnerAdapter(adapter: ArrayAdapter<CharSequence>) {

@@ -36,8 +36,8 @@
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/performanceScore"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
             <com.mikhaellopez.circularimageview.CircularImageView
@@ -55,7 +55,7 @@
     <LinearLayout
         android:id="@+id/kdaHolder"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/performanceSummaryHolder"
         android:orientation="horizontal"
         android:padding="12dp"
@@ -68,16 +68,15 @@
                 android:id="@+id/killsScoreTitle"
                 android:layout_centerHorizontal="true"
                 android:text="@string/kills"
-                style="@style/TextAppearance.AppCompat.Subhead"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/kills"
                 android:layout_below="@+id/killsScoreTitle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="120dp"
+                android:layout_height="120dp" />
         </RelativeLayout>
-
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -87,14 +86,14 @@
                 android:id="@+id/deathsScoreTitle"
                 android:layout_centerHorizontal="true"
                 android:text="@string/deaths"
-                style="@style/TextAppearance.AppCompat.Subhead"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/deaths"
                 android:layout_below="@+id/deathsScoreTitle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="120dp"
+                android:layout_height="120dp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -105,14 +104,14 @@
                 android:id="@+id/assistsScoreTitle"
                 android:layout_centerHorizontal="true"
                 android:text="@string/assists"
-                style="@style/TextAppearance.AppCompat.Subhead"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/assists"
                 android:layout_below="@+id/assistsScoreTitle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="120dp"
+                android:layout_height="120dp" />
         </RelativeLayout>
     </LinearLayout>
     <RelativeLayout

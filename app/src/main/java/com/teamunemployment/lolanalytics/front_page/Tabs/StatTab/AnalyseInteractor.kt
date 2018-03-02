@@ -2,11 +2,17 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab
 
 import co.metalab.asyncawait.async
 import com.teamunemployment.lolanalytics.Utils.Network
+import com.teamunemployment.lolanalytics.Utils.getMatchIds
 import com.teamunemployment.lolanalytics.data.model.Result
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.MatchHistoryService
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.AnalysisData
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatList
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatCard
 import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
+import com.teamunemployment.lolanalytics.mock.MockAnalysisServiceResponses
+import com.teamunemployment.lolanalytics.mock.MockHttpResponseInterceptor
+import retrofit2.Call
+import retrofit2.Response
 import ru.gildor.coroutines.retrofit.await
 
 import java.util.ArrayList
@@ -62,14 +68,28 @@ class AnalyseInteractor (private val retrofitFactory: RetrofitFactory,
         return false
     }
 
-    fun RequestFilterList(role: Int, champId: Int, presenter: AnalyseTabContract.Presenter) {
+    fun RequestFilterList(role: Int, champId: Int, presenter: AnalyseTabContract.Presenter, region : String) {
         val datas = ArrayList<AnalysisData>()
         val analysisData = AnalysisData()
 //        presenter.setStatList(removeMeAfterMocking())
     }
 
-    fun RequestFilterList(role: Int, presenter: AnalysePresenter) {
+    fun RequestFilterList(role: Int, presenter: AnalysePresenter, region : String) {
+        val mockResponses = MockAnalysisServiceResponses()
+        val mockInterceptor = MockHttpResponseInterceptor("", 200)
+        async {
+            val url = network.getUrl(region)
+            val analysisService = retrofitFactory.produceMockRetrofitInterface(AnalysisService::class.java, mockInterceptor)
+            mockInterceptor.content = mockResponses.getStatIds(-1)
+            val call: Call<Result<ArrayList<String>>> = analysisService.getStatList()
+            val response: Response<Result<ArrayList<String>>> = await { call.execute() }
 
+            val result: Result<ArrayList<String>> = response.getMatchIds()
+            val code = result.resultCode // do something here?
+//            presenter.onMatchListLoadedSuccessfully(result.data)
+        }
+
+        // send request
         // send request to
 //        presenter.setStatList(removeMeAfterMocking())
     }
