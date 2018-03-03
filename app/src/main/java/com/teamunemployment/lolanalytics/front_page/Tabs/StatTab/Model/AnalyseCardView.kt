@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.analyse_card_item.view.*
  * This is the view item for
  */
 
-class AnalyseCardViewHolder(private val view: View, private val presenter: AnalyseTabContract.Presenter) : RecyclerView.ViewHolder(view), AnalyseTabContract.CardView {
+class AnalyseCardView(private val view: View, private val presenter: AnalyseTabContract.Presenter) : RecyclerView.ViewHolder(view), AnalyseTabContract.CardView {
 
     var itemPosition: Int = 0
 

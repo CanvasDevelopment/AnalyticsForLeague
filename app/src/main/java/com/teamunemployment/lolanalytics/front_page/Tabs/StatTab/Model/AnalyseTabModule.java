@@ -1,6 +1,6 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model;
 
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalyseAdapter;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.AnalyseAdapter;
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalyseInteractor;
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalysePresenter;
 import com.teamunemployment.lolanalytics.Utils.RoleUtils;

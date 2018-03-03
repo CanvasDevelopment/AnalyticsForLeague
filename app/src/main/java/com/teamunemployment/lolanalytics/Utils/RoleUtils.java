@@ -8,7 +8,7 @@ import com.teamunemployment.lolanalytics.data.Statics;
 
 public class RoleUtils {
 
-    public String GetRoleName(int role) {
+    public String getRoleName(int role) {
         switch (role) {
             case Statics.ADC:
                 return "ADC";

@@ -2,12 +2,13 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab
 
 import co.metalab.asyncawait.async
 import com.teamunemployment.lolanalytics.Utils.Network
-import com.teamunemployment.lolanalytics.Utils.getMatchIds
+import com.teamunemployment.lolanalytics.Utils.getStatList
 import com.teamunemployment.lolanalytics.data.model.Result
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.MatchHistoryService
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.AnalysisData
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatList
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatCard
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.FullStatCard
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatSummary
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.StatCardContract
 import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
 import com.teamunemployment.lolanalytics.mock.MockAnalysisServiceResponses
 import com.teamunemployment.lolanalytics.mock.MockHttpResponseInterceptor
@@ -21,10 +22,10 @@ import java.util.ArrayList
  * Created by Josiah Kendall
  */
 
-class AnalyseInteractor (private val retrofitFactory: RetrofitFactory,
-                         private val network: Network){
+class AnalyseInteractor(private val retrofitFactory: RetrofitFactory,
+                        private val network: Network) {
 
-    private lateinit var playerAnalysisRemoteRepo : PlayerAnalysisRemoteRepo
+    private lateinit var playerAnalysisRemoteRepo: PlayerAnalysisRemoteRepo
 
     fun loadStatTypes(role: Int, summonerId: Long, presenter: AnalysePresenter) {
         val url = network.getUrl(summonerId)
@@ -36,15 +37,18 @@ class AnalyseInteractor (private val retrofitFactory: RetrofitFactory,
         }
     }
 
-    fun loadIndividualStat(url : String, summonerId: Long, viewHolder: AnalyseTabContract.CardView, presenter: AnalysePresenter) {
+    fun loadIndividualStat(url: String, summonerId: Long, viewHolder: StatCardContract, presenter: AnalysePresenter) {
         async {
             val result = playerAnalysisRemoteRepo.fetchIndividualStat(url, summonerId).await()
             result.cache()
-            presenter.handleCardResult(result, viewHolder)
+//            presenter.handleCardResult(result, viewHolder)
         }
     }
 
-    suspend fun<T> Result<T>.cache() : Boolean {
+    /**
+     * Cache our data that we have fetched.
+     */
+    private suspend fun <T> Result<T>.cache(): Boolean {
 
         if (resultCode == 200) {
             cacheData(data)
@@ -54,13 +58,13 @@ class AnalyseInteractor (private val retrofitFactory: RetrofitFactory,
         return false
     }
 
-    private fun<T> cacheData(data : T) : Boolean {
-        when(data) {
+    private fun <T> cacheData(data: T): Boolean {
+        when (data) {
             is StatList -> {
                 // do stat cache
                 return true
             }
-            is StatCard -> {
+            is FullStatCard -> {
                 return true
             }
         }
@@ -68,64 +72,32 @@ class AnalyseInteractor (private val retrofitFactory: RetrofitFactory,
         return false
     }
 
-    fun RequestFilterList(role: Int, champId: Int, presenter: AnalyseTabContract.Presenter, region : String) {
+    fun loadStatList(role: Int, champId: Int, presenter: AnalysePresenter, region: String) {
         val datas = ArrayList<AnalysisData>()
         val analysisData = AnalysisData()
 //        presenter.setStatList(removeMeAfterMocking())
     }
 
-    fun RequestFilterList(role: Int, presenter: AnalysePresenter, region : String) {
+    fun loadStatList(role: Int, presenter: AnalysePresenter, region: String, summonerId: Long) {
         val mockResponses = MockAnalysisServiceResponses()
         val mockInterceptor = MockHttpResponseInterceptor("", 200)
+
         async {
             val url = network.getUrl(region)
             val analysisService = retrofitFactory.produceMockRetrofitInterface(AnalysisService::class.java, mockInterceptor)
             mockInterceptor.content = mockResponses.getStatIds(-1)
-            val call: Call<Result<ArrayList<String>>> = analysisService.getStatList()
-            val response: Response<Result<ArrayList<String>>> = await { call.execute() }
+            val call: Call<Result<ArrayList<StatSummary>>> = analysisService.getStatList()
+            val response : Response<Result<ArrayList<StatSummary>>> = await { call.execute() }
 
-            val result: Result<ArrayList<String>> = response.getMatchIds()
+            val result : Result<ArrayList<StatSummary>> = response.getStatList()
             val code = result.resultCode // do something here?
+            presenter.setStatList(result.data)
 //            presenter.onMatchListLoadedSuccessfully(result.data)
         }
+
 
         // send request
         // send request to
 //        presenter.setStatList(removeMeAfterMocking())
-    }
-
-    /**
-     * TODO remove me
-     */
-    private fun removeMeAfterMocking(): ArrayList<AnalysisData> {
-        val analysisData1 = AnalysisData()
-        val analysisData2 = AnalysisData()
-        val analysisData3 = AnalysisData()
-        val analysisData4 = AnalysisData()
-        val analysisData5 = AnalysisData()
-        val analysisData6 = AnalysisData()
-
-        analysisData1.recentChange = -3.1
-        analysisData2.recentChange = -2.3
-        analysisData3.recentChange = 3.3
-
-        analysisData1.title = "Early Game"
-        analysisData2.title = "Mid Game"
-        analysisData3.title = "Late Game"
-
-        analysisData1.heroPercentTotal = 45f
-        analysisData2.heroPercentTotal = 44f
-        analysisData3.heroPercentTotal = 47f
-
-        analysisData1.enemyPercentTotal = 55f
-        analysisData2.enemyPercentTotal = 56f
-        analysisData3.enemyPercentTotal = 53f
-
-        val analysisDatalist = ArrayList<AnalysisData>()
-        analysisDatalist.add(analysisData1)
-        analysisDatalist.add(analysisData2)
-        analysisDatalist.add(analysisData3)
-        return analysisDatalist
-
     }
 }

@@ -12,6 +12,7 @@ import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.H
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.MatchPerformanceDetails
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.MatchHistoryCardData
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.PieReadyComparisonResult
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatSummary
 import retrofit2.Response
 
 /**
@@ -20,6 +21,22 @@ import retrofit2.Response
 fun Response<Result<ArrayList<String>>>.getMatchIds() : Result<ArrayList<String>> {
     if (body() != null) {
         return body()!!
+    }
+
+    return Result(404, ArrayList())
+}
+
+fun Response<Result<ArrayList<StatSummary>>>.getStatList() : Result<ArrayList<StatSummary>> {
+    if (body() != null) {
+        return body() !!
+    }
+
+    return Result(404, ArrayList())
+}
+
+fun Response<Result<ArrayList<HeadToHeadStat>>>.getHeadToHeadStats() : Result<ArrayList<HeadToHeadStat>> {
+    if (body() != null) {
+        return body() !!
     }
 
     return Result(404, ArrayList())

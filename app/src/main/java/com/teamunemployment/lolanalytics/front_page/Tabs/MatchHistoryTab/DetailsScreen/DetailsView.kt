@@ -6,6 +6,9 @@ import android.support.design.widget.Snackbar.LENGTH_LONG
 import android.support.v7.app.AppCompatActivity
 import com.teamunemployment.lolanalytics.R
 import com.teamunemployment.lolanalytics.Utils.Constant.*
+import com.teamunemployment.lolanalytics.Utils.Constant.Companion.EARLY_GAME
+import com.teamunemployment.lolanalytics.Utils.Constant.Companion.LATE_GAME
+import com.teamunemployment.lolanalytics.Utils.Constant.Companion.MID_GAME
 import com.teamunemployment.lolanalytics.Utils.setDefaultStyle
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.model.GameStageView
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.PieReadyComparisonResult

@@ -1,9 +1,7 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.di
 
 import com.teamunemployment.lolanalytics.Utils.RoleUtils
-import com.teamunemployment.lolanalytics.front_page.BaseActivityPersistenceInteractor
-import com.teamunemployment.lolanalytics.front_page.BaseActivityPresenter
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalyseAdapter
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.AnalyseAdapter
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalyseInteractor
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalysePresenter
 import org.koin.android.module.AndroidModule

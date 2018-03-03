@@ -1,6 +1,8 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab
 
 import com.teamunemployment.lolanalytics.data.model.Result
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.HeadToHeadStat
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatSummary
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,6 +13,9 @@ import retrofit2.http.Path
 interface AnalysisService {
 
     @GET("/getStuff")
-    fun getStatList() : Call<Result<ArrayList<String>>>
+    fun getStatList() : Call<Result<ArrayList<StatSummary>>>
+
+    @GET("/fullCardStuff")
+    fun getFullCardStat() : Call<Result<ArrayList<HeadToHeadStat>>>
 
 }

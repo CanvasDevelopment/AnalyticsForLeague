@@ -4,6 +4,8 @@ import com.teamunemployment.lolanalytics.Utils.Network
 import com.teamunemployment.lolanalytics.data.model.Champ
 import com.teamunemployment.lolanalytics.Utils.RoleUtils
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.*
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.AnalyseAdapter
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.StatCardView
 import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
 
 import org.junit.Before
@@ -76,40 +78,39 @@ class AnalysePresenterTests {
 
     @Test
     fun ensureThatWeSetTheAdapterAndTriggerDisplayWhenWeGetDataReturned() {
-        val arrayList = ArrayList<AnalysisStatUrls>()
-        arrayList.add(mock(AnalysisStatUrls::class.java))
-        val statList = StatList(arrayList, 1)
+        val arrayList = ArrayList<StatSummary>()
+        arrayList.add(mock(StatSummary::class.java))
+//        val statList = StatList(arrayList, 1)
         view = mock(AnalyseTabContract.View::class.java)
         interactor = AnalyseInteractor(retrofitFactory, network)
         analysePresenter.setView(view)
-        analysePresenter.setStatList(statList)
+        analysePresenter.setStatList(arrayList)
         verify(view, times(1)).setAdapter(analyseAdapter)
     }
 
     @Test
     fun ensureThatWeDontSetAdapterWhenWeHaveNoData() {
-        val arrayList = ArrayList<AnalysisStatUrls>()
+        val arrayList = ArrayList<StatSummary>()
 //        arrayList.add(mock(AnalysisStatUrls::class.java))
-        val statList = StatList(arrayList, 0)
         val champ = Champ()
         champ.champName = "Vi"
-        `when`(roleUtils.GetRoleName(4)).thenReturn("SUPPORT")
+        `when`(roleUtils.getRoleName(4)).thenReturn("SUPPORT")
         analysePresenter.setChamp(champ)
-        analysePresenter.setStatList(statList)
+        analysePresenter.setStatList(arrayList)
         verify(view, times(0)).setAdapter(analyseAdapter)
     }
 
     @Test
     fun ensureThatWeSetCorrectPlaceholderMessageForRoleAndChamp() {
-        val arrayList = ArrayList<AnalysisStatUrls>()
+        val arrayList = ArrayList<StatSummary>()
 //        arrayList.add(mock(AnalysisStatUrls::class.java))
-        val statList = StatList(arrayList, 0)
+//        val statList = StatList(arrayList, 0)
         val champ = Champ()
         champ.champName = "Vi"
-        `when`(roleUtils.GetRoleName(4)).thenReturn("SUPPORT")
+        `when`(roleUtils.getRoleName(4)).thenReturn("SUPPORT")
         analysePresenter.setChamp(champ)
         analysePresenter.setRole(4)
-        analysePresenter.setStatList(statList)
+        analysePresenter.setStatList(arrayList)
         verify(view, times(0)).setAdapter(analyseAdapter)
         val noResults = "No games found playing SUPPORT with Vi"
         verify(view, times(1)).setPlaceHolderString(noResults)
@@ -117,13 +118,12 @@ class AnalysePresenterTests {
 
     @Test
     fun ensureThatWeSetCorrectPlaceHolderMessageWithRoleAndNoChamp() {
-        val arrayList = ArrayList<AnalysisStatUrls>()
-        val statList = StatList(arrayList, 0)
+        val arrayList = ArrayList<StatSummary>()
         val champ = Champ()
         champ.champName = "Vi"
-        `when`(roleUtils.GetRoleName(4)).thenReturn("SUPPORT")
+        `when`(roleUtils.getRoleName(4)).thenReturn("SUPPORT")
         analysePresenter.setRole(4)
-        analysePresenter.setStatList(statList)
+        analysePresenter.setStatList(arrayList)
         verify(view, times(0)).setAdapter(analyseAdapter)
         val noResults = "No games found playing SUPPORT"
         verify(view, times(1)).setPlaceHolderString(noResults)
@@ -132,14 +132,13 @@ class AnalysePresenterTests {
 
     @Test(expected = IllegalStateException::class)
     fun ensureThatIllegalStateExceptionGetsThrownIfWeTryToCreateAMessageWithoutARoleBeingSet() {
-        val arrayList = ArrayList<AnalysisStatUrls>()
-        val statList = StatList(arrayList, 0)
+        val arrayList = ArrayList<StatSummary>()
         val champ = Champ()
         champ.champName = "Vi"
-        `when`(roleUtils.GetRoleName(6)).thenThrow(IllegalStateException())
+        `when`(roleUtils.getRoleName(6)).thenThrow(IllegalStateException())
         analysePresenter.setChamp(champ)
         analysePresenter.setRole(6)
-        analysePresenter.setStatList(statList)
+        analysePresenter.setStatList(arrayList)
         verify(view, times(0)).setAdapter(analyseAdapter)
     }
 
@@ -151,9 +150,8 @@ class AnalysePresenterTests {
 
     @Test
     fun ensureThatWeHidePlaceholderWhenWeSetTheAdapter() {
-        val arrayList = ArrayList<AnalysisStatUrls>()
-        val statList = StatList(arrayList, 1)
-        analysePresenter.setStatList(statList)
+        val arrayList = ArrayList<StatSummary>()
+        analysePresenter.setStatList(arrayList)
         verify(view, times(1)).setPlaceHolderInvisible()
     }
 
@@ -173,7 +171,7 @@ class AnalysePresenterTests {
     fun ensureWeOnlyRequestRoleFilterIfWeHaveNoChampSet() {
         analysePresenter.setRole(4)
         analysePresenter.start()
-        verify<AnalyseInteractor>(interactor, times(1)).RequestFilterList(4, analysePresenter)
+        verify<AnalyseInteractor>(interactor, times(1)).loadStatList(4, analysePresenter, "OCE", -1)
     }
 
     @Test
@@ -183,7 +181,7 @@ class AnalysePresenterTests {
         `when`(champ.champId).thenReturn(31)
         analysePresenter.setChamp(champ)
         analysePresenter.start()
-        verify<AnalyseInteractor>(interactor, times(1)).RequestFilterList(1, 31, analysePresenter)
+        verify<AnalyseInteractor>(interactor, times(1)).loadStatList(1, 31, analysePresenter, "OCE")
     }
 
     // todo
@@ -196,16 +194,20 @@ class AnalysePresenterTests {
         val enemy = 54.2f
         val title = "Early Game"
 
-        val datas = ArrayList<AnalysisStatUrls>()
-        val arrayList = ArrayList<AnalysisStatUrls>()
+        val datas = ArrayList<StatSummary>()
+        val arrayList = ArrayList<StatSummary>()
         val analysisData = AnalysisData()
 //        datas.add(analysisData)
-        val statList = StatList(datas, 0)
-
-        analysePresenter.setStatList(statList)
-        val viewHolder = mock(AnalyseCardViewHolder::class.java)
+        analysePresenter.setStatList(arrayList)
+        val viewHolder = mock(StatCardView::class.java)
         analysePresenter.onCardBinding(viewHolder, 0)
         verify(viewHolder, times(1)).setTitle(title)
+    }
+    @Test
+    fun `Test that we can set placeholder when champ is null` () {
+        val arrayList = ArrayList<StatSummary>()
+        analysePresenter.setStatList(arrayList)
+
     }
 
     // todo
@@ -213,26 +215,31 @@ class AnalysePresenterTests {
     fun `Test that we set graph correctly when we bind`() {
         val cardData = produceRandomCardData()
 
-        val datas = ArrayList<AnalysisStatUrls>()
-        val statUrl = produceRandomAnalysisUrl()
+        val datas = ArrayList<StatSummary>()
+        val statUrl = produceRandomStatUrl()
         datas.add(statUrl)
-        val statList = StatList(datas,20)
-        val viewHolder = mock(AnalyseTabContract.CardView::class.java)
+        val viewHolder = mock(StatCardView::class.java)
 
         `when`(interactor.loadIndividualStat(statUrl.card,-1,viewHolder,analysePresenter))
-        analysePresenter.setStatList(statList)
+        analysePresenter.setStatList(datas)
 
         analysePresenter.onCardBinding(viewHolder, 0)
 //        verify(viewHolder, times(1)).SetGraph(enemy, hero)
 
     }
 
-    fun produceRandomAnalysisUrl() : AnalysisStatUrls {
-        return AnalysisStatUrls(random.nextInt().toString(), random.nextInt().toString(), "title")
+    @Test
+    fun `Make sure that we set up the correct view for the given view type`() {
+
     }
 
-    fun produceRandomCardData() : StatCard{
-        return StatCard(
+    fun produceRandomStatUrl() : StatSummary {
+
+        return StatSummary(random.nextInt(), random.nextInt().toString(), "title", "title")
+    }
+
+    fun produceRandomCardData() : FullStatCard {
+        return FullStatCard(
                 random.nextFloat(),
                 random.nextFloat(),
                 random.nextFloat(),
@@ -256,26 +263,31 @@ class AnalysePresenterTests {
         datas.add(analysisData)
 //        analysePresenter!!.setStatList(datas)
 
-        val viewHolder = mock(AnalyseCardViewHolder::class.java)
+        val viewHolder = mock(StatCardView::class.java)
         analysePresenter.onCardBinding(viewHolder, 0)
-        verify(viewHolder, times(1)).setChange(change.toDouble())
+//        verify(viewHolder, times(1)).setChange(change.toDouble())
     }
 
     @Test
-    fun ensureThatWeSetPositionToViewHolder() {
-        val datas = ArrayList<AnalysisData>()
-        datas.add(mock(AnalysisData::class.java))
-        datas.add(mock(AnalysisData::class.java))
-        datas.add(mock(AnalysisData::class.java))
-//        analysePresenter!!.setStatList(datas)
-        val viewHolder = mock(AnalyseCardViewHolder::class.java)
+    fun `Ensure That We Set Position To ViewHolder`() {
+        val datas = ArrayList<StatSummary>()
+        datas.add(mock(StatSummary::class.java))
+        datas.add(mock(StatSummary::class.java))
+        datas.add(mock(StatSummary::class.java))
+        analysePresenter.setStatList(datas)
+        val viewHolder = mock(StatCardView::class.java)
         analysePresenter.onCardBinding(viewHolder, 2)
-//        verify(viewHolder, times(1)).SetItemPosition(2)
+        verify(viewHolder, times(1)).setCardPosition(2)
     }
 
 
     @Test
     fun ensureThatWeCanHandleClicksInPresenter() {
         //        analysePresenter.handleItemClick(3);
+    }
+
+    @Test
+    fun `Make sure that the presenter throws illegal state exception if the position is -1`() {
+
     }
 }

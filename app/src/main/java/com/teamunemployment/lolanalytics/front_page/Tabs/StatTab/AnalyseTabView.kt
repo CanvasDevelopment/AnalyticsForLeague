@@ -11,6 +11,7 @@ import com.teamunemployment.lolanalytics.data.model.Champ
 import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract
 import com.teamunemployment.lolanalytics.R
 import com.teamunemployment.lolanalytics.Utils.Constant
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.AnalyseAdapter
 import kotlinx.android.synthetic.main.tab_view_fragment.*
 import org.koin.android.ext.android.inject
 
