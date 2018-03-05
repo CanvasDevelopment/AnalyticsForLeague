@@ -151,6 +151,7 @@ class AnalysePresenterTests {
     @Test
     fun ensureThatWeHidePlaceholderWhenWeSetTheAdapter() {
         val arrayList = ArrayList<StatSummary>()
+        arrayList.add(produceRandomStatSummary())
         analysePresenter.setStatList(arrayList)
         verify(view, times(1)).setPlaceHolderInvisible()
     }
@@ -195,37 +196,18 @@ class AnalysePresenterTests {
         val title = "Early Game"
 
         val datas = ArrayList<StatSummary>()
-        val arrayList = ArrayList<StatSummary>()
-        val analysisData = AnalysisData()
-//        datas.add(analysisData)
-        analysePresenter.setStatList(arrayList)
+        val statSummary = StatSummary(0,"card", "detail", title)
+        datas.add(statSummary)
+        analysePresenter.setStatList(datas)
         val viewHolder = mock(StatCardView::class.java)
         analysePresenter.onCardBinding(viewHolder, 0)
         verify(viewHolder, times(1)).setTitle(title)
     }
+
     @Test
     fun `Test that we can set placeholder when champ is null` () {
         val arrayList = ArrayList<StatSummary>()
         analysePresenter.setStatList(arrayList)
-
-    }
-
-    // todo
-    @Test
-    fun `Test that we set graph correctly when we bind`() {
-        val cardData = produceRandomCardData()
-
-        val datas = ArrayList<StatSummary>()
-        val statUrl = produceRandomStatUrl()
-        datas.add(statUrl)
-        val viewHolder = mock(StatCardView::class.java)
-
-        `when`(interactor.loadIndividualStat(statUrl.card,-1,viewHolder,analysePresenter))
-        analysePresenter.setStatList(datas)
-
-        analysePresenter.onCardBinding(viewHolder, 0)
-//        verify(viewHolder, times(1)).SetGraph(enemy, hero)
-
     }
 
     @Test
@@ -247,25 +229,9 @@ class AnalysePresenterTests {
                 random.nextFloat(),
                 random.nextFloat())
     }
-    @Test
-    fun testThatWeSetChangeCorrectly() {
-        val change = -12.1f
-        val hero = 45.8f
-        val enemy = 54.2f
-        val title = "Early Game"
 
-        val datas = ArrayList<AnalysisData>()
-        val analysisData = AnalysisData()
-        analysisData.enemyPercentTotal = enemy
-        analysisData.heroPercentTotal = hero
-        analysisData.title = title
-        analysisData.recentChange = change.toDouble()
-        datas.add(analysisData)
-//        analysePresenter!!.setStatList(datas)
-
-        val viewHolder = mock(StatCardView::class.java)
-        analysePresenter.onCardBinding(viewHolder, 0)
-//        verify(viewHolder, times(1)).setChange(change.toDouble())
+    private fun produceRandomStatSummary(): StatSummary {
+        return StatSummary(random.nextInt(),random.nextInt().toString(), random.nextInt().toString(), random.nextInt().toString())
     }
 
     @Test
