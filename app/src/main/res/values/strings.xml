@@ -21,4 +21,7 @@
     <string name="deaths">Deaths</string>
     <string name="damageDealt">Damage Dealt</string>
     <string name="creeps">Creep Score</string>
+    <string name="historical">Historical</string>
+    <string name="vs_opponent">Vs Opponent</string>
+    <string name="vs_division">Vs Division</string>
 </resources>

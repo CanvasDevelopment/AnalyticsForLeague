@@ -13,16 +13,59 @@ class MockAnalysisServiceResponses {
         return "{" +
                 "\"data\" : [" +
                 "{" +
-                    "\"type\": 2,"+
-                    "\"card\" : \"testurl\"," +
-                    "\"detail\" : \"detailsurl\"" +
+                    "\"type\": 3,"+
+                    "\"cardUrl\" : \"testurl\"," +
+                    "\"detailUrl\" : \"detailsurl\"," +
+                    "\"title\" : \"Creeps Per Minute\"" +
                 "}," +
                 "{" +
-                    "\"type\": 1,"+
-                    "\"card\" : \"testurl\"," +
-                    "\"detail\" : \"detailsurl\"" +
+                    "\"type\": 3,"+
+                    "\"cardUrl\" : \"testurl\"," +
+                    "\"detailUrl\" : \"detailsurl\"," +
+                    "\"title\" : \"Gold Per Minute\"" +
                 "}" +
                 "]}"
+    }
+
+    fun getStatDetails() : String {
+        return "{\n" +
+                "\"data\" : {\n" +
+                "\t\"historical\" : {\n" +
+                "\t\t\"earlyGame\" : [45, 56, 58, 58, 51, 64, 63],\n" +
+                "\t\t\"midGame\" : [45, 56, 58, 58, 51, 64, 63],\n" +
+                "\t\t\"lateGame\" : [45, 56, 58, 58, 51, 64, 63]\n" +
+                "\t},\n" +
+                "\t\"vsOpponent\" : [{\n" +
+                "\t\t\t\"heroStat\" : 57.4,\n" +
+                "\t\t\t\"enemyStat\" : 44.5\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"heroStat\" : 57.4,\n" +
+                "\t\t\t\"enemyStat\" : 44.5\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"heroStat\" : 57.4,\n" +
+                "\t\t\t\"enemyStat\" : 44.5\n" +
+                "\t\t}\n" +
+                "\t\t],\n" +
+                "\t\"vsDivision\" : [\n" +
+                "\t\t{\n" +
+                "\t\t\t\"heroStat\" : 57.4,\n" +
+                "\t\t\t\"enemyStat\" : 44.5\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"heroStat\" : 57.4,\n" +
+                "\t\t\t\"enemyStat\" : 44.5\n" +
+                "\t\t},\n" +
+                "\t\t{\n" +
+                "\t\t\t\"heroStat\" : 57.4,\n" +
+                "\t\t\t\"enemyStat\" : 44.5\n" +
+                "\t\t}\n" +
+                "\t\t],\n" +
+                "\n" +
+                "\t\"divisionName\" : \"Silver 3\"\n" +
+                "}\n" +
+                "}"
     }
 
     fun getFullStatCard() : String {

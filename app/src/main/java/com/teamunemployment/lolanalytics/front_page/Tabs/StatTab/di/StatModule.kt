@@ -13,10 +13,10 @@ class StatModule : AndroidModule() {
     override fun context() = applicationContext {
 
         context(name = "StatModule") {
-            provide { AnalysePresenter(get(),get(), get()) }
+            provide { AnalysePresenter(get(),get(), get(), get(), get()) }
             provide { RoleUtils() }
             provide { AnalyseInteractor(get(), get()) }
-            provide { AnalyseAdapter() }
+            provide { AnalyseAdapter(get()) }
         }
     }
 }

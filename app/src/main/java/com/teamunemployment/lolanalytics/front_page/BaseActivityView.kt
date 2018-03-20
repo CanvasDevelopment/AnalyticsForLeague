@@ -2,14 +2,13 @@ package com.teamunemployment.lolanalytics.front_page
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.CoordinatorLayout
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
 import android.widget.Toast
 
 import com.squareup.picasso.Picasso
@@ -45,7 +44,6 @@ class BaseActivityView : AppCompatActivity(), BaseActivityContract.View, SearchC
         // Set views for our presenter
         presenter.setView(this)
         searchPresenter.setSearchView(this)
-
         // set listener for our search
         searchInput.addTextChangedListener(this)
 
@@ -56,19 +54,6 @@ class BaseActivityView : AppCompatActivity(), BaseActivityContract.View, SearchC
 
     private fun setUpClickHandlers() {
         champFab.setOnClickListener { searchPresenter.handleSearchFabClick() }
-    }
-
-    /**
-     * Set up colors and buttons and click handlers. Somewhat long method but there is no real logic.
-     */
-    private fun setUpBottomBar() {
-
-        // Bottom bar appearance.
-        //        bottomBar.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        //        bottomBar.setAccentColor(ContextCompat.getColor(this, R.color.colorAccent));
-        //        bottomBar.setInactiveColor(ContextCompat.getColor(this, R.color.bluegrey));
-        //        bottomBar.setBehaviorTranslationEnabled(true);
-        //        presenter.setUpBottomBar(bottomBar);
     }
 
     private fun setUpTabs() {

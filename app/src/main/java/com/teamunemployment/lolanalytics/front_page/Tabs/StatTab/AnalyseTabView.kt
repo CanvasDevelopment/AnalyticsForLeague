@@ -1,5 +1,6 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import com.teamunemployment.lolanalytics.data.model.Champ
 import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract
 import com.teamunemployment.lolanalytics.R
 import com.teamunemployment.lolanalytics.Utils.Constant
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.DetailsScreen.DetailsView
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.AnalyseAdapter
 import kotlinx.android.synthetic.main.tab_view_fragment.*
 import org.koin.android.ext.android.inject
@@ -38,12 +40,6 @@ class AnalyseTabView : Fragment(), AnalyseTabContract.View {
         return rootView
     }
 
-    override fun setAdapter(adapter: AnalyseAdapter) {
-        val linearLayoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.adapter = adapter
-    }
-
     override fun setPlaceHolderVisible() {
         errorMessageView.visibility = View.VISIBLE
     }
@@ -65,12 +61,18 @@ class AnalyseTabView : Fragment(), AnalyseTabContract.View {
         presenter.setRole(role)
     }
 
-    override fun launchDetailsActivity() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun launchDetailsActivity(detailsUrl : String) {
+
+        val detailsIntent = Intent(this.context, DetailsView::class.java)
+        startActivity(detailsIntent)
+        this.activity.overridePendingTransition( R.anim.slide_in_entry, R.anim.slide_out_entry)
     }
 
     override fun setAdapter(adapter: TabContract.TabAdapter) {
-
+        val analyseAdapter = adapter as AnalyseAdapter
+        val linearLayoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.adapter = analyseAdapter
     }
 
     override fun setLoadingVisible(visible: Boolean) {

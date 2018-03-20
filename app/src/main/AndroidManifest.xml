@@ -36,6 +36,9 @@
         <activity
             android:name=".front_page.Tabs.MatchHistoryTab.DetailsScreen.DetailsView"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".front_page.Tabs.StatTab.DetailsScreen.DetailsView"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

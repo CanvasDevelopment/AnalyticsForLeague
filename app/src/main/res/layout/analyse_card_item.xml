@@ -5,12 +5,10 @@
     android:layout_marginStart="3dp"
     android:layout_marginEnd="3dp"
     android:layout_marginTop="3dp"
+    android:background="@color/white"
     android:layout_width="match_parent">
 
 <RelativeLayout
-    android:orientation="vertical"
-    android:background="?android:attr/selectableItemBackground"
-    android:id="@+id/cardBase"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -23,35 +21,24 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:clickable="false"
-        android:gravity="center_vertical"
-        android:text="Creeps Per Minute" />
-    
-    <LinearLayout
-        android:id="@+id/chartsHolder"
-        android:padding="16dp"
-        android:layout_below="@+id/analyseCardTitle"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/earlyGame"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="80dp"
-            android:layout_marginStart="16dp" />
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/midGame"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="80dp" />
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/lateGame"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="80dp" />
-    </LinearLayout>
+        android:gravity="center_vertical" />
 
-
+    <include
+        android:id="@+id/game_stage_stats"
+        layout="@layout/three_stage_stat_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/analyseCardTitle" />
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/cardDetailsButton"
+        android:layout_margin="@dimen/appCompatDefaultMargin"
+        android:text="@string/details"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:textColor="@color/colorPrimary"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/game_stage_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

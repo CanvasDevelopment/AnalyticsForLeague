@@ -10,6 +10,8 @@ import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.MatchHi
 import com.squareup.picasso.Picasso
 import com.teamunemployment.lolanalytics.R
 import kotlinx.android.synthetic.main.match_history_card.view.*
+import kotlinx.android.synthetic.main.match_history_details_panel.view.*
+import kotlinx.android.synthetic.main.three_stage_stat_view.view.*
 
 /**
  * @author Josiah Kendall.
@@ -25,15 +27,15 @@ class MatchHistoryCardView(private val cardBase: View,
     }
 
     override fun setGraph1(HeadToHeadStat: HeadToHeadStat) {
-        setUpPieChart(cardBase.chart1, HeadToHeadStat)
+        setUpPieChart(cardBase.earlyGameGraph, HeadToHeadStat)
     }
 
     override fun setGraph2(HeadToHeadStat: HeadToHeadStat) {
-        setUpPieChart(cardBase.chart2, HeadToHeadStat)
+        setUpPieChart(cardBase.midGameGraph, HeadToHeadStat)
     }
 
     override fun setGraph3(HeadToHeadStat: HeadToHeadStat) {
-        setUpPieChart(cardBase.chart3, HeadToHeadStat)
+        setUpPieChart(cardBase.lateGameGraph, HeadToHeadStat)
     }
 
     override fun setGraph4(HeadToHeadStat: HeadToHeadStat) {

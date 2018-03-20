@@ -36,8 +36,8 @@
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/performanceScore"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="@dimen/pie_chart_standard_width"
+            android:layout_height="@dimen/pie_chart_standard_height"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
             <com.mikhaellopez.circularimageview.CircularImageView
@@ -90,10 +90,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/deaths"
+                android:id="@+id/midGameTitle"
                 android:layout_below="@+id/deathsScoreTitle"
-                android:layout_width="120dp"
-                android:layout_height="120dp" />
+                android:layout_width="@dimen/pie_chart_standard_width"
+                android:layout_height="@dimen/pie_chart_standard_height" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -110,8 +110,8 @@
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/assists"
                 android:layout_below="@+id/assistsScoreTitle"
-                android:layout_width="120dp"
-                android:layout_height="120dp" />
+                android:layout_width="@dimen/pie_chart_standard_width"
+                android:layout_height="@dimen/pie_chart_standard_height" />
         </RelativeLayout>
     </LinearLayout>
     <RelativeLayout

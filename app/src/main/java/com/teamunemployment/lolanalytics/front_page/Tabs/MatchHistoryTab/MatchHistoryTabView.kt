@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract
 import com.teamunemployment.lolanalytics.R
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.DetailsView
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatSummary
 
 import kotlinx.android.synthetic.main.tab_view_fragment.*
 import org.koin.android.ext.android.inject
@@ -58,7 +59,7 @@ class MatchHistoryTabView : Fragment(), TabContract.View {
 
     }
 
-    override fun launchDetailsActivity() {
+    override fun launchDetailsActivity(detailsUrl : String) {
         val detailsIntent = Intent(this.context, DetailsView::class.java)
         startActivity(detailsIntent)
         this.activity.overridePendingTransition( R.anim.slide_in_entry, R.anim.slide_out_entry)

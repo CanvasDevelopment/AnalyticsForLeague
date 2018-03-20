@@ -15,7 +15,7 @@ interface AnalysisService {
     @GET("/getStuff")
     fun getStatList() : Call<Result<ArrayList<StatSummary>>>
 
-    @GET("/fullCardStuff")
-    fun getFullCardStat() : Call<Result<ArrayList<HeadToHeadStat>>>
+    @GET("/fullStatCard/{url}")
+    fun getFullCardStat(@Path("url")url : String) : Call<Result<ArrayList<HeadToHeadStat>>>
 
 }

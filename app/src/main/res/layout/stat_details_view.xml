@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/stat_details_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/stat_details_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_toolbar_height"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/statDetailsBackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_keyboard_arrow_left_white_24dp" />
+
+            <TextView
+                android:id="@+id/statDetailsTitle"
+                android:text="Creeps Per Minute"
+                android:gravity="center"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/white"
+                android:layout_toEndOf="@+id/statDetailsBackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/appCompatDefaultMargin" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/stat_details_toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/historyCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:cardCornerRadius="6dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/appCompatDefaultMargin">
+
+                    <TextView
+                        android:id="@+id/historical_text_title"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/historical" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/gameStageSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true" />
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/statHistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@+id/historical_text_title"
+                        android:layout_marginTop="@dimen/appCompatDefaultMargin" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <!-- Ad [CardView] will go here TODO-->
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/historical_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/historyCard"
+                android:layout_marginEnd="@dimen/appCompatDefaultMargin"
+                android:layout_marginStart="@dimen/appCompatDefaultMargin">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/appCompatDefaultMargin"
+
+                    app:cardCornerRadius="6dp">
+
+                    <TextView
+                        android:id="@+id/vs_opponent_title"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/appCompatDefaultMargin"
+                        android:text="@string/vs_opponent" />
+
+                    <include
+                        android:id="@+id/vsOpponentStats"
+                        layout="@layout/three_stage_stat_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/vs_opponent_title"
+                        android:layout_marginBottom="@dimen/appCompatDefaultMargin" />
+
+                    <TextView
+                        android:id="@+id/vs_division_title"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/vsOpponentStats"
+                        android:layout_marginBottom="@dimen/appCompatDefaultMargin"
+                        android:text="@string/vs_division" />
+
+                    <include
+                        android:id="@+id/vsDivisionStats"
+                        layout="@layout/three_stage_stat_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/vs_division_title" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

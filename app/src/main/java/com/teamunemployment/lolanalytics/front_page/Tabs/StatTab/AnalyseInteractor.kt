@@ -3,12 +3,16 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab
 import co.metalab.asyncawait.async
 import com.teamunemployment.lolanalytics.Utils.Network
 import com.teamunemployment.lolanalytics.Utils.getStatList
+import com.teamunemployment.lolanalytics.data.model.DoubleWrapper
 import com.teamunemployment.lolanalytics.data.model.Result
+import com.teamunemployment.lolanalytics.front_page.BaseActivityService
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.HeadToHeadStat
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.AnalysisData
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatList
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.FullStatCard
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatSummary
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.StatCardContract
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.StatCardView
 import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
 import com.teamunemployment.lolanalytics.mock.MockAnalysisServiceResponses
 import com.teamunemployment.lolanalytics.mock.MockHttpResponseInterceptor
@@ -33,15 +37,18 @@ class AnalyseInteractor(private val retrofitFactory: RetrofitFactory,
         async {
             val result = playerAnalysisRemoteRepo.fetchStatList(role).await()
             result.cache()
-            presenter.handleListResult(result)
+//            presenter.setStatList(result.data)
         }
     }
 
-    fun loadIndividualStat(url: String, summonerId: Long, viewHolder: StatCardContract, presenter: AnalysePresenter) {
+    fun loadIndividualStat(url: String, viewHolder : StatCardView, presenter : AnalysePresenter) {
+        val mockResponses = MockAnalysisServiceResponses()
+        val mockInterceptor = MockHttpResponseInterceptor(mockResponses.getFullStatCard(), 200)
         async {
-            val result = playerAnalysisRemoteRepo.fetchIndividualStat(url, summonerId).await()
+            val analysisService = retrofitFactory.produceMockRetrofitInterface(AnalysisService::class.java, mockInterceptor)
+            val result : Result<ArrayList<HeadToHeadStat>> = analysisService.getFullCardStat(url).await()
             result.cache()
-//            presenter.handleCardResult(result, viewHolder)
+            presenter.handleCardResult(result.data, viewHolder)
         }
     }
 
@@ -80,7 +87,7 @@ class AnalyseInteractor(private val retrofitFactory: RetrofitFactory,
 
     fun loadStatList(role: Int, presenter: AnalysePresenter, region: String, summonerId: Long) {
         val mockResponses = MockAnalysisServiceResponses()
-        val mockInterceptor = MockHttpResponseInterceptor("", 200)
+        val mockInterceptor = MockHttpResponseInterceptor(mockResponses.getStatIds(-1), 200)
 
         async {
             val url = network.getUrl(region)

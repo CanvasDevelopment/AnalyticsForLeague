@@ -1,20 +1,26 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab
 
+import android.content.Context
+import android.view.View
+import android.view.ViewGroup
+import com.teamunemployment.lolanalytics.Utils.Constant
 import com.teamunemployment.lolanalytics.Utils.Network
 import com.teamunemployment.lolanalytics.data.model.Champ
 import com.teamunemployment.lolanalytics.Utils.RoleUtils
+import com.teamunemployment.lolanalytics.data.model.SummonerRapidAccessObject
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.HeadToHeadStat
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.ViewProducer
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.*
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.AnalyseAdapter
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.FullStatCardView
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.StatCardView
 import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
 
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers
+import org.mockito.Mockito.*
 
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
 import java.util.*
 
 /**
@@ -32,6 +38,8 @@ class AnalysePresenterTests {
     private lateinit var roleUtils: RoleUtils
     private val network = mock(Network::class.java)
     private val retrofitFactory = mock(RetrofitFactory::class.java)
+    private val srao = mock(SummonerRapidAccessObject::class.java)
+    private val context = mock(Context::class.java)
 
     /**
      * General flow of the presenter:
@@ -56,11 +64,11 @@ class AnalysePresenterTests {
      * We need to be able to update the role of a champ, and refeetch the value.
      *
      * HANDLE CARD BINDING
-     * The presenter needs to handle the card binding - in other words, it recieves the
+     * The presenter needs to handle the cardUrl binding - in other words, it recieves the
      * view holder, and sets the appropriate parameters to it.
      *
      * HANDLE CARD CLICK
-     * The card needs to be able to redirect clicks on itself to the presenter, and the presenter
+     * The cardUrl needs to be able to redirect clicks on itself to the presenter, and the presenter
      * needs to then open the correct
      */
 
@@ -72,7 +80,7 @@ class AnalysePresenterTests {
         view = mock(AnalyseTabContract.View::class.java)
 
         interactor = mock(AnalyseInteractor::class.java)
-        analysePresenter = AnalysePresenter(interactor, analyseAdapter, roleUtils)
+        analysePresenter = AnalysePresenter(interactor, analyseAdapter, roleUtils, srao, context)
         analysePresenter.setView(view)
     }
 
@@ -185,7 +193,6 @@ class AnalysePresenterTests {
         verify<AnalyseInteractor>(interactor, times(1)).loadStatList(1, 31, analysePresenter, "OCE")
     }
 
-    // todo
     @Test
     fun testThatWeSetTitleTextCorrectly() {
 
@@ -196,13 +203,97 @@ class AnalysePresenterTests {
         val title = "Early Game"
 
         val datas = ArrayList<StatSummary>()
-        val statSummary = StatSummary(0,"card", "detail", title)
+        val statSummary = StatSummary(0,"cardUrl", "detailUrl", title)
         datas.add(statSummary)
         analysePresenter.setStatList(datas)
         val viewHolder = mock(StatCardView::class.java)
         analysePresenter.onCardBinding(viewHolder, 0)
         verify(viewHolder, times(1)).setTitle(title)
     }
+
+    @Test
+    fun `Make sure that we dont set title for ads`() {
+        val data = ArrayList<StatSummary>()
+        val fullAddStatSummary = produceRandomStatSummaryWithType(Constant.AnalysisCardType.FULL_AD)
+        data.add(fullAddStatSummary)
+        analysePresenter.setStatList(data)
+        val viewHolder = mock(StatCardView::class.java)
+        `when`(viewHolder.isAd()).thenReturn(true)
+        analysePresenter.onCardBinding(viewHolder, 0)
+        verify(viewHolder, times(0)).setTitle(ArgumentMatchers.anyString())
+    }
+
+    @Test
+    fun `Make sure that we dont load data for ads`() {
+        val mockSummonerId = -1L
+        val data = ArrayList<StatSummary>()
+        val fullAddStatSummary = produceRandomStatSummaryWithType(Constant.AnalysisCardType.FULL_AD)
+        data.add(fullAddStatSummary)
+        analysePresenter.setStatList(data)
+        val viewHolder = mock(StatCardView::class.java)
+        `when`(viewHolder.isAd()).thenReturn(true)
+        `when`(srao.summonerId()).thenReturn(mockSummonerId)
+
+        analysePresenter.onCardBinding(viewHolder, 0)
+        verify(interactor, times(0))
+                .loadIndividualStat(
+                    fullAddStatSummary.cardUrl,
+                    viewHolder,
+                    analysePresenter)
+    }
+
+    @Test
+    fun `Make sure that we do load data for non ads`() {
+        val mockSummonerId = -1L
+        val data = ArrayList<StatSummary>()
+        val fullAddStatSummary = produceRandomStatSummaryWithType(Constant.AnalysisCardType.FULL_AD)
+        data.add(fullAddStatSummary)
+        analysePresenter.setStatList(data)
+        val viewHolder = mock(StatCardView::class.java)
+        `when`(viewHolder.isAd()).thenReturn(false)
+        `when`(srao.summonerId()).thenReturn(mockSummonerId)
+
+        analysePresenter.onCardBinding(viewHolder, 0)
+        verify(interactor, times(1))
+                .loadIndividualStat(
+                        fullAddStatSummary.cardUrl,
+                        viewHolder,
+                        analysePresenter)
+    }
+
+    @Test
+    fun `Make sure that we set title for non ads`() {
+        val mockSummonerId = -1L
+        val data = ArrayList<StatSummary>()
+        val fullAddStatSummary = produceRandomStatSummaryWithType(Constant.AnalysisCardType.FULL_AD)
+        data.add(fullAddStatSummary)
+        analysePresenter.setStatList(data)
+        val viewHolder = mock(StatCardView::class.java)
+        `when`(viewHolder.isAd()).thenReturn(false)
+        analysePresenter.onCardBinding(viewHolder, 0)
+        `when`(srao.summonerId()).thenReturn(mockSummonerId)
+        verify(viewHolder, times(1))
+                .setTitle(fullAddStatSummary.title)
+    }
+
+    @Test
+    fun `Make sure that we can create fullStat view`() {
+        val viewProducer = mock(ViewProducer::class.java)
+        val viewGroup = mock(ViewGroup::class.java)
+        `when`(viewProducer.produceFullWidthCard(viewGroup)).thenReturn(mock(View::class.java))
+        analysePresenter.createViewType(viewProducer,viewGroup,Constant.AnalysisCardType.FULL_STAT)
+        verify(viewProducer, times(1)).produceFullWidthCard(viewGroup)
+    }
+
+    @Test
+    fun `Make sure that we produce a full stat card view `() {
+        val viewProducer = mock(ViewProducer::class.java)
+        val viewGroup = mock(ViewGroup::class.java)
+        `when`(viewProducer.produceFullWidthCard(viewGroup)).thenReturn(mock(View::class.java))
+        val card = analysePresenter.createViewType(viewProducer,viewGroup,Constant.AnalysisCardType.FULL_STAT)
+        assert(card is FullStatCardView)
+    }
+
 
     @Test
     fun `Test that we can set placeholder when champ is null` () {
@@ -234,6 +325,11 @@ class AnalysePresenterTests {
         return StatSummary(random.nextInt(),random.nextInt().toString(), random.nextInt().toString(), random.nextInt().toString())
     }
 
+
+    private fun produceRandomStatSummaryWithType(type : Int): StatSummary {
+        return StatSummary(type,random.nextInt().toString(), random.nextInt().toString(), random.nextInt().toString())
+    }
+
     @Test
     fun `Ensure That We Set Position To ViewHolder`() {
         val datas = ArrayList<StatSummary>()
@@ -244,6 +340,26 @@ class AnalysePresenterTests {
         val viewHolder = mock(StatCardView::class.java)
         analysePresenter.onCardBinding(viewHolder, 2)
         verify(viewHolder, times(1)).setCardPosition(2)
+    }
+
+    @Test
+    fun `Make sure that we set the three graphs when we get a full card view`() {
+        val result = ArrayList<HeadToHeadStat>()
+        val stat1 = mock(HeadToHeadStat::class.java)
+        val stat2 = mock(HeadToHeadStat::class.java)
+        val stat3 = mock(HeadToHeadStat::class.java)
+        result.add(stat1)
+        result.add(stat2)
+        result.add(stat3)
+
+
+        val viewHolder = mock(FullStatCardView::class.java)
+        analysePresenter.handleCardResult(result,viewHolder)
+        verify(viewHolder, times(1)).setGraph1(stat1)
+        verify(viewHolder, times(1)).setGraph2(stat2)
+        verify(viewHolder, times(1)).setGraph3(stat3)
+//        verify(viewHolder, times(1)).setGraph2(stat2)
+//        verify(viewHolder, times(1)).setGraph3(stat3)
     }
 
 

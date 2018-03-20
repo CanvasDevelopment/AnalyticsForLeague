@@ -2,28 +2,24 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
     android:layout_marginTop="12dp"
-    android:background="@color/white"
     card_view:cardCornerRadius="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:layout_height="wrap_content">
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/performanceSummaryChart"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_margin="16dp"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/enemyChamp" />
+            android:layout_alignParentTop="true" />
         <RelativeLayout
             android:layout_toEndOf="@+id/performanceSummaryChart"
             android:layout_alignTop="@+id/performanceSummaryChart"
@@ -46,90 +42,13 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
 
+       <include
+           android:id="@+id/charts_wrapper"
+           layout="@layout/three_stage_stat_view"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/performanceSummaryChart"/>
 
-        <LinearLayout
-            android:id="@+id/chart_summary_wrapper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/performanceSummaryChart"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_weight="1">
-
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/chart1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/chart2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1" />
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/chart3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/enemyChamp"
-            android:layout_margin="16dp"
-            android:layout_alignParentEnd="true"
-            android:visibility="gone"
-            app:civ_border_color="@color/red"
-            app:civ_border_width="2dp"
-            android:src="@drawable/khazix"
-            android:layout_below="@+id/chart_summary_wrapper"
-            android:layout_width="36dp"
-            card_view:civ_border="true"
-            android:layout_height="36dp" />
-        <LinearLayout
-            android:id="@+id/chart_icons_wrapper"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
-            android:layout_below="@+id/chart_summary_wrapper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/earlyGame"
-                android:layout_width="12dp"
-                android:layout_marginLeft="12dp"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/early_game" />
-            <TextView
-                android:id="@+id/deaths"
-                android:layout_marginLeft="12dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/mid_game"
-                android:layout_width="12dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/cs_indicator"
-                android:layout_marginRight="12dp"
-                android:layout_weight="1"
-                android:layout_width="12dp"
-                android:gravity="center"
-                android:text="@string/late_game"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/cardDetailsButton"
             android:layout_margin="16dp"
@@ -137,7 +56,7 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:textColor="@color/colorPrimary"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/chart_icons_wrapper"
+            android:layout_below="@+id/charts_wrapper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>

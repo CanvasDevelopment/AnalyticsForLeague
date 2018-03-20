@@ -1,8 +1,7 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs;
 
 import com.teamunemployment.lolanalytics.ViewContract;
-
-import java.util.ArrayList;
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatSummary;
 
 /**
  * @author Josiah Kendall
@@ -15,7 +14,7 @@ public interface TabContract {
         void setAdapter(TabAdapter adapter);
         void setLoadingVisible(boolean visible);
 
-        void launchDetailsActivity();
+        void launchDetailsActivity(String statSummaryUrl);
     }
 
     /**
@@ -23,7 +22,6 @@ public interface TabContract {
      * package delivered to them from the server. // TODO rewrite value delivery to use a wrapper and one setValue() method on the contract.
      */
     interface TabAdapter {
-        // MatchHistoryAdapter
-        void setMatchHistoryAdapterData(ArrayList<String> matchIds);
+
     }
 }

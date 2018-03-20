@@ -1,9 +1,17 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.teamunemployment.lolanalytics.R
+import com.teamunemployment.lolanalytics.Utils.Constant
+import com.teamunemployment.lolanalytics.Utils.Constant.AnalysisCardType.FULL_AD
+import com.teamunemployment.lolanalytics.Utils.Constant.AnalysisCardType.FULL_STAT
+import com.teamunemployment.lolanalytics.Utils.Constant.AnalysisCardType.HALF_AD
+import com.teamunemployment.lolanalytics.Utils.Constant.AnalysisCardType.HALF_STAT
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.model.GameStageView
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalysePresenter
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.StatCardView
 import kotlinx.android.synthetic.main.game_stage_details_section.*
 import kotlinx.android.synthetic.main.game_stage_details_section.view.*
 
@@ -34,5 +42,9 @@ class ViewProducer(private val inflater: LayoutInflater) {
                 gameStageView.stat5Title,
                 gameStageView.stat6,
                 gameStageView.stat6Title)
+    }
+
+    fun produceFullWidthCard(parent: ViewGroup) : View {
+        return inflater.inflate(R.layout.analyse_card_item, parent, false)
     }
 }

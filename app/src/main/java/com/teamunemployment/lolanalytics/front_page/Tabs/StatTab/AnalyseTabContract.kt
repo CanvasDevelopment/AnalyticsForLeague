@@ -14,7 +14,6 @@ import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract
 interface AnalyseTabContract {
 
     interface View : TabContract.View {
-        fun setAdapter(adapter: AnalyseAdapter)
         fun setPlaceHolderVisible()
         fun setPlaceHolderInvisible()
         fun setPlaceHolderString(message: String)

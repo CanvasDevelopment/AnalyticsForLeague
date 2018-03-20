@@ -95,24 +95,24 @@ constructor(private val matchHistoryInteractor: MatchHistoryInteractor,
     }
 
     /**
-     * Load the card value.
+     * Load the cardUrl value.
      * @param id The match id for the value we want to load.
-     * @param cardViewContract The card object to present the value back to.
+     * @param cardViewContract The cardUrl object to present the value back to.
      */
     override fun loadCardData(id : String, cardViewContract : MatchHistoryCardViewContract, region : String) {
-        matchHistoryInteractor.loadMatchDetails(id.toLong(), this, cardViewContract, region,summonerRapidAccessDataObject.summonerId )
+        matchHistoryInteractor.loadMatchDetails(id.toLong(), this, cardViewContract, region,summonerRapidAccessDataObject.summonerId() )
     }
 
     /**
-     * Set our loaded card value back to the presenter for presenting to the card.
+     * Set our loaded cardUrl value back to the presenter for presenting to the cardUrl.
      * =====================
      * Note the cardViewContract being handed around. That is because we want to
      * maintain the same request/callback pattern that we use everywhere else for ease.
-     * The reason we have to keep the instance is that we cannot reliably maintain a reference to that card
+     * The reason we have to keep the instance is that we cannot reliably maintain a reference to that cardUrl
      * object any other way. The other option is to take the observables out of the interactor and process
      * them here in the presenter. I feel like this is the lesser of two evils.
-     * @param matchHistoryCardData The card value to present.
-     * @param cardViewContract The card view object to present to.
+     * @param matchHistoryCardData The cardUrl value to present.
+     * @param cardViewContract The cardUrl view object to present to.
      */
     override fun setLoadedCardData(matchHistoryCardData: MatchHistoryCardData,
                                    cardViewContract: MatchHistoryCardViewContract) {
@@ -131,7 +131,6 @@ constructor(private val matchHistoryInteractor: MatchHistoryInteractor,
         val summaryPerformance = HeadToHeadStat(enemyStat, heroStat)
 
         cardViewContract.setSummaryChart(summaryPerformance)
-
     }
 
     fun fetchPieDataSet(HeadToHeadStat: HeadToHeadStat): PieDataSet {
@@ -141,18 +140,14 @@ constructor(private val matchHistoryInteractor: MatchHistoryInteractor,
         entries.add(PieEntry(HeadToHeadStat.enemyStatValue, "Enemy"))
 
         return PieDataSet(entries, "")
-
-//        val data = PieData(set)
-//        pieChart.setData(data)
-//        pieChart.invalidate() // refres
     }
 
     fun fetchPieData(pieDataSet: PieDataSet): PieData{
         return PieData(pieDataSet)
     }
 
-    fun onDetailsButtonClick() {
+    fun onDetailsButtonClick(detailsUrl : String) {
         // launch new view with sliding animation
-        view.launchDetailsActivity()
+        view.launchDetailsActivity(detailsUrl)
     }
 }

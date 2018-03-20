@@ -40,8 +40,8 @@ class AnalyseInteractorTests {
         val result : Result<ArrayList<StatSummary>> = response.getStatList()
         assert(result.data.size == 3)
         assert(result.data[0].type == 2)
-        assert(result.data[0].card == "testurl")
-        assert(result.data[0].detail == "detailsurl")
+        assert(result.data[0].cardUrl == "testurl")
+        assert(result.data[0].detailUrl == "detailsurl")
         assert(result.data[1].type == 1)
     }
 
@@ -54,7 +54,7 @@ class AnalyseInteractorTests {
         // build retrofit mock
         val retrofitMock = RetrofitFactory().produceMockRetrofitInterface(AnalysisService::class.java, interceptor)
         // getMatchIds response
-        val call = retrofitMock.getFullCardStat()
+        val call = retrofitMock.getFullCardStat("")
 
         val response : Response<Result<ArrayList<HeadToHeadStat>>> =  call.execute()
 
@@ -79,7 +79,7 @@ class AnalyseInteractorTests {
         // build retrofit mock
         val retrofitMock = RetrofitFactory().produceMockRetrofitInterface(AnalysisService::class.java, interceptor)
         // getMatchIds response
-        val call = retrofitMock.getFullCardStat()
+        val call = retrofitMock.getFullCardStat("")
 
         val response : Response<Result<ArrayList<HeadToHeadStat>>> =  call.execute()
 
