@@ -6,6 +6,7 @@ import android.support.design.widget.CoordinatorLayout
 
 import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
@@ -35,22 +36,26 @@ class MainScreenBehaviour<V : View>constructor(context: Context, attrs: Attribut
 
         when(child) {
             is CircularImageView -> {       moveFABOnScroll(dy > 0, child, dy) }
-            is BottomNavigationView -> {child.translationY = max(0f, min(child.height.toFloat(), child.translationY + dy))}
+            is BottomNavigationView -> {
+                val trans = max(0f, min(child.height.toFloat(), child.translationY + dy))
+                Log.d("Behaviour", "translation value is: " + trans)
+                child.translationY = trans}
         }
     }
 
     private fun moveFABOnScroll(down: Boolean, view : View, dy : Int) {
 
         // Scroll it down at the same rate as the bottom navigation
-        view.translationY = max(0f, min(view.height.toFloat(), view.translationY + dy))
+        val translation = max(0f, min(view.height.toFloat(), view.translationY + dy))
 
-        if (down) {
+        view.translationY = translation
+        if (down && translation > 111.0f) {
             if (view.visibility == VISIBLE) {
                 val animation = AnimationUtils.loadAnimation(view.context, R.anim.fab_shrink)
                 view.startAnimation(animation)
                 view.visibility = INVISIBLE
             }
-        } else {
+        } else if (!down){
             if (view.visibility == INVISIBLE) {
                 view.visibility = VISIBLE
                 val animation = AnimationUtils.loadAnimation(view.context, R.anim.fab_grow)
