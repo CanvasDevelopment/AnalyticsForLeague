@@ -17,7 +17,6 @@ interface LoginRemoteRepo {
     @GET("summoner/v1/register/{summonerName}")
     fun register(@Path("summonerName") summonerName : String) : Call<Result<SummonerDetails>>
 
-
     @GET("summoner/v1/sync/{summonerId}")
     fun beginSync(@Path("summonerId") summonerId: Long) : Call<Result<String>>
 }

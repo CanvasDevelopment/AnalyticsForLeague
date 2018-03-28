@@ -30,36 +30,36 @@ class MockAnalysisServiceResponses {
     fun getStatDetails() : String {
         return "{\n" +
                 "\"data\" : {\n" +
-                "\t\"historical\" : {\n" +
-                "\t\t\"earlyGame\" : [45, 56, 58, 58, 51, 64, 63],\n" +
-                "\t\t\"midGame\" : [45, 56, 58, 58, 51, 64, 63],\n" +
-                "\t\t\"lateGame\" : [45, 56, 58, 58, 51, 64, 63]\n" +
-                "\t},\n" +
+                "\t\"historical\" : [\n" +
+                "\t\t[45, 56, 58, 58, 51, 64, 63],\n" +
+                "\t\t[51, 53, 59, 68, 61, 74, 73],\n" +
+                "\t\t[45, 56, 58, 58, 51, 64, 63]\n" +
+                "\t],\n" +
                 "\t\"vsOpponent\" : [{\n" +
-                "\t\t\t\"heroStat\" : 57.4,\n" +
-                "\t\t\t\"enemyStat\" : 44.5\n" +
+                "\t\t\t\"heroStatValue\" : \"57.4\",\n" +
+                "\t\t\t\"enemyStatValue\" : \"44.5\"\n" +
                 "\t\t},\n" +
                 "\t\t{\n" +
-                "\t\t\t\"heroStat\" : 57.4,\n" +
-                "\t\t\t\"enemyStat\" : 44.5\n" +
+                "\t\t\t\"heroStatValue\" : 57.4,\n" +
+                "\t\t\t\"enemyStatValue\" : 44.5\n" +
                 "\t\t},\n" +
                 "\t\t{\n" +
-                "\t\t\t\"heroStat\" : 57.4,\n" +
-                "\t\t\t\"enemyStat\" : 44.5\n" +
+                "\t\t\t\"heroStatValue\" : 57.4,\n" +
+                "\t\t\t\"enemyStatValue\" : 44.5\n" +
                 "\t\t}\n" +
                 "\t\t],\n" +
                 "\t\"vsDivision\" : [\n" +
                 "\t\t{\n" +
-                "\t\t\t\"heroStat\" : 57.4,\n" +
-                "\t\t\t\"enemyStat\" : 44.5\n" +
+                "\t\t\t\"heroStatValue\" : 57.4,\n" +
+                "\t\t\t\"enemyStatValue\" : 44.5\n" +
                 "\t\t},\n" +
                 "\t\t{\n" +
-                "\t\t\t\"heroStat\" : 57.4,\n" +
-                "\t\t\t\"enemyStat\" : 44.5\n" +
+                "\t\t\t\"heroStatValue\" : 57.4,\n" +
+                "\t\t\t\"enemyStatValue\" : 44.5\n" +
                 "\t\t},\n" +
                 "\t\t{\n" +
-                "\t\t\t\"heroStat\" : 57.4,\n" +
-                "\t\t\t\"enemyStat\" : 44.5\n" +
+                "\t\t\t\"heroStatValue\" : 57.4,\n" +
+                "\t\t\t\"enemyStatValue\" : 44.5\n" +
                 "\t\t}\n" +
                 "\t\t],\n" +
                 "\n" +

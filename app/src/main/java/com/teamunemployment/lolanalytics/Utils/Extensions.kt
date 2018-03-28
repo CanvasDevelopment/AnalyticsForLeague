@@ -1,6 +1,7 @@
 package com.teamunemployment.lolanalytics.Utils
 
 import android.content.Context
+import android.view.View
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.PieData
@@ -12,7 +13,10 @@ import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.H
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.MatchPerformanceDetails
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.MatchHistoryCardData
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.PieReadyComparisonResult
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.DetailsScreen.model.StatDetailsDataModel
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatSummary
+import kotlinx.android.synthetic.main.stat_details_view.*
+import kotlinx.android.synthetic.main.three_stage_stat_view.view.*
 import retrofit2.Response
 
 /**
@@ -57,6 +61,14 @@ fun Response<Result<MatchPerformanceDetails>>.getMatchPerformanceDetails() : Res
     }
 
     return Result(404, MatchPerformanceDetails(ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList()))
+}
+
+fun Response<Result<StatDetailsDataModel>>.getStatDetails() : Result<StatDetailsDataModel> {
+    if (body() != null) {
+        return body()!!
+    }
+
+    return Result(404, StatDetailsDataModel(ArrayList(), ArrayList(),ArrayList()))
 }
 
 fun HeadToHeadStat.producePieChartData(context :Context): PieReadyComparisonResult {
@@ -130,3 +142,4 @@ fun ArrayList<HeadToHeadStat>.midGame() : HeadToHeadStat {
 fun ArrayList<HeadToHeadStat>.lateGame() : HeadToHeadStat {
     return this[2]
 }
+

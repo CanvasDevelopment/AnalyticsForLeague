@@ -2,6 +2,7 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab
 
 import com.teamunemployment.lolanalytics.data.model.Result
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.HeadToHeadStat
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.DetailsScreen.model.StatDetailsDataModel
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatSummary
 import retrofit2.Call
 import retrofit2.http.GET
@@ -17,5 +18,8 @@ interface AnalysisService {
 
     @GET("/fullStatCard/{url}")
     fun getFullCardStat(@Path("url")url : String) : Call<Result<ArrayList<HeadToHeadStat>>>
+
+    @GET("/details/{url}")
+    fun getStatDetails(@Path("url") url : String) : Call<Result<StatDetailsDataModel>>
 
 }
