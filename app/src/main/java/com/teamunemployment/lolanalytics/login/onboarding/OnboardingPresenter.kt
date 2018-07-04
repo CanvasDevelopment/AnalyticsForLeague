@@ -1,5 +1,8 @@
 package com.teamunemployment.lolanalytics.login.onboarding
 
+import co.metalab.asyncawait.async
+import com.teamunemployment.lolanalytics.login.onboarding.model.SyncProgress
+
 /**
  * Created by Josiah Kendall
  */
@@ -19,17 +22,24 @@ class OnboardingPresenter(private val onboardingInteractor: OnboardingInteractor
         if (summonerId == (-1).toLong()) {
             // TODO handle this
         }
+
         onboardingInteractor.requestSync(this, summonerId)
 //        TODO("Fetch user details about name, rank etc and show it at the top of the screen")
     }
 
     /**
-     * @param matchesProcessed How many matches have been processed by the server
-     * @param totalMatches The total number of matches that need to be processed.
+     * @param syncProgress The object holding the info we need.
      */
-    fun handleSyncProgressUpdate(matchesProcessed : Int, totalMatches : Int) {
+    fun handleSyncProgressUpdate(syncProgress: SyncProgress) : Boolean {
+        view.setTotalMatches(syncProgress.total)
+        view.setSyncedMatches(syncProgress.completed)
 
-        TODO("Waiting on server support for this feature")
+        val finished = syncProgress.total == syncProgress.completed
+        if (finished) {
+//            view.showProcessingStarted() todo
+        }
+
+        return finished
     }
 
     /**
@@ -44,6 +54,9 @@ class OnboardingPresenter(private val onboardingInteractor: OnboardingInteractor
             return
         }
 
+    }
+
+    fun launchHome() {
         view.launchHomeScreen()
     }
 }

@@ -25,8 +25,8 @@ class OnboardingInteractorTests {
     fun `Make sure that we set true when returning 200`() {
         val call =mock(Call::class.java)
 
-        `when`(service.syncUser(-1)).thenReturn(call as Call<Result<String>>?)
-//        interactor.requestSync(presenter)
+        `when`(service.syncUserMatchList(-1)).thenReturn(call as Call<Result<String>>?)
+//        interactor.requestUserRegistration(presenter)
         verify(presenter, times(1)).handleSyncResult(false)
     }
 

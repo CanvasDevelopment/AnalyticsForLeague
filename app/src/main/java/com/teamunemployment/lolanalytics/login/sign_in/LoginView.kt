@@ -6,9 +6,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 
-import com.teamunemployment.lolanalytics.front_page.BaseActivityView
 import com.teamunemployment.lolanalytics.R
 import com.teamunemployment.lolanalytics.login.onboarding.OnboardingView
 
@@ -22,7 +20,6 @@ import org.koin.android.ext.android.inject
  */
 class LoginView : AppCompatActivity(), LoginContract.LoginView {
 
-
     val presenter by inject<LoginPresenter>()
 
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +28,7 @@ class LoginView : AppCompatActivity(), LoginContract.LoginView {
         bindButtons()
         presenter.setView(this)
         presenter.start()
+        user_name.addTextChangedListener(presenter)
     }
 
     override fun showMessage(message: String) {
@@ -38,10 +36,9 @@ class LoginView : AppCompatActivity(), LoginContract.LoginView {
     }
 
     private fun bindButtons() {
-        loginWithCredentials.setOnClickListener { presenter.requestSync() }
+        loginWithCredentials.setOnClickListener { presenter.requestUserRegistration() }
+
     }
-
-
 
     override fun launchOnboardingActivity(summonerId : Long) {
         val mainIntent = Intent(this, OnboardingView::class.java)
@@ -76,5 +73,13 @@ class LoginView : AppCompatActivity(), LoginContract.LoginView {
 
     override fun hideLoginButton() {
         loginWithCredentials.visibility = View.INVISIBLE
+    }
+
+    override fun disableProceed() {
+        loginWithCredentials.isEnabled = false
+    }
+
+    override fun enableProceed() {
+        loginWithCredentials.isEnabled = true
     }
 }

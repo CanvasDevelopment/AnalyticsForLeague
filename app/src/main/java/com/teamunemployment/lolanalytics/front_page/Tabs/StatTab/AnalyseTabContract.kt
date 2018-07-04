@@ -39,6 +39,7 @@ interface AnalyseTabContract {
         fun start()
         fun setRole(role: Int)
         fun setChamp(champ: Champ)
+        fun setSummonerId(summonerId : Long)
         fun setPlaceHolder(noResults: String)
         fun onCardBinding(viewHolder: AnalyseTabContract.CardView, position: Int)
         fun handleItemClick(position: Int)

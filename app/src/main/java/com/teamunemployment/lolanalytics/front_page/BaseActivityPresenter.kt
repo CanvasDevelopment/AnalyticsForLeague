@@ -16,7 +16,7 @@ import javax.inject.Inject
 class BaseActivityPresenter @Inject
 constructor(private val baseActivityPersistenceInteractor: BaseActivityPersistenceInteractor) : BaseActivityContract.Presenter {
 
-    private var view: BaseActivityView? = null
+    private var view : BaseActivityView? = null
 
     private var bottomBar: AHBottomNavigation? = null
 

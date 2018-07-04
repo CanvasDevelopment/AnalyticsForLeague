@@ -37,16 +37,16 @@ constructor(private val retrofitFactory: RetrofitFactory, database: Database, pr
         async {
             // Send call to server to register user // todo check if she exists first
             val call: Call<Result<SummonerDetails>> = loginRemoteRepo.register(summonerName)
-            val response: Response<Result<SummonerDetails>> = await { call.execute() }
+            val response : Response<Result<SummonerDetails>> = await { call.execute() }
             // Process the data into a usable state
             val result: Result<SummonerDetails> = response.get()
             val summonerDetails = result.data
             // handle the result
-            presenter.handleSyncResult(result.resultCode, summonerDetails.id)
+            presenter.handleRegisterUserResult(result.resultCode, summonerDetails.id, region)
 
             // Cache the data (if we worked out ok)
             if (result.resultCode == 200) {
-                await { }
+                await { result.data.cache(region)}
             }
         }.onError {
             // Should also probably log this, rather than returning to the user
@@ -54,18 +54,9 @@ constructor(private val retrofitFactory: RetrofitFactory, database: Database, pr
         }
     }
 
-    suspend fun doIoStuff(summonerName: String, region: String): SummonerDetails {
-        val result = loginIo.registerUser(summonerName)
-        if (result.resultCode == 200) {
-            result.data.cache(region)
-        }
+    private fun SummonerDetails.cache(region: String): SummonerDetails {
 
-        return result.data
-    }
-
-
-    fun SummonerDetails.cache(region: String): SummonerDetails {
-        val summoner = Summoner(id, name, summonerLevel, "todo", region) // todo getMatchIds the summoner devision
+        val summoner = Summoner(id, name, summonerLevel, "", region) // todo getMatchIds the summoner devision
         summonerDao.createSummoner(summoner)
         return this
     }

@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey
  * Created by Josiah Kendall
  */
 @Entity
-data class Summoner(@PrimaryKey(autoGenerate = false) val summonerId : Long,
+class Summoner(@PrimaryKey(autoGenerate = false) val summonerId : Long,
                     val summonerName : String,
                     val summonerDivisionLevel : Int,
                     val summonerDivision : String,

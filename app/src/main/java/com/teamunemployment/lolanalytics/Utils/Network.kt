@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.teamunemployment.lolanalytics.BuildConfig
 import com.teamunemployment.lolanalytics.data.room.Database
-import com.teamunemployment.lolanalytics.data.room.summoner.SummonerDao
 
 /**
  * @author Josiah Kendall
@@ -13,7 +12,7 @@ import com.teamunemployment.lolanalytics.data.room.summoner.SummonerDao
 class Network(private val database: Database) {
 
     private val summonerDao = database.summonerDao()
-    private val localDebugUrl = "http://192.168.1.3:8080/_ah/api/"
+    private val localDebugUrl = "http://192.168.1.223:8080/_ah/api/"
 
     fun isConnectingToInternet(context: Context): Boolean {
 
@@ -28,17 +27,24 @@ class Network(private val database: Database) {
      * Get the url for the given region. Note that if you are currently running a debug build, it
      * will return
      */
-    fun getUrl(region : String ) : String {
+    fun getUrl(region: String): String {
         if (BuildConfig.DEBUG) {
             return localDebugUrl
         }
         TODO("Write and test")
+        // get region.
+        // build url to gae based on region.
+        // return url
         return ""
     }
 
     fun getUrl(summonerId : Long) : String {
         // Todo make this logic async
         val summoner = summonerDao.loadSummoner(summonerId)
-        return getUrl(summoner.region)
+        if (summoner != null) {
+            return getUrl(summoner.region)
+        }
+
+        return ""
     }
 }

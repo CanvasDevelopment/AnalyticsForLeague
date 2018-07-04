@@ -15,10 +15,11 @@ class MatchHistoryDetailsModule : AndroidModule() {
 
         // TODO
         context(name = "MatchHistoryDetailsModule") {
+            provide { DetailsPresenter(get(), get(), get()) }
             provide { DetailsInteractor(get(), get(), get<SummonerRapidAccessObject>()) }
             provide { LayoutInflater.from(get()) }
             provide { ViewProducer(get()) }
-            provide { DetailsPresenter(get(), get(), get()) }
+
         }
     }
 }

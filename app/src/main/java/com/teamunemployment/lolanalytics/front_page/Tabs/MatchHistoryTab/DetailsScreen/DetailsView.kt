@@ -27,6 +27,7 @@ class DetailsView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.match_history_details_view)
         presenter.setView(this)
+        presenter.start(1, 1, "top")
         earlyGameView = presenter.produceGameStageView(EARLY_GAME, earlyGameHolder)
         midGameView = presenter.produceGameStageView(MID_GAME, midGameHolder)
         lateGameView = presenter.produceGameStageView(LATE_GAME, lateGameHolder)

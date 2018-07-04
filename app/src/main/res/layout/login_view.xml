@@ -65,6 +65,7 @@
             <Button
                 android:id="@+id/loginWithCredentials"
                 style="?android:attr/borderlessButtonStyle"
+                android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

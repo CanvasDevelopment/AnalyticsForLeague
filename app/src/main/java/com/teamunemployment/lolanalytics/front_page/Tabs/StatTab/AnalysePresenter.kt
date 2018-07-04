@@ -4,8 +4,8 @@ import com.teamunemployment.lolanalytics.data.model.Champ
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.AnalysisData
 import com.teamunemployment.lolanalytics.Utils.RoleUtils
 import com.teamunemployment.lolanalytics.data.model.Result
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.HeadToHeadStat
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatList
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatCard
 
 import java.util.ArrayList
 
@@ -16,11 +16,14 @@ import java.util.ArrayList
 class AnalysePresenter(private val analyseInteractor: AnalyseInteractor,
                        private val analyseAdapter: AnalyseAdapter,
                        private val roleUtils: RoleUtils) : AnalyseTabContract.Presenter {
+
     private lateinit var view: AnalyseTabContract.View
 
+    private val DEFAULT_GAMES = 20
     private var role = -1
     private var champ: Champ? = null
     private val filterList = ArrayList<AnalysisData>()
+    private var summonerId = -1L
     private lateinit var statList : StatList
 
     override fun setStatList(statList : StatList) {
@@ -44,7 +47,7 @@ class AnalysePresenter(private val analyseInteractor: AnalyseInteractor,
 
     }
 
-    fun handleCardResult(result: Result<StatCard>, viewHolder: AnalyseTabContract.CardView) {
+    fun handleCardResult(result: Result<ArrayList<HeadToHeadStat>>, viewHolder: AnalyseTabContract.CardView) {
 
     }
 
@@ -63,12 +66,11 @@ class AnalysePresenter(private val analyseInteractor: AnalyseInteractor,
         }
 
         analyseAdapter.setPresenter(this)
-
         // If we have a champ, include it. If we dont, don include it.
         if (champ != null) {
-            analyseInteractor.RequestFilterList(role, champ!!.champId, this)
+            analyseInteractor.loadStatList(role, summonerId, champ!!.champId, DEFAULT_GAMES, this)
         } else {
-            analyseInteractor.RequestFilterList(role, this)
+            analyseInteractor.loadStatList(role, summonerId, DEFAULT_GAMES, this)
         }
     }
 
@@ -80,6 +82,10 @@ class AnalysePresenter(private val analyseInteractor: AnalyseInteractor,
         this.champ = champ
     }
 
+    override fun setSummonerId(summonerId: Long) {
+        this.summonerId = summonerId
+    }
+
     override fun setPlaceHolder(noResults: String) {
         view.setPlaceHolderVisible()
         view.setPlaceHolderString(noResults)
@@ -89,7 +95,7 @@ class AnalysePresenter(private val analyseInteractor: AnalyseInteractor,
         // load the data. on the result, fetch from
         val statUrl = statList.stats[position]
         viewHolder.setTitle(statUrl.title)
-        analyseInteractor.loadIndividualStat("", -1, viewHolder,this)
+        analyseInteractor.loadIndividualStat("", viewHolder,this)
     }
 
     override fun handleItemClick(position: Int) {

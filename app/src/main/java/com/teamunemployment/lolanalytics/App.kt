@@ -7,6 +7,7 @@ import com.teamunemployment.lolanalytics.di.BaseModule
 
 import com.teamunemployment.lolanalytics.front_page.BaseActivityModule
 import com.teamunemployment.lolanalytics.front_page.Search.SearchModule
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.MatchHistoryDetailsModule
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.MatchHistoryModule
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.di.StatModule
 import com.teamunemployment.lolanalytics.login.di.SignInModule
@@ -54,6 +55,7 @@ class App : Application() {
         list.add(StatModule())
         list.add(MatchHistoryModule())
         list.add(BaseModule())
+        list.add(MatchHistoryDetailsModule())
         return list
     }
 

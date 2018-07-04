@@ -12,8 +12,8 @@ public interface LoginContract {
     interface Presenter extends PresenterContract {
         void loginTestUser();
         void setView(LoginContract.LoginView loginView);
-        void requestSync();
-        void handleSyncResult(Integer code, Long summonerId);
+        void requestUserRegistration();
+        void handleRegisterUserResult(Integer code, Long summonerId, String region);
     }
 
     interface LoginView extends ViewContract {
@@ -25,6 +25,8 @@ public interface LoginContract {
         void showLoginButton();
         void hideProgressSpinner();
         void hideLoginButton();
+        void disableProceed();
+        void enableProceed();
     }
 
 }

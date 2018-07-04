@@ -21,6 +21,7 @@ class LoginPresenterTests {
     private val view = mock(LoginContract.LoginView::class.java)
     private val loginErrorMessages = LoginErrorMessages()
 
+
     @Before
     fun `Do The Mahi`() {
         MockitoAnnotations.initMocks(this)
@@ -33,7 +34,8 @@ class LoginPresenterTests {
     fun `Make sure that we can handle a 404 when logging in a user`() {
 
         presenter.setView(view)
-        presenter.handleSyncResult(404, 123456)
+        val region = "OCE"
+        presenter.handleRegisterUserResult(404, 123456, region)
         verify(view, times(1)).showMessage(loginErrorMessages.`404`())
     }
 
@@ -42,7 +44,7 @@ class LoginPresenterTests {
         presenter.setView(view)
         `when`(view.userName).thenReturn("work cunt")
         `when`(view.region).thenReturn("kotlin is dope")
-        presenter.requestSync()
+        presenter.requestUserRegistration()
         verify(view, times(1)).hideLoginButton()
     }
 
@@ -72,7 +74,7 @@ class LoginPresenterTests {
         presenter.setView(view)
         `when`(view.userName).thenReturn("work cunt")
         `when`(view.region).thenReturn("kotlin is dope")
-        presenter.requestSync()
+        presenter.requestUserRegistration()
         verify(view, times(1)).showLoginProgressSpinner()
     }
 
@@ -81,6 +83,23 @@ class LoginPresenterTests {
         presenter.setView(view)
         presenter.restart()
         verify(view, times(1)).hideProgressSpinner()
+    }
+
+    @Test
+    fun `Make sure that we disable login if we have no text`() {
+        presenter.setView(view)
+        presenter.handleTextChanged("")
+        verify(view, times(1)).disableProceed()
+        verify(view, times(0)).enableProceed()
+    }
+
+    @Test
+    fun `Make sure that we enable login button if we have text`() {
+        presenter.setView(view)
+        presenter.handleTextChanged("name")
+        verify(view, times(0)).disableProceed()
+        verify(view, times(1)).enableProceed()
+
     }
 
 

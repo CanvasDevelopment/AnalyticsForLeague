@@ -11,6 +11,7 @@ import com.teamunemployment.lolanalytics.data.model.Champ
 import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract
 import com.teamunemployment.lolanalytics.R
 import com.teamunemployment.lolanalytics.Utils.Constant
+import com.teamunemployment.lolanalytics.data.model.SummonerRapidAccessObject
 import kotlinx.android.synthetic.main.tab_view_fragment.*
 import org.koin.android.ext.android.inject
 
@@ -21,6 +22,7 @@ import org.koin.android.ext.android.inject
 class AnalyseTabView : Fragment(), AnalyseTabContract.View {
 
     private val presenter: AnalysePresenter by inject()
+    private val rapidAccessObject : SummonerRapidAccessObject by inject()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -32,7 +34,8 @@ class AnalyseTabView : Fragment(), AnalyseTabContract.View {
 
         // Set our view. This starts the loading of value.
         presenter.setView(this)
-        presenter.setRole(role)
+        presenter.setRole(rapidAccessObject.role)
+        presenter.setSummonerId(rapidAccessObject.summonerId)
         presenter.start()
         return rootView
     }
