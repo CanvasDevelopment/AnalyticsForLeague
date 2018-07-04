@@ -17,7 +17,7 @@ interface MatchHistoryService {
     @GET("/getStuff/{numberOfMatches}/{summonerId}/{role}")
     fun fetchMatches(@Path("numberOfMatches") numberOfMatches : Int, @Path("summonerId") summonerId : Long, @Path("role") role : Int) : Call<Result<ArrayList<String>>>
 
-    @GET("/matches/card/summary/{matchId}/{summonerId}")
+    @GET("/matches/cardUrl/summary/{matchId}/{summonerId}")
     fun fetchMatchSummary(@Path("matchId") matchId : Long, @Path("summonerId") summonerId: Long) : Call<Result<MatchHistoryCardData>>
 
     @GET("/matches/details/{matchId}/{summonerId}")

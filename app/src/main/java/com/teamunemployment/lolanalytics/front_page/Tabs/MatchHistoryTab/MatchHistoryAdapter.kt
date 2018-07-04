@@ -37,7 +37,7 @@ class MatchHistoryAdapter(private val matchHistoryPresenter: MatchHistoryPresent
     }
 
     private fun setClicklistenersUp(cardView: MatchHistoryCardView) {
-        cardView.itemView.cardDetailsButton.setOnClickListener({matchHistoryPresenter.onDetailsButtonClick()})
+        cardView.itemView.cardDetailsButton.setOnClickListener({matchHistoryPresenter.onDetailsButtonClick("todo fix me")}) // todo
     }
 
     override fun getItemCount() : Int {
@@ -45,10 +45,6 @@ class MatchHistoryAdapter(private val matchHistoryPresenter: MatchHistoryPresent
     }
 
     fun setData(matchIds: ArrayList<String>) {
-        this.matchIds = matchIds
-    }
-
-    override fun setMatchHistoryAdapterData(matchIds: ArrayList<String>) {
         this.matchIds = matchIds
     }
 }

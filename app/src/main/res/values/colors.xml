@@ -17,5 +17,6 @@
     <color name="teal">#00E5FF</color>
     <color name="bluegrey">#CFD8DC</color>
     <color name="blueGreyLight">#ECEFF1</color>
+    <color name="black">#000000</color>
 
 </resources>

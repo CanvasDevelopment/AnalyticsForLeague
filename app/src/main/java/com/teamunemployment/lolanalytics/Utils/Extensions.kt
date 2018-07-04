@@ -1,6 +1,9 @@
 package com.teamunemployment.lolanalytics.Utils
 
 import android.content.Context
+import android.view.View
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -9,6 +12,11 @@ import com.teamunemployment.lolanalytics.data.model.Result
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.HeadToHeadStat
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.MatchPerformanceDetails
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.MatchHistoryCardData
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.PieReadyComparisonResult
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.DetailsScreen.model.StatDetailsDataModel
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatSummary
+import kotlinx.android.synthetic.main.stat_details_view.*
+import kotlinx.android.synthetic.main.three_stage_stat_view.view.*
 import retrofit2.Response
 
 /**
@@ -17,6 +25,22 @@ import retrofit2.Response
 fun Response<Result<ArrayList<String>>>.getMatchIds() : Result<ArrayList<String>> {
     if (body() != null) {
         return body()!!
+    }
+
+    return Result(404, ArrayList())
+}
+
+fun Response<Result<ArrayList<StatSummary>>>.getStatList() : Result<ArrayList<StatSummary>> {
+    if (body() != null) {
+        return body() !!
+    }
+
+    return Result(404, ArrayList())
+}
+
+fun Response<Result<ArrayList<HeadToHeadStat>>>.getHeadToHeadStats() : Result<ArrayList<HeadToHeadStat>> {
+    if (body() != null) {
+        return body() !!
     }
 
     return Result(404, ArrayList())
@@ -39,23 +63,72 @@ fun Response<Result<MatchPerformanceDetails>>.getMatchPerformanceDetails() : Res
     return Result(404, MatchPerformanceDetails(ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList()))
 }
 
-fun HeadToHeadStat.producePieChartData(context :Context): PieData {
+fun Response<Result<StatDetailsDataModel>>.getStatDetails() : Result<StatDetailsDataModel> {
+    if (body() != null) {
+        return body()!!
+    }
+
+    return Result(404, StatDetailsDataModel(ArrayList(), ArrayList(),ArrayList()))
+}
+
+fun HeadToHeadStat.producePieChartData(context :Context): PieReadyComparisonResult {
     val entries = java.util.ArrayList<PieEntry>()
 
-    entries.add(PieEntry(heroStatValue, "Hero"))
-    entries.add(PieEntry(enemyStatValue, "Enemy"))
+    entries.add(PieEntry(enemyStatValue, ""))
+    entries.add(PieEntry(heroStatValue, ""))
 
     val pieDataSet = PieDataSet(entries, "")
     pieDataSet.valueTextColor = context.resources.getColor(R.color.grey)
-    pieDataSet.setColors(intArrayOf(R.color.teal, R.color.pink), context) // Would be real cool to not use context here if possible.
+    pieDataSet.setColors(intArrayOf(R.color.pink, R.color.green), context) // Would be real cool to not use context here if possible.
+    val pieData = PieData(pieDataSet)
+    pieData.setValueTextColor(R.color.blue)
+    pieData.setValueTextSize(10f)
 
-    return PieData(pieDataSet)
+    return PieReadyComparisonResult(pieData, produceCentreText(heroStatValue, enemyStatValue).toString("%"))
+}
+
+fun Int.toString(appendage : String) : String {
+    return this.toString() + appendage
+}
+
+/**
+ * Style our pie chart.
+ *
+ * This is the default style that has the following characteristics
+ */
+fun PieChart.setDefaultStyle(centerText : String ) {
+    // Set appearance params.
+    val description = Description()
+    description.text = ""
+    description.isEnabled = false
+    this.description = description
+    this.isDrawHoleEnabled =true
+    this.isRotationEnabled = false
+
+    this.setDrawEntryLabels(false)
+    this.centerText = centerText
+    this.setCenterTextColor(R.color.green)
+    this.legend.isEnabled = false
+    // Refresh.
+    this.invalidate()
+    this.animateY(300)
 }
 
 fun Float.calculatePercentageDifference(float: Float) : Float {
     val difference = this - float
     val total = this + float
     return difference / total
+}
+
+/**
+ * Calculate the center text value. This calculates the percentage of the total that the hero got.
+ * @param heroVal   The total score of the hero
+ * @param enemyVal  The total score of the enemy
+ * @return the percentage the hero got, as an Int
+ */
+fun produceCentreText(heroVal : Float, enemyVal : Float) : Int {
+    val total = heroVal + enemyVal
+    return Math.round((heroVal/total)*100)
 }
 
 fun ArrayList<HeadToHeadStat>.earlyGame() : HeadToHeadStat {
@@ -69,3 +142,4 @@ fun ArrayList<HeadToHeadStat>.midGame() : HeadToHeadStat {
 fun ArrayList<HeadToHeadStat>.lateGame() : HeadToHeadStat {
     return this[2]
 }
+

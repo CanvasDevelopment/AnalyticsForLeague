@@ -1,11 +1,11 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.StatTab
 
 import com.teamunemployment.lolanalytics.data.model.Champ
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.AnalysisData
+import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.ViewProducer
 import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatList
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.AnalyseAdapter
+import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.recycler.StatCardView
 import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract
-
-import java.util.ArrayList
 
 /**
  * Created by Josiah Kendall
@@ -14,7 +14,6 @@ import java.util.ArrayList
 interface AnalyseTabContract {
 
     interface View : TabContract.View {
-        fun setAdapter(adapter: AnalyseAdapter)
         fun setPlaceHolderVisible()
         fun setPlaceHolderInvisible()
         fun setPlaceHolderString(message: String)
@@ -43,6 +42,7 @@ interface AnalyseTabContract {
         fun setPlaceHolder(noResults: String)
         fun onCardBinding(viewHolder: AnalyseTabContract.CardView, position: Int)
         fun handleItemClick(position: Int)
+        fun createViewType(viewProducer: ViewProducer): StatCardView
 
     }
 

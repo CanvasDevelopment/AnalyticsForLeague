@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root"
+    android:id="@+id/base_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="@color/blueGreyLight"
     android:fitsSystemWindows="true">
     <!--// The recyclerviews need to be inside a nested scroll or they wont behave right with the coordinator-->
@@ -78,6 +80,7 @@
         android:layout_above="@+id/navigation"
         android:layout_margin="24dp"
         android:elevation="6dp"
+        app:layout_behavior="com.teamunemployment.lolanalytics.front_page.Behaviour.MainScreenBehaviour"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_account_circle_white_24px"
         app:civ_border_color="@color/colorPrimary"
@@ -103,6 +106,7 @@
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
+        app:layout_behavior="com.teamunemployment.lolanalytics.front_page.Behaviour.MainScreenBehaviour"
         android:background="@color/white"
         app:itemIconTint="@color/blue"
         app:menu="@menu/bottom_navigation_items" />

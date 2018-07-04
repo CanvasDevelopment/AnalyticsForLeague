@@ -1,7 +1,6 @@
 package com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab
 
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.BarChartModel
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalyseAdapter
 import org.koin.android.module.AndroidModule
 
 /**

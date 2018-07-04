@@ -44,7 +44,7 @@ class LoginView : AppCompatActivity(), LoginContract.LoginView {
         val mainIntent = Intent(this, OnboardingView::class.java)
         mainIntent.putExtra("summoner_id", summonerId)
         startActivity(mainIntent)
-        overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up )
+        overridePendingTransition( R.anim.slide_in_entry, R.anim.slide_out_entry)
     }
 
     override fun setRegionSpinnerAdapter(adapter: ArrayAdapter<CharSequence>) {

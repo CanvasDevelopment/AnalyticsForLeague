@@ -3,6 +3,9 @@ package com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Detail
 import android.content.Context
 import android.view.ViewGroup
 import com.teamunemployment.lolanalytics.Utils.Constant.*
+import com.teamunemployment.lolanalytics.Utils.Constant.Companion.EARLY_GAME
+import com.teamunemployment.lolanalytics.Utils.Constant.Companion.LATE_GAME
+import com.teamunemployment.lolanalytics.Utils.Constant.Companion.MID_GAME
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.DetailsInteractor
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.DetailsPresenter
 import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.ViewProducer
