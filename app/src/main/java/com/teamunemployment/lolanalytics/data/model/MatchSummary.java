@@ -7,18 +7,18 @@ public class MatchSummary {
 
     public long id;
     public double value;
-    public long summonerId;
+    public String summonerId;
     public int role;
 
     public void setRole(int role) {
         this.role = role;
     }
 
-    public void setSummonerId(long summonerId) {
+    public void setSummonerId(String summonerId) {
         this.summonerId = summonerId;
     }
 
-    public long getSummonerId() {
+    public String getSummonerId() {
         return summonerId;
     }
 

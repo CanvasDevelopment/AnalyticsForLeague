@@ -8,7 +8,7 @@ class MockAnalysisServiceResponses {
     /**
      * Get the mock stat ids
      */
-    fun getStatIds(id: Long): String {
+    fun getStatIds(id : Long) : String {
         // return a string
         return "{" +
                 "\"data\" : [" +

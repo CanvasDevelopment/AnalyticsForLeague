@@ -12,7 +12,7 @@ interface SummonerDao {
     fun createSummoner(summoner: Summoner)
 
     @Query("Select * FROM summoner where summonerId = :summonerId")
-    fun loadSummoner(summonerId : Long) : Summoner
+    fun loadSummoner(summonerId : String) : Summoner?
 
     @Query("SELECT * FROM summoner")
     fun loadAllSummonersOnDevice() : List<Summoner>

@@ -15,6 +15,7 @@ class Constant {
 
         val CURRENT_SUMMONER_ID = "CURRENT_SUMMONER_ID"
         val ROLE_KEY = "role"
+        val CHAMP_KEY = "champ_key"
         val EARLY_GAME = 0
         val MID_GAME = 1
         val LATE_GAME = 2
@@ -49,4 +50,8 @@ class Constant {
          */
         val FULL_STAT = 3
     }
+    object DetailsPage {
+        val detailsUrlKey = "detailsUrl"
+    }
+
 }

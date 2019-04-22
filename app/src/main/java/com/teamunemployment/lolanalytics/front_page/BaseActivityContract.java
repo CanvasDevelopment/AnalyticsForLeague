@@ -11,6 +11,7 @@ import com.teamunemployment.lolanalytics.ViewContract;
 public interface BaseActivityContract {
 
     interface Presenter extends PresenterContract {
+        void showMessage(String message);
         void handleTabPress(int tab);
         void onWinRateLoaded(double winRate);
         void setUpTabFragments();

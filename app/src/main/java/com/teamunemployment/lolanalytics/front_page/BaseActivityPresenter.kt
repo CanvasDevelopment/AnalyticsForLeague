@@ -6,17 +6,17 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.ncapdevi.fragnav.FragNavController
 import com.teamunemployment.lolanalytics.R
+import com.teamunemployment.lolanalytics.Utils.Role
 
-import javax.inject.Inject
 
 /**
  * @author Josiah Kendall
  */
 
-class BaseActivityPresenter @Inject
+class BaseActivityPresenter
 constructor(private val baseActivityPersistenceInteractor: BaseActivityPersistenceInteractor) : BaseActivityContract.Presenter {
 
-    private var view: BaseActivityView? = null
+    private lateinit var view : BaseActivityView
 
     private var bottomBar: AHBottomNavigation? = null
 
@@ -26,6 +26,10 @@ constructor(private val baseActivityPersistenceInteractor: BaseActivityPersisten
 
     override fun start() {
 
+    }
+
+    override fun showMessage(message: String) {
+        view.showMessage(message)
     }
 
     override fun handleError(e: Throwable) {
@@ -55,26 +59,26 @@ constructor(private val baseActivityPersistenceInteractor: BaseActivityPersisten
 
     override fun handleTabPress(tab: Int) {
 
-        val summonerId: Long = -1 // TODO
+        val summonerId : String = "-1" // TODO
         when (tab) {
             TOP -> {
-                baseActivityPersistenceInteractor.fetchWinRateForRole(-1/*todo*/, "TOP", "oce", this)
+                baseActivityPersistenceInteractor.fetchWinRateForRole("-1"/*todo*/, "TOP", "oce", this)
                 view!!.setCorrectTabFragment(FragNavController.TAB1)
             }
             JUNGLE -> {
-                baseActivityPersistenceInteractor.fetchWinRateForRole(-1, "JUNGLE", "oce", this) // todo
+                baseActivityPersistenceInteractor.fetchWinRateForRole("-1", "JUNGLE", "oce", this) // todo
                 view!!.setCorrectTabFragment(FragNavController.TAB2)
             }
             MID -> {
-                baseActivityPersistenceInteractor.fetchWinRateForRole(-1, "MID", "oce", this)
+                baseActivityPersistenceInteractor.fetchWinRateForRole("-1", "MID", "oce", this)
                 view!!.setCorrectTabFragment(FragNavController.TAB3)
             }
             MARKSMAN -> {
-                baseActivityPersistenceInteractor.fetchWinRateForRole(-1, "MARKSMAN", "oce", this)
+                baseActivityPersistenceInteractor.fetchWinRateForRole("-1", "MARKSMAN", "oce", this)
                 view!!.setCorrectTabFragment(FragNavController.TAB4)
             }
             SUPPORT -> {
-                baseActivityPersistenceInteractor.fetchWinRateForRole(-1, "PLAYMAKER", "oce", this)
+                baseActivityPersistenceInteractor.fetchWinRateForRole("-1", "PLAYMAKER", "oce", this)
                 view!!.setCorrectTabFragment(FragNavController.TAB5)
             }
         }
@@ -113,6 +117,46 @@ constructor(private val baseActivityPersistenceInteractor: BaseActivityPersisten
             handleTabPress(position)
             true
         }
+    }
+
+    fun handleChangeInRole(itemId: Int): Boolean {
+        val role = Role()
+        return when(itemId) {
+            R.id.action_top -> {
+                view.setCorrectTabFragment(role.TOP)
+                true
+            }
+
+            R.id.action_mid -> {
+                view.setCorrectTabFragment(role.MID)
+                true
+            }
+
+            R.id.action_jungle -> {
+                view.setCorrectTabFragment(role.JUNGLE)
+                true
+            }
+
+            R.id.action_support -> {
+                view.setCorrectTabFragment(role.SUP)
+                true
+            }
+
+            R.id.action_adc -> {
+                view.setCorrectTabFragment(role.ADC)
+                true
+            }
+
+            else -> {
+                throw IllegalStateException("Incorrect role")
+            }
+
+        }
+    }
+
+    fun handleChangeInChamp() {
+        // fetch champ from view
+
     }
 
     companion object {

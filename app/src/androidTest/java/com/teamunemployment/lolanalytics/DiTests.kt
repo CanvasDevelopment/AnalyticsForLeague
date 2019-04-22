@@ -1,16 +1,5 @@
 package com.teamunemployment.lolanalytics
 
-import android.app.Application
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
-import com.teamunemployment.lolanalytics.login.di.SignInModule
-import com.teamunemployment.lolanalytics.io.di.IoModule
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.koin.Koin
-import org.koin.android.ext.koin.init
-import org.koin.android.module.AndroidModule
-
 /**
  * Created by Josiah Kendall
  */

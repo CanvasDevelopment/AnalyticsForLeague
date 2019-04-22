@@ -7,7 +7,7 @@ package com.teamunemployment.lolanalytics.data.model;
 public class MatchIdWrapper {
 
     private long matchId;
-    private long summonerId;
+    private String summonerId;
     private int role;
 
     public void setMatchId(long matchId) {
@@ -18,7 +18,7 @@ public class MatchIdWrapper {
         return matchId;
     }
 
-    public long getSummonerId() {
+    public String getSummonerId() {
         return summonerId;
     }
 
@@ -30,7 +30,7 @@ public class MatchIdWrapper {
         this.role = role;
     }
 
-    public void setSummonerId(long summonerId) {
+    public void setSummonerId(String summonerId) {
         this.summonerId = summonerId;
     }
 

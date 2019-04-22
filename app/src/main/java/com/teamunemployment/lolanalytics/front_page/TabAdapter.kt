@@ -5,26 +5,18 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.AnalyseTabView
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.MatchHistoryTabView
-import com.teamunemployment.lolanalytics.front_page.Tabs.TabContract
+import com.teamunemployment.lolanalytics.front_page.tabs.StatTab.AnalyseTabView
+import com.teamunemployment.lolanalytics.front_page.tabs.MatchHistoryTab.MatchHistoryTabView
+import com.teamunemployment.lolanalytics.front_page.tabs.TabContract
 import com.teamunemployment.lolanalytics.Utils.Constant
 
 /**
  * @author Josiah Kendall.
  */
-class TabAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class TabAdapter(val fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private var currentTab: TabContract.View? = null
     private val role = 1
-
-    /**
-     * Set the current role for our tab. The tab will handle the rest
-     * @param role
-     */
-    fun setRole(role: Int) {
-        currentTab!!.setRole(role)
-    }
 
     override fun getItem(position: Int): Fragment? {
         // getItem is called to instantiate the fragment for the given page.

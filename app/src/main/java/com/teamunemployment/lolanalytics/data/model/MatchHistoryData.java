@@ -7,13 +7,13 @@ import java.util.ArrayList;
  */
 public class MatchHistoryData {
 
-    public long SummonerId;
+    public String summonerId;
     public int season;
     public int role;
     public ArrayList<MatchIdWrapper> items;
 
-    public void setSummonerId(long summonerId) {
-        SummonerId = summonerId;
+    public void setSummonerId(String summonerId) {
+        this.summonerId = summonerId;
     }
 
     public void setItems(ArrayList<MatchIdWrapper> items) {
@@ -28,8 +28,8 @@ public class MatchHistoryData {
         this.season = season;
     }
 
-    public long getSummonerId() {
-        return SummonerId;
+    public String getSummonerId() {
+        return summonerId;
     }
 
     public ArrayList<MatchIdWrapper> getItems() {

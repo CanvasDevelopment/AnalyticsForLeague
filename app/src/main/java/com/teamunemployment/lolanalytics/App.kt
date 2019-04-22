@@ -2,19 +2,23 @@ package com.teamunemployment.lolanalytics
 
 import android.app.Application
 import android.arch.persistence.room.Room
-import com.teamunemployment.lolanalytics.data.room.Database
+import com.teamunemployment.lolanalytics.data.room.AppDatabase
+import com.teamunemployment.lolanalytics.data.room.champ.ChampModule
+import com.teamunemployment.lolanalytics.data.source.DatasourceModule
 import com.teamunemployment.lolanalytics.di.BaseModule
 
 import com.teamunemployment.lolanalytics.front_page.BaseActivityModule
-import com.teamunemployment.lolanalytics.front_page.Search.SearchModule
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.MatchHistoryDetailsModule
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.MatchHistoryModule
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.di.StatModule
-import com.teamunemployment.lolanalytics.login.di.SignInModule
+import com.teamunemployment.lolanalytics.front_page.champ_menu.ChampMenuModule
+import com.teamunemployment.lolanalytics.front_page.tabs.MatchHistoryTab.DetailsScreen.MatchHistoryDetailsModule
+import com.teamunemployment.lolanalytics.front_page.tabs.MatchHistoryTab.MatchHistoryModule
+import com.teamunemployment.lolanalytics.front_page.tabs.StatTab.DetailsScreen.StatDetailsModule
+import com.teamunemployment.lolanalytics.front_page.tabs.StatTab.di.StatModule
+import com.teamunemployment.lolanalytics.login_page.di.SignInModule
 import com.teamunemployment.lolanalytics.io.di.IoModule
-import com.teamunemployment.lolanalytics.login.di.OnboardingModule
+import com.teamunemployment.lolanalytics.login_page.di.OnboardingModule
 import org.koin.android.ext.android.startAndroidContext
 import org.koin.android.module.AndroidModule
+import timber.log.Timber
 
 /**
  * @author Josiah Kendall.
@@ -26,16 +30,20 @@ class App : Application() {
 
 
     companion object {
-        lateinit var database : Database
+        lateinit var database : AppDatabase
     }
 
     override fun onCreate() {
         super.onCreate()
 
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+
         // Initialise our room database
         database = Room.databaseBuilder(
                     this,
-                    Database::class.java,
+                    AppDatabase::class.java,
                     "analytics_for_league.db"
         )
         .build()
@@ -49,13 +57,16 @@ class App : Application() {
         val list = ArrayList<AndroidModule>()
         list.add(SignInModule())
         list.add(IoModule())
+        list.add(ChampModule())
         list.add(OnboardingModule())
         list.add(BaseActivityModule())
-        list.add(SearchModule())
+        list.add(ChampMenuModule())
         list.add(StatModule())
         list.add(MatchHistoryModule())
         list.add(BaseModule())
         list.add(MatchHistoryDetailsModule())
+        list.add(DatasourceModule())
+        list.add(StatDetailsModule())
         return list
     }
 

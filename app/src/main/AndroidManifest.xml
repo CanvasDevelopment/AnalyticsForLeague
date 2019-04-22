@@ -16,6 +16,18 @@
             android:label="@string/app_name"
             android:exported="true"
             android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".login_page.onboarding.OnboardingView"
+            android:label="@string/app_name"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".login_page.sign_in.LoginView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -23,21 +35,10 @@
         </activity>
 
         <activity
-            android:name=".login.onboarding.OnboardingView"
-            android:label="@string/app_name"
-            android:exported="true"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name=".login.sign_in.LoginView">
-        </activity>
-
-        <activity
-            android:name=".front_page.Tabs.MatchHistoryTab.DetailsScreen.DetailsView"
+            android:name=".front_page.tabs.MatchHistoryTab.DetailsScreen.DetailsView"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".front_page.Tabs.StatTab.DetailsScreen.DetailsView"
+            android:name=".front_page.tabs.StatTab.DetailsScreen.DetailsView"
             android:screenOrientation="portrait"/>
     </application>
 

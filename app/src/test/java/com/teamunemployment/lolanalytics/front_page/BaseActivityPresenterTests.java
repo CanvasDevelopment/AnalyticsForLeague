@@ -1,5 +1,8 @@
 package com.teamunemployment.lolanalytics.front_page;
 
+import com.teamunemployment.lolanalytics.R;
+import com.teamunemployment.lolanalytics.Utils.Role;
+
 import org.junit.Test;
 
 import static org.mockito.Matchers.any;
@@ -23,7 +26,7 @@ public class BaseActivityPresenterTests {
         baseActivityPresenter.handleTabPress(1);
         baseActivityPresenter.onWinRateLoaded(12);
         verify(baseActivityPersistenceInteractor, times(1)).fetchWinRateForRole(
-                                                                                            anyLong(),
+                                                                                            anyString(),
                                                                                             anyString(),
                                                                                             anyString(),
                                                                                             any(BaseActivityContract.Presenter.class));
@@ -48,5 +51,16 @@ public class BaseActivityPresenterTests {
         baseActivityPresenter.setView(view);
         baseActivityPresenter.handleTabPress(1);
         verify(view, times(1)).setCorrectTabFragment(1);
+    }
+
+    @Test
+    public void testThatWeCanSendCorrectVariablesToTheViewWhenARoleIsChanged() {
+        BaseActivityView view = mock(BaseActivityView.class);
+        BaseActivityPersistenceInteractor baseActivityPersistenceInteractor = mock(BaseActivityPersistenceInteractor.class);
+        BaseActivityPresenter baseActivityPresenter = new BaseActivityPresenter(baseActivityPersistenceInteractor);
+        baseActivityPresenter.setView(view);
+        baseActivityPresenter.handleChangeInRole(R.id.action_mid);
+        Role role = new Role();
+        verify(view, times(1)).setCorrectTabFragment(role.getMID());
     }
 }

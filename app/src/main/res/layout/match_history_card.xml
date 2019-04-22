@@ -14,10 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.github.mikephil.charting.charts.PieChart
+        <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/performanceSummaryChart"
             android:layout_width="72dp"
             android:layout_height="72dp"
+            android:layout_alignParentEnd="true"
             android:layout_margin="16dp"
             android:layout_alignParentTop="true" />
         <RelativeLayout
@@ -29,14 +30,14 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/resultAsChamp"
-                android:text="Win as Shyvana"
+                android:text="..."
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/timeAgo"
                 android:layout_below="@+id/resultAsChamp"
-                android:text="2 hours ago"
+                android:text="..."
                 style="@style/Base.TextAppearance.AppCompat.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

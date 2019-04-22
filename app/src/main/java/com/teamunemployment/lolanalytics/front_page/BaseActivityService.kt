@@ -12,5 +12,5 @@ import retrofit2.http.Path
 interface BaseActivityService {
 
     @GET("summoner/v1/FetchWinRate/{SummonerId}/{Role}") // todo make sure that this url is right
-    fun getWinRateForRole(@Path("summonerId") summonerId : Long, @Path("role") role : String) : Call<Result<DoubleWrapper>>
+    fun getWinRateForRole(@Path("summonerId") summonerId : String, @Path("role") role : String) : Call<Result<DoubleWrapper>>
 }

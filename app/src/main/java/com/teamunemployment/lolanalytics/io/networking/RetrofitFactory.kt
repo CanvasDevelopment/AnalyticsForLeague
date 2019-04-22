@@ -2,6 +2,7 @@ package com.teamunemployment.lolanalytics.io.networking
 
 import com.teamunemployment.lolanalytics.mock.MockHttpResponseInterceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -18,7 +19,16 @@ class RetrofitFactory {
      * @return a retrofit interface of the type specified
      */
     fun <T> produceRetrofitInterface(type : Class<T>, baseUrl : String) : T {
+        val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+            this.level = HttpLoggingInterceptor.Level.BODY
+        }
+
+        val client : OkHttpClient = OkHttpClient.Builder().apply {
+            this.addInterceptor(interceptor)
+        }.build()
+
         val retrofit : Retrofit = Retrofit.Builder()
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(baseUrl) // "https://lolanalyticsv3.appspot.com/_ah/api/myApi/v1/"
                 .build()

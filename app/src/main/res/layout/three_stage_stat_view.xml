@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/chart_summary_wrapper"
@@ -11,23 +13,25 @@
 
         <RelativeLayout
             android:layout_width="0dp"
+            android:padding="12dp"
+            android:background="@color/colorPrimaryLight"
             android:layout_height="@dimen/pie_chart_standard_height"
             android:layout_weight="1">
 
-            <com.github.mikephil.charting.charts.PieChart
+            <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/earlyGameGraph"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/pie_chart_standard_height" />
         </RelativeLayout>
 
-        <com.github.mikephil.charting.charts.PieChart
+        <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/midGameGraph"
             android:layout_width="0dp"
             android:layout_height="@dimen/pie_chart_standard_height"
             android:layout_gravity="center_vertical"
             android:layout_weight="1" />
 
-        <com.github.mikephil.charting.charts.PieChart
+        <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/lateGameGraph"
             android:layout_width="0dp"
             android:layout_height="@dimen/pie_chart_standard_height"

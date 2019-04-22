@@ -3,8 +3,9 @@ package com.teamunemployment.lolanalytics.DataSourceTests
 import com.teamunemployment.lolanalytics.Utils.getMatchHistoryCardData
 import com.teamunemployment.lolanalytics.Utils.getMatchIds
 import com.teamunemployment.lolanalytics.data.model.Result
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.MatchHistoryService
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.MatchHistoryCardData
+import com.teamunemployment.lolanalytics.front_page.tabs.MatchHistoryTab.MatchHistoryService
+import com.teamunemployment.lolanalytics.front_page.tabs.MatchHistoryTab.Model.MatchHistoryCardData
+import com.teamunemployment.lolanalytics.front_page.tabs.MatchHistoryTab.Model.MatchIdentifier
 import com.teamunemployment.lolanalytics.io.networking.RetrofitFactory
 import com.teamunemployment.lolanalytics.mock.MockHttpResponseInterceptor
 import com.teamunemployment.lolanalytics.mock.MockMatchHistoryServiceResponses
@@ -29,11 +30,11 @@ class RetrofitTests {
         // build retrofit mock
         val retrofitMock = RetrofitFactory().produceMockRetrofitInterface(MatchHistoryService::class.java, interceptor)
         // getMatchIds response
-        val call = retrofitMock.fetchMatches(20, 23,2)
+        val call = retrofitMock.fetchMatches(20, 23,"2")
 
-        val response : Response<Result<ArrayList<String>>> =  call.execute()
+        val response : Response<Result<ArrayList<MatchIdentifier>>> =  call.execute()
 
-        val result : Result<ArrayList<String>> = response.getMatchIds()
+        val result : Result<ArrayList<MatchIdentifier>> = response.getMatchIds()
         assert(result.data.size == 9)
     }
 
@@ -46,7 +47,7 @@ class RetrofitTests {
         // build retrofit mock
         val retrofitMock = RetrofitFactory().produceMockRetrofitInterface(MatchHistoryService::class.java, interceptor)
         // getMatchIds response
-        val call = retrofitMock.fetchMatchSummary(20, 23)
+        val call = retrofitMock.fetchMatchSummary(1,20, "23")
 
         val response : Response<Result<MatchHistoryCardData>> =  call.execute()
 

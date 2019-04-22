@@ -2,7 +2,7 @@ package com.teamunemployment.lolanalytics.di
 
 import android.app.Application
 import android.content.Context
-import com.teamunemployment.lolanalytics.login.di.SignInModule
+import com.teamunemployment.lolanalytics.login_page.di.SignInModule
 import com.teamunemployment.lolanalytics.io.di.IoModule
 import org.junit.Test
 import org.koin.Koin

@@ -1,28 +1,27 @@
 package com.teamunemployment.lolanalytics.Utils
 
 import android.content.Context
-import android.view.View
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Description
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.*
 import com.teamunemployment.lolanalytics.R
 import com.teamunemployment.lolanalytics.data.model.Result
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Cards.HeadToHeadStat
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.DetailsScreen.MatchPerformanceDetails
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.MatchHistoryCardData
-import com.teamunemployment.lolanalytics.front_page.Tabs.MatchHistoryTab.Model.PieReadyComparisonResult
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.DetailsScreen.model.StatDetailsDataModel
-import com.teamunemployment.lolanalytics.front_page.Tabs.StatTab.Model.StatSummary
-import kotlinx.android.synthetic.main.stat_details_view.*
-import kotlinx.android.synthetic.main.three_stage_stat_view.view.*
+import com.teamunemployment.lolanalytics.front_page.tabs.MatchHistoryTab.Cards.HeadToHeadStat
+import com.teamunemployment.lolanalytics.front_page.tabs.MatchHistoryTab.Cards.TextBarChartRenderer
+import com.teamunemployment.lolanalytics.front_page.tabs.MatchHistoryTab.DetailsScreen.MatchPerformanceDetails
+import com.teamunemployment.lolanalytics.front_page.tabs.MatchHistoryTab.Model.MatchHistoryCardData
+import com.teamunemployment.lolanalytics.front_page.tabs.MatchHistoryTab.Model.MatchIdentifier
+import com.teamunemployment.lolanalytics.front_page.tabs.MatchHistoryTab.Model.PieReadyComparisonResult
+import com.teamunemployment.lolanalytics.front_page.tabs.StatTab.DetailsScreen.model.StatDetailsDataModel
+import com.teamunemployment.lolanalytics.front_page.tabs.StatTab.Model.StatSummary
 import retrofit2.Response
 
 /**
  * @author Josiah Kendall
  */
-fun Response<Result<ArrayList<String>>>.getMatchIds() : Result<ArrayList<String>> {
+fun Response<Result<ArrayList<MatchIdentifier>>>.getMatchIds() : Result<ArrayList<MatchIdentifier>> {
     if (body() != null) {
         return body()!!
     }
@@ -52,7 +51,7 @@ fun Response<Result<MatchHistoryCardData>>.getMatchHistoryCardData() : Result<Ma
     }
 
     return Result(404, MatchHistoryCardData(-1,
-            -1,"",-1, HeadToHeadStat(0f,0f), HeadToHeadStat(0f,0f), HeadToHeadStat(0f,0f)))
+            -1,-1, HeadToHeadStat(0f,0f), HeadToHeadStat(0f,0f), HeadToHeadStat(0f,0f), false, "", "-1"))
 }
 
 fun Response<Result<MatchPerformanceDetails>>.getMatchPerformanceDetails() : Result<MatchPerformanceDetails> {
@@ -87,6 +86,22 @@ fun HeadToHeadStat.producePieChartData(context :Context): PieReadyComparisonResu
     return PieReadyComparisonResult(pieData, produceCentreText(heroStatValue, enemyStatValue).toString("%"))
 }
 
+fun HeadToHeadStat.produceBarData(context :Context): BarData {
+    val entries = java.util.ArrayList<BarEntry>()
+
+    entries.add(BarEntry(2f, enemyStatValue))
+    entries.add(BarEntry(1f,heroStatValue))
+
+    val barDataSet = BarDataSet(entries, "")
+    barDataSet.valueTextColor = context.resources.getColor(R.color.grey)
+    barDataSet.setColors(intArrayOf(R.color.oldColorPrimary, R.color.green), context) // Would be real cool to not use context here if possible.
+    val barData = BarData(barDataSet)
+    barData.setValueTextColor(R.color.blue)
+    barData.setValueTextSize(10f)
+
+    return barData
+}
+
 fun Int.toString(appendage : String) : String {
     return this.toString() + appendage
 }
@@ -112,6 +127,65 @@ fun PieChart.setDefaultStyle(centerText : String ) {
     // Refresh.
     this.invalidate()
     this.animateY(300)
+}
+
+fun BarChart.setDefaultStyle() {
+    val description = Description()
+    description.text = ""
+    description.isEnabled = false
+
+    this.description = description
+    setPinchZoom(false)
+    setTouchEnabled(false)
+    this.setDrawGridBackground(false)
+    this.axisLeft.setDrawLimitLinesBehindData(false)
+    this.axisLeft.setDrawLabels(false)
+    this.axisLeft.setDrawAxisLine(false)
+    this.axisLeft.setDrawGridLines(false)
+    this.axisLeft.axisMinimum = 0f
+
+    this.axisRight.setDrawLimitLinesBehindData(false)
+    this.axisRight.setDrawLabels(false)
+    this.axisRight.setDrawGridLines(false)
+    this.axisRight.setDrawAxisLine(false)
+    this.axisRight.axisMinimum = 0f
+
+    this.xAxis.setDrawLimitLinesBehindData(false)
+    this.xAxis.setDrawLabels(false)
+    this.xAxis.setDrawGridLines(false)
+    this.xAxis.setDrawAxisLine(false)
+//    this.renderer = TextBarChartRenderer(this,animator,viewPortHandler)
+    this.legend.isEnabled = false
+    this.invalidate()
+}
+
+/**
+ * Style our pie chart.
+ *
+ * This is the default style that has the following characteristics
+ *  - No numbers on the slices
+ *  - Middle text
+ *  - No animation
+ */
+fun PieChart.setSimpleStyle(centerText : String ) {
+    // Set appearance params.
+    val description = Description()
+    description.text = ""
+    description.isEnabled = false
+    this.description = description
+    this.isDrawHoleEnabled =true
+    this.setDrawEntryLabels(false)
+    this.isRotationEnabled = false
+    this.data.setDrawValues(false)
+
+    this.setDrawEntryLabels(false)
+//    this.
+    this.centerText = centerText
+    this.setCenterTextColor(R.color.green)
+    this.legend.isEnabled = false
+    // Refresh.
+    this.invalidate()
+//    this.animateY(300)
 }
 
 fun Float.calculatePercentageDifference(float: Float) : Float {
